@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -43,8 +44,13 @@ public class controllerInsertUser implements Initializable {
     @FXML
     private DatePicker BirthDate;
 
+    @FXML
+    private VBox VBoxPositionSalary;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        VBoxPositionSalary.setVisible(false);
+        VBoxPositionSalary.setManaged(false);
         textDepartment.setVisible(false);
         textPosition.setVisible(false);
         textSalary.setVisible(false);
@@ -59,6 +65,8 @@ public class controllerInsertUser implements Initializable {
                 textSalary.setVisible(false);
                 textPosition.setManaged(false);
                 textSalary.setManaged(false);
+                VBoxPositionSalary.setVisible(false);
+                VBoxPositionSalary.setManaged(false);
             }
         });
         radio2.setOnAction(event -> {
@@ -69,10 +77,8 @@ public class controllerInsertUser implements Initializable {
                 textSalary.setManaged(false);
                 textDepartment.setManaged(true);
                 textDepartment.setVisible(true);
-            }
-            else {
-                textDepartment.setVisible(false);
-                textDepartment.setManaged(false);
+                VBoxPositionSalary.setVisible(false);
+                VBoxPositionSalary.setManaged(false);
             }
         });
         radio3.setOnAction(event -> {
@@ -83,13 +89,8 @@ public class controllerInsertUser implements Initializable {
                 textPosition.setVisible(true);
                 textSalary.setManaged(true);
                 textSalary.setVisible(true);
-            }
-            else {
-                textPosition.setVisible(false);
-                textSalary.setVisible(false);
-                textPosition.setManaged(false);
-                textSalary.setManaged(false);
-
+                VBoxPositionSalary.setVisible(true);
+                VBoxPositionSalary.setManaged(true);
             }
         });
         // Định dạng ngày muốn hiển thị (dd/MM/yyyy)
