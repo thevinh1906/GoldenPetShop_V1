@@ -1,4 +1,4 @@
-package petShop.controllers;
+package com.utc2.petShop.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
