@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="1280.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="petShop.controllers.controllerPet">
+    <top>
+        <HBox prefHeight="64.0" prefWidth="1920.0" style="-fx-background-color: dcdcdc;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="logoImg" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.png" />
+                    </image>
+                </ImageView>
+                <StackPane prefHeight="64.0" prefWidth="210.0">
+                    <children>
+                        <Label alignment="TOP_LEFT" text="Golden Pet Shop">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </StackPane>
+            <StackPane layoutX="1768.0" layoutY="10.0" prefHeight="64.0" prefWidth="40.0">
+               <children>
+                  <Button fx:id="buttonBack" onAction="#actionBack" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/back.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </StackPane>
+            <StackPane layoutX="284.0" layoutY="10.0" prefHeight="64.0" prefWidth="40.0">
+               <children>
+                  <Button fx:id="buttonForward" onAction="#actionForward" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="20.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Forward.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </StackPane>
+                <AnchorPane prefHeight="64.0" prefWidth="339.0" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <children>
+                        <TextField fx:id="textSreach" layoutX="148.0" layoutY="20.0" promptText="Sreach" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0" />
+                        <Button fx:id="buttonFind" layoutX="398.0" layoutY="20.0" mnemonicParsing="false" onAction="#actionFind" style="-fx-background-color: transparent;" styleClass="buttonTransparent" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0">
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/kinhLup.png" />
+                                    </image>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <StackPane prefHeight="64.0" prefWidth="64.0">
+                    <children>
+                        <Button fx:id="buttonUser" onAction="#actionUser" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/account.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </StackPane>
+                <StackPane prefHeight="64.0" prefWidth="64.0">
+                    <children>
+                        <Button fx:id="buttonSetting" onAction="#actionSetting" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" opacity="0.38" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/setting.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </StackPane>
+                <Region prefHeight="64.0" prefWidth="34.0" />
+            </children></HBox>
+    </top>
+   <left>
+      <ScrollPane fx:id="SrcollLeft" fitToHeight="true" BorderPane.alignment="CENTER">
+         <content>
+              <TreeView fx:id="tree" prefHeight="0.0" prefWidth="248.0" style="-fx-font-size: 18px;" />
+         </content>
+      </ScrollPane>
+   </left>
+   <center>
+      <ScrollPane fx:id="ScrollCenter" fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="VBoxSrcollCenter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1162.0" prefWidth="1668.0">
+               <children>
+                  <HBox spacing="30.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <ImageView fitHeight="460.0" fitWidth="460.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/golden.jpg" />
+                           </image>
+                        </ImageView>
+                        <VBox spacing="30.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="labelGiaBan" style="-fx-text-fill: green;" text="Giá Bán">
+                                 <font>
+                                    <Font name="System Bold" size="48.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Mô Tả:">
+                                       <font>
+                                          <Font name="Arial" size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: transparent; -fx-border-width: 1px;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox minWidth="0.0" opacity="0.8" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: 1px; -fx-border-color: transparent; -fx-border-radius: 10px; -fx-background-color: white;" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label fx:id="labelMoTa" text="Chó Golden Retriever là một trong những giống chó phổ biến và được yêu thích nhất trên thế giới nhờ vào tính cách hiền lành, thông minh và trung thành. Chúng có nguồn gốc từ Scotland, ban đầu được lai tạo để hỗ trợ săn bắt chim nước, nhưng ngày nay, Golden Retriever thường được nuôi như thú cưng trong gia đình hoặc làm chó dịch vụ." wrapText="true">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <effect>
+                                          <DropShadow />
+                                       </effect>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Label text="Thông tin chi tiết">
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="Arial Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <GridPane gridLinesVisible="true" prefHeight="592.0" prefWidth="1568.0" style="-fx-border-color: green; -fx-background-color: white;">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.0" minWidth="10.0" prefWidth="390.0" />
+                      <ColumnConstraints hgrow="ALWAYS" maxWidth="1458.0" minWidth="10.0" prefWidth="1178.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" />
+                     </VBox.margin>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <children>
+                        <Label opacity="0.7" text="Pet ID" wrapText="true">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelPetID" text="sdddddddddđ" wrapText="true" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Name" wrapText="true" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelName" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Age" wrapText="true" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Gender" wrapText="true" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelAge" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelGender" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelVaccinated" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Vaccinated" wrapText="true" GridPane.rowIndex="4">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="331.0" opacity="0.7" text="Weight" wrapText="true" GridPane.rowIndex="5">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelWeight" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Health Status" wrapText="true" GridPane.rowIndex="6">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Fur Color" wrapText="true" GridPane.rowIndex="7">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelHealthStatus" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelFurColor" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label opacity="0.7" text="Breed" wrapText="true" GridPane.rowIndex="8">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="labelBreed" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="20.0" right="20.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
