@@ -45,9 +45,11 @@ public class controllerSign_up implements Initializable {
     void actionSignUp(ActionEvent event) throws IOException {
         if (textPassword.getText().equals(textConfirmPassword.getText())) {
 
-            textUsername.setText(textUsername.getText());//lấy dữ liệu username
-            
-            textPassword.setText(textPassword.getText());   //lấy dữ liệu password
+            String username;
+            username = textUsername.getText();   //lấy dữ liệu username
+
+            String password;
+            password = textPassword.getText(); //lấy dữ liệu password
 
             scenes.switchScene("sampleInsertUser", "Golden Pet Shop", "applicationInsertUser", false);
         } else {
