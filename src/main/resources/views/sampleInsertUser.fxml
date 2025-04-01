@@ -31,12 +31,12 @@
                   <Image url="@../images/logo.png" />
                </image>
             </ImageView>
-            <TextField layoutX="87.0" layoutY="145.0" prefHeight="50.0" prefWidth="234.0" promptText="First Name">
+            <TextField fx:id="textFirstName" layoutX="87.0" layoutY="145.0" prefHeight="50.0" prefWidth="234.0" promptText="First Name">
                <font>
                   <Font size="18.0" />
                </font>
             </TextField>
-            <TextField layoutX="435.0" layoutY="145.0" prefHeight="50.0" prefWidth="234.0" promptText="Last Name">
+            <TextField fx:id="textLastName" layoutX="435.0" layoutY="145.0" prefHeight="50.0" prefWidth="234.0" promptText="Last Name">
                <font>
                   <Font size="18.0" />
                </font>
@@ -47,7 +47,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="178.0" layoutY="331.0" prefHeight="50.0" prefWidth="400.0" promptText="Phone number">
+            <TextField fx:id="textPhoneNumber" layoutX="178.0" layoutY="331.0" prefHeight="50.0" prefWidth="400.0" promptText="Phone number">
                <font>
                   <Font size="18.0" />
                </font>
@@ -105,7 +105,7 @@
                               <Insets bottom="25.0" />
                            </StackPane.margin>
                         </TextField>
-                        <VBox>
+                        <VBox fx:id="VBoxPositionSalary">
                            <children>
                               <TextField fx:id="textPosition" prefHeight="50.0" prefWidth="400.0" promptText="Position">
                                  <VBox.margin>
