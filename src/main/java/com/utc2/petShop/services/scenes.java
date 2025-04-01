@@ -1,4 +1,4 @@
-package petShop.services;
+package com.utc2.petShop.services;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

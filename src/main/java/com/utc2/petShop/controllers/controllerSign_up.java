@@ -1,4 +1,4 @@
-package petShop.controllers;
+package com.utc2.petShop.controllers;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,9 +10,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import petShop.services.scenes;
+import com.utc2.petShop.services.scenes;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

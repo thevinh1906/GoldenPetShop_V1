@@ -1,4 +1,4 @@
-package petShop.controllers;
+package com.utc2.petShop.controllers;
 
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -7,7 +7,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import petShop.services.scenes;
+import com.utc2.petShop.services.scenes;
 
 import java.io.IOException;
 import java.net.URL;
