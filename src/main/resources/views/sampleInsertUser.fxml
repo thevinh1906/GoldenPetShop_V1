@@ -149,6 +149,7 @@
                   </VBox>
                   <Label fx:id="labelEmailAnnouncement" layoutX="189.0" layoutY="462.0" text="Invalid email" textFill="RED" />
                   <Label fx:id="labelPhoneNumberAnnouncement" layoutX="189.0" layoutY="381.0" text="Invalid phone number" textFill="RED" />
+                  <Label fx:id="labelBirthAnnouncement" layoutX="189.0" layoutY="299.0" text="your age is not 18" textFill="RED" />
                </children>
             </AnchorPane>
          </children>

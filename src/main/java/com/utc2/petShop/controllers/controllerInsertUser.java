@@ -15,6 +15,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -79,13 +80,21 @@ public class controllerInsertUser implements Initializable {
     @FXML
     private Label labelPhoneNumberAnnouncement;
 
+    @FXML
+    private Label labelBirthAnnouncement;
+
     String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+
+    LocalDate DateNow = LocalDate.now();
+
+    int age = 0;
 
     @FXML
     void actionInsert(ActionEvent event) throws IOException {
         String FirstName = textFirstName.getText().trim();
         String LastName = textLastName.getText().trim();
         LocalDate Date = BirthDate.getValue();
+        age = Period.between(Date, DateNow).getYears();
         String PhoneNumber = textPhoneNumber.getText().trim();
         String Email = textEmail.getText().trim();
         String Address = textAddress.getText().trim();
@@ -99,14 +108,22 @@ public class controllerInsertUser implements Initializable {
             } else {
                 labelPhoneNumberAnnouncement.setVisible(false);
             }
+            if(age < 18){
+                labelBirthAnnouncement.setVisible(true);
+            }else {
+                labelBirthAnnouncement.setVisible(false);
+            }
             if (radio2.isSelected() && !Department.isEmpty()) {
-                scenes.switchScene("sampleProgressBar","Golden Pet Shop", "controllerProgressBar",false);
+                scenes.switchScene("sampleProgressBarAdmin","Golden Pet Shop", "controllerProgressBarAdmin",false);
 
                     //lấy dữ liệu của manager ở đây
 
             }
             else if (radio3.isSelected() && !Position.isEmpty() && !Salary.isEmpty()) {
+                scenes.switchScene("sampleProgressBarEmployee","Golden Pet Shop", "controllerProgressBarEmployee",false);
+
                 //lấy dữ liệu employee ở đây
+
             }
             else {
                 stackAnnouncement.setVisible(true);
@@ -120,6 +137,7 @@ public class controllerInsertUser implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        labelBirthAnnouncement.setVisible(false);
         labelPhoneNumberAnnouncement.setVisible(false);
         labelEmailAnnouncement.setVisible(false);
         stackAnnouncement.setVisible(false);
@@ -156,6 +174,12 @@ public class controllerInsertUser implements Initializable {
             }
         });
 
+        BirthDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                age = Period.between(newValue, DateNow).getYears();
+                labelBirthAnnouncement.setVisible(age < 18);
+            }
+        });
         // Định dạng ngày muốn hiển thị (dd/MM/yyyy)
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -243,14 +267,6 @@ public class controllerInsertUser implements Initializable {
             if (event.getCode() == KeyCode.ENTER) {
                 buttonInsert.fire();
             }
-        });
-        Platform.runLater(() -> {
-            buttonInsert.getScene().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-                if (event.getCode() == KeyCode.ENTER) {
-                    buttonInsert.fire();
-                    event.consume();
-                }
-            });
         });
     }
 }

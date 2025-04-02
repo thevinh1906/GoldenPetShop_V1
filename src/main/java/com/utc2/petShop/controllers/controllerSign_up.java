@@ -52,10 +52,10 @@ public class controllerSign_up implements Initializable {
             if (textPassword.getText().equals(textConfirmPassword.getText())) {
 
                 String username;
-                username = textUsername.getText();   //lấy dữ liệu username
+                username = textUsername.getText().trim();   //lấy dữ liệu username
 
                 String password;
-                password = textPassword.getText(); //lấy dữ liệu password
+                password = textPassword.getText().trim(); //lấy dữ liệu password
 
                 scenes.switchScene("sampleInsertUser", "Golden Pet Shop", "applicationInsertUser", false);
             } else {
@@ -77,6 +77,23 @@ public class controllerSign_up implements Initializable {
         textPassword.textProperty().addListener((observable, oldValue, newValue) -> updateSignUpButtonState());
         textConfirmPassword.textProperty().addListener((observable, oldValue, newValue) -> updateSignUpButtonState());
         Platform.runLater(() -> textUsername.requestFocus());
+
+        textConfirmPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().equals(textPassword.getText().trim())) {
+                labelAnnouncement.setVisible(false);
+            } else {
+                labelAnnouncement.setVisible(true);
+            }
+        });
+
+        textPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.trim().equals(textConfirmPassword.getText().trim())) {
+                labelAnnouncement.setVisible(false);
+            } else {
+                labelAnnouncement.setVisible(true);
+            }
+        });
+
 
         textPassword.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.matches(regex)) {

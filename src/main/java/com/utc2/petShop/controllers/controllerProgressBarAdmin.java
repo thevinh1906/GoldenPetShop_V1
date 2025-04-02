@@ -1,5 +1,6 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.services.scenes;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,13 +8,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import com.utc2.petShop.services.scenes;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class controllerProgressBar implements Initializable {
+public class controllerProgressBarAdmin implements Initializable {
 
     @FXML
     private ProgressBar probar;
@@ -46,7 +46,7 @@ public class controllerProgressBar implements Initializable {
             }
             javafx.application.Platform.runLater(() -> {
                 try {
-                    scenes.switchScene("sampleHome", "Golden Pet Shop","applicationHome", true);
+                    scenes.switchScene("samplePet", "Golden Pet Shop","applicationPet", true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
