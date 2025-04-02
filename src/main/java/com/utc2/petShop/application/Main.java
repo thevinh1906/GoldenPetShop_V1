@@ -1,8 +1,8 @@
-package com.utc2.petShop.frontend;
+package com.utc2.petShop.application;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import com.utc2.petShop.services.scenes;
+import com.utc2.petShop.model.services.scenes;
 
 import java.io.IOException;
 

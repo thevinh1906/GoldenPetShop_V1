@@ -7,7 +7,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import com.utc2.petShop.services.scenes;
+import com.utc2.petShop.model.services.scenes;
 
 import java.io.IOException;
 import java.net.URL;
