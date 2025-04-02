@@ -10,7 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import com.utc2.petShop.services.scenes;
+import com.utc2.petShop.model.services.scenes;
 
 import java.io.IOException;
 import java.net.URL;

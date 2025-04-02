@@ -1,4 +1,4 @@
-package com.utc2.petShop.model;
+package com.utc2.petShop.model.entities;
 
 // Represents a user in the system (customer, employee, manager)
 public class User {

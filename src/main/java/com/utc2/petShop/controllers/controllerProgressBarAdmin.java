@@ -1,6 +1,6 @@
 package com.utc2.petShop.controllers;
 
-import com.utc2.petShop.services.scenes;
+import com.utc2.petShop.model.services.scenes;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
