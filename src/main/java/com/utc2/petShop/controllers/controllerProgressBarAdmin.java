@@ -46,7 +46,7 @@ public class controllerProgressBarAdmin implements Initializable {
             }
             javafx.application.Platform.runLater(() -> {
                 try {
-                    scenes.switchScene("samplePet", "Golden Pet Shop","applicationPet", true);
+                    scenes.switchScene("sampleHomeAdmin", "Golden Pet Shop","applicationHomeAdmin", true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

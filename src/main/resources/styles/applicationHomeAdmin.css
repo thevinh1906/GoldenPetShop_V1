@@ -1,0 +1,9 @@
+.tree-cell:selected {
+    -fx-background: #C0C0C0 !important;
+}
+.buttonTransparent:hover{
+    -fx-background-color:#C0C0C0 !important;
+}
+.tree-cell:hover {
+    -fx-background: #C0C0C0 !important;
+}

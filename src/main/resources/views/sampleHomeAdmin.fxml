@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="1280.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerHomeAdmin">
+    <top>
+        <HBox prefHeight="64.0" prefWidth="1920.0" style="-fx-background-color: dcdcdc;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fx:id="logoImg" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.png" />
+                    </image>
+                </ImageView>
+                <StackPane prefHeight="64.0" prefWidth="210.0">
+                    <children>
+                        <Label alignment="TOP_LEFT" text="Golden Pet Shop">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </StackPane>
+                <StackPane layoutX="1768.0" layoutY="10.0" prefHeight="64.0" prefWidth="40.0">
+                    <children>
+                        <Button fx:id="buttonBack" onAction="#actionBack" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/back.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                    <HBox.margin>
+                        <Insets left="100.0" />
+                    </HBox.margin>
+                </StackPane>
+                <StackPane layoutX="284.0" layoutY="10.0" prefHeight="64.0" prefWidth="40.0">
+                    <children>
+                        <Button fx:id="buttonForward" onAction="#actionForward" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="20.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/Forward.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </StackPane>
+                <AnchorPane prefHeight="64.0" prefWidth="339.0" HBox.hgrow="ALWAYS">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <children>
+                        <TextField fx:id="textSreach" layoutX="148.0" layoutY="20.0" promptText="Sreach" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0" />
+                        <Button fx:id="buttonFind" layoutX="398.0" layoutY="20.0" mnemonicParsing="false" onAction="#actionFind" style="-fx-background-color: transparent;" styleClass="buttonTransparent" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0">
+                            <graphic>
+                                <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/kinhLup.png" />
+                                    </image>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <StackPane prefHeight="64.0" prefWidth="64.0">
+                    <children>
+                        <Button fx:id="buttonAccount" onAction="#actionAccount" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/account.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </StackPane>
+                <StackPane prefHeight="64.0" prefWidth="64.0">
+                    <children>
+                        <Button fx:id="buttonSetting" onAction="#actionSetting" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="32.0" opacity="0.38" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/setting.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
+                    </children>
+                </StackPane>
+                <Region prefHeight="64.0" prefWidth="34.0" />
+            </children></HBox>
+    </top>
+    <left>
+        <ScrollPane fx:id="SrcollLeft" fitToHeight="true" BorderPane.alignment="CENTER">
+         <content>
+            <VBox prefHeight="732.0" prefWidth="250.0">
+               <children>
+                  <Button fx:id="buttonPet" mnemonicParsing="false" onAction="#actionPet" prefHeight="65.0" prefWidth="250.0" text="Pet">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonProduct" mnemonicParsing="false" onAction="#actionProduct" prefHeight="65.0" prefWidth="250.0" text="Product">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonSupplier" mnemonicParsing="false" onAction="#actionSupplier" prefHeight="65.0" prefWidth="250.0" text="Supplier">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonImport" mnemonicParsing="false" onAction="#actionImport" prefHeight="65.0" prefWidth="250.0" text="Import">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonImportSlip" layoutX="10.0" layoutY="530.0" mnemonicParsing="false" onAction="#actionImportSlip" prefHeight="65.0" prefWidth="250.0" text="Import slip">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonUser" mnemonicParsing="false" onAction="#actionUser" prefHeight="65.0" prefWidth="250.0" text="User">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonCustomer" mnemonicParsing="false" onAction="#actionCustomer" prefHeight="65.0" prefWidth="250.0" text="Customer">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonBill" mnemonicParsing="false" onAction="#actionBill" prefHeight="65.0" prefWidth="250.0" text="Bill">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonPromotion" mnemonicParsing="false" onAction="#actionPromotion" prefHeight="65.0" prefWidth="250.0" text="Promotion">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="buttonReport" mnemonicParsing="false" onAction="#actionReport" prefHeight="65.0" prefWidth="250.0" text="Report">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </content>
+        </ScrollPane>
+    </left>
+    <center>
+        <ScrollPane fx:id="ScrollCenter" fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <VBox>
+               <children>
+                  <StackPane fx:id="stackPanePet">
+                     <children>
+                        <BorderPane fx:id="borderPanePet" prefHeight="410.0" prefWidth="1666.0">
+                           <center>
+                              <TableView BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </center>
+                           <left>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="buttonAddPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddPet" prefHeight="68.0" prefWidth="68.0" text="Add">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../images/Add.png" />
+                                                </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonDeletePet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeletePet" prefHeight="68.0" prefWidth="68.0" text="Delete">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../images/Delete.png" />
+                                                </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonEditPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditPet" prefHeight="68.0" prefWidth="68.0" text="Edit">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../images/Edit.png" />
+                                                </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonDetailPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailPet" prefHeight="68.0" prefWidth="68.0" text="Detail">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../images/Detail.png" />
+                                                </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <AnchorPane prefWidth="65.0">
+                                       <children>
+                                          <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Button fx:id="buttonExcelPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelPet" prefHeight="68.0" prefWidth="68.0" text="Excel">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../images/Excel.png" />
+                                                </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonFilterPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterPet" prefHeight="68.0" prefWidth="68.0" text="Filter">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                    <Image url="@../images/Filter.png" />
+                                                </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonArrangePet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePet" prefHeight="68.0" prefWidth="68.0" text="Arrange">
+                                        <graphic>
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Arrange.png" />
+                                             </image>
+                                          </ImageView>
+                                        </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </left>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="stackPaneProduct">
+                     <children>
+                        <BorderPane fx:id="borderPaneProduct">
+                           <left>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="buttonAddProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddProduct" prefHeight="68.0" prefWidth="68.0" text="Add">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonDeleteProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteProduct" prefHeight="68.0" prefWidth="68.0" text="Delete">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Delete.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonEditProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditProduct" prefHeight="68.0" prefWidth="68.0" text="Edit">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Edit.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonDetailProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailProduct" prefHeight="68.0" prefWidth="68.0" text="Detail">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Detail.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <AnchorPane prefWidth="65.0">
+                                       <children>
+                                          <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Button fx:id="buttonExcelProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelProduct" prefHeight="68.0" prefWidth="68.0" text="Excel">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Excel.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonFilterProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterProduct" prefHeight="68.0" prefWidth="68.0" text="Filter">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Filter.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonArrangeProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeProduct" prefHeight="68.0" prefWidth="68.0" text="Arrange">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Arrange.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </left>
+                           <center>
+                              <TableView BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+                  <StackPane fx:id="stackPaneSupplier">
+                     <children>
+                        <BorderPane fx:id="borderPaneSupplier">
+                           <left>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="buttonAddSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddSupplier" prefHeight="68.0" prefWidth="68.0" text="Add">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Add.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonDeleteSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteSupplier" prefHeight="68.0" prefWidth="68.0" text="Delete">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Delete.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="buttonEditSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditSupplier" prefHeight="68.0" prefWidth="68.0" text="Edit">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Edit.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <AnchorPane prefWidth="65.0">
+                                       <children>
+                                          <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Button fx:id="buttonExcelSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelSupplier" prefHeight="68.0" prefWidth="68.0" text="Excel">
+                                       <graphic>
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../images/Excel.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </left>
+                           <center>
+                              <TableView BorderPane.alignment="CENTER">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
+         </content></ScrollPane>
+    </center>
+</BorderPane>

@@ -39,6 +39,7 @@ public class controllerSign_in implements Initializable {
         } else if (textUsername.getText().equals(/*bỏ user name vào đây*/"usernameAdmin") && textPassword.getText().equals(/*bỏ password vào đây*/"passwordAdmin")) {
             scenes.switchScene("sampleProgressBarAdmin", "Golden Pet Shop","applicationProgressBarAdmin", false);
         } else {
+            textPassword.clear();
             labelAnnouncement.setVisible(true);
         }
     }
