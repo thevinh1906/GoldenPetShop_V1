@@ -1,4 +1,4 @@
-package com.utc2.petShop.model.entities;
+package com.utc2.petShop.model.entities.Pet;
 
 // Represents a pet in the store
 public class Pet {
