@@ -8,4 +8,8 @@ public enum EHamsterBreed {
     EHamsterBreed(String breed) {
         this.breed = breed;
     }
+
+    public String getBreed() {
+        return breed;
+    }
 }

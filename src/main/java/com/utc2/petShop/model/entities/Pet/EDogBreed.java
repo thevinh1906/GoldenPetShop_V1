@@ -8,4 +8,8 @@ public enum EDogBreed {
     EDogBreed(String breed) {
         this.breed = breed;
     }
+
+    public String getBreed() {
+        return breed;
+    }
 }
