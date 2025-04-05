@@ -3,11 +3,7 @@ package com.utc2.petShop.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -18,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class controllerHomeAdmin implements Initializable {
+
 
     @FXML
     private BorderPane borderPaneBill;
@@ -30,6 +27,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private BorderPane borderPaneProduct;
+
+    @FXML
+    private BorderPane borderPanePromotion;
+
+    @FXML
+    private BorderPane borderPaneRevenueReport;
 
     @FXML
     private BorderPane borderPaneSupplier;
@@ -53,6 +56,9 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonAddProduct;
 
     @FXML
+    private Button buttonAddRevenueReport;
+
+    @FXML
     private Button buttonAddSupplier;
 
     @FXML
@@ -69,6 +75,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonArrangeProduct;
+
+    @FXML
+    private Button buttonArrangePromotion;
+
+    @FXML
+    private Button buttonArrangeRevenueReport;
 
     @FXML
     private Button buttonArrangeUser;
@@ -95,6 +107,12 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonDeleteProduct;
 
     @FXML
+    private Button buttonDeletePromotion;
+
+    @FXML
+    private Button buttonDeleteRevenueReport;
+
+    @FXML
     private Button buttonDeleteSupplier;
 
     @FXML
@@ -110,6 +128,12 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonDetailProduct;
 
     @FXML
+    private Button buttonDetailPromotion;
+
+    @FXML
+    private Button buttonDetailRevenueReport;
+
+    @FXML
     private Button buttonDetailUser;
 
     @FXML
@@ -123,6 +147,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonEditProduct;
+
+    @FXML
+    private Button buttonEditPromotion;
+
+    @FXML
+    private Button buttonEditRevenueReport;
 
     @FXML
     private Button buttonEditSupplier;
@@ -143,6 +173,12 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonExcelProduct;
 
     @FXML
+    private Button buttonExcelPromotion;
+
+    @FXML
+    private Button buttonExcelRevenueReport;
+
+    @FXML
     private Button buttonExcelSupplier;
 
     @FXML
@@ -159,6 +195,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonFilterProduct;
+
+    @FXML
+    private Button buttonFilterPromotion;
+
+    @FXML
+    private Button buttonFilterRevenueReport;
 
     @FXML
     private Button buttonFilterUser;
@@ -191,7 +233,7 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonPromotion;
 
     @FXML
-    private Button buttonReport;
+    private Button buttonRevenueReport;
 
     @FXML
     private Button buttonRightDeleteImportProduct;
@@ -239,6 +281,12 @@ public class controllerHomeAdmin implements Initializable {
     private ScrollPane scrollPaneProduct;
 
     @FXML
+    private ScrollPane scrollPanePromotion;
+
+    @FXML
+    private ScrollPane scrollPaneRevenueReport;
+
+    @FXML
     private ScrollPane scrollPaneRightImportProduct;
 
     @FXML
@@ -266,10 +314,271 @@ public class controllerHomeAdmin implements Initializable {
     private StackPane stackPaneProduct;
 
     @FXML
+    private StackPane stackPanePromotion;
+
+    @FXML
+    private StackPane stackPaneRevenueReport;
+
+    @FXML
     private StackPane stackPaneSupplier;
 
     @FXML
     private StackPane stackPaneUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnAddressSupplier;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnAddressUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnAgePet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnBirthDateUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnBrandProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnBreedPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnCreateAtUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnCustomerIDBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnDateBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnDimensionProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnDiscountPercentPromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnDiscountPercentagePromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnEarLengthPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnEmailSupplier;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnEmailUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnEmployeeBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnEndDatePromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnExpirationDateProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnEyeColorPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnFlavorProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnFurColorPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnGenderPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnGenderUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnHealthStatusPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDCustomer;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDPromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDRevenueReport;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDSupplier;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIDUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIsActivePromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIsIndoorPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnIsTrainedPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnLeftIDImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnLeftNameImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnLeftPriceImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnLeftQuantityImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnManufacturerProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnManufacturerSupplier;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnMaterialProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnMonthRevenueReport;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNameCustomer;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNamePet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNameProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNamePromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNameSupplier;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNameUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNodeProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNodePromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNodeRevenueReport;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNodeUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnNotePet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnOriginPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPasswordUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPaymentMethodBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPhoneNumberCustomer;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPhoneNumberSupplier;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPositionUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPricePet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnPriceProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnQuantityBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnQuantityProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnRightIDImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnRightNameImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnRightNumericalOrderImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnRightPriceImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnRightQuantityImportProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnSalaryUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnSizeProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnStartDatePromotion;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnStatusBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnSupplierPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnSupplierProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnTailLengthPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnTotalAmountBill;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnTotalBillRevenueReport;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnTotalRevenueRevenueReport;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnTypeProduct;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnUsernameUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnVaccinatedPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnWeightPet;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnWorkingHoursUser;
+
+    @FXML
+    private TableColumn<?, ?> tableColumnYearRevenueReport;
 
     @FXML
     private TableView<?> tableViewBill;
@@ -285,6 +594,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private TableView<?> tableViewProduct;
+
+    @FXML
+    private TableView<?> tableViewPromotion;
+
+    @FXML
+    private TableView<?> tableViewRevenueReport;
 
     @FXML
     private TableView<?> tableViewRightImportProduct;
@@ -336,6 +651,11 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
+    void actionAddRevenueReport(ActionEvent event) {
+
+    }
+
+    @FXML
     void actionAddSupplier(ActionEvent event) {
 
     }
@@ -357,6 +677,11 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionArrangePetBill(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionArrangePetRevenueReport(ActionEvent event) {
 
     }
 
@@ -397,6 +722,12 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneBill.setVisible(true);
         stackPaneBill.setManaged(true);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -421,6 +752,12 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -440,6 +777,11 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionDeleteProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionDeleteRevenueReport(ActionEvent event) {
 
     }
 
@@ -469,6 +811,11 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
+    void actionDetailRevenueReport(ActionEvent event) {
+
+    }
+
+    @FXML
     void actionDetailUser(ActionEvent event) {
 
     }
@@ -490,6 +837,11 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionEditProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionEditRevenueReport(ActionEvent event) {
 
     }
 
@@ -524,6 +876,11 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
+    void actionExcelRevenueReport(ActionEvent event) {
+
+    }
+
+    @FXML
     void actionExcelSupplier(ActionEvent event) {
 
     }
@@ -550,6 +907,11 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionFilterProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionFilterRevenueReport(ActionEvent event) {
 
     }
 
@@ -581,20 +943,26 @@ public class controllerHomeAdmin implements Initializable {
         stackPaneCustomer.setManaged(false);
         stackPaneCustomer.setVisible(false);
 
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
+        stackPaneImportProduct.setVisible(true);
+        stackPaneImportProduct.setManaged(true);
 
         stackPanePet.setVisible(false);
         stackPanePet.setManaged(false);
 
-        stackPaneProduct.setVisible(true);
-        stackPaneProduct.setManaged(true);
+        stackPaneProduct.setVisible(false);
+        stackPaneProduct.setManaged(false);
 
         stackPaneSupplier.setVisible(false);
         stackPaneSupplier.setManaged(false);
 
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -629,6 +997,12 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -653,16 +1027,72 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
     void actionPromotion(ActionEvent event) {
+        stackPaneUser.setManaged(false);
+        stackPaneUser.setVisible(false);
 
+        stackPaneCustomer.setManaged(false);
+        stackPaneCustomer.setVisible(false);
+
+        stackPaneImportProduct.setVisible(false);
+        stackPaneImportProduct.setManaged(false);
+
+        stackPanePet.setVisible(false);
+        stackPanePet.setManaged(false);
+
+        stackPaneProduct.setVisible(false);
+        stackPaneProduct.setManaged(false);
+
+        stackPaneSupplier.setVisible(false);
+        stackPaneSupplier.setManaged(false);
+
+        stackPaneBill.setVisible(false);
+        stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(true);
+        stackPanePromotion.setManaged(true);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
-    void actionReport(ActionEvent event) {
+    void actionRevenueReport(ActionEvent event) {
+        stackPaneUser.setManaged(false);
+        stackPaneUser.setVisible(false);
 
+        stackPaneCustomer.setManaged(false);
+        stackPaneCustomer.setVisible(false);
+
+        stackPaneImportProduct.setVisible(false);
+        stackPaneImportProduct.setManaged(false);
+
+        stackPanePet.setVisible(false);
+        stackPanePet.setManaged(false);
+
+        stackPaneProduct.setVisible(false);
+        stackPaneProduct.setManaged(false);
+
+        stackPaneSupplier.setVisible(false);
+        stackPaneSupplier.setManaged(false);
+
+        stackPaneBill.setVisible(false);
+        stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(true);
+        stackPaneRevenueReport.setManaged(true);
     }
 
     @FXML
@@ -707,6 +1137,12 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -731,6 +1167,12 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
+
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
     }
 
     @Override
@@ -756,6 +1198,17 @@ public class controllerHomeAdmin implements Initializable {
         stackPaneBill.setVisible(false);
         stackPaneBill.setManaged(false);
 
+        stackPanePromotion.setVisible(false);
+        stackPanePromotion.setManaged(false);
+
+        stackPaneRevenueReport.setVisible(false);
+        stackPaneRevenueReport.setManaged(false);
+
+
+
+        //bắt đầu sự kiện Pet
+
+        actionPet(null);
 
 
 
@@ -775,7 +1228,10 @@ public class controllerHomeAdmin implements Initializable {
             stackPaneUser.setPrefHeight(newValue.doubleValue());
             stackPaneCustomer.setPrefHeight(newValue.doubleValue());
             stackPaneBill.setPrefHeight(newValue.doubleValue());
+            stackPanePromotion.setPrefHeight(newValue.doubleValue());
+            stackPaneRevenueReport.setPrefHeight(newValue.doubleValue());
         });
+
 
 
 
@@ -808,6 +1264,20 @@ public class controllerHomeAdmin implements Initializable {
             tableViewBill.setPrefHeight(newValue.doubleValue());
         });
 
+        scrollPanePromotion.heightProperty().addListener((observable, oldValue, newValue) -> {
+            tableViewPromotion.setPrefHeight(newValue.doubleValue());
+        });
+
+        scrollPaneRevenueReport.heightProperty().addListener((observable, oldValue, newValue) -> {
+            tableViewRevenueReport.setPrefHeight(newValue.doubleValue());
+        });
+
+        scrollPaneRightImportProduct.heightProperty().addListener((observable, oldValue, newValue) -> {
+            tableViewRightImportProduct.setPrefHeight(newValue.doubleValue());
+        });
+
+
+
 
 
         vBoxLeftImportProduct.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -822,14 +1292,6 @@ public class controllerHomeAdmin implements Initializable {
             vBoxLeftImportProduct.setPrefHeight(newValue.doubleValue());
             vBoxRightImportProduct.setPrefHeight(newValue.doubleValue());
         });
-
-        scrollPaneRightImportProduct.heightProperty().addListener((observable, oldValue, newValue) -> {
-            tableViewRightImportProduct.setPrefHeight(newValue.doubleValue());
-        });
-
-
-
-
 
     }
 }
