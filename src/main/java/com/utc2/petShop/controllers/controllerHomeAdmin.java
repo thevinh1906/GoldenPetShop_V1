@@ -1,6 +1,7 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
+import com.utc2.petShop.model.entities.Product.Product;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,6 +18,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class controllerHomeAdmin implements Initializable {
@@ -344,7 +347,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnBirthDateUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnBrandProduct;
+    private TableColumn<Product, String> tableColumnBrandProduct;
 
     @FXML
     private TableColumn<Pet, String> tableColumnBreedPet;
@@ -359,7 +362,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnDateBill;
 
     @FXML
-    private TableColumn<?, ?> tableColumnDimensionProduct;
+    private TableColumn<Product, String> tableColumnDimensionProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnDiscountPercentPromotion;
@@ -383,19 +386,19 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnEndDatePromotion;
 
     @FXML
-    private TableColumn<?, ?> tableColumnExpirationDateProduct;
+    private TableColumn<Product, LocalDate> tableColumnExpirationDateProduct;
 
     @FXML
     private TableColumn<Pet, String> tableColumnEyeColorPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnFlavorProduct;
+    private TableColumn<Product, String> tableColumnFlavorProduct;
 
     @FXML
     private TableColumn<Pet, String> tableColumnFurColorPet;
 
     @FXML
-    private TableColumn<Pet, Boolean> tableColumnGenderPet;
+    private TableColumn<Pet, String> tableColumnGenderPet;
 
     @FXML
     private TableColumn<?, ?> tableColumnGenderUser;
@@ -413,7 +416,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnIDPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDProduct;
+    private TableColumn<Product, Integer> tableColumnIDProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnIDPromotion;
@@ -449,13 +452,13 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnLeftQuantityImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnManufacturerProduct;
+    private TableColumn<Product, String> tableColumnManufacturerProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnManufacturerSupplier;
 
     @FXML
-    private TableColumn<?, ?> tableColumnMaterialProduct;
+    private TableColumn<Product, String> tableColumnMaterialProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnMonthRevenueReport;
@@ -467,7 +470,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnNamePet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNameProduct;
+    private TableColumn<Product, String> tableColumnNameProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnNamePromotion;
@@ -479,7 +482,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnNameUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNoteProduct;
+    private TableColumn<Product, String> tableColumnNoteProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnNotePromotion;
@@ -515,13 +518,13 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, Double> tableColumnPricePet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnPriceProduct;
+    private TableColumn<Product, Double> tableColumnPriceProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnQuantityBill;
 
     @FXML
-    private TableColumn<?, ?> tableColumnQuantityProduct;
+    private TableColumn<Product, Integer> tableColumnQuantityProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnRightIDImportProduct;
@@ -542,7 +545,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnSalaryUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnSizeProduct;
+    private TableColumn<Product, String> tableColumnSizeProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnStartDatePromotion;
@@ -554,7 +557,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnSupplierPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnSupplierProduct;
+    private TableColumn<Product, String> tableColumnSupplierProduct;
 
     @FXML
     private TableColumn<Pet, String> tableColumnTailLengthPet;
@@ -569,7 +572,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnTotalRevenueRevenueReport;
 
     @FXML
-    private TableColumn<?, ?> tableColumnTypeProduct;
+    private TableColumn<Product, String> tableColumnTypeProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnUsernameUser;
@@ -599,7 +602,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableView<Pet> tableViewPet;
 
     @FXML
-    private TableView<?> tableViewProduct;
+    private TableView<Product> tableViewProduct;
 
     @FXML
     private TableView<?> tableViewPromotion;
@@ -1300,7 +1303,8 @@ public class controllerHomeAdmin implements Initializable {
 
 
 
-        // bỏ dữ liệu vào các cột Pet
+        // bỏ dữ liệu vào bảng Pet
+
         tableColumnIDPet.setCellValueFactory(cellData -> new SimpleStringProperty("P" + cellData.getValue().getId()));
         tableColumnNamePet.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         tableColumnBreedPet.setCellValueFactory(cellData -> {
@@ -1320,7 +1324,21 @@ public class controllerHomeAdmin implements Initializable {
                 return new SimpleStringProperty("");
         });
         tableColumnAgePet.setCellValueFactory(cellData -> cellData.getValue().ageProperty().asObject());
-        tableColumnGenderPet.setCellValueFactory(cellData -> cellData.getValue().genderProperty().asObject());
+        tableColumnGenderPet.setCellValueFactory(cellData -> {
+            if(cellData.getValue().isGender()){
+                return new SimpleStringProperty("Đực");
+            }
+            else {
+                return new SimpleStringProperty("Cái");
+            }
+        });
+//        tableColumnSupplierPet.setCellValueFactory(cellData -> {
+
+
+           // lệnh truy xuất lấy tên Supplier
+
+
+//        });
         tableColumnPricePet.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         tableColumnVaccinatedPet.setCellValueFactory(cellData -> cellData.getValue().vaccinatedProperty().asObject());
         tableColumnHealthStatusPet.setCellValueFactory(cellData -> cellData.getValue().healthStatusProperty());
@@ -1378,6 +1396,11 @@ public class controllerHomeAdmin implements Initializable {
         petList.addAll(dog1, cat1);
 
         tableViewPet.setItems(petList);
+
+
+
+        //bỏ dữ liệu vào bảng product
+
     }
 }
 
