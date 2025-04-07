@@ -7,8 +7,8 @@ public class Cage extends Product {
     private StringProperty dimension;
     private StringProperty material;
 
-    public Cage(int id, String name, double price, int quantity, String description, int supplierID, String dimension, String material) {
-        super(id, name, price, quantity, description, supplierID);
+    public Cage(int id, String name, double price, int quantity, String description, int supplierID, String manufacturer, String dimension, String material) {
+        super(id, name, price, quantity, description, supplierID, manufacturer);
         this.dimension = new SimpleStringProperty(dimension);
         this.material = new SimpleStringProperty(material);
     }

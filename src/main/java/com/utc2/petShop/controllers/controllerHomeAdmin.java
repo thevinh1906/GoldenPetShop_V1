@@ -1,10 +1,9 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
-import com.utc2.petShop.model.entities.Product.Product;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import com.utc2.petShop.model.entities.Product.*;
+import com.utc2.petShop.model.entities.Supplier.Supplier;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -335,7 +334,7 @@ public class controllerHomeAdmin implements Initializable {
     private StackPane stackPaneUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnAddressSupplier;
+    private TableColumn<Supplier, String> tableColumnAddressSupplier;
 
     @FXML
     private TableColumn<?, ?> tableColumnAddressUser;
@@ -359,6 +358,9 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnCustomerIDBill;
 
     @FXML
+    private TableColumn<Product, String> tableColumnCategoriesProduct;
+
+    @FXML
     private TableColumn<?, ?> tableColumnDateBill;
 
     @FXML
@@ -374,7 +376,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnEarLengthPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnEmailSupplier;
+    private TableColumn<Supplier, String> tableColumnEmailSupplier;
 
     @FXML
     private TableColumn<?, ?> tableColumnEmailUser;
@@ -386,7 +388,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnEndDatePromotion;
 
     @FXML
-    private TableColumn<Product, LocalDate> tableColumnExpirationDateProduct;
+    private TableColumn<Product, String> tableColumnExpirationDateProduct;
 
     @FXML
     private TableColumn<Pet, String> tableColumnEyeColorPet;
@@ -416,7 +418,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnIDPet;
 
     @FXML
-    private TableColumn<Product, Integer> tableColumnIDProduct;
+    private TableColumn<Product, String> tableColumnIDProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnIDPromotion;
@@ -425,7 +427,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnIDRevenueReport;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDSupplier;
+    private TableColumn<Supplier, String> tableColumnIDSupplier;
 
     @FXML
     private TableColumn<?, ?> tableColumnIDUser;
@@ -440,22 +442,19 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnIsTrainedPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnLeftIDImportProduct;
+    private TableColumn<Product, String> tableColumnLeftIDImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnLeftNameImportProduct;
+    private TableColumn<Product, String> tableColumnLeftNameImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnLeftPriceImportProduct;
+    private TableColumn<Product, Double> tableColumnLeftPriceImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnLeftQuantityImportProduct;
+    private TableColumn<Product, Integer> tableColumnLeftQuantityImportProduct;
 
     @FXML
     private TableColumn<Product, String> tableColumnManufacturerProduct;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnManufacturerSupplier;
 
     @FXML
     private TableColumn<Product, String> tableColumnMaterialProduct;
@@ -476,7 +475,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnNamePromotion;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNameSupplier;
+    private TableColumn<Supplier, String> tableColumnNameSupplier;
 
     @FXML
     private TableColumn<?, ?> tableColumnNameUser;
@@ -509,7 +508,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnPhoneNumberCustomer;
 
     @FXML
-    private TableColumn<?, ?> tableColumnPhoneNumberSupplier;
+    private TableColumn<Supplier, String> tableColumnPhoneNumberSupplier;
 
     @FXML
     private TableColumn<?, ?> tableColumnPositionUser;
@@ -527,19 +526,22 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, Integer> tableColumnQuantityProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnRightIDImportProduct;
+    private TableColumn<Product, String> tableColumnRightIDImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnRightNameImportProduct;
+    private TableColumn<Product, String> tableColumnRightNameImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnRightNumericalOrderImportProduct;
+    private TableColumn<Product, Void> tableColumnRightNumericalOrderImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnRightPriceImportProduct;
+    private TableColumn<Product, Double> tableColumnRightPriceImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnRightQuantityImportProduct;
+    private TableColumn<Product, Integer> tableColumnRightQuantityImportProduct;
+
+    @FXML
+    private TableColumn<Product, Double> tableColumnRightTotalPriceImportProduct;
 
     @FXML
     private TableColumn<?, ?> tableColumnSalaryUser;
@@ -596,7 +598,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableView<?> tableViewCustomer;
 
     @FXML
-    private TableView<?> tableViewLeftImportProduct;
+    private TableView<Product> tableViewLeftImportProduct;
 
     @FXML
     private TableView<Pet> tableViewPet;
@@ -611,10 +613,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableView<?> tableViewRevenueReport;
 
     @FXML
-    private TableView<?> tableViewRightImportProduct;
+    private TableView<Product> tableViewRightImportProduct;
 
     @FXML
-    private TableView<?> tableViewSupplier;
+    private TableView<Supplier> tableViewSupplier;
 
     @FXML
     private TableView<?> tableViewUser;
@@ -981,8 +983,30 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionLeftAddImportProduct(ActionEvent event) {
+//        if (textFieldLeftQuantityImportProduct.getText().equals("")) {
+//
+//        } else {
 
+        Product selectedLeftProduct = tableViewLeftImportProduct.getSelectionModel().getSelectedItem();
+
+
+        if (selectedLeftProduct != null) {
+            Product product = new Product();
+            product.setId(selectedLeftProduct.getId());
+            product.setName(selectedLeftProduct.getName());
+            product.setPrice(selectedLeftProduct.getPrice());
+            product.setQuantity(Integer.parseInt(textFieldLeftQuantityImportProduct.getText()));
+            tableViewRightImportProduct.getItems().add(product);
+
+            double totalPrice = 0;
+            for (Product p : tableViewRightImportProduct.getItems()) {
+                totalPrice += p.getPrice() * p.getQuantity();
+            }
+
+            labelTotalCostImportProduct.setText(String.valueOf(totalPrice));
+        }
     }
+//    }
 
     @FXML
     void actionPet(ActionEvent event) {
@@ -1183,8 +1207,8 @@ public class controllerHomeAdmin implements Initializable {
         stackPaneRevenueReport.setVisible(false);
         stackPaneRevenueReport.setManaged(false);
     }
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+
+    public void hideScreen() {
         stackPaneUser.setManaged(false);
         stackPaneUser.setVisible(false);
 
@@ -1211,21 +1235,12 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneRevenueReport.setVisible(false);
         stackPaneRevenueReport.setManaged(false);
+    }
 
-
-
-        //bắt đầu sự kiện Pet
-
-        actionPet(null);
-
-
-
-        // chỉnh độ cao của table view
+    public void heightAdjustment() {
         scrollPaneCenter.heightProperty().addListener((observable, oldValue, newValue) -> {
             vBoxCenterHomeAdmin.setPrefHeight(newValue.doubleValue());
         });
-
-
 
 
         vBoxCenterHomeAdmin.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -1239,9 +1254,6 @@ public class controllerHomeAdmin implements Initializable {
             stackPanePromotion.setPrefHeight(newValue.doubleValue());
             stackPaneRevenueReport.setPrefHeight(newValue.doubleValue());
         });
-
-
-
 
 
         scrollPanePet.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -1285,9 +1297,6 @@ public class controllerHomeAdmin implements Initializable {
         });
 
 
-
-
-
         vBoxLeftImportProduct.heightProperty().addListener((observable, oldValue, newValue) -> {
             scrollPaneLeftImportProduct.setPrefHeight(newValue.doubleValue());
         });
@@ -1300,42 +1309,35 @@ public class controllerHomeAdmin implements Initializable {
             vBoxLeftImportProduct.setPrefHeight(newValue.doubleValue());
             vBoxRightImportProduct.setPrefHeight(newValue.doubleValue());
         });
+    }
 
-
-
-        // bỏ dữ liệu vào bảng Pet
-
-        tableColumnIDPet.setCellValueFactory(cellData -> new SimpleStringProperty("P" + cellData.getValue().getId()));
+    public void PetTable() {
+        tableColumnIDPet.setCellValueFactory(cellData -> new SimpleStringProperty("PE" + cellData.getValue().getId()));
         tableColumnNamePet.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         tableColumnBreedPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue() instanceof Dog){
+            if (cellData.getValue() instanceof Dog) {
                 return new SimpleStringProperty(((Dog) cellData.getValue()).getBreed().getBreed());
-            }
-            else if(cellData.getValue() instanceof Cat){
+            } else if (cellData.getValue() instanceof Cat) {
                 return new SimpleStringProperty(((Cat) cellData.getValue()).getBreed().getBreed());
-            }
-            else if(cellData.getValue() instanceof Hamster){
+            } else if (cellData.getValue() instanceof Hamster) {
                 return new SimpleStringProperty(((Hamster) cellData.getValue()).getBreed().getBreed());
-            }
-            else if(cellData.getValue() instanceof Rabbit){
+            } else if (cellData.getValue() instanceof Rabbit) {
                 return new SimpleStringProperty(((Rabbit) cellData.getValue()).getBreed().getBreed());
-            }
-            else
+            } else
                 return new SimpleStringProperty("");
         });
         tableColumnAgePet.setCellValueFactory(cellData -> cellData.getValue().ageProperty().asObject());
         tableColumnGenderPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue().isGender()){
+            if (cellData.getValue().isGender()) {
                 return new SimpleStringProperty("Đực");
-            }
-            else {
+            } else {
                 return new SimpleStringProperty("Cái");
             }
         });
 //        tableColumnSupplierPet.setCellValueFactory(cellData -> {
 
 
-           // lệnh truy xuất lấy tên Supplier
+//          return retrieveSupplierName(cellData.getValue()).supplierIDProperty());              // lệnh truy xuất lấy tên Supplier
 
 
 //        });
@@ -1346,45 +1348,40 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnWeightPet.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asObject());
         tableColumnFurColorPet.setCellValueFactory(cellData -> cellData.getValue().furColorProperty());
         tableColumnIsTrainedPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue() instanceof Dog){
+            if (cellData.getValue() instanceof Dog) {
                 boolean trained = ((Dog) cellData.getValue()).isTrainedProperty().get();
                 String status = trained ? "Đã huấn luyện" : "Chưa huấn luyện";
                 return new SimpleStringProperty(status);
-            }
-            else
+            } else
                 return new SimpleStringProperty("");
         });
         tableColumnIsIndoorPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue() instanceof Cat){
+            if (cellData.getValue() instanceof Cat) {
                 boolean indoor = ((Cat) cellData.getValue()).isIndoorProperty().get();
                 String status = indoor ? "Trong nhà" : "Không trong nhà";
                 return new SimpleStringProperty(status);
-            }
-            else
+            } else
                 return new SimpleStringProperty("");
         });
 
         tableColumnEyeColorPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue() instanceof Cat){
+            if (cellData.getValue() instanceof Cat) {
                 return new SimpleStringProperty(((Cat) cellData.getValue()).getEyeColor());
-            }
-            else
+            } else
                 return new SimpleStringProperty("");
         });
 
         tableColumnTailLengthPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue() instanceof Hamster){
+            if (cellData.getValue() instanceof Hamster) {
                 return ((Hamster) cellData.getValue()).tailLengthProperty().asString();
-            }
-            else
+            } else
                 return new SimpleStringProperty("");
         });
 
         tableColumnEarLengthPet.setCellValueFactory(cellData -> {
-            if(cellData.getValue() instanceof Rabbit){
+            if (cellData.getValue() instanceof Rabbit) {
                 return ((Rabbit) cellData.getValue()).earLengthProperty().asString();
-            }
-            else
+            } else
                 return new SimpleStringProperty("");
         });
 
@@ -1393,13 +1390,184 @@ public class controllerHomeAdmin implements Initializable {
         Dog dog1 = new Dog(1, "Bun", 2, true, 150.0, true, "Khỏe mạnh", "Việt Nam", 5.2, "Nâu", "Thân thiện", 1, EDogBreed.CauVang, true);
         Cat cat1 = new Cat(2, "Meo", 1, false, 100.0, true, "Khỏe mạnh", "Việt Nam", 4.0, "Trắng", "Dễ thương", 2, ECatBreed.MeoCam, true, "cam");
 
-        petList.addAll(dog1, cat1);
+        petList.addAll(dog1, cat1);  // dùng vòng lập để truy xuất dữ liệu từ bảng Pet
 
-        tableViewPet.setItems(petList);
+        tableViewPet.setItems(petList);    // bỏ list vào đây
+    }
+
+    public void ProductTable() {
+        tableColumnIDProduct.setCellValueFactory(cellData -> new SimpleStringProperty("PD" + cellData.getValue().getId()));
+
+        tableColumnNameProduct.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+        tableColumnCategoriesProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Food) {
+                return new SimpleStringProperty("Food");
+            } else if (cellData.getValue() instanceof Toy) {
+                return new SimpleStringProperty("Toy");
+            } else if (cellData.getValue() instanceof Cage) {
+                return new SimpleStringProperty("Cage");
+            } else if (cellData.getValue() instanceof Accessory) {
+                return new SimpleStringProperty("Accessory");
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnPriceProduct.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+
+        tableColumnQuantityProduct.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+
+        tableColumnExpirationDateProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Food) {
+                return ((Food) cellData.getValue()).expirationDateProperty().asString();
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnFlavorProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Food) {
+                return ((Food) cellData.getValue()).flavorProperty();
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnMaterialProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Toy) {
+                return ((Toy) cellData.getValue()).materialProperty();
+            } else if (cellData.getValue() instanceof Cage) {
+                return ((Cage) cellData.getValue()).materialProperty();
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnSizeProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Toy) {
+                return ((Toy) cellData.getValue()).sizeProperty();
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnDimensionProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Cage) {
+                return ((Cage) cellData.getValue()).dimensionProperty();
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnTypeProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Accessory) {
+                return ((Accessory) cellData.getValue()).typeProperty();
+            } else return new SimpleStringProperty("");
+        });
+
+        tableColumnBrandProduct.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Accessory) {
+                return ((Accessory) cellData.getValue()).brandProperty();
+            } else return new SimpleStringProperty("");
+        });
+
+//        tableColumnSupplierProduct.setCellValueFactory(cellData -> {
+
+        //    return retrieveSupplierName(cellData.getValue()).supplierIDProperty()) ;          bỏ lệnh truy xuất tên Supplier vào return
+
+//        });
+
+        tableColumnManufacturerProduct.setCellValueFactory(cellData -> cellData.getValue().manufacturerProperty());
+
+        ObservableList<Product> productList = FXCollections.observableArrayList();
+
+        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", 1, "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
+
+        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", 2, "haheha", "plastic", "100x100");
+
+        Cage cage1 = new Cage(3, "Chuồng chó", 200000, 30, "dành cho người", 2, "hay hay", "2000x5000x2000", "inox");
+
+        productList.addAll(cage1, food1, toy1);    // dùng vòng lập để truy xuất dữ liệu từ bảng Product
+
+        tableViewProduct.setItems(productList);    // bỏ list vào đây
+
+    }
+
+    public void SupplierTable() {
+        tableColumnIDSupplier.setCellValueFactory(cellData -> new SimpleStringProperty("SL" + cellData.getValue().getId()));
+
+        tableColumnNameSupplier.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+        tableColumnAddressSupplier.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+
+        tableColumnPhoneNumberSupplier.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
+
+        tableColumnEmailSupplier.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+
+        ObservableList<Supplier> supplierList = FXCollections.observableArrayList();
+
+        Supplier supplier1 = new Supplier(1, "Trang Kim Đạt", "450 Lê Văn Việt", "0396290084", "trangkimdatst2005@gmail.com");
+        Supplier supplier2 = new Supplier(2, "Đinh Công Vinh Quang", "448 Lê Văn Việt", "0355566144", "quang@gmail.com");
+        Supplier supplier3 = new Supplier(2, "Bùi Thế Vinh", "451 Lê Văn Việt", "0316556511", "vinh@gmail.com");
+
+        supplierList.addAll(supplier1, supplier2, supplier3);
+
+        tableViewSupplier.setItems(supplierList);
+    }
+
+    public void SupplierImportTable() {
+
+        // left
+        tableColumnLeftIDImportProduct.setCellValueFactory(cellData -> new SimpleStringProperty("PD" + cellData.getValue().getId()));
+
+        tableColumnLeftNameImportProduct.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+        tableColumnLeftPriceImportProduct.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+
+        tableColumnLeftQuantityImportProduct.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 
 
 
-        //bỏ dữ liệu vào bảng product
+        tableColumnRightIDImportProduct.setCellValueFactory(cellData -> new SimpleStringProperty("PD" + cellData.getValue().getId()));
+
+        tableColumnRightNameImportProduct.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+
+        tableColumnRightPriceImportProduct.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+
+        tableColumnRightQuantityImportProduct.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+
+        tableColumnRightTotalPriceImportProduct.setCellValueFactory(cellData -> {
+            return new ReadOnlyObjectWrapper<>(cellData.getValue().priceProperty().get() * cellData.getValue().quantityProperty().get());
+        });
+
+        tableColumnRightNumericalOrderImportProduct.setCellFactory(column -> new TableCell<Product, Void>() {
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || getTableRow() == null || getTableRow().getItem() == null) {
+                    setText(null);
+                } else {
+                    setText(String.valueOf(getIndex() + 1));
+                }
+            }
+        });
+
+        tableViewLeftImportProduct.getItems().addAll(tableViewProduct.getItems());
+
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // ẩn hiện màng hình
+        hideScreen();
+
+        // bắt đầu sự kiện Pet
+        actionPet(null);
+
+        // chỉnh độ cao của table view
+        heightAdjustment();
+
+        // bỏ dữ liệu vào bảng Pet
+        PetTable();
+
+        // bỏ dữ liệu vào bảng product
+        ProductTable();
+
+        //  bỏ dữ liệu vào bảng supplier
+        SupplierTable();
+
+        // bỏ dữ liệu vào bảng importSupplier
+        SupplierImportTable();
 
     }
 }
