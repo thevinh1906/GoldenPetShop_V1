@@ -7,8 +7,8 @@ public class Accessory extends Product {
     private StringProperty type;
     private StringProperty brand;
 
-    public Accessory(int id, String name, double price, int quantity, String description, int supplierID, String type, String brand) {
-        super(id, name, price, quantity, description, supplierID);
+    public Accessory(int id, String name, double price, int quantity, String description, int supplierID, String manufacturer, String type, String brand) {
+        super(id, name, price, quantity, description, supplierID, manufacturer);
         this.type = new SimpleStringProperty(type);
         this.brand = new SimpleStringProperty(brand);
     }

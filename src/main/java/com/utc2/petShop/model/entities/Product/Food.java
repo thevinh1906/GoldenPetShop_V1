@@ -11,8 +11,8 @@ public class Food extends Product{
     private ObjectProperty<LocalDate> expirationDate;
     private StringProperty flavor;
 
-    public Food(int id, String name, double price, int quantity, String description, int supplierID, LocalDate expirationDate, String flavor) {
-        super(id, name, price, quantity, description, supplierID);
+    public Food(int id, String name, double price, int quantity, String description, int supplierID, String manufacturer, LocalDate expirationDate, String flavor) {
+        super(id, name, price, quantity, description, supplierID, manufacturer);
         this.expirationDate = new SimpleObjectProperty<>(expirationDate);
         this.flavor = new SimpleStringProperty(flavor);
     }
