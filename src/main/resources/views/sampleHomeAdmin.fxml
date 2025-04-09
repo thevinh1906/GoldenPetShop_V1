@@ -1072,9 +1072,8 @@
                                     <TableView fx:id="tableViewBill">
                                        <columns>
                                           <TableColumn fx:id="tableColumnIDBill" prefWidth="-1.0" text="ID" />
-                                          <TableColumn fx:id="tableColumnCustomerIDBill" prefWidth="-1.0" text="Customer ID" />
-                                          <TableColumn fx:id="tableColumnEmployeeBill" prefWidth="-1.0" text="Employee ID" />
-                                          <TableColumn fx:id="tableColumnQuantityBill" prefWidth="-1.0" text="Quantity" />
+                                          <TableColumn fx:id="tableColumnCustomerBill" prefWidth="-1.0" text="Customer" />
+                                          <TableColumn fx:id="tableColumnEmployeeBill" prefWidth="-1.0" text="Employee" />
                                           <TableColumn fx:id="tableColumnDateBill" prefWidth="-1.0" text="Date" />
                                           <TableColumn fx:id="tableColumnTotalAmountBill" prefWidth="-1.0" text="Total amount" />
                                           <TableColumn fx:id="tableColumnPaymentMethodBill" prefWidth="-1.0" text="Payment method" />

@@ -1,8 +1,12 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.model.entities.Bill.Bill;
+import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.User.Employee;
+import com.utc2.petShop.model.entities.User.User;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +22,7 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -337,13 +342,13 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Supplier, String> tableColumnAddressSupplier;
 
     @FXML
-    private TableColumn<?, ?> tableColumnAddressUser;
+    private TableColumn<User, String> tableColumnAddressUser;
 
     @FXML
     private TableColumn<Pet, Integer> tableColumnAgePet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnBirthDateUser;
+    private TableColumn<User, String> tableColumnBirthDateUser;
 
     @FXML
     private TableColumn<Product, String> tableColumnBrandProduct;
@@ -352,16 +357,16 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnBreedPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnCreateAtUser;
+    private TableColumn<User, String> tableColumnCreateAtUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnCustomerIDBill;
+    private TableColumn<Bill, String> tableColumnCustomerBill;
 
     @FXML
     private TableColumn<Product, String> tableColumnCategoriesProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnDateBill;
+    private TableColumn<Bill, String> tableColumnDateBill;
 
     @FXML
     private TableColumn<Product, String> tableColumnDimensionProduct;
@@ -379,10 +384,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Supplier, String> tableColumnEmailSupplier;
 
     @FXML
-    private TableColumn<?, ?> tableColumnEmailUser;
+    private TableColumn<User, String> tableColumnEmailUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnEmployeeBill;
+    private TableColumn<Bill, String> tableColumnEmployeeBill;
 
     @FXML
     private TableColumn<?, ?> tableColumnEndDatePromotion;
@@ -403,16 +408,16 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnGenderPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnGenderUser;
+    private TableColumn<User, String> tableColumnGenderUser;
 
     @FXML
     private TableColumn<Pet, String> tableColumnHealthStatusPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDBill;
+    private TableColumn<Bill, String> tableColumnIDBill;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDCustomer;
+    private TableColumn<Customer, String> tableColumnIDCustomer;
 
     @FXML
     private TableColumn<Pet, String> tableColumnIDPet;
@@ -430,7 +435,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Supplier, String> tableColumnIDSupplier;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDUser;
+    private TableColumn<User, String> tableColumnIDUser;
 
     @FXML
     private TableColumn<?, ?> tableColumnIsActivePromotion;
@@ -463,7 +468,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnMonthRevenueReport;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNameCustomer;
+    private TableColumn<Customer, String> tableColumnNameCustomer;
 
     @FXML
     private TableColumn<Pet, String> tableColumnNamePet;
@@ -478,7 +483,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Supplier, String> tableColumnNameSupplier;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNameUser;
+    private TableColumn<User, String> tableColumnNameUser;
 
     @FXML
     private TableColumn<Product, String> tableColumnNoteProduct;
@@ -490,7 +495,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnNoteRevenueReport;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNoteUser;
+    private TableColumn<User, String> tableColumnNoteUser;
 
     @FXML
     private TableColumn<Pet, String> tableColumnNotePet;
@@ -499,28 +504,25 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnOriginPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnPasswordUser;
+    private TableColumn<User, String> tableColumnPasswordUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnPaymentMethodBill;
+    private TableColumn<Bill, String> tableColumnPaymentMethodBill;
 
     @FXML
-    private TableColumn<?, ?> tableColumnPhoneNumberCustomer;
+    private TableColumn<Customer, String> tableColumnPhoneNumberCustomer;
 
     @FXML
     private TableColumn<Supplier, String> tableColumnPhoneNumberSupplier;
 
     @FXML
-    private TableColumn<?, ?> tableColumnPositionUser;
+    private TableColumn<User, String> tableColumnPositionUser;
 
     @FXML
     private TableColumn<Pet, Double> tableColumnPricePet;
 
     @FXML
     private TableColumn<Product, Double> tableColumnPriceProduct;
-
-    @FXML
-    private TableColumn<?, ?> tableColumnQuantityBill;
 
     @FXML
     private TableColumn<Product, Integer> tableColumnQuantityProduct;
@@ -544,7 +546,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, Double> tableColumnRightTotalPriceImportProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnSalaryUser;
+    private TableColumn<User, Double> tableColumnSalaryUser;
 
     @FXML
     private TableColumn<Product, String> tableColumnSizeProduct;
@@ -553,7 +555,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<?, ?> tableColumnStartDatePromotion;
 
     @FXML
-    private TableColumn<?, ?> tableColumnStatusBill;
+    private TableColumn<Bill, String> tableColumnStatusBill;
 
     @FXML
     private TableColumn<Pet, String> tableColumnSupplierPet;
@@ -565,7 +567,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, String> tableColumnTailLengthPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnTotalAmountBill;
+    private TableColumn<Bill, Double> tableColumnTotalAmountBill;
 
     @FXML
     private TableColumn<?, ?> tableColumnTotalBillRevenueReport;
@@ -577,7 +579,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnTypeProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnUsernameUser;
+    private TableColumn<User, String> tableColumnUsernameUser;
 
     @FXML
     private TableColumn<Pet, Boolean> tableColumnVaccinatedPet;
@@ -586,16 +588,16 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Pet, Double> tableColumnWeightPet;
 
     @FXML
-    private TableColumn<?, ?> tableColumnWorkingHoursUser;
+    private TableColumn<User, String> tableColumnWorkingHoursUser;
 
     @FXML
     private TableColumn<?, ?> tableColumnYearRevenueReport;
 
     @FXML
-    private TableView<?> tableViewBill;
+    private TableView<Bill> tableViewBill;
 
     @FXML
-    private TableView<?> tableViewCustomer;
+    private TableView<Customer> tableViewCustomer;
 
     @FXML
     private TableView<Product> tableViewLeftImportProduct;
@@ -619,7 +621,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableView<Supplier> tableViewSupplier;
 
     @FXML
-    private TableView<?> tableViewUser;
+    private TableView<User> tableViewUser;
 
     @FXML
     private TextField textFieldLeftQuantityImportProduct;
@@ -1334,13 +1336,13 @@ public class controllerHomeAdmin implements Initializable {
                 return new SimpleStringProperty("Cái");
             }
         });
-//        tableColumnSupplierPet.setCellValueFactory(cellData -> {
+        tableColumnSupplierPet.setCellValueFactory(cellData -> {
 
 
-//          return retrieveSupplierName(cellData.getValue()).supplierIDProperty());              // lệnh truy xuất lấy tên Supplier
+            return null;  // gắn lệnh lấy tên supplier từ ID vào đây
 
 
-//        });
+        });
         tableColumnPricePet.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         tableColumnVaccinatedPet.setCellValueFactory(cellData -> cellData.getValue().vaccinatedProperty().asObject());
         tableColumnHealthStatusPet.setCellValueFactory(cellData -> cellData.getValue().healthStatusProperty());
@@ -1460,11 +1462,11 @@ public class controllerHomeAdmin implements Initializable {
             } else return new SimpleStringProperty("");
         });
 
-//        tableColumnSupplierProduct.setCellValueFactory(cellData -> {
+        tableColumnSupplierProduct.setCellValueFactory(cellData -> {
 
-        //    return retrieveSupplierName(cellData.getValue()).supplierIDProperty()) ;          bỏ lệnh truy xuất tên Supplier vào return
+            return null;   // bỏ lệnh lấy tên supplier từ id vào đây
 
-//        });
+        });
 
         tableColumnManufacturerProduct.setCellValueFactory(cellData -> cellData.getValue().manufacturerProperty());
 
@@ -1516,7 +1518,6 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnLeftQuantityImportProduct.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
 
 
-
         tableColumnRightIDImportProduct.setCellValueFactory(cellData -> new SimpleStringProperty("PD" + cellData.getValue().getId()));
 
         tableColumnRightNameImportProduct.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -1546,6 +1547,95 @@ public class controllerHomeAdmin implements Initializable {
 
     }
 
+    public void UserTable() {
+        tableColumnIDUser.setCellValueFactory(cellData -> new SimpleStringProperty("US" + cellData.getValue().getId()));
+        tableColumnNameUser.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        tableColumnGenderUser.setCellValueFactory(cellData -> {
+            if (cellData.getValue().isGender()) {
+                return new SimpleStringProperty("Nam");
+            } else {
+                return new SimpleStringProperty("Nữ");
+            }
+        });
+
+        tableColumnUsernameUser.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
+        tableColumnPasswordUser.setCellValueFactory(cellData -> cellData.getValue().passwordProperty());
+        tableColumnEmailUser.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        tableColumnAddressUser.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
+        tableColumnCreateAtUser.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getCreationDate()).asString());
+        tableColumnBirthDateUser.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getBirthDay()).asString());
+        tableColumnPositionUser.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Employee) {
+                return ((Employee) cellData.getValue()).positionProperty();
+            } else {
+                return null;
+            }
+        });
+        tableColumnSalaryUser.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Employee) {
+                return ((Employee) cellData.getValue()).salaryProperty().asObject();
+            } else {
+                return null;
+            }
+        });
+        tableColumnWorkingHoursUser.setCellValueFactory(cellData -> {
+            if (cellData.getValue() instanceof Employee) {
+                return ((Employee) cellData.getValue()).workingHoursProperty();
+            } else {
+                return null;
+            }
+        });
+
+        ObservableList<User> userList = FXCollections.observableArrayList();
+
+        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), "Chủ tịch", 500000000, "Full time");
+
+        userList.add(user);
+
+        tableViewUser.setItems(userList);
+
+    }
+
+    public void CustomerTable() {
+        tableColumnIDCustomer.setCellValueFactory(cellData -> new SimpleStringProperty("CS" + cellData.getValue().getId()));
+        tableColumnNameCustomer.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        tableColumnPhoneNumberCustomer.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
+
+        ObservableList<Customer> customerList = FXCollections.observableArrayList();
+
+        Customer customer = new Customer(1, "Bùi Thế Vinh", "0355648921");
+        Customer customer1 = new Customer(2, "Đinh Công Vinh Quang", "0864231564");
+
+        customerList.addAll(customer, customer1);
+
+        tableViewCustomer.setItems(customerList);
+    }
+
+    public void BillTable(){
+        tableColumnIDBill.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf("BI" + cellData.getValue().getId())));
+        tableColumnCustomerBill.setCellValueFactory(cellData -> {
+            return null;   // lệnh lấy tên từ customer
+        });
+        tableColumnEmployeeBill.setCellValueFactory(cellData -> {
+            return null;  // lệnh lấy tên từ employee
+        });
+        tableColumnDateBill.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getInvoiceDate()).asString());
+        tableColumnTotalAmountBill.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty().asObject());
+        tableColumnPaymentMethodBill.setCellValueFactory(cellData -> cellData.getValue().paymentMethodProperty());
+        tableColumnStatusBill.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
+
+
+        ObservableList<Bill> billList = FXCollections.observableArrayList();
+
+        Bill bill = new Bill(1,1,1,LocalDate.now(),1000000,"pay","thành công");
+
+        billList.addAll(bill);
+
+        tableViewBill.setItems(billList);
+
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // ẩn hiện màng hình
@@ -1568,6 +1658,15 @@ public class controllerHomeAdmin implements Initializable {
 
         // bỏ dữ liệu vào bảng importSupplier
         SupplierImportTable();
+
+        // bỏ dữ liệu vào bảng user
+        UserTable();
+
+        // bỏ dữ liệu vào bảng customer
+        CustomerTable();
+
+        // bỏ dữ liệu vào bảng bill
+        BillTable();
 
     }
 }
