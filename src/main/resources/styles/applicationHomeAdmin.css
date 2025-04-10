@@ -1,9 +1,71 @@
-.tree-cell:selected {
-    -fx-background: #C0C0C0 !important;
+
+.buttonTransparent:hover {
+    -fx-background-color: #C0C0C0 !important;
 }
-.buttonTransparent:hover{
-    -fx-background-color:#C0C0C0 !important;
+
+.buttonCustom {
+    -fx-border-radius: 15;
+    -fx-background-color: #A5C9EA;
+    -fx-background-radius: 15;
 }
-.tree-cell:hover {
-    -fx-background: #C0C0C0 !important;
+
+@font-face {
+    font-family: "Nunito";
+    src: url("/fonts/Nunito/Nunito-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("/fonts/Roboto/Roboto-VariableFont_wght.ttf");
+}
+
+.button-left {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: #4A4A4A;
+    -fx-font-size: 20px;
+    -fx-background-radius: 8px;
+}
+
+.button-left:hover {
+    -fx-background-color: #A5C9EA !important;
+}
+
+.scroll-pane-center{
+    -fx-font-family: "Nunito";
+}
+
+.buttonCustom:hover{
+    -fx-background-color: #A5C9EA;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter/Inter-VariableFont_opsz,wght.ttf");
+}
+
+.root {
+    -fx-background-color: #F2F8FF;
+    -fx-font-family: 'Segoe UI';
+}
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #E8EDF1;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.button-blue {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 12px;
+}
+
+.button-blue:hover {
+    -fx-background-color: #357ABD;
 }

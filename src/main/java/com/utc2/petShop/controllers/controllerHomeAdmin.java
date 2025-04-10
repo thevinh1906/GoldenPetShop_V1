@@ -4,6 +4,8 @@ import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Product.*;
+import com.utc2.petShop.model.entities.Promotion.Promotion;
+import com.utc2.petShop.model.entities.RevenueReport.RevenueReport;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
@@ -19,12 +21,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.function.DoubleBinaryOperator;
 
 public class controllerHomeAdmin implements Initializable {
 
@@ -67,6 +71,9 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonAddProduct;
+
+    @FXML
+    private Button buttonAddPromotion;
 
     @FXML
     private Button buttonAddRevenueReport;
@@ -225,9 +232,6 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonForward;
 
     @FXML
-    private Button buttonImportPet;
-
-    @FXML
     private Button buttonImportProduct;
 
     @FXML
@@ -372,10 +376,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnDimensionProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnDiscountPercentPromotion;
+    private TableColumn<Promotion, Double> tableColumnDiscountPercentPromotion;
 
     @FXML
-    private TableColumn<?, ?> tableColumnDiscountPercentagePromotion;
+    private TableColumn<Promotion, Double> tableColumnDiscountPercentagePromotion;
 
     @FXML
     private TableColumn<Pet, String> tableColumnEarLengthPet;
@@ -390,7 +394,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Bill, String> tableColumnEmployeeBill;
 
     @FXML
-    private TableColumn<?, ?> tableColumnEndDatePromotion;
+    private TableColumn<Promotion, String> tableColumnEndDatePromotion;
 
     @FXML
     private TableColumn<Product, String> tableColumnExpirationDateProduct;
@@ -426,10 +430,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnIDProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDPromotion;
+    private TableColumn<Promotion, String> tableColumnIDPromotion;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIDRevenueReport;
+    private TableColumn<RevenueReport, String> tableColumnIDRevenueReport;
 
     @FXML
     private TableColumn<Supplier, String> tableColumnIDSupplier;
@@ -438,7 +442,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<User, String> tableColumnIDUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnIsActivePromotion;
+    private TableColumn<Promotion, String> tableColumnIsActivePromotion;
 
     @FXML
     private TableColumn<Pet, String> tableColumnIsIndoorPet;
@@ -465,7 +469,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnMaterialProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnMonthRevenueReport;
+    private TableColumn<RevenueReport, Integer> tableColumnMonthRevenueReport;
 
     @FXML
     private TableColumn<Customer, String> tableColumnNameCustomer;
@@ -477,7 +481,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnNameProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNamePromotion;
+    private TableColumn<Promotion, String> tableColumnNamePromotion;
 
     @FXML
     private TableColumn<Supplier, String> tableColumnNameSupplier;
@@ -489,10 +493,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnNoteProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNotePromotion;
+    private TableColumn<Promotion, String> tableColumnNotePromotion;
 
     @FXML
-    private TableColumn<?, ?> tableColumnNoteRevenueReport;
+    private TableColumn<RevenueReport, String> tableColumnNoteRevenueReport;
 
     @FXML
     private TableColumn<User, String> tableColumnNoteUser;
@@ -552,7 +556,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Product, String> tableColumnSizeProduct;
 
     @FXML
-    private TableColumn<?, ?> tableColumnStartDatePromotion;
+    private TableColumn<Promotion, String> tableColumnStartDatePromotion;
 
     @FXML
     private TableColumn<Bill, String> tableColumnStatusBill;
@@ -570,10 +574,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Bill, Double> tableColumnTotalAmountBill;
 
     @FXML
-    private TableColumn<?, ?> tableColumnTotalBillRevenueReport;
+    private TableColumn<RevenueReport, Integer> tableColumnTotalBillRevenueReport;
 
     @FXML
-    private TableColumn<?, ?> tableColumnTotalRevenueRevenueReport;
+    private TableColumn<RevenueReport, Double> tableColumnTotalRevenueRevenueReport;
 
     @FXML
     private TableColumn<Product, String> tableColumnTypeProduct;
@@ -591,7 +595,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<User, String> tableColumnWorkingHoursUser;
 
     @FXML
-    private TableColumn<?, ?> tableColumnYearRevenueReport;
+    private TableColumn<RevenueReport, Integer> tableColumnYearRevenueReport;
 
     @FXML
     private TableView<Bill> tableViewBill;
@@ -609,10 +613,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableView<Product> tableViewProduct;
 
     @FXML
-    private TableView<?> tableViewPromotion;
+    private TableView<Promotion> tableViewPromotion;
 
     @FXML
-    private TableView<?> tableViewRevenueReport;
+    private TableView<RevenueReport> tableViewRevenueReport;
 
     @FXML
     private TableView<Product> tableViewRightImportProduct;
@@ -660,6 +664,11 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionAddProduct(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionAddPromotion(ActionEvent event) {
 
     }
 
@@ -715,62 +724,18 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionBill(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
+        hideScreen();
 
         stackPaneBill.setVisible(true);
         stackPaneBill.setManaged(true);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
     void actionCustomer(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
+        hideScreen();
 
         stackPaneCustomer.setManaged(true);
         stackPaneCustomer.setVisible(true);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -944,38 +909,11 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionImportPet(ActionEvent event) {
-
-    }
-
-    @FXML
     void actionImportProduct(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
+        hideScreen();
 
         stackPaneImportProduct.setVisible(true);
         stackPaneImportProduct.setManaged(true);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
@@ -1012,119 +950,31 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionPet(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
+        hideScreen();
 
         stackPanePet.setVisible(true);
         stackPanePet.setManaged(true);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
     void actionProduct(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
+        hideScreen();
 
         stackPaneProduct.setVisible(true);
         stackPaneProduct.setManaged(true);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
     void actionPromotion(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
+        hideScreen();
 
         stackPanePromotion.setVisible(true);
         stackPanePromotion.setManaged(true);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
     void actionRevenueReport(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
+        hideScreen();
 
         stackPaneRevenueReport.setVisible(true);
         stackPaneRevenueReport.setManaged(true);
@@ -1152,62 +1002,18 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionSupplier(ActionEvent event) {
-        stackPaneUser.setManaged(false);
-        stackPaneUser.setVisible(false);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
+        hideScreen();
 
         stackPaneSupplier.setVisible(true);
         stackPaneSupplier.setManaged(true);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     @FXML
     void actionUser(ActionEvent event) {
+        hideScreen();
+
         stackPaneUser.setManaged(true);
         stackPaneUser.setVisible(true);
-
-        stackPaneCustomer.setManaged(false);
-        stackPaneCustomer.setVisible(false);
-
-        stackPaneImportProduct.setVisible(false);
-        stackPaneImportProduct.setManaged(false);
-
-        stackPanePet.setVisible(false);
-        stackPanePet.setManaged(false);
-
-        stackPaneProduct.setVisible(false);
-        stackPaneProduct.setManaged(false);
-
-        stackPaneSupplier.setVisible(false);
-        stackPaneSupplier.setManaged(false);
-
-        stackPaneBill.setVisible(false);
-        stackPaneBill.setManaged(false);
-
-        stackPanePromotion.setVisible(false);
-        stackPanePromotion.setManaged(false);
-
-        stackPaneRevenueReport.setVisible(false);
-        stackPaneRevenueReport.setManaged(false);
     }
 
     public void hideScreen() {
@@ -1313,7 +1119,28 @@ public class controllerHomeAdmin implements Initializable {
         });
     }
 
+    private void autoResizeColumns(TableView<?> tableView) {
+        for (TableColumn<?, ?> column : tableView.getColumns()) {
+            Text tempText = new Text(column.getText()); // bắt đầu với header
+            double max = tempText.getLayoutBounds().getWidth();
+
+            for (int i = 0; i < tableView.getItems().size(); i++) {
+                Object cellData = column.getCellData(i);
+                if (cellData != null) {
+                    tempText = new Text(cellData.toString());
+                    double width = tempText.getLayoutBounds().getWidth();
+                    if (width > max) {
+                        max = width;
+                    }
+                }
+            }
+            column.setPrefWidth(max + 20); // thêm padding cho đẹp
+        }
+    }
+
     public void PetTable() {
+
+
         tableColumnIDPet.setCellValueFactory(cellData -> new SimpleStringProperty("PE" + cellData.getValue().getId()));
         tableColumnNamePet.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         tableColumnBreedPet.setCellValueFactory(cellData -> {
@@ -1395,6 +1222,10 @@ public class controllerHomeAdmin implements Initializable {
         petList.addAll(dog1, cat1);  // dùng vòng lập để truy xuất dữ liệu từ bảng Pet
 
         tableViewPet.setItems(petList);    // bỏ list vào đây
+
+        autoResizeColumns(tableViewPet);
+
+        tableViewPet.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     public void ProductTable() {
@@ -1482,6 +1313,10 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewProduct.setItems(productList);    // bỏ list vào đây
 
+        autoResizeColumns(tableViewProduct);
+
+        tableViewProduct.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
     }
 
     public void SupplierTable() {
@@ -1504,6 +1339,10 @@ public class controllerHomeAdmin implements Initializable {
         supplierList.addAll(supplier1, supplier2, supplier3);
 
         tableViewSupplier.setItems(supplierList);
+
+        autoResizeColumns(tableViewSupplier);
+
+        tableViewSupplier.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     public void SupplierImportTable() {
@@ -1544,7 +1383,13 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewLeftImportProduct.getItems().addAll(tableViewProduct.getItems());
 
+        autoResizeColumns(tableViewLeftImportProduct);
 
+        tableViewLeftImportProduct.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        autoResizeColumns(tableViewRightImportProduct);
+
+        tableViewRightImportProduct.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     public void UserTable() {
@@ -1594,6 +1439,10 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewUser.setItems(userList);
 
+        autoResizeColumns(tableViewUser);
+
+        tableViewUser.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
     }
 
     public void CustomerTable() {
@@ -1609,9 +1458,13 @@ public class controllerHomeAdmin implements Initializable {
         customerList.addAll(customer, customer1);
 
         tableViewCustomer.setItems(customerList);
+
+        autoResizeColumns(tableViewCustomer);
+
+        tableViewCustomer.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
-    public void BillTable(){
+    public void BillTable() {
         tableColumnIDBill.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf("BI" + cellData.getValue().getId())));
         tableColumnCustomerBill.setCellValueFactory(cellData -> {
             return null;   // lệnh lấy tên từ customer
@@ -1627,13 +1480,64 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<Bill> billList = FXCollections.observableArrayList();
 
-        Bill bill = new Bill(1,1,1,LocalDate.now(),1000000,"pay","thành công");
+        Bill bill = new Bill(1, 1, 1, LocalDate.now(), 1000000, "pay", "thành công");
 
         billList.addAll(bill);
 
         tableViewBill.setItems(billList);
 
+        autoResizeColumns(tableViewBill);
 
+        tableViewBill.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
+    public void PromotionTable() {
+        tableColumnIDPromotion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf("PM" + cellData.getValue().getId())));
+        tableColumnNamePromotion.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        tableColumnStartDatePromotion.setCellValueFactory(cellData -> cellData.getValue().startDateProperty().asString());
+        tableColumnEndDatePromotion.setCellValueFactory(cellData -> cellData.getValue().endDateProperty().asString());
+        tableColumnDiscountPercentPromotion.setCellValueFactory(cellData -> cellData.getValue().discountPercentProperty().asObject());
+        tableColumnDiscountPercentagePromotion.setCellValueFactory(cellData -> cellData.getValue().discountPercentageProperty().asObject());
+        tableColumnIsActivePromotion.setCellValueFactory(cellData -> {
+            if (cellData.getValue().isIsActive()) {
+                return new SimpleStringProperty("Đã đươc kích hoạt");
+            } else {
+                return new SimpleStringProperty("Chưa được kích hoạt");
+            }
+        });
+        tableColumnNotePromotion.setCellValueFactory(cellData -> new SimpleStringProperty(""));
+
+        ObservableList<Promotion> promotionList = FXCollections.observableArrayList();
+
+        Promotion promotion = new Promotion(1, "mua 3 tặng 1", 100, LocalDate.now(), LocalDate.now().plusMonths(1), 100, true);
+
+        promotionList.add(promotion);
+
+        tableViewPromotion.setItems(promotionList);
+
+        autoResizeColumns(tableViewPromotion);
+
+        tableViewPromotion.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
+    public void RevenueReportTable() {
+        tableColumnIDRevenueReport.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf("RR" + cellData.getValue().getId())));
+        tableColumnMonthRevenueReport.setCellValueFactory(cellData -> cellData.getValue().monthProperty().asObject());
+        tableColumnYearRevenueReport.setCellValueFactory(cellData -> cellData.getValue().yearProperty().asObject());
+        tableColumnTotalRevenueRevenueReport.setCellValueFactory(cellData -> cellData.getValue().totalRevenueProperty().asObject());
+        tableColumnTotalBillRevenueReport.setCellValueFactory(cellData -> cellData.getValue().totalBillProperty().asObject());
+        tableColumnNoteRevenueReport.setCellValueFactory(cellData -> new SimpleStringProperty(""));
+
+        ObservableList<RevenueReport> revenueReportList = FXCollections.observableArrayList();
+
+        RevenueReport revenueReport = new RevenueReport(1,1,2000,1000000000,1000);
+        revenueReportList.add(revenueReport);
+
+        tableViewRevenueReport.setItems(revenueReportList);
+
+        autoResizeColumns(tableViewRevenueReport);
+
+        tableViewRevenueReport.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     @Override
@@ -1667,6 +1571,13 @@ public class controllerHomeAdmin implements Initializable {
 
         // bỏ dữ liệu vào bảng bill
         BillTable();
+
+        // bỏ dữ liệu vào bảng promotion
+        PromotionTable();
+
+        // bỏ dữ liệu vào bảng RevenueReport
+        RevenueReportTable();
+
 
     }
 }
