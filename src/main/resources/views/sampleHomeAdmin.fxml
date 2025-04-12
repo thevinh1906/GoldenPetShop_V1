@@ -24,7 +24,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="1280.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerHomeAdmin">
     <top>
-        <HBox prefHeight="64.0" prefWidth="1920.0" style="-fx-background-color: #E5F0FF;" BorderPane.alignment="CENTER">
+        <HBox prefHeight="64.0" prefWidth="1920.0" style="-fx-background-color: #F6F8FC;" BorderPane.alignment="CENTER">
             <children>
                 <ImageView fx:id="logoImg" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -136,7 +136,7 @@
     <left>
         <ScrollPane fx:id="srcollPaneLeft" fitToHeight="true" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="732.0" prefWidth="270.0" style="-fx-background-color: #E5F0FF;">
+            <VBox prefHeight="732.0" prefWidth="270.0" style="-fx-background-color: #F6F8FC;">
                <children>
                   <Button fx:id="buttonPet" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionPet" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Pet">
                       <graphic>
@@ -319,9 +319,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../images/Add.png" />
                                                 </image>
@@ -336,7 +336,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeletePet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeletePet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../images/Delete.png" />
                                                 </image>
@@ -351,7 +351,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../images/Edit.png" />
                                                 </image>
@@ -366,7 +366,7 @@
                                     </Button>
                                     <Button fx:id="buttonDetailPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../images/Detail.png" />
                                                 </image>
@@ -386,7 +386,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../images/Excel.png" />
                                                 </image>
@@ -401,7 +401,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
                                                     <Image url="@../images/Filter.png" />
                                                 </image>
@@ -416,7 +416,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangePet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                         <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>
@@ -475,9 +475,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -492,7 +492,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeleteProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteProduct" prefHeight="68.0" prefWidth="68.0" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -507,7 +507,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -522,7 +522,7 @@
                                     </Button>
                                     <Button fx:id="buttonDetailProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Detail.png" />
                                              </image>
@@ -542,7 +542,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -557,7 +557,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Filter.png" />
                                              </image>
@@ -572,7 +572,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangeProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>
@@ -628,9 +628,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -645,7 +645,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeleteSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -660,7 +660,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -680,7 +680,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -782,9 +782,9 @@
                                           </ScrollPane>
                                           <HBox alignment="CENTER">
                                              <children>
-                                                <Button fx:id="buttonRightExcelImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightExcelImportProduct" prefHeight="68.0" prefWidth="68.0" text="Excel">
+                                                <Button fx:id="buttonRightExcelImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightExcelImportProduct" prefHeight="68.0" prefWidth="68.0" styleClass="buttonCustom" text="Excel">
                                                    <graphic>
-                                                      <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../images/Excel.png" />
                                                          </image>
@@ -797,9 +797,9 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="buttonRightEditImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightEditImportProduct" prefHeight="68.0" prefWidth="68.0" text="Edit">
+                                                <Button fx:id="buttonRightEditImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightEditImportProduct" prefHeight="68.0" prefWidth="68.0" styleClass="buttonCustom" text="Edit">
                                                    <graphic>
-                                                      <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../images/Edit.png" />
                                                          </image>
@@ -812,9 +812,9 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="buttonRightDeleteImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightDeleteImportProduct" prefHeight="68.0" prefWidth="68.0" text="Delete">
+                                                <Button fx:id="buttonRightDeleteImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightDeleteImportProduct" prefHeight="68.0" prefWidth="68.0" styleClass="buttonCustom" text="Delete">
                                                    <graphic>
-                                                      <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../images/Delete.png" />
                                                          </image>
@@ -865,9 +865,9 @@
                                                 <Insets left="10.0" right="50.0" />
                                              </HBox.margin>
                                           </TextField>
-                                          <Button fx:id="buttonLeftAddImportProduct" mnemonicParsing="false" onAction="#actionLeftAddImportProduct" prefHeight="40.0" prefWidth="100.0" text="Add">
+                                          <Button fx:id="buttonLeftAddImportProduct" mnemonicParsing="false" onAction="#actionLeftAddImportProduct" prefHeight="40.0" prefWidth="100.0" styleClass="buttonCustom" text="Add">
                                              <graphic>
-                                                <ImageView fitHeight="24.0" fitWidth="28.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="24.0" fitWidth="28.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/Add.png" />
                                                    </image>
@@ -898,7 +898,7 @@
                                                 </Label>
                                              </children>
                                           </AnchorPane>
-                                          <Button fx:id="buttonImportProductImportProduct" mnemonicParsing="false" onAction="#actionImportProductImportProduct" prefHeight="40.0" prefWidth="146.0" text="Import product">
+                                          <Button fx:id="buttonImportProductImportProduct" mnemonicParsing="false" onAction="#actionImportProductImportProduct" prefHeight="40.0" prefWidth="146.0" styleClass="buttonCustom" text="Import product">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -920,9 +920,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -937,7 +937,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeleteUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -952,7 +952,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -967,7 +967,7 @@
                                     </Button>
                                     <Button fx:id="buttonDetailUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Detail.png" />
                                              </image>
@@ -987,7 +987,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -1002,7 +1002,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Filter.png" />
                                              </image>
@@ -1017,7 +1017,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangeUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>
@@ -1071,9 +1071,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -1088,7 +1088,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeleteCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -1103,7 +1103,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -1123,7 +1123,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -1138,7 +1138,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Filter.png" />
                                              </image>
@@ -1153,7 +1153,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangeCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>
@@ -1197,9 +1197,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -1214,7 +1214,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeleteBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -1229,7 +1229,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -1244,7 +1244,7 @@
                                     </Button>
                                     <Button fx:id="buttonDetailBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Detail.png" />
                                              </image>
@@ -1264,7 +1264,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -1279,7 +1279,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Filter.png" />
                                              </image>
@@ -1294,7 +1294,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangeBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePetBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>
@@ -1342,9 +1342,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -1359,7 +1359,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeletePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -1374,7 +1374,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -1389,7 +1389,7 @@
                                     </Button>
                                     <Button fx:id="buttonDetailPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Detail.png" />
                                              </image>
@@ -1409,7 +1409,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -1424,7 +1424,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Filter.png" />
                                              </image>
@@ -1439,7 +1439,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePetRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>
@@ -1488,9 +1488,9 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="button-blue" text="Add">
+                                    <Button fx:id="buttonAddRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Add.png" />
                                              </image>
@@ -1505,7 +1505,7 @@
                                     </Button>
                                     <Button fx:id="buttonDeleteRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Delete.png" />
                                              </image>
@@ -1520,7 +1520,7 @@
                                     </Button>
                                     <Button fx:id="buttonEditRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Edit.png" />
                                              </image>
@@ -1535,7 +1535,7 @@
                                     </Button>
                                     <Button fx:id="buttonDetailRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Detail.png" />
                                              </image>
@@ -1555,7 +1555,7 @@
                                     </AnchorPane>
                                     <Button fx:id="buttonExcelRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Excel.png" />
                                              </image>
@@ -1570,7 +1570,7 @@
                                     </Button>
                                     <Button fx:id="buttonFilterRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Filter.png" />
                                              </image>
@@ -1585,7 +1585,7 @@
                                     </Button>
                                     <Button fx:id="buttonArrangeRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePetRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/Arrange.png" />
                                              </image>

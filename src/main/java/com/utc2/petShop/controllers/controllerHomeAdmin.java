@@ -931,6 +931,13 @@ public class controllerHomeAdmin implements Initializable {
 
 
         if (selectedLeftProduct != null) {
+            for(Product p : tableViewRightImportProduct.getItems()){
+                if(p.getId() == selectedLeftProduct.getId()){
+                    p.setQuantity(p.getQuantity() + Integer.parseInt(textFieldLeftQuantityImportProduct.getText()));
+                    labelTotalCostImportProduct.setText(String.valueOf(p.getPrice() * p.getQuantity()));
+                    return;
+                }
+            }
             Product product = new Product();
             product.setId(selectedLeftProduct.getId());
             product.setName(selectedLeftProduct.getName());
