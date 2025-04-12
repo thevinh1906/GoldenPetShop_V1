@@ -44,4 +44,9 @@ public class Hamster extends Pet {
     public void setTailLength(double tailLength) {
         this.tailLength.set(tailLength);
     }
+
+    @Override
+    public String toString() {
+        return "Hamster";
+    }
 }

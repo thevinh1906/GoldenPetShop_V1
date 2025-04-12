@@ -190,4 +190,9 @@ public class Pet {
     public void setSupplierID(int supplierID) {
         this.supplierID.set(supplierID);
     }
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

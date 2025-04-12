@@ -56,4 +56,9 @@ public class Cat extends Pet {
     public void setEyeColor(String eyeColor) {
         this.eyeColor.set(eyeColor);
     }
+
+    @Override
+    public String toString() {
+        return "Cat";
+    }
 }
