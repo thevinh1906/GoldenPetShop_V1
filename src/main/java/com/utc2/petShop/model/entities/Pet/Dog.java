@@ -44,4 +44,9 @@ public class Dog extends Pet {
     public void setIsTrained(boolean isTrained) {
         this.isTrained.set(isTrained);
     }
+
+    @Override
+    public String toString() {
+        return "Dog";
+    }
 }

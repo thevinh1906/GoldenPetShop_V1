@@ -44,4 +44,9 @@ public class Rabbit extends Pet {
     public void setEarLength(double earLength) {
         this.earLength.set(earLength);
     }
+
+    @Override
+    public String toString() {
+        return "Rabbit";
+    }
 }

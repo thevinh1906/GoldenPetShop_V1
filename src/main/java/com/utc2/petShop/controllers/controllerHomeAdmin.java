@@ -9,6 +9,7 @@ import com.utc2.petShop.model.entities.RevenueReport.RevenueReport;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
+import com.utc2.petShop.model.services.scenes;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -104,9 +106,6 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonArrangeUser;
-
-    @FXML
-    private Button buttonBack;
 
     @FXML
     private Button buttonBill;
@@ -227,9 +226,6 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonFind;
-
-    @FXML
-    private Button buttonForward;
 
     @FXML
     private Button buttonImportProduct;
@@ -658,8 +654,8 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddPet(ActionEvent event) {
-
+    void actionAddPet(ActionEvent event) throws IOException {
+        scenes.openMoreScene("sampleAddPet", "Golden Pet Shop", "applicationAddPet",false);
     }
 
     @FXML

@@ -40,47 +40,12 @@
                         </Label>
                     </children>
                 </StackPane>
-                <StackPane layoutX="1768.0" layoutY="10.0" prefHeight="64.0" prefWidth="40.0">
-                    <children>
-                        <Button fx:id="buttonBack" onAction="#actionBack" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
-                            <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/back.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Button>
-                    </children>
-                    <HBox.margin>
-                        <Insets left="100.0" />
-                    </HBox.margin>
-                </StackPane>
-                <StackPane layoutX="284.0" layoutY="10.0" prefHeight="64.0" prefWidth="40.0">
-                    <children>
-                        <Button fx:id="buttonForward" onAction="#actionForward" style="-fx-background-color: transparent;" styleClass="buttonTransparent">
-                            <graphic>
-                                <ImageView fitHeight="32.0" fitWidth="20.0" opacity="0.55" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/Forward.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </Button>
-                    </children>
-                </StackPane>
                 <AnchorPane prefHeight="64.0" prefWidth="339.0" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                     <children>
-                        <TextField fx:id="textSreach" layoutX="148.0" layoutY="20.0" promptText="Sreach" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0" />
+                        <TextField fx:id="textSreach" layoutX="148.0" layoutY="20.0" promptText="Sreach" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0" />
                         <Button fx:id="buttonFind" layoutX="398.0" layoutY="20.0" mnemonicParsing="false" onAction="#actionFind" style="-fx-background-color: transparent;" styleClass="buttonTransparent" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0">
                             <graphic>
                                 <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
