@@ -101,7 +101,7 @@
     <left>
         <ScrollPane fx:id="srcollPaneLeft" fitToHeight="true" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefHeight="732.0" prefWidth="270.0" style="-fx-background-color: #F6F8FC;">
+            <VBox prefWidth="270.0" style="-fx-background-color: #F6F8FC;">
                <children>
                   <Button fx:id="buttonPet" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionPet" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Pet">
                       <graphic>
