@@ -22,7 +22,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="1280.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerHomeAdmin">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerHomeAdmin">
     <top>
         <HBox prefHeight="64.0" prefWidth="1920.0" style="-fx-background-color: #F6F8FC;" BorderPane.alignment="CENTER">
             <children>
@@ -99,9 +99,9 @@
             </children></HBox>
     </top>
     <left>
-        <ScrollPane fx:id="srcollPaneLeft" fitToHeight="true" BorderPane.alignment="CENTER">
+        <ScrollPane fx:id="srcollPaneLeft" fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
-            <VBox prefWidth="270.0" style="-fx-background-color: #F6F8FC;">
+            <VBox style="-fx-background-color: #F6F8FC;">
                <children>
                   <Button fx:id="buttonPet" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionPet" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Pet">
                       <graphic>
@@ -273,14 +273,14 @@
          </content>
         </ScrollPane>
     </left>
-    <center>
+   <center>
         <ScrollPane fx:id="scrollPaneCenter" fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="vBoxCenterHomeAdmin">
                <children>
                   <StackPane fx:id="stackPanePet">
                      <children>
-                        <BorderPane fx:id="borderPanePet" prefHeight="410.0" prefWidth="1666.0">
+                        <BorderPane fx:id="borderPanePet">
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -398,7 +398,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPanePet" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPanePet" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewPet">
                                       <columns>
@@ -554,7 +554,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPaneProduct" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPaneProduct" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewProduct">
                                       <columns>
@@ -662,7 +662,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPaneSupplier" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPaneSupplier" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewSupplier">
                                       <columns>
@@ -700,7 +700,7 @@
                                  <children>
                                     <VBox fx:id="vBoxLeftImportProduct">
                                        <children>
-                                          <ScrollPane fx:id="scrollPaneLeftImportProduct" fitToWidth="true">
+                                          <ScrollPane fx:id="scrollPaneLeftImportProduct">
                                              <content>
                                                 <TableView fx:id="tableViewLeftImportProduct">
                                                   <columns>
@@ -725,7 +725,7 @@
                                     </VBox>
                                     <VBox fx:id="vBoxRightImportProduct" GridPane.columnIndex="1">
                                        <children>
-                                          <ScrollPane fx:id="scrollPaneRightImportProduct" fitToWidth="true">
+                                          <ScrollPane fx:id="scrollPaneRightImportProduct">
                                              <content>
                                                 <TableView fx:id="tableViewRightImportProduct">
                                                   <columns>
@@ -806,7 +806,7 @@
                               </GridPane>
                            </center>
                            <bottom>
-                              <GridPane hgap="10.0" prefHeight="70.0" vgap="10.0" BorderPane.alignment="CENTER">
+                              <GridPane hgap="10.0" vgap="10.0" BorderPane.alignment="CENTER">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -847,7 +847,7 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                    <HBox alignment="CENTER" GridPane.columnIndex="1">
                                        <children>
                                           <AnchorPane prefHeight="70.0" prefWidth="414.0">
                                              <children>
@@ -865,7 +865,7 @@
                                           </AnchorPane>
                                           <Button fx:id="buttonImportProductImportProduct" mnemonicParsing="false" onAction="#actionImportProductImportProduct" prefHeight="40.0" prefWidth="146.0" styleClass="buttonCustom" text="Import product">
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="18.0" />
                                              </font>
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
@@ -874,14 +874,17 @@
                                        </children>
                                     </HBox>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                                 </padding>
                               </GridPane>
                            </bottom>
                         </BorderPane>
                      </children>
                   </StackPane>
-                  <StackPane fx:id="stackPaneUser" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="stackPaneUser">
                      <children>
-                        <BorderPane fx:id="borderPaneUser" prefHeight="410.0" prefWidth="1666.0">
+                        <BorderPane fx:id="borderPaneUser">
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -999,7 +1002,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPaneUser" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPaneUser" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewUser">
                                        <columns>
@@ -1030,9 +1033,9 @@
                         </BorderPane>
                      </children>
                   </StackPane>
-                  <StackPane fx:id="stackPaneCustomer" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="stackPaneCustomer">
                      <children>
-                        <BorderPane fx:id="borderPaneCustomer" prefHeight="410.0" prefWidth="1666.0">
+                        <BorderPane fx:id="borderPaneCustomer">
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -1135,7 +1138,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPaneCustomer" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPaneCustomer" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewCustomer">
                                        <columns>
@@ -1156,9 +1159,9 @@
                         </BorderPane>
                      </children>
                   </StackPane>
-                  <StackPane fx:id="stackPaneBill" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="stackPaneBill">
                      <children>
-                        <BorderPane fx:id="borderPaneBill" prefHeight="410.0" prefWidth="1666.0">
+                        <BorderPane fx:id="borderPaneBill">
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -1276,7 +1279,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPaneBill" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPaneBill" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewBill">
                                        <columns>
@@ -1301,9 +1304,9 @@
                         </BorderPane>
                      </children>
                   </StackPane>
-                  <StackPane fx:id="stackPanePromotion" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="stackPanePromotion">
                      <children>
-                        <BorderPane fx:id="borderPanePromotion" prefHeight="410.0" prefWidth="1666.0">
+                        <BorderPane fx:id="borderPanePromotion">
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -1421,7 +1424,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPanePromotion" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPanePromotion" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewPromotion">
                                        <columns>
@@ -1447,9 +1450,9 @@
                         </BorderPane>
                      </children>
                   </StackPane>
-                  <StackPane fx:id="stackPaneRevenueReport" prefHeight="150.0" prefWidth="200.0">
+                  <StackPane fx:id="stackPaneRevenueReport">
                      <children>
-                        <BorderPane fx:id="borderPaneRevenueReport" prefHeight="410.0" prefWidth="1666.0">
+                        <BorderPane fx:id="borderPaneRevenueReport">
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
@@ -1567,7 +1570,7 @@
                               </VBox>
                            </left>
                            <center>
-                              <ScrollPane fx:id="scrollPaneRevenueReport" fitToWidth="true" BorderPane.alignment="CENTER">
+                              <ScrollPane fx:id="scrollPaneRevenueReport" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewRevenueReport">
                                        <columns>
@@ -1596,6 +1599,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-         </content></ScrollPane>
-    </center>
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>

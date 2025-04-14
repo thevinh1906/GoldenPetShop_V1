@@ -71,3 +71,11 @@
     -fx-background-color: #F9F9F9;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
 }
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent; /* cho phép background con hiển thị */
+}

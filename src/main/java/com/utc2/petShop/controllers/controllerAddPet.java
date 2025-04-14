@@ -124,6 +124,7 @@ public class controllerAddPet implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         griPaneVision();
         choiceBoxAnimalGeneral.getItems().addAll(new Dog(), new Cat(), new Hamster(), new Rabbit());
 
