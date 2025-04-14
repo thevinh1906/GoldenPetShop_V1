@@ -23,8 +23,12 @@
     src: url("/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf");
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: transparent; /* cho phép background con hiển thị */
+}
+
+
 .button-left {
-    -fx-background-color: #4A90E2;
     -fx-text-fill: #4A4A4A;
     -fx-font-size: 20px;
     -fx-background-radius: 8px;
@@ -63,4 +67,7 @@
     -fx-alignment: CENTER_LEFT;
 }
 
+.table-cell {
+    -fx-alignment: CENTER;
+}
 

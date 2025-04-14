@@ -10,6 +10,7 @@ import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.services.scenes;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -1543,6 +1544,36 @@ public class controllerHomeAdmin implements Initializable {
         tableViewRevenueReport.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    public void tableSize(){
+        tableSizeCuttom(tableViewPet,scrollPanePet);
+        tableSizeCuttom(tableViewProduct,scrollPaneProduct);
+        tableSizeCuttom(tableViewSupplier,scrollPaneSupplier);
+        tableSizeCuttom(tableViewLeftImportProduct,scrollPaneLeftImportProduct);
+        tableSizeCuttom(tableViewRightImportProduct,scrollPaneRightImportProduct);
+        tableSizeCuttom(tableViewUser,scrollPaneUser);
+        tableSizeCuttom(tableViewCustomer,scrollPaneCustomer);
+        tableSizeCuttom(tableViewBill,scrollPaneBill);
+        tableSizeCuttom(tableViewPromotion,scrollPanePromotion);
+        tableSizeCuttom(tableViewRevenueReport,scrollPaneRevenueReport);
+    }
+
+    public void tableSizeCuttom(TableView<?> tableView , ScrollPane scrollPane) {
+        TableView<?> tableView1 = tableView;
+        scrollPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+            double scrollPaneWidth = newValue.doubleValue();
+            double totalColWidth = tableView.getColumns().stream()
+                    .mapToDouble(TableColumn::getWidth)
+                    .sum();
+
+            if (totalColWidth < scrollPaneWidth) {
+                tableView.setPrefWidth(scrollPaneWidth - 15);
+            } else {
+                tableView.setPrefWidth(totalColWidth);
+            }
+        });
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // ẩn hiện màng hình
@@ -1580,6 +1611,9 @@ public class controllerHomeAdmin implements Initializable {
 
         // bỏ dữ liệu vào bảng RevenueReport
         RevenueReportTable();
+
+        // chỉnh kích thước bảng phụ thuộc vào độ phóng to của màng hình
+        tableSize();
 
 
     }

@@ -40,8 +40,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.getIcons().add(new Image("images/logo.png"));
         scenes.setPrimaryStage(primaryStage);
-        scenes.switchScene("sampleSign_in","Sign in","applicationSign_in",false);
-//        scenes.switchScene("sampleHomeAdmin","Sign in","applicationHomeAdmin",true);
+//        scenes.switchScene("sampleSign_in","Sign in","applicationSign_in",false);
+        scenes.switchScene("sampleHomeAdmin","Sign in","applicationHomeAdmin",true);
 //        scenes.switchScene("sampleAddPet","Sign in","applicationAddPet",false);
+//        scenes.switchScene("samplePet","Sign in","applicationPet",true);
     }
 }
