@@ -7,3 +7,7 @@
 .tree-cell:hover {
     -fx-background: #C0C0C0 !important;
 }
+.root {
+    -fx-background-color: #F2F8FF;
+    -fx-font-family: 'Segoe UI';
+}
