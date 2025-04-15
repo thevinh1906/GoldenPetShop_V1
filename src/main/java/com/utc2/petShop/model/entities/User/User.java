@@ -1,11 +1,13 @@
 package com.utc2.petShop.model.entities.User;
 
+import com.utc2.petShop.model.implement.IBill;
+import com.utc2.petShop.model.implement.IUser;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
 // Represents a user in the system (customer, employee, manager)
-public class User {
+public class User implements IUser {
     private IntegerProperty id;
     private StringProperty username;
     private StringProperty password;
@@ -162,4 +164,19 @@ public class User {
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate.set(creationDate);
     }
+
+    // phương thức cần thiết của User
+    public void signIn() {
+
+    }
+    public void signUp() {
+
+    }
+    public void updateInfo() {
+
+    }
+    public void deleteAccount() {
+
+    }
+
 }

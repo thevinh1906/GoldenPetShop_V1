@@ -1,9 +1,10 @@
 package com.utc2.petShop.model.entities.Pet;
 
 
+import com.utc2.petShop.model.implement.IPet;
 import javafx.beans.property.*;
 
-public class Pet {
+public class Pet implements IPet {
     private IntegerProperty id;
     private StringProperty name;
     private IntegerProperty age;
@@ -194,5 +195,25 @@ public class Pet {
     @Override
     public String toString() {
         return "";
+    }
+// phương thức câ thiết
+    @Override
+    public void displayInfo() {
+
+    }
+
+    @Override
+    public void updateInfo() {
+
+    }
+
+    @Override
+    public int calculateAge() {
+        return 0;
+    }
+
+    @Override
+    public void updateAvailability() {
+
     }
 }

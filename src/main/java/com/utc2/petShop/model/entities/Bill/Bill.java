@@ -1,11 +1,12 @@
 package com.utc2.petShop.model.entities.Bill;
 
+import com.utc2.petShop.model.implement.IBill;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
 // Represents a bill for purchases
-public class Bill {
+public class Bill implements IBill {
     private IntegerProperty id;
     private IntegerProperty customerId;
     private IntegerProperty userId;
@@ -116,5 +117,15 @@ public class Bill {
 
     public void setStatus(String status) {
         this.status.set(status);
+    }
+// phương thức cần thiết
+    @Override
+    public void createBill() {
+
+    }
+
+    @Override
+    public void getBillDetails() {
+
     }
 }
