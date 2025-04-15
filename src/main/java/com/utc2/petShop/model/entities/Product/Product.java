@@ -1,9 +1,10 @@
 package com.utc2.petShop.model.entities.Product;
 
+import com.utc2.petShop.model.implement.IProduct;
 import javafx.beans.property.*;
 
 // Represents products sold in the pet store
-public class Product {
+public class Product implements IProduct {
     private IntegerProperty id;
     private StringProperty name;
     private DoubleProperty price;
@@ -114,6 +115,16 @@ public class Product {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer.set(manufacturer);
+    }
+// phương thức cần thiết
+    @Override
+    public void updateStock(int quantity) {
+
+    }
+
+    @Override
+    public String getProductInfo() {
+        return "";
     }
 }
 
