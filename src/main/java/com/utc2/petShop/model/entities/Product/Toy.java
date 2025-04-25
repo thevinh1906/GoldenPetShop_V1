@@ -42,4 +42,9 @@ public class Toy extends Product{
     public void setSize(String size) {
         this.size.set(size);
     }
+
+    @Override
+    public String toString() {
+        return "Toy";
+    }
 }
