@@ -87,4 +87,9 @@ public class Supplier {
     public void setEmail(String email) {
         this.email.set(email);
     }
+
+    @Override
+    public String toString() {
+        return name.get();
+    }
 }

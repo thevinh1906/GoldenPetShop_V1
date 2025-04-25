@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -101,6 +102,8 @@ public class controllerAddPet implements Initializable {
     @FXML
     private TextField textFieldWeightGeneral;
 
+    String priceExceptions = "\\d*(\\.\\d*)?";
+
     @FXML
     void actionAdd(ActionEvent event) {
 
@@ -122,10 +125,7 @@ public class controllerAddPet implements Initializable {
         gridPaneRabbit.setManaged(false);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        griPaneVision();
+    public void insertAnimal(){
         choiceBoxAnimalGeneral.getItems().addAll(new Dog(), new Cat(), new Hamster(), new Rabbit());
 
         choiceBoxAnimalGeneral.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -155,7 +155,58 @@ public class controllerAddPet implements Initializable {
                 griPaneVision();
             }
         });
+    }
 
+    public void insertAge(){
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 999,1);
+
+        spinnerAgeGeneral.setValueFactory(valueFactory);
+
+        spinnerAgeGeneral.setEditable(true);
+
+        TextFormatter<Integer> formatter = new TextFormatter<>(new IntegerStringConverter(), 1,
+                change -> {
+                    String newText = change.getControlNewText();
+                    if (newText.matches("\\d*")) { // chỉ cho chữ số (0-9)
+                        return change;
+                    }
+                    return null;
+                });
+        spinnerAgeGeneral.getEditor().setTextFormatter(formatter);
+    }
+
+    public void exceptions(){
+        TextFormatter<String> formatterPrice = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+        textFieldPriceGeneral.setTextFormatter(formatterPrice);
+        TextFormatter<String> formatterWeight = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+        textFieldWeightGeneral.setTextFormatter(formatterWeight);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        griPaneVision();
+        insertAnimal();
+        insertAge();
+        exceptions();
     }
 
 }
