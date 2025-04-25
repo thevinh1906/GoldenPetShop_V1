@@ -42,4 +42,9 @@ public class Cage extends Product {
     public void setMaterial(String material) {
         this.material.set(material);
     }
+
+    @Override
+    public String toString() {
+        return "Cage";
+    }
 }

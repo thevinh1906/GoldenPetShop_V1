@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 
 import java.time.LocalDate;
 
-public class Food extends Product{
+public class Food extends Product {
     private ObjectProperty<LocalDate> expirationDate;
     private StringProperty flavor;
 
@@ -45,5 +45,10 @@ public class Food extends Product{
 
     public void setFlavor(String flavor) {
         this.flavor.set(flavor);
+    }
+
+    @Override
+    public String toString() {
+        return "Food";
     }
 }

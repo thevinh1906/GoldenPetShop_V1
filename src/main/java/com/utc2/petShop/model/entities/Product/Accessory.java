@@ -13,10 +13,10 @@ public class Accessory extends Product {
         this.brand = new SimpleStringProperty(brand);
     }
 
-    public Accessory(String type, String brand) {
+    public Accessory() {
         super();
-        this.type = new SimpleStringProperty(type);
-        this.brand = new SimpleStringProperty(brand);
+        this.type = new SimpleStringProperty("");
+        this.brand = new SimpleStringProperty("");
     }
 
     public String getType() {
@@ -42,6 +42,12 @@ public class Accessory extends Product {
     public void setBrand(String brand) {
         this.brand.set(brand);
     }
+
+    @Override
+    public String toString() {
+        return "Accessory";
+    }
 }
+
 
 
