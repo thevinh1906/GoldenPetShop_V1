@@ -675,8 +675,8 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddSupplier(ActionEvent event) {
-
+    void actionAddSupplier(ActionEvent event) throws IOException {
+        scenes.openMoreScene("sampleAddSupplier", "Golden Pet Shop", "applicationAddSupplier",false);
     }
 
     @FXML

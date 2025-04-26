@@ -83,7 +83,7 @@
                                   <TextField fx:id="textFieldPriceGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Price" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                   <TextArea fx:id="textAreaDescriptionGeneral" maxWidth="312.0" prefWidth="312.0" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                   <Spinner fx:id="spinnerQuantityGeneral" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                  <ComboBox fx:id="comboBoxSupplierGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                  <ComboBox fx:id="comboBoxSupplierGeneral" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="textFieldManufacturerGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Manufacturer" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label text="Pet supplies:" GridPane.rowIndex="6" />
                         <ChoiceBox fx:id="choiceBoxPetSuppliesGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
