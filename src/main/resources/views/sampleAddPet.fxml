@@ -71,7 +71,7 @@
                               <TextField fx:id="textFieldFurColorGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Fur color" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                               <TextArea fx:id="textAreaDescriptionGeneral" maxWidth="312.0" prefWidth="312.0" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                               <Spinner fx:id="spinnerAgeGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="comboBoxSupplierGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                              <ComboBox fx:id="comboBoxSupplierGeneral" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                               <CheckBox fx:id="checkBoxVaccinatedGeneral" mnemonicParsing="false" prefHeight="28.0" prefWidth="73.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <ChoiceBox fx:id="choiceBoxAnimalGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -102,7 +102,7 @@
                            <children>
                               <Label styleClass="labelPet" text="Breed:" />
                               <Label styleClass="labelPet" text="Trained:" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="comboBoxBreedDog" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="comboBoxBreedDog" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
                               <CheckBox fx:id="checkBoxTrainedDog" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <padding>
@@ -125,7 +125,7 @@
                            <children>
                               <Label styleClass="labelPet" text="Indoor:" GridPane.rowIndex="1" />
                               <Label styleClass="labelPet" text="Eye color:" GridPane.rowIndex="2" />
-                              <ComboBox fx:id="comboBoxBreedCat" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="comboBoxBreedCat" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
                               <CheckBox fx:id="checkBoxIndoorCat" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField fx:id="textFieldEyeColorCat" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Eye color" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label styleClass="labelPet" text="Breed:" />
@@ -143,7 +143,7 @@
                            <children>
                               <Label styleClass="labelPet" text="Breed:" />
                               <Label styleClass="labelPet" text="Tail length:" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="comboBoxBreedHamster" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="comboBoxBreedHamster" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
                               <TextField fx:id="texFieldTailLengthHamster" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Tail length" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <padding>
@@ -162,7 +162,7 @@
                            <children>
                               <Label styleClass="labelPet" text="Breed:" />
                               <Label styleClass="labelPet" text="Ear length:" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="comboBoxBreedRabbit" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="comboBoxBreedRabbit" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" />
                               <TextField fx:id="textFieldEarLengthRabbit" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Ear length" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                            <padding>
