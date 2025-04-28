@@ -200,6 +200,7 @@
                   <Image url="@../images/pet.png" />
                </image>
             </ImageView>
+            <Region prefHeight="200.0" prefWidth="10.0" />
             <Label text="Add pet">
                <font>
                   <Font name="Segoe UI Black" size="36.0" />

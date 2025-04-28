@@ -16,6 +16,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -45,6 +46,7 @@
                         <Image url="@../images/product.png" />
                     </image>
                 </ImageView>
+            <Region prefHeight="200.0" prefWidth="10.0" />
                 <Label text="Add product">
                     <font>
                         <Font name="Segoe UI Black" size="36.0" />
