@@ -10,7 +10,6 @@ import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.services.scenes;
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -376,9 +375,6 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Promotion, Double> tableColumnDiscountPercentPromotion;
 
     @FXML
-    private TableColumn<Promotion, Double> tableColumnDiscountPercentagePromotion;
-
-    @FXML
     private TableColumn<Pet, String> tableColumnEarLengthPet;
 
     @FXML
@@ -665,8 +661,8 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddPromotion(ActionEvent event) {
-
+    void actionAddPromotion(ActionEvent event) throws IOException {
+        scenes.openMoreScene("sampleAddPromotion", "Golden Pet Shop", "applicationAddPromotion",false);
     }
 
     @FXML
@@ -1501,7 +1497,6 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnStartDatePromotion.setCellValueFactory(cellData -> cellData.getValue().startDateProperty().asString());
         tableColumnEndDatePromotion.setCellValueFactory(cellData -> cellData.getValue().endDateProperty().asString());
         tableColumnDiscountPercentPromotion.setCellValueFactory(cellData -> cellData.getValue().discountPercentProperty().asObject());
-        tableColumnDiscountPercentagePromotion.setCellValueFactory(cellData -> cellData.getValue().discountPercentageProperty().asObject());
         tableColumnIsActivePromotion.setCellValueFactory(cellData -> {
             if (cellData.getValue().isIsActive()) {
                 return new SimpleStringProperty("Đã đươc kích hoạt");
