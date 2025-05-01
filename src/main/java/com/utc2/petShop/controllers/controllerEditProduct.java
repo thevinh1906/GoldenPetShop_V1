@@ -13,7 +13,7 @@ import javafx.util.converter.IntegerStringConverter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class controllerAddProduct implements Initializable {
+public class controllerEditProduct implements Initializable {
 
     @FXML
     private Button buttonAdd;
