@@ -200,6 +200,10 @@ public class controllerEditPet implements Initializable {
         textFieldWeightGeneral.setTextFormatter(formatterWeight);
     }
 
+    public void receiveData(Pet obj) {
+        textFieldNameGeneral.setText(obj.getName());  // Làm gì với dữ liệu thì tuỳ em
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

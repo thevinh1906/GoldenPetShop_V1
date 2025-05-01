@@ -33,6 +33,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.function.DoubleBinaryOperator;
 
+import static com.utc2.petShop.model.services.scenes.openMoreScene;
+
 public class controllerHomeAdmin implements Initializable {
 
 
@@ -651,17 +653,17 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionAddCustomer(ActionEvent event) throws IOException {
-        scenes.openMoreScene("sampleAddCustomer", "Golden Pet Shop", "applicationAddCustomer",false);
+        openMoreScene("sampleAddCustomer", "Golden Pet Shop", "applicationAddCustomer",false);
     }
 
     @FXML
     void actionAddPet(ActionEvent event) throws IOException {
-        scenes.openMoreScene("sampleAddPet", "Golden Pet Shop", "applicationAddPet",false);
+        openMoreScene("sampleAddPet", "Golden Pet Shop", "applicationAddPet",false);
     }
 
     @FXML
     void actionAddProduct(ActionEvent event) throws IOException {
-        scenes.openMoreScene("sampleAddProduct", "Golden Pet Shop", "applicationAddProduct",false);
+        openMoreScene("sampleAddProduct", "Golden Pet Shop", "applicationAddProduct",false);
     }
 
     @FXML
@@ -676,12 +678,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionAddSupplier(ActionEvent event) throws IOException {
-        scenes.openMoreScene("sampleAddSupplier", "Golden Pet Shop", "applicationAddSupplier",false);
+        openMoreScene("sampleAddSupplier", "Golden Pet Shop", "applicationAddSupplier",false);
     }
 
     @FXML
     void actionAddUser(ActionEvent event) throws IOException {
-        scenes.openMoreScene("sampleAddUser", "Golden Pet Shop", "applicationAddUser",false);
+        openMoreScene("sampleAddUser", "Golden Pet Shop", "applicationAddUser",false);
     }
 
     @FXML
@@ -806,7 +808,13 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionEditPet(ActionEvent event) {
+    void actionEditPet(ActionEvent event) throws IOException {
+        Pet selectedItem = tableViewPet.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditPet", "Golden Pet Shop", "applicationEditPet", false, (controllerEditPet controller) -> {
+            controller.receiveData(selectedItem);
+        });
+        }
 
     }
 

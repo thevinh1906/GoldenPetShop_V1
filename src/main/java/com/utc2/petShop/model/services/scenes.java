@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class scenes {
     private static Stage primaryStage;
@@ -45,11 +46,15 @@ public class scenes {
         stage.setResizable(false);
         stage.showAndWait(); // Chờ đóng mới về
     }
-    public static void openMoreSceneEdit(String fxml, String title, String css, boolean maximized, Object object) throws IOException {
+
+    public static <T> void openMoreScene(String fxml, String title, String css, boolean maximized, Consumer<T> controllerConsumer) throws IOException {
         FXMLLoader loader = new FXMLLoader(scenes.class.getResource("/views/" + fxml + ".fxml"));
         Parent root = loader.load();
-        ModuleLayer.Controller controller = loader.getController();
         Scene scene = new Scene(root);
+
+        T controller = loader.getController();
+        controllerConsumer.accept(controller);
+
         scene.getStylesheets().add(String.valueOf(scenes.class.getResource("/styles/" + css + ".css")));
         Stage stage = new Stage();
         stage.getIcons().add(new Image("images/logo.png"));
