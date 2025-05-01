@@ -30,7 +30,7 @@
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#actionAdd" prefHeight="40.0" prefWidth="77.0" text="Add">
+                <Button fx:id="buttonAdd" mnemonicParsing="false" onAction="#actionAdd" prefHeight="40.0" prefWidth="90.0" text="Change">
                     <HBox.margin>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                     </HBox.margin>

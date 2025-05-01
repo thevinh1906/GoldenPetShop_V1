@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.entities.Pet;
 
+import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -9,8 +10,8 @@ public class Hamster extends Pet {
     private ObjectProperty<EHamsterBreed> breed;
     private DoubleProperty tailLength;
 
-    public Hamster(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, int supplierID, EHamsterBreed breed, double tailLength) {
-        super(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierID);
+    public Hamster(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, EHamsterBreed breed, double tailLength) {
+        super(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
         this.breed = new SimpleObjectProperty<>(breed);
         this.tailLength = new SimpleDoubleProperty(tailLength);
     }

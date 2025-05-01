@@ -1,5 +1,6 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.model.entities.Pet.Pet;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.event.ActionEvent;
@@ -160,6 +161,13 @@ public class controllerEditProduct implements Initializable {
             }
         });
         textFieldPriceGeneral.setTextFormatter(formatterPrice);
+    }
+
+    public void receiveData(Product obj){
+        textFieldNameGeneral.setText(obj.getName());
+        spinnerQuantityGeneral.getValueFactory().setValue(obj.getQuantity());
+        textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
+
     }
 
     @Override

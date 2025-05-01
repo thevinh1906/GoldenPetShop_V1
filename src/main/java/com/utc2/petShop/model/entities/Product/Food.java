@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.entities.Product;
 
+import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,8 +12,8 @@ public class Food extends Product {
     private ObjectProperty<LocalDate> expirationDate;
     private StringProperty flavor;
 
-    public Food(int id, String name, double price, int quantity, String description, int supplierID, String manufacturer, LocalDate expirationDate, String flavor) {
-        super(id, name, price, quantity, description, supplierID, manufacturer);
+    public Food(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, LocalDate expirationDate, String flavor) {
+        super(id, name, price, quantity, description, supplier, manufacturer);
         this.expirationDate = new SimpleObjectProperty<>(expirationDate);
         this.flavor = new SimpleStringProperty(flavor);
     }

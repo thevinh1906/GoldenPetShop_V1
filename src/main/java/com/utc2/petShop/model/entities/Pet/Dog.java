@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.entities.Pet;
 
+import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,8 +10,8 @@ public class Dog extends Pet {
     private ObjectProperty<EDogBreed> breed;
     private BooleanProperty isTrained;
 
-    public Dog(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, int supplierID,  EDogBreed breed, boolean isTrained) {
-        super(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierID);
+    public Dog(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, EDogBreed breed, boolean isTrained) {
+        super(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
         this.breed = new SimpleObjectProperty<>(breed);
         this.isTrained = new SimpleBooleanProperty(isTrained);
     }
