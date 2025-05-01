@@ -54,6 +54,34 @@ CREATE TABLE PRODUCTS (
     FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
 );
 
+CREATE TABLE Accessory (
+    productId INT PRIMARY KEY,
+    type NVARCHAR(50),
+    brand NVARCHAR(50),
+    FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
+);
+
+CREATE TABLE Cage (
+    productId INT PRIMARY KEY,
+    dimension NVARCHAR(50),
+    material NVARCHAR(50),
+    FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
+);
+
+CREATE TABLE Food (
+    productId INT PRIMARY KEY,
+    expirationDate DATE,
+    flavor NVARCHAR(50),
+    FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
+);
+
+CREATE TABLE Toy (
+    productId INT PRIMARY KEY,
+    material NVARCHAR(50),
+    size NVARCHAR(50),
+    FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
+);
+
 CREATE TABLE PET (
     petId INT PRIMARY KEY,
     name NVARCHAR(50),
@@ -69,6 +97,35 @@ CREATE TABLE PET (
 	description NVARCHAR(250),
 	supplierId INT,
 	FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
+);
+
+CREATE TABLE Cat (
+    petId INT PRIMARY KEY,
+    isIndoor BIT,
+    breed NVARCHAR(50),
+    eyeColor NVARCHAR(50),
+    FOREIGN KEY (petId) REFERENCES PET(petId)
+);
+
+CREATE TABLE Dog (
+    petId INT PRIMARY KEY,
+    breed NVARCHAR(50),
+    isTrained BIT,
+    FOREIGN KEY (petId) REFERENCES PET(petId)
+);
+
+CREATE TABLE Hamster (
+    petId INT PRIMARY KEY,
+    breed NVARCHAR(50),
+    tailLength FLOAT,
+    FOREIGN KEY (petId) REFERENCES PET(petId)
+);
+
+CREATE TABLE Rabbit (
+    petId INT PRIMARY KEY,
+    breed NVARCHAR(50),
+    earLength FLOAT,
+    FOREIGN KEY (petId) REFERENCES PET(petId)
 );
 
 CREATE TABLE PET_WARRANTY (
@@ -108,7 +165,7 @@ CREATE TABLE BILL_DETAIL (
     unitPrice FLOAT,
     itemId INT,
     totalPrice FLOAT,
-    FOREIGN KEY (billId) REFERENCES BILL(billId),
+    FOREIGN KEY (billId) REFERENCES BILL(billId)
 );
 
 CREATE TABLE FEEDBACK (
@@ -128,86 +185,116 @@ CREATE TABLE REVENUE_REPORT (
     totalBill INT
 );
 
+ALTER TABLE PET ADD role NVARCHAR(20);
+ALTER TABLE PRODUCTS ADD role NVARCHAR(20);
+
 
 
 -- INSERT INTO USERS
 INSERT INTO USERS VALUES
-(1, 'admin1', 'admin@123', 'admin1@petshop.com', 'Nguyễn Văn A', 1, '0909123456', 'TP.HCM', '2024-01-01', '1995-05-20'),
-(2, 'staff01', 'staff@123', 'staff01@petshop.com', 'Trần Thị B', 0, '0911123456', 'TP.HCM', '2024-01-05', '1998-03-15'),
-(3, 'johnsmith', '123456', 'johnsmith@gmail.com', 'John Smith', 1, '0932123456', 'USA', '2024-02-02', '2000-04-12'),
-(4, 'ngocanh', 'pass123', 'ngocanh@gmail.com', 'Ngọc Anh', 0, '0988888881', 'Đồng Nai', '2024-03-01', '2002-12-01'),
-(5, 'huynhnhat', 'nhatpass', 'huynhnhat@gmail.com', 'Huỳnh Nhật', 1, '0977888999', 'Bình Dương', '2024-03-02', '1999-10-15'),
-(6, 'trungkien', 'kien123', 'trungkien@gmail.com', 'Trung Kiên', 1, '0911112233', 'Long An', '2024-03-03', '2001-06-06');
+(1, 'admin1', 'admin@123', 'admin1@petshop.com', N'Nguyễn Văn A', 1, '0909123456', N'TP.HCM', '2024-01-01', '1995-05-20'),
+(2, 'staff01', 'staff@123', 'staff01@petshop.com', N'Trần Thị B', 0, '0911123456', N'TP.HCM', '2024-01-05', '1998-03-15'),
+(3, 'johnsmith', '123456', 'johnsmith@gmail.com', N'John Smith', 1, '0932123456', N'USA', '2024-02-02', '2000-04-12'),
+(4, 'ngocanh', 'pass123', 'ngocanh@gmail.com', N'Ngọc Anh', 0, '0988888881', N'Đồng Nai', '2024-03-01', '2002-12-01'),
+(5, 'huynhnhat', 'nhatpass', 'huynhnhat@gmail.com', N'Huỳnh Nhật', 1, '0977888999', N'Bình Dương', '2024-03-02', '1999-10-15'),
+(6, 'trungkien', 'kien123', 'trungkien@gmail.com', N'Trung Kiên', 1, '0911112233', N'Long An', '2024-03-03', '2001-06-06');
 
 -- INSERT INTO CUSTOMER
 INSERT INTO CUSTOMER VALUES
-(1, '0987654321', 'Lê Thị C', 120),
-(2, '0977554433', 'Phạm Văn D', 90),
-(3, '0933445566', 'Nguyễn Văn E', 200),
-(4, '0909001122', 'Trần Mỹ Linh', 45),
-(5, '0966554433', 'Đỗ Mạnh Cường', 78),
-(6, '0933455667', 'Nguyễn Kim Dung', 33);
+(1, '0987654321', N'Lê Thị C', 120),
+(2, '0977554433', N'Phạm Văn D', 90),
+(3, '0933445566', N'Nguyễn Văn E', 200),
+(4, '0909001122', N'Trần Mỹ Linh', 45),
+(5, '0966554433', N'Đỗ Mạnh Cường', 78),
+(6, '0933455667', N'Nguyễn Kim Dung', 33);
 
 
 -- INSERT INTO EMPLOYEE
 INSERT INTO EMPLOYEE VALUES
-(1, 'Quản lý', 20000000, 'Toàn thời gian'),
-(2, 'Nhân viên bán hàng', 10000000, 'Toàn thời gian'),
-(3, 'Tư vấn viên', 8500000, 'Bán thời gian'),
-(4, 'Nhân viên chăm sóc', 9500000, 'Toàn thời gian');
-
+(1, N'Quản lý', 20000000, N'Toàn thời gian'),
+(2, N'Nhân viên bán hàng', 10000000, N'Toàn thời gian'),
+(3, N'Tư vấn viên', 8500000, N'Bán thời gian'),
+(4, N'Nhân viên chăm sóc', 9500000, N'Toàn thời gian');
 
 -- INSERT INTO SUPPLIER
 INSERT INTO SUPPLIER VALUES
-(1, 'Thế Giới Thú Cưng', 'supplier1@gmail.com', '0908888999', 'Q1, TP.HCM'),
-(2, 'PetSupply Co.', 'contact@petsupply.com', '0911999888', 'Q3, TP.HCM'),
-(3, 'Happy Pets', 'happypets@suppliers.com', '0912333444', 'Cần Thơ'),
-(4, 'Dog & Cat World', 'dcw@shop.vn', '0909777555', 'Đà Nẵng');
+(1, N'Thế Giới Thú Cưng', 'supplier1@gmail.com', '0908888999', N'Q1, TP.HCM'),
+(2, N'PetSupply Co.', 'contact@petsupply.com', '0911999888', N'Q3, TP.HCM'),
+(3, N'Happy Pets', 'happypets@suppliers.com', '0912333444', N'Cần Thơ'),
+(4, N'Dog & Cat World', 'dcw@shop.vn', '0909777555', N'Đà Nẵng');
 
 -- INSERT INTO PRODUCTS
 INSERT INTO PRODUCTS VALUES
-(1, 1, 'Thức ăn cho chó', 150000, 50, 'Thức ăn dinh dưỡng cho chó lớn', 'Royal Canin'),
-(2, 1, 'Vòng cổ cho mèo', 70000, 100, 'Vòng cổ có chuông, nhiều màu sắc', 'PetRing'),
-(3, 2, 'Sữa tắm cho chó mèo', 120000, 30, 'Khử mùi và dưỡng lông', 'PetCare'),
-(4, 3, 'Đồ chơi gặm xương', 55000, 70, 'Dành cho chó con', 'PetFun'),
-(5, 3, 'Chuồng mèo mini', 650000, 10, 'Kèm khay vệ sinh', 'PetHome'),
-(6, 4, 'Pate cho mèo', 30000, 80, 'Hương cá hồi', 'Whiskas');
+(1, 1, N'Thức ăn cho chó', 150000, 50, N'Thức ăn dinh dưỡng cho chó lớn', 'Royal Canin', 'Food'),
+(2, 1, N'Vòng cổ cho mèo', 70000, 100, N'Vòng cổ có chuông, nhiều màu sắc', 'PetRing', 'Accessory'),
+(3, 2, N'Sữa tắm cho chó mèo', 120000, 30, N'Khử mùi và dưỡng lông', 'PetCare', 'Accessory'),
+(4, 3, N'Đồ chơi gặm xương', 55000, 70, N'Dành cho chó con', 'PetFun', 'Toy'),
+(5, 3, N'Chuồng mèo mini', 650000, 10, N'Kèm khay vệ sinh', 'PetHome', 'Cage'),
+(6, 4, N'Pate cho mèo', 30000, 80, N'Hương cá hồi', 'Whiskas', 'Food');
+
+INSERT INTO Accessory (productId, type, brand) VALUES
+(2, N'Vòng cổ', 'PetRing'),
+(3, N'Sữa tắm', 'PetCare');
+
+INSERT INTO Cage (productId, dimension, material) VALUES
+(5, '60x40x40 cm', N'Nhựa cứng');
+
+INSERT INTO Food (productId, expirationDate, flavor) VALUES
+(1, '2025-12-31', N'Thịt bò'),
+(6, '2024-11-30', N'Cá hồi');
+
+INSERT INTO Toy (productId, material, size) VALUES
+(4, N'Nhựa dẻo', N'Nhỏ');
 
 -- INSERT INTO PET
 INSERT INTO PET VALUES
-(1, 'Milo', 'Poodle', 2, 1, 4500000, 1, 'Khỏe mạnh', 'Việt Nam', 4.5, 'Nâu vàng', 'Thân thiện, đã tiêm chủng', 1),
-(2, 'Luna', 'Mèo Anh Lông Ngắn', 1, 0, 3500000, 1, 'Tốt', 'Thái Lan', 3.2, 'Xám xanh', 'Dễ gần, sạch sẽ', 2),
-(3, 'Rex', 'Husky', 3, 1, 7000000, 1, 'Cực khỏe', 'Nga', 20.0, 'Trắng đen', 'Hiếu động, cần không gian rộng', 1),
-(4, 'Tom', 'Mèo Ba Tư', 2, 1, 4200000, 1, 'Tốt', 'Iran', 4.1, 'Trắng kem', 'Dễ thương và ngoan', 3),
-(5, 'Kiki', 'Chihuahua', 1, 0, 5000000, 1, 'Khỏe mạnh', 'Mexico', 2.5, 'Vàng nâu', 'Nhỏ gọn, quấn người', 4),
-(6, 'Bin', 'Alaska', 4, 1, 9500000, 1, 'Cực khỏe', 'Canada', 28.0, 'Trắng xám', 'Thân thiện, dễ huấn luyện', 3);
+(1, 'Milo', 'Poodle', 2, 1, 4500000, 1, N'Khỏe mạnh', N'Việt Nam', 4.5, N'Nâu vàng', N'Thân thiện, đã tiêm chủng', 1, 'Dog'),
+(2, 'Luna', N'Mèo Anh Lông Ngắn', 1, 0, 3500000, 1, N'Tốt', N'Thái Lan', 3.2, N'Xám xanh', N'Dễ gần, sạch sẽ', 2, 'Cat'),
+(3, 'Rex', N'Husky', 3, 1, 7000000, 1, N'Cực khỏe', N'Nga', 20.0, N'Trắng đen', N'Hiếu động, cần không gian rộng', 1, 'Dog'),
+(4, 'Tom', N'Mèo Ba Tư', 2, 1, 4200000, 1, N'Tốt', N'Iran', 4.1, N'Trắng kem', N'Dễ thương và ngoan', 3, 'Cat'),
+(5, 'Kiki', N'Chihuahua', 1, 0, 5000000, 1, N'Khỏe mạnh', N'Mexico', 2.5, N'Vàng nâu', N'Nhỏ gọn, quấn người', 4, 'Dog'),
+(6, 'Bin', N'Alaska', 4, 1, 9500000, 1, N'Cực khỏe', N'Canada', 28.0, N'Trắng xám', N'Thân thiện, dễ huấn luyện', 3, 'Dog');
 
+INSERT INTO Cat VALUES 
+(2, 1, N'Mèo Anh Lông Ngắn', N'Xanh'),
+(4, 1, N'Mèo Ba Tư', N'Vàng');
 
+INSERT INTO Dog VALUES 
+(1, 'Poodle', 1),
+(3, 'Husky', 0),
+(5, 'Chihuahua', 1),
+(6, 'Alaska', 1);
+
+INSERT INTO Hamster VALUES 
+(7, N'Hamster Gấu', 2.1);
+
+INSERT INTO Rabbit VALUES 
+(8, N'Thỏ tai cụp', 7.5);
 
 -- INSERT INTO PET_WARRANTY
 INSERT INTO PET_WARRANTY VALUES
-(1, 'Bảo hiểm sức khỏe cơ bản', '2025-01-01', '2026-01-01', 1),
-(2, 'Bảo hiểm toàn diện', '2025-01-10', '2026-01-10', 2),
-(3, 'Bảo hiểm nâng cao', '2025-01-20', '2026-01-20', 3),
-(4, 'Bảo hiểm cơ bản', '2025-02-01', '2026-02-01', 4),
-(5, 'Bảo hiểm tiêu chuẩn', '2025-02-10', '2026-02-10', 5),
-(6, 'Bảo hiểm toàn diện', '2025-03-01', '2026-03-01', 6);
+(1, N'Bảo hiểm sức khỏe cơ bản', '2025-01-01', '2026-01-01', 1),
+(2, N'Bảo hiểm toàn diện', '2025-01-10', '2026-01-10', 2),
+(3, N'Bảo hiểm nâng cao', '2025-01-20', '2026-01-20', 3),
+(4, N'Bảo hiểm cơ bản', '2025-02-01', '2026-02-01', 4),
+(5, N'Bảo hiểm tiêu chuẩn', '2025-02-10', '2026-02-10', 5),
+(6, N'Bảo hiểm toàn diện', '2025-03-01', '2026-03-01', 6);
 
 -- INSERT INTO PROMOTION
 INSERT INTO PROMOTION VALUES
-(1, 'Tết Giảm Giá', 10.0, '2025-01-01', '2025-02-01', 1),
-(2, 'Mùa Hè Sôi Động', 15.0, '2025-06-01', '2025-07-15', 1),
-(3, 'Black Friday', 20.0, '2025-11-20', '2025-11-30', 1),
-(4, 'Valentine Yêu Thương', 12.0, '2025-02-10', '2025-02-15', 1);
+(1, N'Tết Giảm Giá', 10.0, '2025-01-01', '2025-02-01', 1),
+(2, N'Mùa Hè Sôi Động', 15.0, '2025-06-01', '2025-07-15', 1),
+(3, N'Black Friday', 20.0, '2025-11-20', '2025-11-30', 1),
+(4, N'Valentine Yêu Thương', 12.0, '2025-02-10', '2025-02-15', 1);
 
 
 -- INSERT INTO BILL
 INSERT INTO BILL VALUES
-(1, 2, 1, '2025-03-01', 4600000, 'Tiền mặt', 'completed'),
-(2, 2, 2, '2025-03-05', 3700000, 'Chuyển khoản', 'pending'),
-(3, 4, 4, '2025-03-10', 4255000, 'Tiền mặt', 'completed'),
-(4, 5, 5, '2025-03-15', 5030000, 'Chuyển khoản', 'pending'),
-(5, 6, 6, '2025-03-20', 9550000, 'Tiền mặt', 'completed');
+(1, 2, 1, '2025-03-01', 4600000, N'Tiền mặt', 'completed'),
+(2, 2, 2, '2025-03-05', 3700000, N'Chuyển khoản', 'pending'),
+(3, 4, 4, '2025-03-10', 4255000, N'Tiền mặt', 'completed'),
+(4, 5, 5, '2025-03-15', 5030000, N'Chuyển khoản', 'pending'),
+(5, 6, 6, '2025-03-20', 9550000, N'Tiền mặt', 'completed');
 
 -- INSERT INTO BILL_DETAIL
 INSERT INTO BILL_DETAIL VALUES
@@ -220,13 +307,12 @@ INSERT INTO BILL_DETAIL VALUES
 
 -- INSERT INTO FEEDBACK
 INSERT INTO FEEDBACK VALUES
-(1, 3, 5, 'Thú cưng rất dễ thương và khỏe mạnh!', '2025-03-10'),
-(2, 3, 4, 'Nhân viên tư vấn nhiệt tình.', '2025-03-12'),
-(3, 4, 5, 'Cửa hàng rất chuyên nghiệp, nhiều lựa chọn!', '2025-03-18'),
-(4, 5, 3, 'Chó rất đáng yêu nhưng giá hơi cao.', '2025-03-22'),
-(5, 6, 4, 'Tư vấn tốt, ship nhanh.', '2025-03-25');
+(1, 3, 5, N'Thú cưng rất dễ thương và khỏe mạnh!', '2025-03-10'),
+(2, 3, 4, N'Nhân viên tư vấn nhiệt tình.', '2025-03-12'),
+(3, 4, 5, N'Cửa hàng rất chuyên nghiệp, nhiều lựa chọn!', '2025-03-18'),
+(4, 5, 3, N'Chó rất đáng yêu nhưng giá hơi cao.', '2025-03-22'),
+(5, 6, 4, N'Tư vấn tốt, ship nhanh.', '2025-03-25');
 
-SELECT * FROM REVENUE_REPORT;
 
 -- INSERT INTO REVENUE_REPORT
 INSERT INTO REVENUE_REPORT VALUES
@@ -234,8 +320,6 @@ INSERT INTO REVENUE_REPORT VALUES
 (2, '2025-04-01', '2025-04-30', 0, 0),
 (3, '2025-03-01', '2025-03-31', 29035000, 5),
 (4, '2025-04-01', '2025-04-30', 0, 0);
-
-
 
 
 
