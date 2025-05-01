@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.entities.Product;
 
+import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -7,8 +8,8 @@ public class Toy extends Product{
     private StringProperty material;
     private StringProperty size;
 
-    public Toy(int id, String name, double price, int quantity, String description, int supplierID, String manufacturer, String material, String size) {
-        super(id, name, price, quantity, description, supplierID, manufacturer);
+    public Toy(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, String material, String size) {
+        super(id, name, price, quantity, description, supplier, manufacturer);
         this.material = new SimpleStringProperty(material);
         this.size = new SimpleStringProperty(size);
     }

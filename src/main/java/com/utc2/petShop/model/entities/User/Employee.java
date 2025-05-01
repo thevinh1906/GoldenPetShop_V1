@@ -61,4 +61,9 @@ public class Employee extends User {
     public void setWorkingHours(String workingHours) {
         this.workingHours.set(workingHours);
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

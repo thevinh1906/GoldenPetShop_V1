@@ -1,6 +1,8 @@
 package com.utc2.petShop.model.entities.Pet;
 
 
+import com.utc2.petShop.model.entities.Product.Product;
+import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.implement.IPet;
 import javafx.beans.property.*;
 
@@ -16,9 +18,9 @@ public class Pet implements IPet {
     private DoubleProperty weight;
     private StringProperty furColor;
     private StringProperty description;
-    private IntegerProperty supplierID;
+    private ObjectProperty<Supplier> supplier;
 
-    public Pet(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, int supplierID) {
+    public Pet(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -30,7 +32,7 @@ public class Pet implements IPet {
         this.weight = new SimpleDoubleProperty(weight);
         this.furColor = new SimpleStringProperty(furColor);
         this.description = new SimpleStringProperty(description);
-        this.supplierID = new SimpleIntegerProperty(supplierID);
+        this.supplier = new SimpleObjectProperty<Supplier>(supplier);
     }
 
     public Pet() {
@@ -45,7 +47,19 @@ public class Pet implements IPet {
         this.weight = new SimpleDoubleProperty(0);
         this.furColor = new SimpleStringProperty("");
         this.description = new SimpleStringProperty("");
-        this.supplierID = new SimpleIntegerProperty(0);
+        this.supplier = new SimpleObjectProperty<Supplier>(new Supplier());
+    }
+
+    public Supplier getSupplier() {
+        return supplier.get();
+    }
+
+    public ObjectProperty<Supplier> supplierProperty() {
+        return supplier;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier.set(supplier);
     }
 
     public int getId() {
@@ -180,22 +194,11 @@ public class Pet implements IPet {
         this.description.set(description);
     }
 
-    public int getSupplierID() {
-        return supplierID.get();
-    }
-
-    public IntegerProperty supplierIDProperty() {
-        return supplierID;
-    }
-
-    public void setSupplierID(int supplierID) {
-        this.supplierID.set(supplierID);
-    }
-
     @Override
     public String toString() {
         return "";
     }
+
 // phương thức câ thiết
     @Override
     public void displayInfo() {

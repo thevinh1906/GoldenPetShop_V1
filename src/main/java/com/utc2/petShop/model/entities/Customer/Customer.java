@@ -57,4 +57,9 @@ public class Customer {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber.set(phoneNumber);
     }
+
+    @Override
+    public String toString() {
+        return name.get();
+    }
 }

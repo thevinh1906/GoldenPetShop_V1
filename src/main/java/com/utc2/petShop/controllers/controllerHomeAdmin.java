@@ -363,7 +363,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<User, String> tableColumnCreateAtUser;
 
     @FXML
-    private TableColumn<Bill, String> tableColumnCustomerBill;
+    private TableColumn<Bill, Customer> tableColumnCustomerBill;
 
     @FXML
     private TableColumn<Product, String> tableColumnCategoriesProduct;
@@ -390,7 +390,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<User, String> tableColumnEmailUser;
 
     @FXML
-    private TableColumn<Bill, String> tableColumnEmployeeBill;
+    private TableColumn<Bill, Employee> tableColumnEmployeeBill;
 
     @FXML
     private TableColumn<Promotion, String> tableColumnEndDatePromotion;
@@ -561,10 +561,10 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<Bill, String> tableColumnStatusBill;
 
     @FXML
-    private TableColumn<Pet, String> tableColumnSupplierPet;
+    private TableColumn<Pet, Supplier> tableColumnSupplierPet;
 
     @FXML
-    private TableColumn<Product, String> tableColumnSupplierProduct;
+    private TableColumn<Product, Supplier> tableColumnSupplierProduct;
 
     @FXML
     private TableColumn<Pet, String> tableColumnTailLengthPet;
@@ -819,8 +819,13 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionEditProduct(ActionEvent event) {
-
+    void actionEditProduct(ActionEvent event) throws IOException {
+        Product selectedItem = tableViewProduct.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditProduct", "Golden Pet Shop", "applicationEditProduct", false, (controllerEditProduct controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
     }
 
     @FXML
@@ -1175,13 +1180,7 @@ public class controllerHomeAdmin implements Initializable {
                 return new SimpleStringProperty("Cái");
             }
         });
-        tableColumnSupplierPet.setCellValueFactory(cellData -> {
-
-
-            return null;  // gắn lệnh lấy tên supplier từ ID vào đây
-
-
-        });
+        tableColumnSupplierPet.setCellValueFactory(cellData -> cellData.getValue().supplierProperty());
         tableColumnPricePet.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         tableColumnVaccinatedPet.setCellValueFactory(cellData -> cellData.getValue().vaccinatedProperty().asObject());
         tableColumnHealthStatusPet.setCellValueFactory(cellData -> cellData.getValue().healthStatusProperty());
@@ -1227,9 +1226,10 @@ public class controllerHomeAdmin implements Initializable {
         });
 
         ObservableList<Pet> petList = FXCollections.observableArrayList();
+        Supplier supplier = new Supplier(1,"aaa","aa","635","sdad");
 
-        Dog dog1 = new Dog(1, "Bun", 2, true, 150.0, true, "Khỏe mạnh", "Việt Nam", 5.2, "Nâu", "Thân thiện", 1, EDogBreed.CauVang, true);
-        Cat cat1 = new Cat(2, "Meo", 1, false, 100.0, true, "Khỏe mạnh", "Việt Nam", 4.0, "Trắng", "Dễ thương", 2, ECatBreed.MeoCam, true, "cam");
+        Dog dog1 = new Dog(1, "Bun", 2, true, 150.0, true, "Khỏe mạnh", "Việt Nam", 5.2, "Nâu", "Thân thiện", supplier, EDogBreed.CauVang, true);
+        Cat cat1 = new Cat(2, "Meo", 1, false, 100.0, true, "Khỏe mạnh", "Việt Nam", 4.0, "Trắng", "Dễ thương", new Supplier(), ECatBreed.MeoCam, true, "cam");
 
         petList.addAll(dog1, cat1);  // dùng vòng lập để truy xuất dữ liệu từ bảng Pet
 
@@ -1305,21 +1305,17 @@ public class controllerHomeAdmin implements Initializable {
             } else return new SimpleStringProperty("");
         });
 
-        tableColumnSupplierProduct.setCellValueFactory(cellData -> {
-
-            return null;   // bỏ lệnh lấy tên supplier từ id vào đây
-
-        });
+        tableColumnSupplierProduct.setCellValueFactory(cellData -> cellData.getValue().supplierProperty());
 
         tableColumnManufacturerProduct.setCellValueFactory(cellData -> cellData.getValue().manufacturerProperty());
 
         ObservableList<Product> productList = FXCollections.observableArrayList();
 
-        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", 1, "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
+        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", new Supplier(), "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
 
-        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", 2, "haheha", "plastic", "100x100");
+        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", new Supplier(), "haheha", "plastic", "100x100");
 
-        Cage cage1 = new Cage(3, "Chuồng chó", 200000, 30, "dành cho người", 2, "hay hay", "2000x5000x2000", "inox");
+        Cage cage1 = new Cage(3, "Chuồng chó", 200000, 30, "dành cho người", new Supplier(), "hay hay", "2000x5000x2000", "inox");
 
         productList.addAll(cage1, food1, toy1);    // dùng vòng lập để truy xuất dữ liệu từ bảng Product
 
@@ -1478,12 +1474,8 @@ public class controllerHomeAdmin implements Initializable {
 
     public void BillTable() {
         tableColumnIDBill.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf("BI" + cellData.getValue().getId())));
-        tableColumnCustomerBill.setCellValueFactory(cellData -> {
-            return null;   // lệnh lấy tên từ customer
-        });
-        tableColumnEmployeeBill.setCellValueFactory(cellData -> {
-            return null;  // lệnh lấy tên từ employee
-        });
+        tableColumnCustomerBill.setCellValueFactory(cellData -> cellData.getValue().customerProperty());
+        tableColumnEmployeeBill.setCellValueFactory(cellData -> cellData.getValue().employeeProperty());
         tableColumnDateBill.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getInvoiceDate()).asString());
         tableColumnTotalAmountBill.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty().asObject());
         tableColumnPaymentMethodBill.setCellValueFactory(cellData -> cellData.getValue().paymentMethodProperty());
@@ -1492,7 +1484,11 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<Bill> billList = FXCollections.observableArrayList();
 
-        Bill bill = new Bill(1, 1, 1, LocalDate.now(), 1000000, "pay", "thành công");
+        Customer customer = new Customer(1,"Trang Kim Đạt","0396290084");
+
+        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),"đaffa",5562,"fsdfsf");
+
+        Bill bill = new Bill(1, customer, employee, LocalDate.now(), 1000000, "pay", "thành công");
 
         billList.addAll(bill);
 

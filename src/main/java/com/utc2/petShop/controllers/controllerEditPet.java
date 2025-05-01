@@ -201,7 +201,47 @@ public class controllerEditPet implements Initializable {
     }
 
     public void receiveData(Pet obj) {
-        textFieldNameGeneral.setText(obj.getName());  // Làm gì với dữ liệu thì tuỳ em
+        textFieldNameGeneral.setText(obj.getName());
+        spinnerAgeGeneral.getValueFactory().setValue(obj.getAge());
+        if(obj.isGender()){
+            radioButtonMaleGeneral.setSelected(true);
+        }
+        else{
+            radioButtonFemaleGeneral.setSelected(true);
+        }
+        textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
+        checkBoxVaccinatedGeneral.setSelected(obj.isVaccinated());
+        textFieldHealthStatusGeneral.setText(obj.getHealthStatus());
+        textFieldOriginGeneral.setText(obj.getOrigin());
+        textFieldWeightGeneral.setText(String.valueOf(obj.getWeight()));
+        textFieldFurColorGeneral.setText(obj.getFurColor());
+//        comboBoxSupplierGeneral.setValue( /*Hàm bỏ lấy dữ liệu từ ID*/);
+        textAreaDescriptionGeneral.setText(obj.getDescription());
+        if(obj instanceof Dog){
+            Dog dog = (Dog)obj;
+            choiceBoxAnimalGeneral.setValue(dog);
+            comboBoxBreedDog.setValue(dog.getBreed());
+            checkBoxTrainedDog.setSelected(dog.isIsTrained());
+        }
+        else if(obj instanceof Cat){
+            Cat cat = (Cat)obj;
+            choiceBoxAnimalGeneral.setValue(cat);
+            comboBoxBreedCat.setValue(cat.getBreed());
+            checkBoxIndoorCat.setSelected(cat.isIsIndoor());
+            textFieldEyeColorCat.setText(cat.getEyeColor());
+        }
+        else if(obj instanceof Hamster){
+            Hamster hamster = (Hamster)obj;
+            choiceBoxAnimalGeneral.setValue(hamster);
+            comboBoxBreedHamster.setValue(hamster.getBreed());
+            texFieldTailLengthHamster.setText(String.valueOf(hamster.getTailLength()));
+        }
+        else if(obj instanceof Rabbit){
+            Rabbit rabbit = (Rabbit)obj;
+            choiceBoxAnimalGeneral.setValue(rabbit);
+            comboBoxBreedRabbit.setValue(rabbit.getBreed());
+            textFieldEarLengthRabbit.setText(String.valueOf(rabbit.getEarLength()));
+        }
     }
 
     @Override
