@@ -553,7 +553,7 @@
                                  </children>
                               </VBox>
                            </left>
-                           <center>
+                           <top>
                               <ScrollPane fx:id="scrollPaneProduct" BorderPane.alignment="CENTER">
                                  <content>
                                     <TableView fx:id="tableViewProduct">
@@ -583,7 +583,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </BorderPane.margin>
                               </ScrollPane>
-                           </center>
+                           </top>
                         </BorderPane>
                      </children>
                   </StackPane>
@@ -1602,4 +1602,20 @@
          </content>
       </ScrollPane>
    </center>
+   <right>
+      <VBox fx:id="vBoxRight" prefHeight="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="buttonSignOut" mnemonicParsing="false" onAction="#actionSignOut" prefHeight="45.0" prefWidth="150.0" styleClass="buttonCustom" text="Sign out">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="buttonExit" mnemonicParsing="false" onAction="#actionExit" prefHeight="45.0" prefWidth="150.0" styleClass="buttonCustom" text="Exit">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </right>
 </BorderPane>

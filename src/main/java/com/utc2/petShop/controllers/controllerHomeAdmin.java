@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -269,6 +270,12 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private Button buttonUser;
+
+    @FXML
+    private Button buttonSignOut;
+
+    @FXML
+    private Button buttonExit;
 
     @FXML
     private GridPane gridPaneImportProduct;
@@ -643,8 +650,18 @@ public class controllerHomeAdmin implements Initializable {
     private VBox vBoxRightImportProduct;
 
     @FXML
-    void actionAccount(ActionEvent event) {
+    private VBox vBoxRight;
 
+    @FXML
+    void actionAccount(ActionEvent event) {
+        vBoxRight.setVisible(true);
+        vBoxRight.setManaged(true);
+
+        buttonExit.setVisible(false);
+        buttonExit.setManaged(false);
+
+        buttonSignOut.setVisible(true);
+        buttonSignOut.setManaged(true);
     }
 
     @FXML
@@ -668,8 +685,8 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddPromotion(ActionEvent event) {
-
+    void actionAddPromotion(ActionEvent event) throws IOException {
+        openMoreScene("sampleAddPromotion", "Golden Pet Shop", "applicationAddPromotion",false);
     }
 
     @FXML
@@ -1030,7 +1047,14 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionSetting(ActionEvent event) {
+        vBoxRight.setVisible(true);
+        vBoxRight.setManaged(true);
 
+        buttonExit.setVisible(true);
+        buttonExit.setManaged(true);
+
+        buttonSignOut.setVisible(false);
+        buttonSignOut.setManaged(false);
     }
 
     @FXML
@@ -1084,6 +1108,16 @@ public class controllerHomeAdmin implements Initializable {
 
     }
 
+    @FXML
+    void actionSignOut(ActionEvent event) throws IOException {
+        scenes.switchScene("sampleSign_in","Sign in","applicationSign_in",false);
+    }
+
+    @FXML
+    void actionExit(ActionEvent event) {
+        ((Stage)buttonExit.getScene().getWindow()).close();
+    }
+
     public void hideScreen() {
         stackPaneUser.setManaged(false);
         stackPaneUser.setVisible(false);
@@ -1111,6 +1145,15 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneRevenueReport.setVisible(false);
         stackPaneRevenueReport.setManaged(false);
+
+        vBoxRight.setVisible(false);
+        vBoxRight.setManaged(false);
+
+        buttonExit.setVisible(false);
+        buttonExit.setManaged(false);
+
+        buttonSignOut.setVisible(false);
+        buttonSignOut.setManaged(false);
     }
 
     public void heightAdjustment() {
@@ -1558,7 +1601,6 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnStartDatePromotion.setCellValueFactory(cellData -> cellData.getValue().startDateProperty().asString());
         tableColumnEndDatePromotion.setCellValueFactory(cellData -> cellData.getValue().endDateProperty().asString());
         tableColumnDiscountPercentPromotion.setCellValueFactory(cellData -> cellData.getValue().discountPercentProperty().asObject());
-        tableColumnDiscountPercentagePromotion.setCellValueFactory(cellData -> cellData.getValue().discountPercentageProperty().asObject());
         tableColumnIsActivePromotion.setCellValueFactory(cellData -> {
             if (cellData.getValue().isIsActive()) {
                 return new SimpleStringProperty("Đã đươc kích hoạt");
@@ -1570,7 +1612,7 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<Promotion> promotionList = FXCollections.observableArrayList();
 
-        Promotion promotion = new Promotion(1, "mua 3 tặng 1", 100, LocalDate.now(), LocalDate.now().plusMonths(1), 100, true);
+        Promotion promotion = new Promotion(1, "mua 3 tặng 1", 100, LocalDate.now(), LocalDate.now().plusMonths(1), true);
 
         promotionList.add(promotion);
 

@@ -10,16 +10,14 @@ public class Promotion {
     private DoubleProperty discountPercent;
     private ObjectProperty<LocalDate> startDate;
     private ObjectProperty<LocalDate> endDate;
-    private DoubleProperty discountPercentage;
     private BooleanProperty isActive;
 
-    public Promotion(int id, String name, double discountPercent, LocalDate startDate, LocalDate endDate, double discountPercentage, boolean isActive) {
+    public Promotion(int id, String name, double discountPercent, LocalDate startDate, LocalDate endDate, boolean isActive) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.discountPercent = new SimpleDoubleProperty(discountPercent);
         this.startDate = new SimpleObjectProperty<LocalDate>(startDate);
         this.endDate = new SimpleObjectProperty<LocalDate>(endDate);
-        this.discountPercentage = new SimpleDoubleProperty(discountPercentage);
         this.isActive = new SimpleBooleanProperty(isActive);
     }
 
@@ -29,7 +27,6 @@ public class Promotion {
         this.discountPercent = new SimpleDoubleProperty(0);
         this.startDate = new SimpleObjectProperty<LocalDate>(LocalDate.now());
         this.endDate = new SimpleObjectProperty<LocalDate>(LocalDate.now());
-        this.discountPercentage = new SimpleDoubleProperty(0);
         this.isActive = new SimpleBooleanProperty(false);
     }
 
@@ -91,18 +88,6 @@ public class Promotion {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate.set(endDate);
-    }
-
-    public double getDiscountPercentage() {
-        return discountPercentage.get();
-    }
-
-    public DoubleProperty discountPercentageProperty() {
-        return discountPercentage;
-    }
-
-    public void setDiscountPercentage(double discountPercentage) {
-        this.discountPercentage.set(discountPercentage);
     }
 
     public boolean isIsActive() {
