@@ -5,19 +5,29 @@ import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.Admin;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectUser {
-    private Connection conn;
+    private static Connection conn;
 
     public SelectUser(Connection conn) {
         this.conn = conn;
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    static{
+        try{
+            conn = DBConnection.getConnection();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
 
         String sql = """
