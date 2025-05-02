@@ -1,7 +1,7 @@
 package com.utc2.petShop.model.entities.User;
 
 public enum EEmployeePosition {
-    ChuTinh("Chủ tịch"), GiamDoc("Giám đốc"), BaoVe("Bảo vệ");
+    quanLy("Quản lý"), nhanVienBanHang("Nhân viên bán hàng"), tuVanVien("Tư vấn viên"), nhanVienChamSoc("Nhân viên chăm sóc");
 
     String Position;
 

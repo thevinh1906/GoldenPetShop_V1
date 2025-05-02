@@ -11,7 +11,6 @@ import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.services.scenes;
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,11 +28,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.function.DoubleBinaryOperator;
 
 import static com.utc2.petShop.model.services.scenes.openMoreScene;
 
@@ -593,7 +590,7 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<User, String> tableColumnUsernameUser;
 
     @FXML
-    private TableColumn<Pet, Boolean> tableColumnVaccinatedPet;
+    private TableColumn<Pet, String> tableColumnVaccinatedPet;
 
     @FXML
     private TableColumn<Pet, Double> tableColumnWeightPet;
@@ -796,8 +793,13 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionDetailPet(ActionEvent event) {
-
+    void actionDetailPet(ActionEvent event) throws IOException{
+        Pet selectedItem = tableViewPet.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("samplePet", "Golden Pet Shop", "applicationPet", true, (controllerPet controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
     }
 
     @FXML
@@ -1118,6 +1120,18 @@ public class controllerHomeAdmin implements Initializable {
         ((Stage)buttonExit.getScene().getWindow()).close();
     }
 
+
+    private static ObservableList<User> listUser;
+
+//    static {
+//        try {
+//            listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
     public void hideScreen() {
         stackPaneUser.setManaged(false);
         stackPaneUser.setVisible(false);
@@ -1269,14 +1283,21 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnAgePet.setCellValueFactory(cellData -> cellData.getValue().ageProperty().asObject());
         tableColumnGenderPet.setCellValueFactory(cellData -> {
             if (cellData.getValue().isGender()) {
-                return new SimpleStringProperty("Đực");
+                return new SimpleStringProperty("Male");
             } else {
-                return new SimpleStringProperty("Cái");
+                return new SimpleStringProperty("Female");
             }
         });
         tableColumnSupplierPet.setCellValueFactory(cellData -> cellData.getValue().supplierProperty());
         tableColumnPricePet.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        tableColumnVaccinatedPet.setCellValueFactory(cellData -> cellData.getValue().vaccinatedProperty().asObject());
+        tableColumnVaccinatedPet.setCellValueFactory(cellData -> {
+            if (cellData.getValue().isVaccinated()) {
+                return new SimpleStringProperty("Injected");
+            }
+            else{
+                return new SimpleStringProperty("Unvaccinated");
+            }
+        });
         tableColumnHealthStatusPet.setCellValueFactory(cellData -> cellData.getValue().healthStatusProperty());
         tableColumnOriginPet.setCellValueFactory(cellData -> cellData.getValue().originProperty());
         tableColumnWeightPet.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asObject());
@@ -1284,7 +1305,7 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnIsTrainedPet.setCellValueFactory(cellData -> {
             if (cellData.getValue() instanceof Dog) {
                 boolean trained = ((Dog) cellData.getValue()).isTrainedProperty().get();
-                String status = trained ? "Đã huấn luyện" : "Chưa huấn luyện";
+                String status = trained ? "Trained" : "Untrained";
                 return new SimpleStringProperty(status);
             } else
                 return new SimpleStringProperty("");
@@ -1292,7 +1313,7 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnIsIndoorPet.setCellValueFactory(cellData -> {
             if (cellData.getValue() instanceof Cat) {
                 boolean indoor = ((Cat) cellData.getValue()).isIndoorProperty().get();
-                String status = indoor ? "Trong nhà" : "Không trong nhà";
+                String status = indoor ? "In the house" : "Not in the house";
                 return new SimpleStringProperty(status);
             } else
                 return new SimpleStringProperty("");
@@ -1537,11 +1558,13 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<User> userList = FXCollections.observableArrayList();
 
-        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), EEmployeePosition.ChuTinh, 500000000, "Full time");
+        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), EEmployeePosition.quanLy, 500000000, "Full time");
 
         userList.add(user);
 
         tableViewUser.setItems(userList);
+
+//        tableViewUser.setItems(listUser);
 
         autoResizeColumns(tableViewUser);
 
@@ -1582,7 +1605,7 @@ public class controllerHomeAdmin implements Initializable {
 
         Customer customer = new Customer(1,"Trang Kim Đạt","0396290084");
 
-        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),EEmployeePosition.BaoVe,5562,"fsdfsf");
+        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),EEmployeePosition.tuVanVien,5562,"fsdfsf");
 
         Bill bill = new Bill(1, customer, employee, LocalDate.now(), 1000000, "pay", "thành công");
 
