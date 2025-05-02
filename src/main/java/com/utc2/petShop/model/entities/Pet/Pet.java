@@ -47,7 +47,7 @@ public class Pet implements IPet {
         this.weight = new SimpleDoubleProperty(0);
         this.furColor = new SimpleStringProperty("");
         this.description = new SimpleStringProperty("");
-        this.supplier = new SimpleObjectProperty<Supplier>(new Supplier());
+        this.supplier = new SimpleObjectProperty<Supplier>( new Supplier());
     }
 
     public Supplier getSupplier() {

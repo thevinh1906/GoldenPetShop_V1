@@ -1,12 +1,16 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.model.entities.Customer.Customer;
+import com.utc2.petShop.model.entities.Pet.Pet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -15,13 +19,7 @@ import java.util.ResourceBundle;
 public class controllerPet implements Initializable {
 
     @FXML
-    TreeView<String> tree;
-
-    @FXML
-    private ScrollPane SrcollLeft,ScrollCenter;
-
-    @FXML
-    private HBox HBoxSrcollCenter;
+    private ScrollPane ScrollCenter;
 
     @FXML
     private VBox VBoxSrcollCenter;
@@ -36,103 +34,151 @@ public class controllerPet implements Initializable {
     private Button buttonUser;
 
     @FXML
-    private TextField textSreach;
+    private GridPane gridPaneCat;
 
     @FXML
-    private Button buttonBack;
+    private GridPane gridPaneDog;
 
     @FXML
-    private Button buttonForward;
+    private GridPane gridPaneGeneral;
 
     @FXML
-    private Label labelAge;
+    private GridPane gridPaneHamster;
 
     @FXML
-    private Label labelBreed;
+    private GridPane gridPaneRabbit;
 
     @FXML
-    private Label labelFurColor;
+    private ImageView inageViewPet;
 
     @FXML
-    private Label labelGender;
+    private Label labelAgeGeneral;
+
+    @FXML
+    private Label labelBreedCat;
+
+    @FXML
+    private Label labelBreedDog;
+
+    @FXML
+    private Label labelBreedHamster;
+
+    @FXML
+    private Label labelBreedRabbit;
+
+    @FXML
+    private Label labelDescribe;
+
+    @FXML
+    private Label labelEarLengthRabbit;
+
+    @FXML
+    private Label labelEyeColorCat;
+
+    @FXML
+    private Label labelFurColorGeneral;
+
+    @FXML
+    private Label labelGenderGeneral;
 
     @FXML
     private Label labelGiaBan;
 
     @FXML
-    private Label labelHealthStatus;
+    private Label labelHealthStatusGeneral;
 
     @FXML
-    private Label labelMoTa;
+    private Label labelIndoorCat;
 
     @FXML
-    private Label labelName;
+    private Label labelNameGeneral;
 
     @FXML
-    private Label labelPetID;
+    private Label labelOriginGeneral;
 
     @FXML
-    private Label labelVaccinated;
+    private Label labelPetIDGeneral;
 
     @FXML
-    private Label labelWeight;
+    private Label labelSupplierGeneral;
 
+    @FXML
+    private Label labelTailLengthHamster;
 
-    public void actionFind(ActionEvent event) {
-        System.out.println(textSreach.getText());
-        //xử lý sự kiện tìm kiếm
+    @FXML
+    private Label labelTrainedDog;
+
+    @FXML
+    private Label labelVaccinatedGeneral;
+
+    @FXML
+    private Label labelWeightGeneral;
+
+    @FXML
+    private ImageView logoImg;
+
+    @FXML
+    private TextField textSreach;
+
+    @FXML
+    void actionFind(ActionEvent event) {
+
     }
 
-    public void actionSetting(ActionEvent event) {
-        //xử lý sự kiện cài đặt
+    @FXML
+    void actionSetting(ActionEvent event) {
+
     }
 
-    public void actionUser(ActionEvent event) {
-        //xử lý sự kiện user
+    @FXML
+    void actionUser(ActionEvent event) {
+
     }
 
-    public void actionBack(ActionEvent event) {
-        //xử lý sự kiên back
+    public void hideScreen(){
+        gridPaneDog.setVisible(false);
+        gridPaneHamster.setVisible(false);
+        gridPaneRabbit.setVisible(false);
+        gridPaneCat.setVisible(false);
+        gridPaneDog.setManaged(false);
+        gridPaneHamster.setManaged(false);
+        gridPaneRabbit.setManaged(false);
+        gridPaneCat.setManaged(false);
     }
 
-    public void actionForward(ActionEvent event) {
-        //sử lý sự kiện Forward
+    public void petVisible(){
+
+
+
+
     }
 
+    public void receiveData(Pet obj){
+        labelPetIDGeneral.setText(String.valueOf(obj.getId()));
+        labelNameGeneral.setText(obj.getName());
+        labelGiaBan.setText(String.valueOf(obj.getPrice()));
+        labelDescribe.setText(obj.getDescription());
+        labelAgeGeneral.setText(String.valueOf(obj.getAge()));
+        String genderText;
+        if (obj.isGender()) {
+            genderText = "Male";
+        } else {
+            genderText = "Female";
+        }
+        labelGenderGeneral.setText(genderText);
+        if(obj.isVaccinated()){
+            labelVaccinatedGeneral.setText("Injected");
+        }
+        else {
+            labelVaccinatedGeneral.setText("Unvaccinated");
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TreeItem<String> root = new TreeItem<String>();
-        TreeItem<String> user = new TreeItem<String>("User");
-        TreeItem<String> pet = new TreeItem<String>("Pet");
-        TreeItem<String> dog = new TreeItem<String>("Dog");
-        TreeItem<String> cat = new TreeItem<String>("Cat");
-        TreeItem<String> hamster = new TreeItem<String>("Hamster");
-        TreeItem<String> rabbit = new TreeItem<String>("Rabbit");
-        pet.getChildren().addAll(dog, cat, hamster, rabbit);
-        TreeItem<String> product = new TreeItem<String>("Product");
-        TreeItem<String> food = new TreeItem<String>("Food");
-        TreeItem<String> toy = new TreeItem<String>("Toy");
-        TreeItem<String> cage = new TreeItem<String>("Cage");
-        TreeItem<String> accessory = new TreeItem<String>("Accessory");
-        product.getChildren().addAll(food, toy, cage, accessory);
-        TreeItem<String> transaction = new TreeItem<String>("transaction");
-        root.getChildren().addAll(user, pet, product, transaction);
-        tree.setRoot(root);
-        tree.setShowRoot(false);
-        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-        // rằng buộc cho TreeView
-        });
-        labelGiaBan.setText("đưa giá vào đây");
-        labelMoTa.setText("đưa mô tả vào đây");
-        labelName.setText("đưa tên vào đây");
-        labelPetID.setText("đưa Pet ID vào đây");
-        labelAge.setText("đưa tuổi vào đây");
-        labelGender.setText("đưa giới tính vào đây");
-        labelVaccinated.setText("đưa Vaccinated vào đây");
-        labelWeight.setText("đưa cân nặng vào đây");
-        labelHealthStatus.setText("đưa tình trạng sức khoẻ vào đây");
-        labelFurColor.setText("đưa màu lông vào đây");
-        labelBreed.setText("đưa gống vào đây");
+
+        hideScreen();
+
+
     }
 }
