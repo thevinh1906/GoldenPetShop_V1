@@ -9,7 +9,6 @@ public enum EDogBreed {
         this.breed = breed;
     }
 
-    public String getBreed() {
-        return breed;
-    }
+    public String getBreed() {return breed;}
+
 }
