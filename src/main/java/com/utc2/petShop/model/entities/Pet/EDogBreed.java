@@ -9,17 +9,6 @@ public enum EDogBreed {
         this.breed = breed;
     }
 
-    public String getBreed() {
-        return breed;
-    }
-
-    public static EDogBreed fromString(String text) {
-        for (EDogBreed b : EDogBreed.values()) {
-            if (b.breed.equalsIgnoreCase(text)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("No enum constant for breed: " + text);
-    }
+    public String getBreed() {return breed;}
 
 }
