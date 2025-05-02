@@ -7,6 +7,7 @@ import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Promotion.Promotion;
 import com.utc2.petShop.model.entities.RevenueReport.RevenueReport;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.services.scenes;
@@ -697,12 +698,12 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionArrangePetBill(ActionEvent event) {
+    void actionArrangeBill(ActionEvent event) {
 
     }
 
     @FXML
-    void actionArrangePetRevenueReport(ActionEvent event) {
+    void actionArrangeRevenueReport(ActionEvent event) {
 
     }
 
@@ -803,8 +804,13 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionEditCustomer(ActionEvent event) {
-
+    void actionEditCustomer(ActionEvent event) throws IOException {
+        Customer selectedItem = tableViewCustomer.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditCustomer", "Golden Pet Shop", "applicationEditCustomer", false, (controllerEditCustomer controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
     }
 
     @FXML
@@ -834,13 +840,23 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionEditSupplier(ActionEvent event) {
-
+    void actionEditSupplier(ActionEvent event) throws IOException {
+        Supplier selectedItem = tableViewSupplier.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditSupplier", "Golden Pet Shop", "applicationEditSupplier", false, (controllerEditSupplier controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
     }
 
     @FXML
-    void actionEditUser(ActionEvent event) {
-
+    void actionEditUser(ActionEvent event) throws IOException {
+        User selectedItem = tableViewUser.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditUser", "Golden Pet Shop", "applicationEditUser", false, (controllerEditUser controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
     }
 
     @FXML
@@ -1031,6 +1047,41 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPaneUser.setManaged(true);
         stackPaneUser.setVisible(true);
+    }
+
+    @FXML
+    void actionArrangePromotion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionDeletePromotion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionDetailPromotion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionEditPromotion(ActionEvent event) throws IOException {
+        Promotion selectedItem = tableViewPromotion.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditPromotion", "Golden Pet Shop", "applicationEditPromotion", false, (controllerEditPromotion controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
+    }
+
+    @FXML
+    void actionExcelPromotion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionFilterPromotion(ActionEvent event) {
+
     }
 
     public void hideScreen() {
@@ -1311,9 +1362,11 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<Product> productList = FXCollections.observableArrayList();
 
-        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", new Supplier(), "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
+        Supplier supplier = new Supplier(1,"dsf","sdfs","dsfds","fs");
 
-        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", new Supplier(), "haheha", "plastic", "100x100");
+        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", supplier, "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
+
+        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", supplier, "haheha", "plastic", "100x100");
 
         Cage cage1 = new Cage(3, "Chuồng chó", 200000, 30, "dành cho người", new Supplier(), "hay hay", "2000x5000x2000", "inox");
 
@@ -1419,7 +1472,7 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnBirthDateUser.setCellValueFactory(cellData -> new SimpleObjectProperty<LocalDate>(cellData.getValue().getBirthDay()).asString());
         tableColumnPositionUser.setCellValueFactory(cellData -> {
             if (cellData.getValue() instanceof Employee) {
-                return ((Employee) cellData.getValue()).positionProperty();
+                return new SimpleStringProperty(((Employee) cellData.getValue()).getPosition().getPosition());
             } else {
                 return null;
             }
@@ -1441,7 +1494,7 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<User> userList = FXCollections.observableArrayList();
 
-        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), "Chủ tịch", 500000000, "Full time");
+        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), EEmployeePosition.ChuTinh, 500000000, "Full time");
 
         userList.add(user);
 
@@ -1486,7 +1539,7 @@ public class controllerHomeAdmin implements Initializable {
 
         Customer customer = new Customer(1,"Trang Kim Đạt","0396290084");
 
-        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),"đaffa",5562,"fsdfsf");
+        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),EEmployeePosition.BaoVe,5562,"fsdfsf");
 
         Bill bill = new Bill(1, customer, employee, LocalDate.now(), 1000000, "pay", "thành công");
 

@@ -1,40 +1,37 @@
 package com.utc2.petShop.model.entities.User;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
 public class Employee extends User {
-    private StringProperty position;
+    private ObjectProperty<EEmployeePosition> position;
     private DoubleProperty salary;
     private StringProperty workingHours;
 
-    public Employee(int id, String username, String password, String name, boolean gender, String email, String phoneNumber, String address, LocalDate birthDay, LocalDate creationDate, String position, double salary, String workingHours) {
+    public Employee(int id, String username, String password, String name, boolean gender, String email, String phoneNumber, String address, LocalDate birthDay, LocalDate creationDate, EEmployeePosition position, double salary, String workingHours) {
         super(id, username, password, name, gender, email, phoneNumber, address, birthDay, creationDate);
-        this.position = new SimpleStringProperty(position);
+        this.position = new SimpleObjectProperty<EEmployeePosition>(position);
         this.salary = new SimpleDoubleProperty(salary);
         this.workingHours = new SimpleStringProperty(workingHours);
     }
 
     public Employee() {
         super();
-        this.position = new SimpleStringProperty("");
+        this.position = new SimpleObjectProperty<EEmployeePosition>();
         this.salary = new SimpleDoubleProperty(0);
         this.workingHours = new SimpleStringProperty("");
     }
 
-    public String getPosition() {
+    public EEmployeePosition getPosition() {
         return position.get();
     }
 
-    public StringProperty positionProperty() {
+    public ObjectProperty<EEmployeePosition> positionProperty() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(EEmployeePosition position) {
         this.position.set(position);
     }
 
