@@ -1260,7 +1260,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePetBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1325,7 +1325,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonDeletePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
+                                    <Button fx:id="buttonDeletePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeletePromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1340,7 +1340,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonEditPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
+                                    <Button fx:id="buttonEditPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1355,7 +1355,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonDetailPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
+                                    <Button fx:id="buttonDetailPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1375,7 +1375,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1390,7 +1390,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1405,7 +1405,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePetRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1551,7 +1551,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePetRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>

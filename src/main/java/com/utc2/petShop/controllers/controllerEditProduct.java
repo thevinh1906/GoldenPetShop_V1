@@ -167,7 +167,33 @@ public class controllerEditProduct implements Initializable {
         textFieldNameGeneral.setText(obj.getName());
         spinnerQuantityGeneral.getValueFactory().setValue(obj.getQuantity());
         textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
-
+        comboBoxSupplierGeneral.setValue(obj.getSupplier());
+        textAreaDescriptionGeneral.setText(obj.getDescription());
+        textFieldManufacturerGeneral.setText(obj.getManufacturer());
+        if(obj instanceof Food){
+            Food food = (Food) obj;
+            choiceBoxPetSuppliesGeneral.setValue(food);
+            datePickerExpirationDateFood.setValue(food.getExpirationDate());
+            textFieldFlavorFood.setText(food.getFlavor());
+        }
+        else if(obj instanceof Toy){
+            Toy toy = (Toy) obj;
+            choiceBoxPetSuppliesGeneral.setValue(toy);
+            textFiieldMaterialToy.setText(toy.getMaterial());
+            textFiieldSizeToy.setText(toy.getSize());
+        }
+        else if(obj instanceof Cage){
+            Cage cage = (Cage) obj;
+            choiceBoxPetSuppliesGeneral.setValue(cage);
+            textFieldMaterialCage.setText(cage.getMaterial());
+            textFieldDimensionCage.setText(cage.getDimension());
+        }
+        else if(obj instanceof Accessory){
+            Accessory accessory = (Accessory) obj;
+            choiceBoxPetSuppliesGeneral.setValue(accessory);
+            textFielldTypeAccessory.setText(accessory.getType());
+            textFielldBrandAccessory.setText(accessory.getBrand());
+        }
     }
 
     @Override

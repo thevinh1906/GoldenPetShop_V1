@@ -215,7 +215,7 @@ public class controllerEditPet implements Initializable {
         textFieldOriginGeneral.setText(obj.getOrigin());
         textFieldWeightGeneral.setText(String.valueOf(obj.getWeight()));
         textFieldFurColorGeneral.setText(obj.getFurColor());
-//        comboBoxSupplierGeneral.setValue( /*Hàm bỏ lấy dữ liệu từ ID*/);
+        comboBoxSupplierGeneral.setValue(obj.getSupplier());
         textAreaDescriptionGeneral.setText(obj.getDescription());
         if(obj instanceof Dog){
             Dog dog = (Dog)obj;
