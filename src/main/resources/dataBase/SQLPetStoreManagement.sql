@@ -179,8 +179,8 @@ CREATE TABLE FEEDBACK (
 
 CREATE TABLE REVENUE_REPORT (
     reportId INT IDENTITY(1,1) PRIMARY KEY ,
-    startMonthYear DATE,
-    endMonthYear DATE,
+    month INT,
+    year INT,
     totalRevenue FLOAT,
     totalBill INT
 );
@@ -316,10 +316,10 @@ INSERT INTO FEEDBACK VALUES
 
 -- INSERT INTO REVENUE_REPORT
 INSERT INTO REVENUE_REPORT VALUES
-('2025-03-01', '2025-03-31', 8300000, 2),
-('2025-04-01', '2025-04-30', 0, 0),
-('2025-03-01', '2025-03-31', 29035000, 5),
-('2025-04-01', '2025-04-30', 0, 0);
+('3', '2025', 8300000, 2),
+('8', '2024', 0, 0),
+('6', '2025', 29035000, 5),
+('4', '2025', 0, 0);
 
 
 
