@@ -42,4 +42,26 @@ public class SelectCustomer {
 
         return customers;
     }
+
+    public static Customer getCustomerById(int customerId) throws SQLException {
+        String sql = "SELECT * FROM CUSTOMER WHERE customerId = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, customerId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Customer customer = new Customer();
+                    customer.setId(rs.getInt("customerId"));
+                    customer.setName(rs.getString("customerName"));
+                    customer.setPhoneNumber(rs.getString("phoneNumber"));
+//                  customer.setPoint(rs.getInt("point")); // Nếu cần sử dụng thì mở dòng này
+
+                    return customer;
+                }
+            }
+        }
+
+        return null;
+    }
 }
