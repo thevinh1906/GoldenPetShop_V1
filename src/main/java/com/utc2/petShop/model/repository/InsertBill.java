@@ -15,15 +15,15 @@ public class InsertBill {
     private static final String password = "123456";
 
     public static void insertBill (int id, Employee employee, Customer customer, Date invoiceDate, double totalAmount, String paymentMethod, String status) {
-        String sql = "INSERT INTO SUPPLIER (billId, userId, customerId, date, totalAmount, paymentMethod, status) " +
+        String insertBill = "INSERT INTO SUPPLIER (billId, userId, customerId, date, totalAmount, paymentMethod, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(insertBill)) {
 
             stmt.setInt(1, id);
-            stmt.setInt(2, id);
-            stmt.setInt(3, id);
+            stmt.setInt(2, employee.getId());
+            stmt.setInt(3, customer.getId());
             stmt.setDate(4, (java.sql.Date) invoiceDate);
             stmt.setDouble(5, totalAmount);
             stmt.setString(6, paymentMethod);
