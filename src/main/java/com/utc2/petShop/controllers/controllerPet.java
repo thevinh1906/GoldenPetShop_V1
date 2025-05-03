@@ -135,7 +135,7 @@ public class controllerPet implements Initializable {
 
     }
 
-    public void hideScreen(){
+    public void hideScreen() {
         gridPaneDog.setVisible(false);
         gridPaneHamster.setVisible(false);
         gridPaneRabbit.setVisible(false);
@@ -146,19 +146,12 @@ public class controllerPet implements Initializable {
         gridPaneCat.setManaged(false);
     }
 
-    public void petVisible(){
-
-
-
-
-    }
-
-    public void receiveData(Pet obj){
-        labelPetIDGeneral.setText(String.valueOf(obj.getId()));
+    public void receiveData(Pet obj) {
+        labelPetIDGeneral.setText(String.valueOf("PE" + obj.getId()));
         labelNameGeneral.setText(obj.getName());
         labelGiaBan.setText(String.valueOf(obj.getPrice() + "$"));
         labelDescribe.setText(obj.getDescription());
-        labelAgeGeneral.setText(String.valueOf(obj.getAge()));
+        labelAgeGeneral.setText(String.valueOf(obj.getAge() + "month"));
         String genderText;
         if (obj.isGender()) {
             genderText = "Male";
@@ -166,10 +159,9 @@ public class controllerPet implements Initializable {
             genderText = "Female";
         }
         labelGenderGeneral.setText(genderText);
-        if(obj.isVaccinated()){
+        if (obj.isVaccinated()) {
             labelVaccinatedGeneral.setText("Injected");
-        }
-        else {
+        } else {
             labelVaccinatedGeneral.setText("Unvaccinated");
         }
         labelWeightGeneral.setText(String.valueOf(obj.getWeight()));
@@ -177,13 +169,12 @@ public class controllerPet implements Initializable {
         labelHealthStatusGeneral.setText(obj.getHealthStatus());
         labelFurColorGeneral.setText(obj.getFurColor());
         labelSupplierGeneral.setText(String.valueOf(obj.getSupplier()));
-        if(obj instanceof Dog){
+        if (obj instanceof Dog) {
             Dog dog = (Dog) obj;
-            labelBreedDog.setText(String.valueOf(dog.getBreed()));
-            if(dog.isIsTrained()){
+            labelBreedDog.setText(String.valueOf(dog.getBreed().getBreed()));
+            if (dog.isIsTrained()) {
                 labelTrainedDog.setText("Trained");
-            }
-            else {
+            } else {
                 labelTrainedDog.setText("Untrained");
             }
 
@@ -191,14 +182,12 @@ public class controllerPet implements Initializable {
 
             gridPaneDog.setVisible(true);
             gridPaneDog.setManaged(true);
-        }
-        else if(obj instanceof Cat){
+        } else if (obj instanceof Cat) {
             Cat cat = (Cat) obj;
-            labelBreedCat.setText(String.valueOf(cat.getBreed()));
-            if(cat.isIsIndoor()){
+            labelBreedCat.setText(String.valueOf(cat.getBreed().getBreed()));
+            if (cat.isIsIndoor()) {
                 labelIndoorCat.setText("Indoor");
-            }
-            else {
+            } else {
                 labelIndoorCat.setText("Unindoor");
             }
             labelEyeColorCat.setText(String.valueOf(cat.getEyeColor()));
@@ -207,19 +196,17 @@ public class controllerPet implements Initializable {
 
             gridPaneCat.setVisible(true);
             gridPaneCat.setManaged(true);
-        }
-        else if (obj instanceof Hamster){
+        } else if (obj instanceof Hamster) {
             Hamster hamster = (Hamster) obj;
-            labelBreedHamster.setText(String.valueOf(hamster.getBreed()));
+            labelBreedHamster.setText(String.valueOf(hamster.getBreed().getBreed()));
             labelTailLengthHamster.setText(String.valueOf(hamster.getTailLength()));
 
             hideScreen();
             gridPaneHamster.setVisible(true);
             gridPaneHamster.setManaged(true);
-        }
-        else if (obj instanceof Rabbit){
+        } else if (obj instanceof Rabbit) {
             Rabbit rabbit = (Rabbit) obj;
-            labelBreedRabbit.setText(String.valueOf(rabbit.getBreed()));
+            labelBreedRabbit.setText(String.valueOf(rabbit.getBreed().getBreed()));
             labelEarLengthRabbit.setText(String.valueOf(rabbit.getEarLength()));
 
             hideScreen();

@@ -805,8 +805,13 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionDetailProduct(ActionEvent event) {
-
+    void actionDetailProduct(ActionEvent event) throws IOException {
+        Product selectedItem = tableViewProduct.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleProduct", "Golden Pet Shop", "applicationProduct", true, (controllerProduct controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
     }
 
     @FXML
