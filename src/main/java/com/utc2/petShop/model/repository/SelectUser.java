@@ -77,4 +77,51 @@ public class SelectUser {
 
         return users;
     }
+    public static User getUserById(int userId) throws SQLException {
+        String sql = """
+        SELECT u.*, e.position, e.salary, e.workingHours
+        FROM USERS u
+        LEFT JOIN EMPLOYEE e ON u.userId = e.userId
+        WHERE u.userId = ?
+    """;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+                    String fullName = rs.getString("fullName");
+                    boolean gender = rs.getBoolean("gender");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phoneNumber");
+                    String address = rs.getString("address");
+                    LocalDate birth = rs.getDate("birthDate").toLocalDate();
+                    LocalDate createAt = rs.getDate("createAt").toLocalDate();
+
+                    String positionStr = rs.getString("position");
+
+                    if (positionStr != null) {
+                        double salary = rs.getDouble("salary");
+                        String workingHours = rs.getString("workingHours");
+
+                        EEmployeePosition pos = null;
+                        for (EEmployeePosition p : EEmployeePosition.values()) {
+                            if (p.getPosition().equals(positionStr)) {
+                                pos = p;
+                                break;
+                            }
+                        }
+
+                        return new Employee(userId, username, password, fullName, gender, email, phone, address,
+                                birth, createAt, pos, salary, workingHours);
+                    } else {
+                        return new Admin(userId, username, password, fullName, gender, email, phone, address, birth, createAt);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
 }
