@@ -10,8 +10,7 @@ import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
-import com.utc2.petShop.model.repository.SelectProduct;
-import com.utc2.petShop.model.repository.SelectUser;
+import com.utc2.petShop.model.repository.*;
 import com.utc2.petShop.model.services.scenes;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -1004,6 +1003,10 @@ public class controllerHomeAdmin implements Initializable {
 
             labelTotalCostImportProduct.setText(String.valueOf(totalPrice));
         }
+
+        autoResizeColumns(tableViewRightImportProduct);
+
+        tableViewRightImportProduct.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 //    }
 
@@ -1148,6 +1151,65 @@ public class controllerHomeAdmin implements Initializable {
         }
     }
 
+    private static ObservableList<Pet> listPet;
+
+    static {
+        try {
+            listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Supplier> listSupplier;
+
+    static {
+        try {
+            listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Customer> listCustomer;
+
+    static {
+        try {
+            listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Bill> listBill;
+
+    static {
+        try {
+            listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Promotion> listPromotion;
+
+    static {
+        try {
+            listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+//    private static ObservableList<RevenueReport> listRevenueReport;
+//
+//    static {
+//        try {
+//            listRevenueReport = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     public void hideScreen() {
         stackPaneUser.setManaged(false);
@@ -1367,6 +1429,8 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPet.setItems(petList);    // bỏ list vào đây
 
+        tableViewPet.setItems(listPet);
+
         autoResizeColumns(tableViewPet);
 
         tableViewPet.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1483,6 +1547,8 @@ public class controllerHomeAdmin implements Initializable {
         supplierList.addAll(supplier1, supplier2, supplier3);
 
         tableViewSupplier.setItems(supplierList);
+
+        tableViewSupplier.setItems(listSupplier);
 
         autoResizeColumns(tableViewSupplier);
 
@@ -1605,6 +1671,8 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewCustomer.setItems(customerList);
 
+        tableViewCustomer.setItems(listCustomer);
+
         autoResizeColumns(tableViewCustomer);
 
         tableViewCustomer.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1631,6 +1699,8 @@ public class controllerHomeAdmin implements Initializable {
         billList.addAll(bill);
 
         tableViewBill.setItems(billList);
+
+        tableViewBill.setItems(listBill);
 
         autoResizeColumns(tableViewBill);
 
@@ -1660,6 +1730,8 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPromotion.setItems(promotionList);
 
+        tableViewPromotion.setItems(listPromotion);
+
         autoResizeColumns(tableViewPromotion);
 
         tableViewPromotion.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1679,6 +1751,8 @@ public class controllerHomeAdmin implements Initializable {
         revenueReportList.add(revenueReport);
 
         tableViewRevenueReport.setItems(revenueReportList);
+
+//        tableViewRevenueReport.setItems(listRevenueReport);
 
         autoResizeColumns(tableViewRevenueReport);
 

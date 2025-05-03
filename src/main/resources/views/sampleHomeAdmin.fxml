@@ -1433,7 +1433,6 @@
                                           <TableColumn fx:id="tableColumnDiscountPercentPromotion" prefWidth="-1.0" text="Discount percent" />
                                           <TableColumn fx:id="tableColumnStartDatePromotion" prefWidth="-1.0" text="Start date" />
                                           <TableColumn fx:id="tableColumnEndDatePromotion" prefWidth="-1.0" text="End date" />
-                                          <TableColumn fx:id="tableColumnDiscountPercentagePromotion" prefWidth="-1.0" text="Discount percentage" />
                                           <TableColumn fx:id="tableColumnIsActivePromotion" prefWidth="-1.0" text="Is active" />
                                           <TableColumn fx:id="tableColumnNotePromotion" prefWidth="-1.0" text="Note" />
                                        </columns>
