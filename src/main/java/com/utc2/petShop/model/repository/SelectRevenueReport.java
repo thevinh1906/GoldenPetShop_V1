@@ -28,7 +28,7 @@ public class SelectRevenueReport {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("reportId");
                 int month = rs.getInt("month");
                 int year = rs.getInt("year");
                 double totalRevenue = rs.getDouble("totalRevenue");
