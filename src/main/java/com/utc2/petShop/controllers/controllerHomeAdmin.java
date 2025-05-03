@@ -1144,85 +1144,85 @@ public class controllerHomeAdmin implements Initializable {
     }
 
 
-//    private static ObservableList<User> listUser;
-//
-//    static {
-//        try {
-//            listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static ObservableList<Product> listProducts;
-//
-//    static {
-//        try {
-//            listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static ObservableList<Pet> listPet;
-//
-//    static {
-//        try {
-//            listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static ObservableList<Supplier> listSupplier;
-//
-//    static {
-//        try {
-//            listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static ObservableList<Customer> listCustomer;
-//
-//    static {
-//        try {
-//            listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static ObservableList<Bill> listBill;
-//
-//    static {
-//        try {
-//            listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    private static ObservableList<Promotion> listPromotion;
-//
-//    static {
-//        try {
-//            listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    private static ObservableList<User> listUser;
 
-//    private static ObservableList<RevenueReport> listRevenueReport;
-//
-//    static {
-//        try {
-//            listRevenueReport = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    static {
+        try {
+            listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Product> listProducts;
+
+    static {
+        try {
+            listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Pet> listPet;
+
+    static {
+        try {
+            listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Supplier> listSupplier;
+
+    static {
+        try {
+            listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Customer> listCustomer;
+
+    static {
+        try {
+            listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Bill> listBill;
+
+    static {
+        try {
+            listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Promotion> listPromotion;
+
+    static {
+        try {
+            listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<RevenueReport> listRevenueReport;
+
+    static {
+        try {
+            listRevenueReport = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void hideScreen() {
         stackPaneUser.setManaged(false);
@@ -1442,26 +1442,7 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPet.setItems(petList);    // bỏ list vào đây
 
-//        tableViewPet.setItems(listPet);
-
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<Pet> listPet = null;
-            try {
-                listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Nếu có thay đổi
-            if (!listPet.equals(tableViewPet.getItems())) {
-                List<Pet> finalNewData = listPet;
-                Platform.runLater(() -> {
-                    tableViewPet.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        tableViewPet.setItems(listPet);
 
         autoResizeColumns(tableViewPet);
 
@@ -1549,29 +1530,9 @@ public class controllerHomeAdmin implements Initializable {
 
         productList.addAll(cage1, food1, toy1);    // dùng vòng lập để truy xuất dữ liệu từ bảng Product
 
-//        tableViewProduct.setItems(productList);    // bỏ list vào đây
+//        tableViewProduct.setItems(productList);
 
-//        tableViewProduct.setItems(listProducts);
-
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<Product> listProducts = null;
-            try {
-                listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Nếu có thay đổi
-            if (!listProducts.equals(tableViewProduct.getItems())) {
-                List<Product> finalNewData = listProducts;
-                Platform.runLater(() -> {
-                    tableViewProduct.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
-
+        tableViewProduct.setItems(listProducts);
 
         autoResizeColumns(tableViewProduct);
 
@@ -1598,28 +1559,11 @@ public class controllerHomeAdmin implements Initializable {
 
         supplierList.addAll(supplier1, supplier2, supplier3);
 
-        tableViewSupplier.setItems(supplierList);
+//        tableViewSupplier.setItems(supplierList);
 
-//        tableViewSupplier.setItems(listSupplier);
+        tableViewSupplier.setItems(listSupplier);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<Supplier> listSupplier = null;
-            try {
-                listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
 
-            // Nếu có thay đổi
-            if (!listSupplier.equals(tableViewSupplier.getItems())) {
-                List<Supplier> finalNewData = listSupplier;
-                Platform.runLater(() -> {
-                    tableViewSupplier.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
 
         autoResizeColumns(tableViewSupplier);
 
@@ -1662,7 +1606,7 @@ public class controllerHomeAdmin implements Initializable {
             }
         });
 
-        tableViewLeftImportProduct.getItems().addAll(tableViewProduct.getItems());
+        tableViewLeftImportProduct.setItems(listProducts);
 
         autoResizeColumns(tableViewLeftImportProduct);
 
@@ -1720,26 +1664,8 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewUser.setItems(userList);
 
-//        tableViewUser.setItems(listUser);
+        tableViewUser.setItems(listUser);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<User> listUser = null;
-            try {
-                listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Nếu có thay đổi
-            if (!listUser.equals(tableViewUser.getItems())) {
-                List<User> finalNewData = listUser;
-                Platform.runLater(() -> {
-                    tableViewUser.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
 
         autoResizeColumns(tableViewUser);
 
@@ -1761,26 +1687,8 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewCustomer.setItems(customerList);
 
-//        tableViewCustomer.setItems(listCustomer);
+        tableViewCustomer.setItems(listCustomer);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<Customer> listCustomer = null;
-            try {
-                listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Nếu có thay đổi
-            if (!listCustomer.equals(tableViewCustomer.getItems())) {
-                List<Customer> finalNewData = listCustomer;
-                Platform.runLater(() -> {
-                    tableViewCustomer.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
 
         autoResizeColumns(tableViewCustomer);
 
@@ -1809,26 +1717,9 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewBill.setItems(billList);
 
-//        tableViewBill.setItems(listBill);
+        tableViewBill.setItems(listBill);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<Bill> listBill = null;
-            try {
-                listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
 
-            // Nếu có thay đổi
-            if (!listBill.equals(tableViewBill.getItems())) {
-                List<Bill> finalNewData = listBill;
-                Platform.runLater(() -> {
-                    tableViewBill.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
 
         autoResizeColumns(tableViewBill);
 
@@ -1858,26 +1749,7 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPromotion.setItems(promotionList);
 
-//        tableViewPromotion.setItems(listPromotion);
-
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<Promotion> listPromotion = null;
-            try {
-                listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-
-            // Nếu có thay đổi
-            if (!listPromotion.equals(tableViewPromotion.getItems())) {
-                List<Promotion> finalNewData = listPromotion;
-                Platform.runLater(() -> {
-                    tableViewPromotion.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        tableViewPromotion.setItems(listPromotion);
 
         autoResizeColumns(tableViewPromotion);
 
@@ -1899,26 +1771,9 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewRevenueReport.setItems(revenueReportList);
 
-//        tableViewRevenueReport.setItems(listRevenueReport);
+        tableViewRevenueReport.setItems(listRevenueReport);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            // Truy vấn DB để lấy dữ liệu mới
-            List<RevenueReport> listRevenueReport = null;
-            try {
-                listRevenueReport = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
 
-            // Nếu có thay đổi
-            if (!listRevenueReport.equals(tableViewRevenueReport.getItems())) {
-                List<RevenueReport> finalNewData = listRevenueReport;
-                Platform.runLater(() -> {
-                    tableViewRevenueReport.getItems().setAll(finalNewData);
-                });
-            }
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
 
         autoResizeColumns(tableViewRevenueReport);
 
