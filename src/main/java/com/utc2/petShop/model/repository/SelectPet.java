@@ -10,11 +10,9 @@ import java.util.List;
 
 public class SelectPet {
     private static Connection conn;
-    private static SelectSupplier supplierRepo;
 
     public SelectPet(Connection conn) {
         this.conn = conn;
-        this.supplierRepo = new SelectSupplier(conn);
     }
     static{
         try{
@@ -57,7 +55,7 @@ public class SelectPet {
                 String description = rs.getString("description");
                 int supplierId = rs.getInt("supplierId");
 
-                Supplier supplier = supplierRepo.getSupplierById(supplierId);
+                Supplier supplier = SelectSupplier.getSupplierById(supplierId);
 
                 Pet pet = null;
 
