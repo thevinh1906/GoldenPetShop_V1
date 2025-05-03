@@ -5,20 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 public class InsertCustomer {
-    private static final String url = "jdbc:mysql://localhost:3306/your_database_name";
-    private static final String user = "your_username";
-    private static final String password = "your_password";
 
-    public static void insertCustomer (int id, String phoneNumber, String name) {
-        String insertCustomer = "INSERT INTO USERS (customerId, phoneNumber, customerName) " +
-                "VALUES (?, ?, ?)";
+    public static void insertCustomer (String phoneNumber, String name) {
+        String insertCustomer = "INSERT INTO CUSTOMER (phoneNumber,customerName) " +
+                "VALUES (?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(insertCustomer)) {
 
-            stmt.setInt(1, id);
-            stmt.setString(2, phoneNumber);
-            stmt.setString(3, name);
+            stmt.setString(1, phoneNumber);
+            stmt.setString(2, name);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {

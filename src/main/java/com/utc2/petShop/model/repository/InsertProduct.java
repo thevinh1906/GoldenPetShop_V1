@@ -2,6 +2,7 @@ package com.utc2.petShop.model.repository;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,15 +11,12 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class InsertProduct {
-    private static final String url = "jdbc:sqlserver://localhost:1433;databaseName=PetShopManagement;encrypt=true;trustServerCertificate=true";
-    private static final String user = "sa";
-    private static final String password = "123456";
 
     public static void insertSupplier (int productId, Supplier supplier, String name, double price, int quantity, String description,
                                        String manufacturer,String type, String brand,
                                        Date expirationDate, String flavor, String dimension,
                                        String material, String size, String role) {
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (Connection conn = DBConnection.getConnection()) {
             String insertProduct = "INSERT INTO SUPPLIER (productId, supplierId, name, price, quantity,description,manufacturer) " +
                 "VALUES (?, ?, ?, ?, ?,?,?)";
 
@@ -63,7 +61,7 @@ public class InsertProduct {
 
             System.out.println("✅ Thêm thành công.");
 
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi thêm sản phẩm : " + e.getMessage());
         }

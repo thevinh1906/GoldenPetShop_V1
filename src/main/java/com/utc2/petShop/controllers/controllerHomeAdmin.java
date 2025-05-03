@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -674,23 +675,31 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddCustomer(ActionEvent event) throws IOException {
+    void actionAddCustomer(ActionEvent event) throws IOException, SQLException {
         openMoreScene("sampleAddCustomer", "Golden Pet Shop", "applicationAddCustomer",false);
+        listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
+        tableViewCustomer.setItems(listCustomer);
     }
 
     @FXML
-    void actionAddPet(ActionEvent event) throws IOException {
+    void actionAddPet(ActionEvent event) throws IOException, SQLException {
         openMoreScene("sampleAddPet", "Golden Pet Shop", "applicationAddPet",false);
+        listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
+        tableViewPet.setItems(listPet);
     }
 
     @FXML
-    void actionAddProduct(ActionEvent event) throws IOException {
+    void actionAddProduct(ActionEvent event) throws IOException, SQLException {
         openMoreScene("sampleAddProduct", "Golden Pet Shop", "applicationAddProduct",false);
+        listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+        tableViewProduct.setItems(listProducts);
     }
 
     @FXML
-    void actionAddPromotion(ActionEvent event) throws IOException {
+    void actionAddPromotion(ActionEvent event) throws IOException, SQLException {
         openMoreScene("sampleAddPromotion", "Golden Pet Shop", "applicationAddPromotion",false);
+        listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
+        tableViewPromotion.setItems(listPromotion);
     }
 
     @FXML
@@ -699,13 +708,17 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddSupplier(ActionEvent event) throws IOException {
+    void actionAddSupplier(ActionEvent event) throws IOException, SQLException {
         openMoreScene("sampleAddSupplier", "Golden Pet Shop", "applicationAddSupplier",false);
+        listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+        tableViewSupplier.setItems(listSupplier);
     }
 
     @FXML
-    void actionAddUser(ActionEvent event) throws IOException {
+    void actionAddUser(ActionEvent event) throws IOException, SQLException {
         openMoreScene("sampleAddUser", "Golden Pet Shop", "applicationAddUser",false);
+        listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
+        tableViewUser.setItems(listUser);
     }
 
     @FXML
@@ -760,13 +773,19 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionDeleteBill(ActionEvent event) {
-
+    void actionDeleteBill(ActionEvent event) throws SQLException {
+        Bill bill = tableViewBill.getSelectionModel().getSelectedItem();
+        DeleteBill.deleteBillById(bill.getId());
+        listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
+        tableViewBill.setItems(listBill);
     }
 
     @FXML
-    void actionDeleteCustomer(ActionEvent event) {
-
+    void actionDeleteCustomer(ActionEvent event) throws SQLException {
+        Customer customer = tableViewCustomer.getSelectionModel().getSelectedItem();
+        DeleteCustomer.deleteCustomerById(customer.getId());
+        listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
+        tableViewCustomer.setItems(listCustomer);
     }
 
     @FXML
@@ -774,28 +793,41 @@ public class controllerHomeAdmin implements Initializable {
 //        Pet pet = tableViewPet.getSelectionModel().getSelectedItem();
 //        System.out.println(pet.getId());
 //        DeletePet.deletePetById(pet.getId());
+//        listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
+//        tableViewPet.setItems(listPet);
     }
 
     @FXML
     void actionDeleteProduct(ActionEvent event) throws SQLException {
         Product product = tableViewProduct.getSelectionModel().getSelectedItem();
         DeleteProduct.deleteProductById(product.getId());
+        listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+        tableViewProduct.setItems(listProducts);
 //        tableViewProduct.getItems().remove(product);
     }
 
     @FXML
-    void actionDeleteRevenueReport(ActionEvent event) {
-
+    void actionDeleteRevenueReport(ActionEvent event) throws SQLException {
+        RevenueReport report = tableViewRevenueReport.getSelectionModel().getSelectedItem();
+        DeleteRevenueReport.deleteRevenueReportById(report.getId());
+        listRevenueReport = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
+        tableViewRevenueReport.setItems(listRevenueReport);
     }
 
     @FXML
-    void actionDeleteSupplier(ActionEvent event) {
-
+    void actionDeleteSupplier(ActionEvent event) throws SQLException {
+        Supplier supplier = tableViewSupplier.getSelectionModel().getSelectedItem();
+        DeleteSupplier.deleteSupplierById(supplier.getId());
+        listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+        tableViewSupplier.setItems(listSupplier);
     }
 
     @FXML
-    void actionDeleteUser(ActionEvent event) {
-
+    void actionDeleteUser(ActionEvent event) throws SQLException {
+        User user = tableViewUser.getSelectionModel().getSelectedItem();
+        DeleteUser.deleteUserById(user.getId());
+        listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
+        tableViewUser.setItems(listUser);
     }
 
     @FXML
