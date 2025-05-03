@@ -2,22 +2,20 @@ package com.utc2.petShop.model.repository;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class InsertPet {
-    private static final String url = "jdbc:sqlserver://localhost:1433;databaseName=PetShopManagement;encrypt=true;trustServerCertificate=true";
-    private static final String user = "sa";
-    private static final String password = "123456";
 
     public static void insertPet(int id, String name, int age, boolean gender, double price,
                                  boolean vaccinated, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
                                  boolean isTrained, float tailLength, float earLength) {
-        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+        try (Connection conn = DBConnection.getConnection()) {
             String insertPet = "INSERT INTO PET (petId, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierId) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertPet)) {
@@ -76,7 +74,7 @@ public class InsertPet {
             }
 
             System.out.println("✅ Thêm thú cưng thành công.");
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi thêm thú cưng: " + e.getMessage());
         }

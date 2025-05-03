@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.repository;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,15 +9,12 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class InsertUser {
-    private static final String url = "jdbc:sqlserver://localhost:1433;databaseName=PetShopManagement;encrypt=true;trustServerCertificate=true";
-    private static final String user = "sa";
-    private static final String password = "123456";
 
     public static void insertUser(int id, String username, String password, String name, boolean gender,
                                   String email, String phoneNumber, String address, Date birthDay,
                                   Date creationDate, String position, float salary,
                                   String workingHours, String role) {
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        try (Connection conn = DBConnection.getConnection()) {
             String insertUser = "INSERT INTO USERS (userId, username, password, email, fullName, gender, phoneNumber, address, birthDay, creationDate) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -50,7 +48,7 @@ public class InsertUser {
 
                 System.out.println("✅ Thêm thành công.");
 
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
                  e.printStackTrace();
                  System.err.println("❌ Lỗi khi thêm user : " + e.getMessage());
              }

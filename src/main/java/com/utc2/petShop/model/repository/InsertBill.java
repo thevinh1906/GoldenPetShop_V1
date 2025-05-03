@@ -10,15 +10,12 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class InsertBill {
-    private static final String url = "jdbc:sqlserver://localhost:1433;databaseName=PetShopManagement;encrypt=true;trustServerCertificate=true";
-    private static final String user = "sa";
-    private static final String password = "123456";
 
     public static void insertBill (int id, Employee employee, Customer customer, Date invoiceDate, double totalAmount, String paymentMethod, String status) {
         String insertBill = "INSERT INTO SUPPLIER (billId, userId, customerId, date, totalAmount, paymentMethod, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(insertBill)) {
 
             stmt.setInt(1, id);

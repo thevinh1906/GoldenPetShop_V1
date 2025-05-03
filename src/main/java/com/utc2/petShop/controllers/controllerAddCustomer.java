@@ -1,5 +1,6 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.model.repository.InsertCustomer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,7 +32,7 @@ public class controllerAddCustomer implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
-
+        InsertCustomer.insertCustomer(textFieldPhoneNumberGeneral.getText(), textFieldNameGeneral.getText());
     }
 
     @FXML
