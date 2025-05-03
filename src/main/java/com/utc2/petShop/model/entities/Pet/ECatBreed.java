@@ -12,4 +12,9 @@ public enum ECatBreed {
     public String getBreed() {
         return breed;
     }
+
+    @Override
+    public String toString() {
+        return this.breed;
+    }
 }

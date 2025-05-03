@@ -2,6 +2,9 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.SelectSupplier;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class controllerAddProduct implements Initializable {
@@ -162,6 +166,16 @@ public class controllerAddProduct implements Initializable {
         textFieldPriceGeneral.setTextFormatter(formatterPrice);
     }
 
+    private static ObservableList<Supplier> listSupplier;
+
+    static {
+        try {
+            listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -172,5 +186,7 @@ public class controllerAddProduct implements Initializable {
         insertQuantity();
 
         exceptions();
+
+        comboBoxSupplierGeneral.setItems(listSupplier);
     }
 }
