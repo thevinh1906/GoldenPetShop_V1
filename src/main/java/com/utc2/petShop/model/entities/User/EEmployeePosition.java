@@ -15,6 +15,6 @@ public enum EEmployeePosition {
 
     @Override
     public String toString() {
-        return Position;
+        return this.Position;
     }
 }

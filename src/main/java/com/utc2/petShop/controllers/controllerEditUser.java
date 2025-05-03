@@ -1,6 +1,7 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.User.Admin;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
@@ -106,24 +107,30 @@ public class controllerEditUser implements Initializable {
     }
 
     public void receiveData(User obj){
-        Employee employee = (Employee)obj;
-        textFieldUsernameGeneral.setText(employee.getUsername());
-        textFieldPasswordGeneral.setText(employee.getPassword());
-        textFieldNameGeneral.setText(employee.getName());
-        if(employee.isGender()){
+        textFieldUsernameGeneral.setText(obj.getUsername());
+        textFieldPasswordGeneral.setText(obj.getPassword());
+        textFieldNameGeneral.setText(obj.getName());
+        if(obj.isGender()){
             radioButtonMaleGeneral.setSelected(true);
         }
         else {
             radioButtonFemaleGeneral.setSelected(true);
         }
-        textFieldEmailGeneral.setText(employee.getEmail());
-        textFieldPhoneNumberGeneral.setText(employee.getPhoneNumber());
-        textFieldAddressGeneral.setText(employee.getAddress());
-        datePickerBirthDateGeneral.setValue(employee.getBirthDay());
-        datePickerCreationDateGeneral.setValue(employee.getCreationDate());
-        choiceBoxPositionGeneral.setValue(employee.getPosition());
-        textFieldSalaryGeneral.setText(String.valueOf(employee.getSalary()));
-        textFieldWorkingHoursGeneral.setText(String.valueOf(employee.getWorkingHours()));
+        textFieldEmailGeneral.setText(obj.getEmail());
+        textFieldPhoneNumberGeneral.setText(obj.getPhoneNumber());
+        textFieldAddressGeneral.setText(obj.getAddress());
+        datePickerBirthDateGeneral.setValue(obj.getBirthDay());
+        datePickerCreationDateGeneral.setValue(obj.getCreationDate());
+        if (obj instanceof Employee){
+            Employee employee = (Employee) obj;
+            choiceBoxPositionGeneral.setValue(employee.getPosition());
+            textFieldSalaryGeneral.setText(String.valueOf(employee.getSalary()));
+            textFieldWorkingHoursGeneral.setText(String.valueOf(employee.getWorkingHours()));
+        }
+        else if (obj instanceof Admin){
+            Admin admin = (Admin) obj;
+        }
+
     }
 
     @Override
@@ -132,6 +139,8 @@ public class controllerEditUser implements Initializable {
         datePickerCreationDateGeneral.setValue(LocalDate.now());
 
         exceptions();
+
+        choiceBoxPositionGeneral.getItems().addAll(EEmployeePosition.values());
 
     }
 }
