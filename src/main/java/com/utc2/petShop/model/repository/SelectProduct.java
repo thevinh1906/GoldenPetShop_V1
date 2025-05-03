@@ -12,11 +12,8 @@ import java.util.List;
 public class SelectProduct {
         private static Connection conn;
 
-        private static SelectSupplier supplierRepo;
-
         public SelectProduct(Connection conn) {
             this.conn = conn;
-            this.supplierRepo = new SelectSupplier(conn);
         }
         static{
             try{
@@ -57,7 +54,7 @@ public class SelectProduct {
                     int supplierId = rs.getInt("supplierId");
 
                     // Lấy đối tượng Supplier từ DB
-                    Supplier supplier = supplierRepo.getSupplierById(supplierId);
+                    Supplier supplier = SelectSupplier.getSupplierById(supplierId);
 
                     Product p;
 
