@@ -27,10 +27,10 @@ public class SelectPet {
         List<Pet> pets = new ArrayList<>();
         String sql = """
             SELECT p.*, 
-                   d.isTrained AS dog_isTrained,
-                   c.isIndoor AS cat_isIndoor, c.eyeColor AS cat_eyeColor,
-                   h.tailLength AS hamster_tailLength,
-                   r.earLength AS rabbit_earLength
+                   d.isTrained AS dog_isTrained, d.breed AS dog_breed,
+                   c.isIndoor AS cat_isIndoor, c.eyeColor AS cat_eyeColor, c.breed AS cat_breed,
+                   h.tailLength AS hamster_tailLength, h.breed AS hamster_breed,
+                   r.earLength AS rabbit_earLength, r.breed AS rabbit_breed
             FROM PET p
                         LEFT JOIN Dog d ON p.petId = d.petId
                         LEFT JOIN Cat c ON p.petId = c.petId
@@ -64,7 +64,7 @@ public class SelectPet {
                     String dogBreedStr = rs.getString("dog_breed");
                     EDogBreed dogBreed = null;
                     for (EDogBreed b : EDogBreed.values()) {
-                        if (b.getBreed().equalsIgnoreCase(dogBreedStr)) {
+                        if (b.getBreed().equalsIgnoreCase(dogBreedStr.trim())) {
                             dogBreed = b;
                             break;
                         }
@@ -81,7 +81,7 @@ public class SelectPet {
                     String catBreedStr = rs.getString("cat_breed");
                     ECatBreed catBreed = null;
                     for (ECatBreed b : ECatBreed.values()) {
-                        if (b.getBreed().equalsIgnoreCase(catBreedStr)) {
+                        if (b.getBreed().equalsIgnoreCase(catBreedStr.trim())) {
                             catBreed = b;
                             break;
                         }
@@ -97,7 +97,7 @@ public class SelectPet {
                     String hamsterBreedStr = rs.getString("hamster_breed");
                     EHamsterBreed hamsterBreed = null;
                     for (EHamsterBreed b : EHamsterBreed.values()) {
-                        if (b.getBreed().equalsIgnoreCase(hamsterBreedStr)) {
+                        if (b.getBreed().equalsIgnoreCase(hamsterBreedStr.trim())) {
                             hamsterBreed = b;
                             break;
                         }
@@ -111,7 +111,7 @@ public class SelectPet {
                     String rabbitBreedStr = rs.getString("rabbit_breed");
                     ERabbitBreed rabbitBreed = null;
                     for (ERabbitBreed b : ERabbitBreed.values()) {
-                        if (b.getBreed().equalsIgnoreCase(rabbitBreedStr)) {
+                        if (b.getBreed().equalsIgnoreCase(rabbitBreedStr.trim())) {
                             rabbitBreed = b;
                             break;
                         }
