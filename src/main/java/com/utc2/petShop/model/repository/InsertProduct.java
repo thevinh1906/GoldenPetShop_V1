@@ -5,6 +5,7 @@ import com.utc2.petShop.model.entities.Supplier.Supplier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -13,28 +14,58 @@ public class InsertProduct {
     private static final String user = "sa";
     private static final String password = "123456";
 
-    public static void insertSupplier (int id, Supplier supplier, String name, double price, int quantity, String description, String manufacturer) {
-        String sql = "INSERT INTO SUPPLIER (productId, supplierId, name, price, quantity,description,manufacturer) " +
+    public static void insertSupplier (int productId, Supplier supplier, String name, double price, int quantity, String description,
+                                       String manufacturer,String type, String brand,
+                                       Date expirationDate, String flavor, String dimension,
+                                       String material, String size, String role) {
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            String insertProduct = "INSERT INTO SUPPLIER (productId, supplierId, name, price, quantity,description,manufacturer) " +
                 "VALUES (?, ?, ?, ?, ?,?,?)";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (PreparedStatement stmt = conn.prepareStatement(insertProduct)) {
 
-            stmt.setInt(1, id);
-            stmt.setString(2, name);
-            stmt.setDouble(3, price);
-            stmt.setInt(4, quantity);
-            stmt.setString(5, description);
-            stmt.setString(6, manufacturer);
-
-
-            int rows = stmt.executeUpdate();
-            if (rows > 0) {
-                System.out.println("✅ Thêm thành công.");
+                stmt.setInt(1, productId);
+                stmt.setString(2, name);
+                stmt.setDouble(3, price);
+                stmt.setInt(4, quantity);
+                stmt.setString(5, description);
+                stmt.setString(6, manufacturer);
+                stmt.executeUpdate();
             }
 
-        } catch (Exception e) {
+            if (role.equalsIgnoreCase("Accessory")){
+                String insertAccessory = "INSERT INTO Accessory (productId, type, brand) VALUES (?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(insertAccessory)) {
+                    stmt.setInt(1, productId);
+                    stmt.setString(2, type);
+                    stmt.setString(3, brand);
+                    stmt.executeUpdate();
+                }
+            }
+            if (role.equalsIgnoreCase("Cage")){
+                String insertCage = "INSERT INTO CAGE (productId, dimension, material) VALUES (?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(insertCage)) {
+                    stmt.setInt(1, productId);
+                    stmt.setString(2, dimension);
+                    stmt.setString(3, material);
+                    stmt.executeUpdate();
+                }
+            }
+            if (role.equalsIgnoreCase("Food")){
+                String insertFood = "INSERT INTO FOOD (productId, expirationDate, flavor) VALUES (?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(insertFood)) {
+                    stmt.setInt(1, productId);
+                    stmt.setDate(2, (java.sql.Date) expirationDate);
+                    stmt.setString(3, flavor);
+                    stmt.executeUpdate();
+                }
+            }
+
+            System.out.println("✅ Thêm thành công.");
+
+        } catch (SQLException e) {
             e.printStackTrace();
+            System.err.println("❌ Lỗi khi thêm sản phẩm : " + e.getMessage());
         }
     }
 }

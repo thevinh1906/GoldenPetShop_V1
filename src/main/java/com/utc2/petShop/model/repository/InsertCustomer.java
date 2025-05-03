@@ -10,11 +10,11 @@ public class InsertCustomer {
     private static final String password = "your_password";
 
     public static void insertCustomer (int id, String phoneNumber, String name) {
-        String sql = "INSERT INTO USERS (customerId, phoneNumber, customerName) " +
+        String insertCustomer = "INSERT INTO USERS (customerId, phoneNumber, customerName) " +
                 "VALUES (?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(url, user, password);
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(insertCustomer)) {
 
             stmt.setInt(1, id);
             stmt.setString(2, phoneNumber);
