@@ -8,7 +8,7 @@ USE PetShopManagement;
 GO
 
 CREATE TABLE USERS (
-    userId INT PRIMARY KEY,
+    userId INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(50) UNIQUE NOT NULL,
     password NVARCHAR(100) NOT NULL,
     email NVARCHAR(100) NOT NULL UNIQUE,
@@ -21,7 +21,7 @@ CREATE TABLE USERS (
 );
 
 CREATE TABLE CUSTOMER (
-    customerId INT PRIMARY KEY,
+    customerId INT IDENTITY(1,1) PRIMARY KEY,
     phoneNumber NVARCHAR(15),
     customerName NVARCHAR(100) NOT NULL UNIQUE,
     point INT
@@ -36,7 +36,7 @@ CREATE TABLE EMPLOYEE (
 );
 
 CREATE TABLE SUPPLIER (
-    supplierId INT PRIMARY KEY,
+    supplierId INT IDENTITY(1,1) PRIMARY KEY,
     supplierName NVARCHAR(50) NOT NULL,
     email NVARCHAR(100) ,
     phone NVARCHAR(15),
@@ -44,7 +44,7 @@ CREATE TABLE SUPPLIER (
 );
 
 CREATE TABLE PRODUCTS (
-    productId INT PRIMARY KEY,
+    productId INT IDENTITY(1,1) PRIMARY KEY,
     supplierId INT,
     name NVARCHAR(100),
     price FLOAT,
@@ -83,7 +83,7 @@ CREATE TABLE Toy (
 );
 
 CREATE TABLE PET (
-    petId INT PRIMARY KEY,
+    petId INT IDENTITY(1,1) PRIMARY KEY,
     name NVARCHAR(50),
     breed NVARCHAR(50),
     age INT,
@@ -129,7 +129,7 @@ CREATE TABLE Rabbit (
 );
 
 CREATE TABLE PET_WARRANTY (
-    warrantyId INT PRIMARY KEY,
+    warrantyId INT IDENTITY(1,1) PRIMARY KEY,
     insuranceType NVARCHAR(50),
     startDate DATE,
     endDate DATE,
@@ -138,7 +138,7 @@ CREATE TABLE PET_WARRANTY (
 );
 
 CREATE TABLE PROMOTION (
-    promotionId INT PRIMARY KEY ,
+    promotionId INT IDENTITY(1,1) PRIMARY KEY ,
     name NVARCHAR(50),
     discountPercentage FLOAT,
     startDate DATE,
@@ -147,7 +147,7 @@ CREATE TABLE PROMOTION (
 );
 
 CREATE TABLE BILL (
-    billId INT PRIMARY KEY,
+    billId INT IDENTITY(1,1) PRIMARY KEY,
     userId INT,
 	customerId INT,
     date DATE,
@@ -159,7 +159,7 @@ CREATE TABLE BILL (
 );
 
 CREATE TABLE BILL_DETAIL (
-    billDetailId INT PRIMARY KEY,
+    billDetailId INT IDENTITY(1,1) PRIMARY KEY,
     billId INT,
     quantity INT,
     unitPrice FLOAT,
@@ -169,7 +169,7 @@ CREATE TABLE BILL_DETAIL (
 );
 
 CREATE TABLE FEEDBACK (
-    feedbackId INT PRIMARY KEY,
+    feedbackId INT IDENTITY(1,1) PRIMARY KEY,
 	userId INT,
     rating INT CHECK (rating BETWEEN 1 AND 5),
     comment NVARCHAR(200),
@@ -178,7 +178,7 @@ CREATE TABLE FEEDBACK (
 );
 
 CREATE TABLE REVENUE_REPORT (
-    reportId INT PRIMARY KEY ,
+    reportId INT IDENTITY(1,1) PRIMARY KEY ,
     startMonthYear DATE,
     endMonthYear DATE,
     totalRevenue FLOAT,
