@@ -10,6 +10,8 @@ import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
+import com.utc2.petShop.model.repository.SelectProduct;
+import com.utc2.petShop.model.repository.SelectUser;
 import com.utc2.petShop.model.services.scenes;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -1123,13 +1125,23 @@ public class controllerHomeAdmin implements Initializable {
 
     private static ObservableList<User> listUser;
 
-//    static {
-//        try {
-//            listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    static {
+        try {
+            listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static ObservableList<Product> listProducts;
+
+    static {
+        try {
+            listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public void hideScreen() {
@@ -1438,6 +1450,8 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewProduct.setItems(productList);    // bỏ list vào đây
 
+        tableViewProduct.setItems(listProducts);
+
         autoResizeColumns(tableViewProduct);
 
         tableViewProduct.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1564,7 +1578,7 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewUser.setItems(userList);
 
-//        tableViewUser.setItems(listUser);
+        tableViewUser.setItems(listUser);
 
         autoResizeColumns(tableViewUser);
 

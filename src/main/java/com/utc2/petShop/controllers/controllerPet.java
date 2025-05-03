@@ -1,7 +1,7 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Customer.Customer;
-import com.utc2.petShop.model.entities.Pet.Pet;
+import com.utc2.petShop.model.entities.Pet.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -156,7 +156,7 @@ public class controllerPet implements Initializable {
     public void receiveData(Pet obj){
         labelPetIDGeneral.setText(String.valueOf(obj.getId()));
         labelNameGeneral.setText(obj.getName());
-        labelGiaBan.setText(String.valueOf(obj.getPrice()));
+        labelGiaBan.setText(String.valueOf(obj.getPrice() + "$"));
         labelDescribe.setText(obj.getDescription());
         labelAgeGeneral.setText(String.valueOf(obj.getAge()));
         String genderText;
@@ -171,6 +171,60 @@ public class controllerPet implements Initializable {
         }
         else {
             labelVaccinatedGeneral.setText("Unvaccinated");
+        }
+        labelWeightGeneral.setText(String.valueOf(obj.getWeight()));
+        labelOriginGeneral.setText(String.valueOf(obj.getOrigin()));
+        labelHealthStatusGeneral.setText(obj.getHealthStatus());
+        labelFurColorGeneral.setText(obj.getFurColor());
+        labelSupplierGeneral.setText(String.valueOf(obj.getSupplier()));
+        if(obj instanceof Dog){
+            Dog dog = (Dog) obj;
+            labelBreedDog.setText(String.valueOf(dog.getBreed()));
+            if(dog.isIsTrained()){
+                labelTrainedDog.setText("Trained");
+            }
+            else {
+                labelTrainedDog.setText("Untrained");
+            }
+
+            hideScreen();
+
+            gridPaneDog.setVisible(true);
+            gridPaneDog.setManaged(true);
+        }
+        else if(obj instanceof Cat){
+            Cat cat = (Cat) obj;
+            labelBreedCat.setText(String.valueOf(cat.getBreed()));
+            if(cat.isIsIndoor()){
+                labelIndoorCat.setText("Indoor");
+            }
+            else {
+                labelIndoorCat.setText("Unindoor");
+            }
+            labelEyeColorCat.setText(String.valueOf(cat.getEyeColor()));
+
+            hideScreen();
+
+            gridPaneCat.setVisible(true);
+            gridPaneCat.setManaged(true);
+        }
+        else if (obj instanceof Hamster){
+            Hamster hamster = (Hamster) obj;
+            labelBreedHamster.setText(String.valueOf(hamster.getBreed()));
+            labelTailLengthHamster.setText(String.valueOf(hamster.getTailLength()));
+
+            hideScreen();
+            gridPaneHamster.setVisible(true);
+            gridPaneHamster.setManaged(true);
+        }
+        else if (obj instanceof Rabbit){
+            Rabbit rabbit = (Rabbit) obj;
+            labelBreedRabbit.setText(String.valueOf(rabbit.getBreed()));
+            labelEarLengthRabbit.setText(String.valueOf(rabbit.getEarLength()));
+
+            hideScreen();
+            gridPaneRabbit.setVisible(true);
+            gridPaneRabbit.setManaged(true);
         }
     }
 
