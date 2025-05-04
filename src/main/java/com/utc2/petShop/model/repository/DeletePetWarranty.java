@@ -4,38 +4,32 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DeletePetWarranty {
-    private static Connection conn;
 
-    public DeletePetWarranty(Connection conn) {
-        this.conn = conn;
-    }
+    public static boolean deleteWarrantyByPetId(int petId) {
+        String deleteWarrantySql = "DELETE FROM Pet_Warranty WHERE petId = ?";
 
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static void deleteWarrantyByPetId(int petId) throws SQLException {
-        conn.setAutoCommit(false);
-
-        try {
-            String deleteWarrantySql = "DELETE FROM Pet_Warranty WHERE petId = ?";
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false); // bắt đầu transaction
 
             try (PreparedStatement ps = conn.prepareStatement(deleteWarrantySql)) {
                 ps.setInt(1, petId);
-                ps.executeUpdate();
+                int rows = ps.executeUpdate();
 
-                conn.commit();
+                if (rows > 0) {
+                    conn.commit();
+                    return true;
+                } else {
+                    conn.rollback();
+                    return false;
+                }
             } catch (SQLException e) {
                 conn.rollback();
-                throw e;
+                throw new RuntimeException("Lỗi khi xóa bảo hành thú cưng", e);
+            } finally {
+                conn.setAutoCommit(true); // trả về mặc định
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Xóa bảo hành của thú cưng không thành công: " + e.getMessage(), e);
-        } finally {
-            conn.setAutoCommit(true);
+            throw new RuntimeException("Không thể kết nối CSDL hoặc lỗi SQL", e);
         }
     }
 }

@@ -9,25 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectSupplier {
-    private static Connection conn;
 
-    public SelectSupplier(Connection conn) {
-        this.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Supplier getSupplierById(int supplierId) throws SQLException {
+    public static Supplier getSupplierById(int supplierId)  {
         String sql = "SELECT * FROM SUPPLIER WHERE supplierId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, supplierId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -40,15 +26,18 @@ public class SelectSupplier {
                     return supplier;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
 
-    public static List<Supplier> getAllSuppliers() throws SQLException {
+    public static List<Supplier> getAllSuppliers()  {
         List<Supplier> suppliers = new ArrayList<>();
         String sql = "SELECT * FROM SUPPLIER";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -60,6 +49,8 @@ public class SelectSupplier {
                 supplier.setAddress(rs.getString("address"));
                 suppliers.add(supplier);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return suppliers;

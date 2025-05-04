@@ -2,6 +2,7 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.InsertPet;
 import com.utc2.petShop.model.repository.SelectSupplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,7 +111,45 @@ public class controllerAddPet implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String name = textFieldNameGeneral.getText();
+        int age = spinnerAgeGeneral.getValue();
+        boolean gender = !radioButtonFemaleGeneral.isSelected();
+        double price = Double.parseDouble(textFieldPriceGeneral.getText());
+        boolean vaccinated = checkBoxVaccinatedGeneral.isSelected();
+        String healthStatus = textFieldHealthStatusGeneral.getText();
+        String origin  = textFieldOriginGeneral.getText();
+        double weight = Double.parseDouble(textFieldWeightGeneral.getText());
+        String furColor = textFieldFurColorGeneral.getText();
+        String description = textAreaDescriptionGeneral.getText();
+        Supplier supplier = comboBoxSupplierGeneral.getValue();
+        String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
+        Boolean isIndoor = false;
+        String breed = "";
+        String eyeColor = "";
+        boolean isTrained = false;
+        float tailLength = 0;
+        float earLength = 0;
+        if(role.equals("Cat")){
+            breed = String.valueOf(comboBoxBreedCat.getValue());
+            eyeColor = textFieldEyeColorCat.getText();
+            isIndoor = checkBoxIndoorCat.isSelected();
+        }
+        else if(role.equals("Dog")){
+            breed = String.valueOf(comboBoxBreedDog.getValue());
+            isTrained = checkBoxTrainedDog.isSelected();
 
+        }
+        else if(role.equals("Hamster")){
+            breed = String.valueOf(comboBoxBreedHamster.getValue());
+            tailLength = Float.parseFloat(texFieldTailLengthHamster.getText());
+
+        }
+        else if(role.equals("Rabbit")){
+            breed = String.valueOf(comboBoxBreedRabbit.getValue());
+            earLength = Float.parseFloat(textFieldEarLengthRabbit.getText());
+            
+        }
+        InsertPet.insertPet(name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
     }
 
     @FXML
@@ -202,17 +241,31 @@ public class controllerAddPet implements Initializable {
             }
         });
         textFieldWeightGeneral.setTextFormatter(formatterWeight);
+        TextFormatter<String> formatterTailLengthHamster = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+        texFieldTailLengthHamster.setTextFormatter(formatterTailLengthHamster);
+        TextFormatter<String> formatterEarLengthRabbit = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+        textFieldEarLengthRabbit.setTextFormatter(formatterEarLengthRabbit);
     }
 
-    private static ObservableList<Supplier> listSupplier;
-
-    static {
-        try {
-            listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static ObservableList<Supplier> listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

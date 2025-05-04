@@ -4,72 +4,53 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DeletePet {
-    private static Connection conn;
 
-    public DeletePet(Connection conn) {
-        this.conn = conn;
-    }
+    public static boolean deletePetById(int petId) {
+        String deleteDog = "DELETE FROM Dog WHERE petId = ?";
+        String deleteCat = "DELETE FROM Cat WHERE petId = ?";
+        String deleteHamster = "DELETE FROM Hamster WHERE petId = ?";
+        String deleteRabbit = "DELETE FROM Rabbit WHERE petId = ?";
+        String deletePetWarranty = "DELETE FROM PET_WARRANTY WHERE petId = ?";
+        String deletePet = "DELETE FROM Pet WHERE petId = ?";
 
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false); // bắt đầu giao dịch
 
-    public static void deletePetById(int petId) throws SQLException {
-        // Bắt đầu transaction
-        conn.setAutoCommit(false);
+            try (
+                    PreparedStatement psDog = conn.prepareStatement(deleteDog);
+                    PreparedStatement psCat = conn.prepareStatement(deleteCat);
+                    PreparedStatement psHamster = conn.prepareStatement(deleteHamster);
+                    PreparedStatement psRabbit = conn.prepareStatement(deleteRabbit);
+                    PreparedStatement psWarranty = conn.prepareStatement(deletePetWarranty);
+                    PreparedStatement psPet = conn.prepareStatement(deletePet)
+            ) {
+                // Xóa lần lượt các bảng con
+                psDog.setInt(1, petId); psDog.executeUpdate();
+                psCat.setInt(1, petId); psCat.executeUpdate();
+                psHamster.setInt(1, petId); psHamster.executeUpdate();
+                psRabbit.setInt(1, petId); psRabbit.executeUpdate();
+                psWarranty.setInt(1, petId); psWarranty.executeUpdate();
 
-        try {
-            // Xóa các bản ghi liên quan ở các bảng con (Dog, Cat, Hamster, Rabbit)
-            String deleteDog = "DELETE FROM Dog WHERE petId = ?";
-            String deleteCat = "DELETE FROM Cat WHERE petId = ?";
-            String deleteHamster = "DELETE FROM Hamster WHERE petId = ?";
-            String deleteRabbit = "DELETE FROM Rabbit WHERE petId = ?";
-            String deletePet = "DELETE FROM Pet WHERE petId = ?";
-            String deletePetWarranty = "DELETE FROM PET_WARRANTY WHERE petId = ?";
-
-            try (PreparedStatement psDog = conn.prepareStatement(deleteDog);
-                 PreparedStatement psCat = conn.prepareStatement(deleteCat);
-                 PreparedStatement psHamster = conn.prepareStatement(deleteHamster);
-                 PreparedStatement psRabbit = conn.prepareStatement(deleteRabbit);
-                 PreparedStatement psPet = conn.prepareStatement(deletePet);
-                 PreparedStatement psPetWarranty = conn.prepareStatement(deletePetWarranty)) {
-
-                // Xóa các bảng con trước (vì các bảng này có quan hệ phụ thuộc vào bảng Pet)
-                psDog.setInt(1, petId);
-                psDog.executeUpdate();
-
-                psCat.setInt(1, petId);
-                psCat.executeUpdate();
-
-                psHamster.setInt(1, petId);
-                psHamster.executeUpdate();
-
-                psRabbit.setInt(1, petId);
-                psRabbit.executeUpdate();
-
-                psPetWarranty.setInt(1, petId);
-                psPetWarranty.executeUpdate();
-
-                // Cuối cùng, xóa bản ghi trong bảng Pet
+                // Cuối cùng xóa Pet
                 psPet.setInt(1, petId);
-                psPet.executeUpdate();
+                int affected = psPet.executeUpdate();
 
-                // Commit transaction
-                conn.commit();
+                if (affected > 0) {
+                    conn.commit();
+                    return true;
+                } else {
+                    conn.rollback();
+                    return false;
+                }
+
             } catch (SQLException e) {
-                // Rollback nếu có lỗi
                 conn.rollback();
-                throw e;
+                throw new RuntimeException("Lỗi khi xóa thú cưng: " + e.getMessage(), e);
+            } finally {
+                conn.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Xóa thú cưng không thành công: " + e.getMessage(), e);
-        } finally {
-            // Đặt lại chế độ commit tự động cho các hoạt động sau này
-            conn.setAutoCommit(true);
+            throw new RuntimeException("Không thể kết nối hoặc lỗi SQL", e);
         }
     }
 }

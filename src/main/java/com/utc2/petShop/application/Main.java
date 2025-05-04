@@ -12,24 +12,15 @@ import java.sql.SQLException;
 public class Main extends Application {
 
     public static void main(String[] args) {
-        try {
-            // Kết nối đến database
-            DBConnection.connect();
-            Connection conn = DBConnection.getConnection();
+        // Kết nối đến database
+        Connection conn = DBConnection.getConnection();
 
-            // Kiểm tra xem kết nối có thành công không
-            if (conn != null) {
-                System.out.println("Kết nối thành công!");
+        // Kiểm tra xem kết nối có thành công không
+        if (conn != null) {
+            System.out.println("Kết nối thành công!");
 
-                launch(args);
+            launch(args);
 
-            }
-
-            // Đóng kết nối khi không cần dùng nữa
-            DBConnection.closeConnection();
-
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
         }
 
     }

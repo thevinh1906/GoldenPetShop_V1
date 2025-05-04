@@ -8,23 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectRevenueReport {
-    private static Connection conn;
-
-    public SelectRevenueReport(Connection conn) {
-        this.conn = conn;
-    }
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static List<RevenueReport> getAllRevenueReports() throws SQLException {
+    public static List<RevenueReport> getAllRevenueReports() {
         List<RevenueReport> reports = new ArrayList<>();
         String sql = "SELECT * FROM REVENUE_REPORT";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -36,6 +25,8 @@ public class SelectRevenueReport {
 
                 reports.add(new RevenueReport(id, month, year, totalRevenue, totalBill));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return reports;

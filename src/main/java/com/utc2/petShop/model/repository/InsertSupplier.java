@@ -8,18 +8,17 @@ import java.util.Date;
 
 public class InsertSupplier {
 
-    public static void insertSupplier (int id, String name, String email, String phoneNumber, String address) {
-        String insertSupplier = "INSERT INTO SUPPLIER (supplierId, supplierName, email, phone, address) " +
-                "VALUES (?, ?, ?, ?, ?)";
+    public static void insertSupplier (String name, String email, String phoneNumber, String address) {
+        String insertSupplier = "INSERT INTO SUPPLIER (supplierName, email, phone, address) " +
+                "VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(insertSupplier)) {
 
-            stmt.setInt(1, id);
-            stmt.setString(2, name);
-            stmt.setString(3, email);
-            stmt.setString(4, phoneNumber);
-            stmt.setString(5, address);
+            stmt.setString(1, name);
+            stmt.setString(2, email);
+            stmt.setString(3, phoneNumber);
+            stmt.setString(4, address);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {

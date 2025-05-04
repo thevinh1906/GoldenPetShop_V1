@@ -1,5 +1,6 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.model.repository.InsertPromotion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class controllerAddPromotion implements Initializable {
@@ -38,15 +40,21 @@ public class controllerAddPromotion implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String name = textFieldNameGeneral.getText();
+        float discountPercentage = Float.parseFloat(textFieldDiscountPercentGeneral.getText());
+        LocalDate startDate = datePickerStartDateGeneral.getValue();
+        LocalDate endDate = datePickerEndDateGeneral.getValue();
+        Boolean isActive = checkBoxActiveGeneral.isSelected();
 
+        InsertPromotion.insertPromotion(name, discountPercentage, startDate, endDate, isActive);
     }
 
     @FXML
     void actionCancel(ActionEvent event) {
-        ((Stage)buttonCancel.getScene().getWindow()).close();
+        ((Stage) buttonCancel.getScene().getWindow()).close();
     }
 
-    public void exceptions(){
+    public void exceptions() {
         TextFormatter<String> formatterDiscount = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 

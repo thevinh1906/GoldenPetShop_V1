@@ -200,15 +200,7 @@ public class controllerEditProduct implements Initializable {
         }
     }
 
-    private static ObservableList<Supplier> listSupplier;
-
-    static {
-        try {
-            listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    private static ObservableList<Supplier> listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

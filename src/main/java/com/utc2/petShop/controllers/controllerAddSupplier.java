@@ -1,5 +1,6 @@
 package com.utc2.petShop.controllers;
 
+import com.utc2.petShop.model.repository.InsertSupplier;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,15 +39,20 @@ public class controllerAddSupplier implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String name = textFieldNameGeneral.getText();
+        String email = textFieldEmailGeneral.getText();
+        String phoneNumber = textFieldPhoneNumberGeneral.getText();
+        String address = textFieldAddressGeneral.getText();
 
+        InsertSupplier.insertSupplier(name, email, phoneNumber, address);
     }
 
     @FXML
     void actionCancel(ActionEvent event) {
-        ((Stage)buttonCancel.getScene().getWindow()).close();
+        ((Stage) buttonCancel.getScene().getWindow()).close();
     }
 
-    public void exceptions(){
+    public void exceptions() {
         TextFormatter<String> formatterPhone = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 
@@ -71,7 +77,6 @@ public class controllerAddSupplier implements Initializable {
         });
 
         textFieldEmailGeneral.setTextFormatter(formatterEmail);
-
 
 
     }

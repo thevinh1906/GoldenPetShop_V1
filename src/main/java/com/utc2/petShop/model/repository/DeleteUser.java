@@ -6,52 +6,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteUser {
-    private static Connection conn;
 
-    public DeleteUser(Connection conn) {
-        DeleteUser.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static boolean deleteUserById(int userId) throws SQLException {
+    public static boolean deleteUserById(int userId) {
         String deleteEmployeeSQL = "DELETE FROM EMPLOYEE WHERE userId = ?";
         String deleteUserSQL = "DELETE FROM USERS WHERE userId = ?";
-        String deleteFEEDBACKSQL = "DELETE FROM FEEDBACK WHERE userId = ?";
+        String deleteFeedbackSQL = "DELETE FROM FEEDBACK WHERE userId = ?";
 
-        try (
-                PreparedStatement stmtEmp = conn.prepareStatement(deleteEmployeeSQL);
-                PreparedStatement stmtUser = conn.prepareStatement(deleteUserSQL);
-                PreparedStatement stmtFEEDBACK = conn.prepareStatement(deleteFEEDBACKSQL)
-        ) {
-            // Xóa nhân viên nếu tồn tại
-            stmtEmp.setInt(1, userId);
-            stmtEmp.executeUpdate();
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false); // Bắt đầu giao dịch
 
-            //xoá bill có nhân viên
-            List<Integer> billIDs = new ArrayList<>();
-            billIDs = SelectBill.getBillIDByUserId(userId);
+            try (
+                    PreparedStatement stmtEmp = conn.prepareStatement(deleteEmployeeSQL);
+                    PreparedStatement stmtFeedback = conn.prepareStatement(deleteFeedbackSQL);
+                    PreparedStatement stmtUser = conn.prepareStatement(deleteUserSQL)
+            ) {
+                // Xóa nhân viên nếu có
+                stmtEmp.setInt(1, userId);
+                stmtEmp.executeUpdate();
+                //xoá bill có nhân viên
+                List<Integer> billIDs = new ArrayList<>();
+                billIDs = SelectBill.getBillIDByUserId(userId);
 
-            for (Integer billID : billIDs) {
-                DeleteBill.deleteBillById(billID);
+                for (Integer billID : billIDs) {
+                    DeleteBill.deleteBillById(billID);
+                }
+
+                // Xóa feedback nếu có
+                stmtFeedback.setInt(1, userId);
+                stmtFeedback.executeUpdate();
+
+                // Xóa người dùng
+                stmtUser.setInt(1, userId);
+                int rowsAffected = stmtUser.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    conn.commit();
+                    return true;
+                } else {
+                    conn.rollback();
+                    return false;
+                }
+
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new RuntimeException("Lỗi khi xóa user, rollback...", e);
+            } finally {
+                conn.setAutoCommit(true); // Trả lại trạng thái mặc định
             }
 
-            //xoá FEEDBACK nếu tồn tại
-
-            stmtFEEDBACK.setInt(1, userId);
-            stmtFEEDBACK.executeUpdate();
-
-            // Xóa user
-            stmtUser.setInt(1, userId);
-            int affectedRows = stmtUser.executeUpdate();
-
-            return affectedRows > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Không thể kết nối hoặc lỗi SQL", e);
         }
     }
 }
