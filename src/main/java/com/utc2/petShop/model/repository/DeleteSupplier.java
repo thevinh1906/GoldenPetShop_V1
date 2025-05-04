@@ -6,44 +6,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteSupplier {
-    private static Connection conn;
 
-    public DeleteSupplier(Connection conn) {
-        DeleteSupplier.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static boolean deleteSupplierById(int supplierId) throws SQLException {
+    public static boolean deleteSupplierById(int supplierId) {
         String sql = "DELETE FROM SUPPLIER WHERE supplierId = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
-        ) {
-            int rowsAffected;
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false); // bắt đầu giao dịch
 
-            List<Integer> petIds = new ArrayList<>();
-            petIds = SelectPet.getPetIDBySupplierId(supplierId);
+            try {
 
-            for (Integer petId : petIds) {
-                DeletePet.deletePetById(petId);
+                List<Integer> petIds = new ArrayList<>();
+                petIds = SelectPet.getPetIDBySupplierId(supplierId);
+
+                for (Integer petId : petIds) {
+                    DeletePet.deletePetById(petId);
+                }
+
+                List<Integer> productIds = new ArrayList<>();
+                productIds = SelectProduct.getProductIDBySupplierId(supplierId);
+
+                for (Integer productId : productIds) {
+                    DeleteProduct.deleteProductById(productId);
+                }
+
+                // Xóa supplier
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    stmt.setInt(1, supplierId);
+                    int rowsAffected = stmt.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        conn.commit();
+                        return true;
+                    } else {
+                        conn.rollback();
+                        return false;
+                    }
+                }
+
+            } catch (Exception e) {
+                conn.rollback();
+                throw new RuntimeException("Lỗi khi xóa supplier, rollback...", e);
+            } finally {
+                conn.setAutoCommit(true);
             }
-
-            List<Integer> productIds = new ArrayList<>();
-            productIds = SelectProduct.getProductIDBySupplierId(supplierId);
-
-            for (Integer productId : productIds) {
-                DeleteProduct.deleteProductById(productId);
-            }
-
-            stmt.setInt(1, supplierId);
-            rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+        } catch (SQLException e) {
+            throw new RuntimeException("Không thể kết nối hoặc lỗi SQL", e);
         }
     }
 }

@@ -10,23 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectProduct {
-    private static Connection conn;
-
-    public SelectProduct(Connection conn) {
-        this.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<Product> getAllProducts() throws SQLException {
+    public static List<Product> getAllProducts()  {
         List<Product> products = new ArrayList<>();
 
         String sql = """
@@ -43,8 +27,9 @@ public class SelectProduct {
                     LEFT JOIN Toy t ON p.productId = t.productId
                 """;
 
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 int id = rs.getInt("productId");
@@ -87,16 +72,19 @@ public class SelectProduct {
 
                 products.add(p);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return products;
     }
 
 
-    public static List<Integer> getProductIDBySupplierId(int supplierId) throws SQLException {
+    public static List<Integer> getProductIDBySupplierId(int supplierId) {
         List<Integer> productIDs = new ArrayList<>();
         String sql = "SELECT productId FROM PRODUCTS WHERE supplierId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, supplierId);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -106,6 +94,8 @@ public class SelectProduct {
                     productIDs.add(id);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return productIDs;

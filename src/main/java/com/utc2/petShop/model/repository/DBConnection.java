@@ -9,36 +9,9 @@ import java.util.Properties;
 
 public class DBConnection {
 
-    //    private static final String PROPERTIES_FILE = "dataBase/dataBase.properties"; // đúng path trong resources
-//
-//    public static Connection getConnection() throws SQLException {
-//        Properties props = new Properties();
-//
-//        try (InputStream input = DBConnection.class
-//                .getClassLoader()
-//                .getResourceAsStream(PROPERTIES_FILE)) {
-//
-//            if (input == null) {
-//                throw new IOException("Không tìm thấy file: " + PROPERTIES_FILE);
-//            }
-//
-//            props.load(input);
-//        } catch (IOException e) {
-//            System.err.println("Lỗi đọc file cấu hình dataBase.properties:");
-//            e.printStackTrace();
-//        }
-//
-//        String url = props.getProperty("url");
-//        String user = props.getProperty("username");
-//        String pass = props.getProperty("password");
-//
-//        return DriverManager.getConnection(url, user, pass);
-//    }
+    private static final String PROPERTIES_FILE = "dataBase/dataBase.properties";
 
-    private static final String PROPERTIES_FILE = "dataBase/dataBase.properties"; // Đặt file trong src/main/resources/dataBase/
-    private static Connection conn;
-
-    public static void connect() throws IOException, SQLException {
+    public static Connection getConnection(){
         Properties prop = new Properties();
 
         try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
@@ -46,34 +19,19 @@ public class DBConnection {
                 throw new IOException("Không tìm thấy file: " + PROPERTIES_FILE);
             }
             prop.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         String url = prop.getProperty("url");
         String username = prop.getProperty("username");
         String password = prop.getProperty("password");
 
-        if (conn == null || conn.isClosed()) {
-            conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Database connected successfully.");
-        }
-    }
-
-    public static Connection getConnection() throws IOException, SQLException {
-        if (conn == null || conn.isClosed()) {
-            connect();
-        }
-        return conn;
-    }
-
-    public static void closeConnection() {
-        if (conn != null) {
-            try {
-                conn.close();
-                System.out.println("Connection closed.");
-            } catch (SQLException e) {
-                System.out.println("Error closing connection: " + e.getMessage());
-            }
+        // Mỗi lần gọi đều mở kết nối mới
+        try {
+            return DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }
-

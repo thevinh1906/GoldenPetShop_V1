@@ -8,25 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectCustomer {
-    private static Connection conn;
-
-    public SelectCustomer(Connection conn) {
-        this.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<Customer> getAllCustomers() throws SQLException {
+    public static List<Customer> getAllCustomers()  {
         List<Customer> customers = new ArrayList<>();
         String sql = "SELECT * FROM CUSTOMER";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -38,15 +25,18 @@ public class SelectCustomer {
 
                 customers.add(customer);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return customers;
     }
 
-    public static Customer getCustomerById(int customerId) throws SQLException {
+    public static Customer getCustomerById(int customerId) {
         String sql = "SELECT * FROM CUSTOMER WHERE customerId = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, customerId);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -60,6 +50,8 @@ public class SelectCustomer {
                     return customer;
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return null;

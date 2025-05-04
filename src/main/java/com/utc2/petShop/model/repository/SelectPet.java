@@ -13,23 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectPet {
-    private static Connection conn;
 
-    public SelectPet(Connection conn) {
-        this.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static List<Pet> getAllPets() throws SQLException {
+    public static List<Pet> getAllPets()  {
         List<Pet> pets = new ArrayList<>();
         String sql = """
                 SELECT p.*, 
@@ -43,7 +28,8 @@ public class SelectPet {
                             LEFT JOIN Hamster h ON p.petId = h.petId
                             LEFT JOIN Rabbit r ON p.petId = r.petId
                 """;
-        try (PreparedStatement ps = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
@@ -133,15 +119,18 @@ public class SelectPet {
 
                 pets.add(pet);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return pets;
     }
 
-    public static List<Integer> getPetIDBySupplierId(int supplierId) throws SQLException {
+    public static List<Integer> getPetIDBySupplierId(int supplierId) {
         List<Integer> petIDs = new ArrayList<>();
         String sql = "SELECT petId FROM PET WHERE supplierId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, supplierId);
             try (ResultSet rs = stmt.executeQuery()) {
 
@@ -151,6 +140,8 @@ public class SelectPet {
                     petIDs.add(id);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return petIDs;

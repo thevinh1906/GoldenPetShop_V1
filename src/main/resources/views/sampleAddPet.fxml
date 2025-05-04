@@ -71,7 +71,7 @@
                               <TextField fx:id="textFieldFurColorGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Fur color" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                               <TextArea fx:id="textAreaDescriptionGeneral" maxWidth="312.0" prefWidth="312.0" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                               <Spinner fx:id="spinnerAgeGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="comboBoxSupplierGeneral" editable="true" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                              <ComboBox fx:id="comboBoxSupplierGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                               <CheckBox fx:id="checkBoxVaccinatedGeneral" mnemonicParsing="false" prefHeight="28.0" prefWidth="73.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <ChoiceBox fx:id="choiceBoxAnimalGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">

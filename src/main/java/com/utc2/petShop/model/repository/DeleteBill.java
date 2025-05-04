@@ -4,35 +4,40 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DeleteBill {
-    private static Connection conn;
 
-    public DeleteBill(Connection conn) {
-        DeleteBill.conn = conn;
-    }
+    public static boolean deleteBillById(int billId) {
+        String sqlDeleteBillDetail = "DELETE FROM BILL_DETAIL WHERE billId = ?";
+        String sqlDeleteBill = "DELETE FROM BILL WHERE billId = ?";
 
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
 
-    public static boolean deleteBillById(int billId) throws SQLException {
-        String sql = "DELETE FROM BILL WHERE billId = ?";
-        String sqlBillDetail = "DELETE FROM BILL_DETAIL WHERE billId = ?";
+            try (
+                    PreparedStatement stmtBillDetail = conn.prepareStatement(sqlDeleteBillDetail);
+                    PreparedStatement stmtBill = conn.prepareStatement(sqlDeleteBill)
+            ) {
+                // Xóa chi tiết hóa đơn trước
+                stmtBillDetail.setInt(1, billId);
+                stmtBillDetail.executeUpdate();
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
-            PreparedStatement stmtBillDetail = conn.prepareStatement(sqlBillDetail)
-        ) {
-            int rowsAffected;
+                // Sau đó xóa hóa đơn chính
+                stmtBill.setInt(1, billId);
+                int affectedRows = stmtBill.executeUpdate();
 
-            stmtBillDetail.setInt(1, billId);
-            rowsAffected = stmtBillDetail.executeUpdate();
-
-            stmt.setInt(1, billId);
-            rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+                if (affectedRows > 0) {
+                    conn.commit();
+                    return true;
+                } else {
+                    conn.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new RuntimeException("Lỗi khi xóa hóa đơn. Đã rollback!", e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Không thể kết nối CSDL hoặc lỗi SQL", e);
         }
     }
 }
+

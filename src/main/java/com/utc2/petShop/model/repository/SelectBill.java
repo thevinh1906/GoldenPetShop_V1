@@ -12,26 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectBill {
-    private static Connection conn;
-
-    public SelectBill(Connection conn) {
-        this.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static List<Bill> getAllBills() throws SQLException {
+    public static List<Bill> getAllBills()  {
         List<Bill> bills = new ArrayList<>();
         String sql = "SELECT * FROM BILL";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -44,7 +30,7 @@ public class SelectBill {
                 String status = rs.getString("status");
 
                 // Lấy Customer
-                Customer customer = getCustomerById(customerId);
+                Customer customer = SelectCustomer.getCustomerById(customerId);
 
                 // Lấy Employee (dựa vào SelectUser)
                 Employee employee = getEmployeeById(employeeId);
@@ -52,38 +38,23 @@ public class SelectBill {
                 Bill bill = new Bill(id, customer, employee, invoiceDate, totalAmount, paymentMethod, status);
                 bills.add(bill);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return bills;
     }
 
-    // Tương thích với SelectCustomer bạn gửi
-    private static Customer getCustomerById(int customerId) throws SQLException {
-        String sql = "SELECT * FROM CUSTOMER WHERE customerId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, customerId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    Customer customer = new Customer();
-                    customer.setId(rs.getInt("customerId"));
-                    customer.setName(rs.getString("customerName"));
-                    customer.setPhoneNumber(rs.getString("phoneNumber"));
-                    return customer;
-                }
-            }
-        }
-        return null;
-    }
-
     // Tìm trong SelectUser để lấy đúng kiểu là Employee
-    private static Employee getEmployeeById(int employeeId) throws SQLException {
+    private static Employee getEmployeeById(int employeeId)  {
         String sql = """
             SELECT u.*, e.position, e.salary, e.workingHours
             FROM USERS u
             LEFT JOIN EMPLOYEE e ON u.userId = e.userId
             WHERE u.userId = ?
         """;
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, employeeId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -107,6 +78,8 @@ public class SelectBill {
                     }
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return null;
     }
@@ -121,10 +94,11 @@ public class SelectBill {
         return null;
     }
 
-    public static List<Integer> getBillIDByUserId(int userId) throws SQLException {
+    public static List<Integer> getBillIDByUserId(int userId)  {
         List<Integer> billIDs = new ArrayList<>();
         String sql = "SELECT billId FROM BILL WHERE userId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             try (ResultSet rs = stmt.executeQuery()) {
 
@@ -134,15 +108,18 @@ public class SelectBill {
                     billIDs.add(id);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return billIDs;
     }
 
-    public static List<Integer> getBillIDByCustomerId(int customerId) throws SQLException {
+    public static List<Integer> getBillIDByCustomerId(int customerId) {
         List<Integer> billIDs = new ArrayList<>();
         String sql = "SELECT billId FROM BILL WHERE customerId = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, customerId);
             try (ResultSet rs = stmt.executeQuery()) {
 
@@ -152,6 +129,8 @@ public class SelectBill {
                     billIDs.add(id);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return billIDs;

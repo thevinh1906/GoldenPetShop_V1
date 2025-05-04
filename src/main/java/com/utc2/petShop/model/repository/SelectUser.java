@@ -12,22 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectUser {
-    private static Connection conn;
-
-    public SelectUser(Connection conn) {
-        this.conn = conn;
-    }
-
-    static{
-        try{
-            conn = DBConnection.getConnection();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static List<User> getAllUsers() throws SQLException {
+    public static List<User> getAllUsers()  {
         List<User> users = new ArrayList<>();
 
         String sql = """
@@ -36,7 +21,8 @@ public class SelectUser {
         LEFT JOIN EMPLOYEE e ON u.userId = e.userId
         """;
 
-        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 int id = rs.getInt("userId");
                 String username = rs.getString("username");
@@ -73,11 +59,13 @@ public class SelectUser {
                     users.add(admin);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return users;
     }
-    public static User getUserById(int userId) throws SQLException {
+    public static User getUserById(int userId) {
         String sql = """
         SELECT u.*, e.position, e.salary, e.workingHours
         FROM USERS u
@@ -85,7 +73,8 @@ public class SelectUser {
         WHERE u.userId = ?
     """;
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -120,6 +109,8 @@ public class SelectUser {
                     }
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return null;

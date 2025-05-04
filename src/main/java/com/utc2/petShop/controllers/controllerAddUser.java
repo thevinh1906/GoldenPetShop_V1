@@ -1,6 +1,7 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
+import com.utc2.petShop.model.repository.InsertUser;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class controllerAddUser implements Initializable {
@@ -69,15 +71,34 @@ public class controllerAddUser implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String username = textFieldUsernameGeneral.getText();
+        String password = textFieldPasswordGeneral.getText();
+        String name = textFieldNameGeneral.getText();
+        boolean gender = !radioButtonFemaleGeneral.isSelected();
+        String email = textFieldEmailGeneral.getText();
+        String phoneNumber = textFieldPhoneNumberGeneral.getText();
+        String address = textFieldAddressGeneral.getText();
+        LocalDate birthDay = datePickerBirthDateGeneral.getValue();
+        LocalDate creationDate = datePickerCreationDateGeneral.getValue();
+        String position = String.valueOf(choiceBoxPositionGeneral.getValue());
+        System.out.println(position);
+        float salary = 0;
+        String workingHours = textFieldWorkingHoursGeneral.getText();
+        String role = "";
+        if(!position.equals("null")){
+            role = "Employee";
+            salary = Float.parseFloat(textFieldSalaryGeneral.getText());
+        }
 
+        InsertUser.insertUser(username,password,name,gender,email,phoneNumber,address,birthDay,creationDate,position,salary,workingHours,role);
     }
 
     @FXML
     void actionCancel(ActionEvent event) {
-        ((Stage)buttonCancel.getScene().getWindow()).close();
+        ((Stage) buttonCancel.getScene().getWindow()).close();
     }
 
-    public void exceptions(){
+    public void exceptions() {
         TextFormatter<String> formatterPhone = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 
@@ -102,6 +123,19 @@ public class controllerAddUser implements Initializable {
         });
 
         textFieldEmailGeneral.setTextFormatter(formatterEmail);
+
+        TextFormatter<String> formatterSalary = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+
+        textFieldSalaryGeneral.setTextFormatter(formatterSalary);
     }
 
     @Override

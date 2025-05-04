@@ -8,24 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectPromotion {
-    private static Connection conn;
-
-    public SelectPromotion(Connection conn) {
-        this.conn = conn;
-    }
-
-    static {
-        try {
-            conn = DBConnection.getConnection();
-        } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public static List<Promotion> getAllPromotions() throws SQLException {
+    public static List<Promotion> getAllPromotions() {
         List<Promotion> promotions = new ArrayList<>();
         String sql = "SELECT * FROM PROMOTION";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -39,6 +27,8 @@ public class SelectPromotion {
 
                 promotions.add(promotion);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return promotions;
