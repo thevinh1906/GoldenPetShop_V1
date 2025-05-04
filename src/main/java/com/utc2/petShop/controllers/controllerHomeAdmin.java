@@ -790,11 +790,11 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionDeletePet(ActionEvent event) throws SQLException {
-//        Pet pet = tableViewPet.getSelectionModel().getSelectedItem();
+        Pet pet = tableViewPet.getSelectionModel().getSelectedItem();
 //        System.out.println(pet.getId());
-//        DeletePet.deletePetById(pet.getId());
-//        listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
-//        tableViewPet.setItems(listPet);
+        DeletePet.deletePetById(pet.getId());
+        listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
+        tableViewPet.setItems(listPet);
     }
 
     @FXML
@@ -1136,8 +1136,11 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionDeletePromotion(ActionEvent event) {
-
+    void actionDeletePromotion(ActionEvent event) throws SQLException {
+        Promotion promotion = tableViewPromotion.getSelectionModel().getSelectedItem();
+        DeletePromotion.deletePromotionById(promotion.getId());
+        listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
+        tableViewPromotion.setItems(listPromotion);
     }
 
     @FXML

@@ -2,6 +2,8 @@ package com.utc2.petShop.model.repository;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeleteCustomer {
     private static Connection conn;
@@ -22,6 +24,14 @@ public class DeleteCustomer {
         String sql = "DELETE FROM CUSTOMER WHERE customerId = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            List<Integer> billIds = new ArrayList<>();
+            billIds = SelectBill.getBillIDByCustomerId(customerId);
+            for (Integer billId : billIds) {
+                DeleteBill.deleteBillById(billId);
+            }
+
+
             stmt.setInt(1, customerId);
             int rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;

@@ -29,12 +29,14 @@ public class DeletePet {
             String deleteHamster = "DELETE FROM Hamster WHERE petId = ?";
             String deleteRabbit = "DELETE FROM Rabbit WHERE petId = ?";
             String deletePet = "DELETE FROM Pet WHERE petId = ?";
+            String deletePetWarranty = "DELETE FROM PET_WARRANTY WHERE petId = ?";
 
             try (PreparedStatement psDog = conn.prepareStatement(deleteDog);
                  PreparedStatement psCat = conn.prepareStatement(deleteCat);
                  PreparedStatement psHamster = conn.prepareStatement(deleteHamster);
                  PreparedStatement psRabbit = conn.prepareStatement(deleteRabbit);
-                 PreparedStatement psPet = conn.prepareStatement(deletePet)) {
+                 PreparedStatement psPet = conn.prepareStatement(deletePet);
+                 PreparedStatement psPetWarranty = conn.prepareStatement(deletePetWarranty)) {
 
                 // Xóa các bảng con trước (vì các bảng này có quan hệ phụ thuộc vào bảng Pet)
                 psDog.setInt(1, petId);
@@ -48,6 +50,9 @@ public class DeletePet {
 
                 psRabbit.setInt(1, petId);
                 psRabbit.executeUpdate();
+
+                psPetWarranty.setInt(1, petId);
+                psPetWarranty.executeUpdate();
 
                 // Cuối cùng, xóa bản ghi trong bảng Pet
                 psPet.setInt(1, petId);
