@@ -120,4 +120,40 @@ public class SelectBill {
         }
         return null;
     }
+
+    public static List<Integer> getBillIDByUserId(int userId) throws SQLException {
+        List<Integer> billIDs = new ArrayList<>();
+        String sql = "SELECT billId FROM BILL WHERE userId = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    int id = rs.getInt("billId");
+
+                    billIDs.add(id);
+                }
+            }
+        }
+
+        return billIDs;
+    }
+
+    public static List<Integer> getBillIDByCustomerId(int customerId) throws SQLException {
+        List<Integer> billIDs = new ArrayList<>();
+        String sql = "SELECT billId FROM BILL WHERE customerId = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, customerId);
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    int id = rs.getInt("billId");
+
+                    billIDs.add(id);
+                }
+            }
+        }
+
+        return billIDs;
+    }
 }

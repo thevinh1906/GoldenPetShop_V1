@@ -1,10 +1,14 @@
 package com.utc2.petShop.model.repository;
 
+import com.utc2.petShop.model.entities.Bill.Bill;
+import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.User.Employee;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +18,9 @@ public class SelectPet {
     public SelectPet(Connection conn) {
         this.conn = conn;
     }
-    static{
-        try{
+
+    static {
+        try {
             conn = DBConnection.getConnection();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -23,20 +28,21 @@ public class SelectPet {
             throw new RuntimeException(e);
         }
     }
+
     public static List<Pet> getAllPets() throws SQLException {
         List<Pet> pets = new ArrayList<>();
         String sql = """
-            SELECT p.*, 
-                   d.isTrained AS dog_isTrained, d.breed AS dog_breed,
-                   c.isIndoor AS cat_isIndoor, c.eyeColor AS cat_eyeColor, c.breed AS cat_breed,
-                   h.tailLength AS hamster_tailLength, h.breed AS hamster_breed,
-                   r.earLength AS rabbit_earLength, r.breed AS rabbit_breed
-            FROM PET p
-                        LEFT JOIN Dog d ON p.petId = d.petId
-                        LEFT JOIN Cat c ON p.petId = c.petId
-                        LEFT JOIN Hamster h ON p.petId = h.petId
-                        LEFT JOIN Rabbit r ON p.petId = r.petId
-            """;
+                SELECT p.*, 
+                       d.isTrained AS dog_isTrained, d.breed AS dog_breed,
+                       c.isIndoor AS cat_isIndoor, c.eyeColor AS cat_eyeColor, c.breed AS cat_breed,
+                       h.tailLength AS hamster_tailLength, h.breed AS hamster_breed,
+                       r.earLength AS rabbit_earLength, r.breed AS rabbit_breed
+                FROM PET p
+                            LEFT JOIN Dog d ON p.petId = d.petId
+                            LEFT JOIN Cat c ON p.petId = c.petId
+                            LEFT JOIN Hamster h ON p.petId = h.petId
+                            LEFT JOIN Rabbit r ON p.petId = r.petId
+                """;
         try (PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
@@ -102,7 +108,8 @@ public class SelectPet {
                             break;
                         }
                     }
-                    if (hamsterBreed == null) throw new IllegalArgumentException("Không tìm thấy giống hamster phù hợp: " + hamsterBreedStr);
+                    if (hamsterBreed == null)
+                        throw new IllegalArgumentException("Không tìm thấy giống hamster phù hợp: " + hamsterBreedStr);
                     pet = new Hamster(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, hamsterBreed, tailLength);
 
 
@@ -116,7 +123,8 @@ public class SelectPet {
                             break;
                         }
                     }
-                    if (rabbitBreed == null) throw new IllegalArgumentException("Không tìm thấy giống thỏ phù hợp: " + rabbitBreedStr);
+                    if (rabbitBreed == null)
+                        throw new IllegalArgumentException("Không tìm thấy giống thỏ phù hợp: " + rabbitBreedStr);
                     pet = new Rabbit(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, rabbitBreed, earLength);
 
                 } else {
@@ -128,6 +136,24 @@ public class SelectPet {
         }
 
         return pets;
+    }
+
+    public static List<Integer> getPetIDBySupplierId(int supplierId) throws SQLException {
+        List<Integer> petIDs = new ArrayList<>();
+        String sql = "SELECT petId FROM PET WHERE supplierId = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, supplierId);
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    int id = rs.getInt("petId");
+
+                    petIDs.add(id);
+                }
+            }
+        }
+
+        return petIDs;
     }
 }
 

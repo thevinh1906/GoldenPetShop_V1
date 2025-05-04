@@ -11,20 +11,19 @@ import java.util.Date;
 
 public class InsertBill {
 
-    public static void insertBill (int id, Employee employee, Customer customer, Date invoiceDate, double totalAmount, String paymentMethod, String status) {
-        String insertBill = "INSERT INTO SUPPLIER (billId, userId, customerId, date, totalAmount, paymentMethod, status) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public static void insertBill (Employee employee, Customer customer, Date invoiceDate, double totalAmount, String paymentMethod, String status) {
+        String insertBill = "INSERT INTO BILL (userId, customerId, date, totalAmount, paymentMethod, status) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(insertBill)) {
 
-            stmt.setInt(1, id);
-            stmt.setInt(2, employee.getId());
-            stmt.setInt(3, customer.getId());
-            stmt.setDate(4, (java.sql.Date) invoiceDate);
-            stmt.setDouble(5, totalAmount);
-            stmt.setString(6, paymentMethod);
-            stmt.setString(7, status);
+            stmt.setInt(1, employee.getId());
+            stmt.setInt(2, customer.getId());
+            stmt.setDate(3, (java.sql.Date) invoiceDate);
+            stmt.setDouble(4, totalAmount);
+            stmt.setString(5, paymentMethod);
+            stmt.setString(6, status);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {

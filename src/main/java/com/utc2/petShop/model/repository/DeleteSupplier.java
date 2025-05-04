@@ -2,6 +2,8 @@ package com.utc2.petShop.model.repository;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeleteSupplier {
     private static Connection conn;
@@ -21,9 +23,26 @@ public class DeleteSupplier {
     public static boolean deleteSupplierById(int supplierId) throws SQLException {
         String sql = "DELETE FROM SUPPLIER WHERE supplierId = ?";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            int rowsAffected;
+
+            List<Integer> petIds = new ArrayList<>();
+            petIds = SelectPet.getPetIDBySupplierId(supplierId);
+
+            for (Integer petId : petIds) {
+                DeletePet.deletePetById(petId);
+            }
+
+            List<Integer> productIds = new ArrayList<>();
+            productIds = SelectProduct.getProductIDBySupplierId(supplierId);
+
+            for (Integer productId : productIds) {
+                DeleteProduct.deleteProductById(productId);
+            }
+
             stmt.setInt(1, supplierId);
-            int rowsAffected = stmt.executeUpdate();
+            rowsAffected = stmt.executeUpdate();
             return rowsAffected > 0;
         }
     }
