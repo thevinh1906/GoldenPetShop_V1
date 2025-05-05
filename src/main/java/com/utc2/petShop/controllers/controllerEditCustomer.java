@@ -56,6 +56,25 @@ public class controllerEditCustomer implements Initializable {
         });
         textFieldPhoneNumberGeneral.setTextFormatter(formatterPhone);
 
+        textFieldPhoneNumberGeneral.textProperty().addListener((observable, oldValue, newValue) -> {
+            buttonChange.setDisable(newValue.length() < 10);
+            if (newValue.length() < 10) {
+                textFieldPhoneNumberGeneral.setStyle("-fx-border-color: red;");
+            } else {
+                textFieldPhoneNumberGeneral.setStyle(""); // xóa viền đỏ nếu hợp lệ
+            }
+        });
+    }
+
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty = textFieldNameGeneral.getText().isEmpty() || textFieldPhoneNumberGeneral.getText().isEmpty();
+        buttonChange.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable(){
+        buttonChange.setDisable(true);
+        textFieldNameGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        textFieldPhoneNumberGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
     }
 
     public void receiveData(Customer obj){
@@ -69,5 +88,6 @@ public class controllerEditCustomer implements Initializable {
 
         exceptions();
 
+        setButtonAddDisable();
     }
 }

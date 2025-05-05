@@ -52,6 +52,26 @@ public class controllerAddCustomer implements Initializable {
         });
         textFieldPhoneNumberGeneral.setTextFormatter(formatterPhone);
 
+        textFieldPhoneNumberGeneral.textProperty().addListener((observable, oldValue, newValue) -> {
+            buttonAdd.setDisable(newValue.length() < 10);
+            if (newValue.length() < 10) {
+                textFieldPhoneNumberGeneral.setStyle("-fx-border-color: red;");
+            } else {
+                textFieldPhoneNumberGeneral.setStyle(""); // xóa viền đỏ nếu hợp lệ
+            }
+        });
+
+    }
+
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty = textFieldNameGeneral.getText().isEmpty() || textFieldPhoneNumberGeneral.getText().isEmpty();
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable(){
+        buttonAdd.setDisable(true);
+        textFieldNameGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        textFieldPhoneNumberGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
     }
 
     @Override
@@ -59,5 +79,6 @@ public class controllerAddCustomer implements Initializable {
 
         exceptions();
 
+        setButtonAddDisable();
     }
 }

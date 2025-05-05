@@ -80,6 +80,38 @@ public class controllerAddBill implements Initializable {
             }
         });
         textFieldTotalAmountGeneral.setTextFormatter(formatterTotalAmount);
+
+        datePickerInvoiceDateGeneral.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && date.isAfter(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // đỏ nhạt cho ngày không hợp lệ
+                }
+            }
+        });
+
+    }
+
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty =
+                comboBoxEmployeeGeneral.getValue() == null ||
+                        comboBoxCustomerGeneral.getValue() == null ||
+                        datePickerInvoiceDateGeneral.getValue() == null ||
+                        textFieldTotalAmountGeneral.getText().isEmpty() ||
+                        choiceBoxPaymentMethodGeneral.getValue() == null;
+
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable() {
+        buttonAdd.setDisable(true);
+        textFieldTotalAmountGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        comboBoxEmployeeGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        comboBoxCustomerGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        datePickerInvoiceDateGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        choiceBoxPaymentMethodGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
     private static ObservableList<Employee> employees = FXCollections.observableArrayList(SelectUser.getAllEmployees());
@@ -95,5 +127,9 @@ public class controllerAddBill implements Initializable {
         comboBoxCustomerGeneral.setItems(customers);
 
         choiceBoxPaymentMethodGeneral.getItems().addAll("cash","Banking");
+
+        textFieldTotalAmountGeneral.textProperty().addListener((observable, oldValue, newValue) ->buttonAddDisable());
+
+        setButtonAddDisable();
     }
 }
