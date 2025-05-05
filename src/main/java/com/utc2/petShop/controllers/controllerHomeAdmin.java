@@ -672,8 +672,10 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionAddBill(ActionEvent event) {
-
+    void actionAddBill(ActionEvent event) throws IOException {
+        openMoreScene("sampleAddBill", "Golden Pet Shop", "applicationAddBill",false);
+        listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
+        tableViewBill.setItems(listBill);
     }
 
     @FXML
@@ -868,8 +870,15 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionEditBill(ActionEvent event) {
-
+    void actionEditBill(ActionEvent event) throws IOException {
+        Bill selectedItem = tableViewBill.getSelectionModel().getSelectedItem();
+        if(selectedItem != null) {
+            openMoreScene("sampleEditBill", "Golden Pet Shop", "applicationEditBill", false, (controllerEditBill controller) -> {
+                controller.receiveData(selectedItem);
+            });
+        }
+        listBill = FXCollections.observableArrayList(SelectBill.getAllBills());
+        tableViewBill.setItems(listBill);
     }
 
     @FXML

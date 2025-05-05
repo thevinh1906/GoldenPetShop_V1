@@ -310,27 +310,7 @@ public class controllerAddPet implements Initializable {
         buttonAdd.setDisable(isAnyFieldEmpty);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        griPaneVision();
-
-        insertAnimal();
-
-        insertAge();
-
-        exceptions();
-
-        comboBoxSupplierGeneral.setItems(listSupplier);
-
-        comboBoxBreedDog.getItems().addAll(EDogBreed.values());
-
-        comboBoxBreedCat.getItems().addAll(ECatBreed.values());
-
-        comboBoxBreedHamster.getItems().addAll(EHamsterBreed.values());
-
-        comboBoxBreedRabbit.getItems().addAll(ERabbitBreed.values());
-
+    public void setButtonAddDisable(){
         textFieldNameGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldPriceGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldHealthStatusGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
@@ -352,6 +332,30 @@ public class controllerAddPet implements Initializable {
         texFieldTailLengthHamster.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         comboBoxBreedRabbit.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldEarLengthRabbit.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        griPaneVision();
+
+        insertAnimal();
+
+        insertAge();
+
+        exceptions();
+
+        comboBoxSupplierGeneral.setItems(listSupplier);
+
+        comboBoxBreedDog.getItems().addAll(EDogBreed.values());
+
+        comboBoxBreedCat.getItems().addAll(ECatBreed.values());
+
+        comboBoxBreedHamster.getItems().addAll(EHamsterBreed.values());
+
+        comboBoxBreedRabbit.getItems().addAll(ERabbitBreed.values());
+
+        setButtonAddDisable();
     }
 
 }

@@ -5,12 +5,13 @@ import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.repository.DBConnection;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class InsertBill {
 
-    public static void insertBill (Employee employee, Customer customer, Date invoiceDate, double totalAmount, String paymentMethod, String status) {
+    public static void insertBill (Employee employee, Customer customer, LocalDate invoiceDate, double totalAmount, String paymentMethod, String status) {
         String insertBill = "INSERT INTO BILL (userId, customerId, date, totalAmount, paymentMethod, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -19,7 +20,7 @@ public class InsertBill {
 
             stmt.setInt(1, employee.getId());
             stmt.setInt(2, customer.getId());
-            stmt.setDate(3, (java.sql.Date) invoiceDate);
+            stmt.setDate(3, Date.valueOf(invoiceDate));
             stmt.setDouble(4, totalAmount);
             stmt.setString(5, paymentMethod);
             stmt.setString(6, status);
