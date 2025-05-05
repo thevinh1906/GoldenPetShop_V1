@@ -2,6 +2,7 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.UpdateById.UpdateCustomer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 public class controllerEditCustomer implements Initializable {
 
     @FXML
-    private Button buttonAdd;
+    private Button buttonChange;
 
     @FXML
     private Button buttonCancel;
@@ -32,14 +33,16 @@ public class controllerEditCustomer implements Initializable {
     private TextField textFieldPhoneNumberGeneral;
 
     @FXML
-    void actionAdd(ActionEvent event) {
-
+    void actionChange(ActionEvent event) {
+        UpdateCustomer.updateCustomer(customer.getId(), textFieldNameGeneral.getText(), textFieldPhoneNumberGeneral.getText());
     }
 
     @FXML
     void actionCancel(ActionEvent event) {
         ((Stage)buttonCancel.getScene().getWindow()).close();
     }
+
+    private static Customer customer;
 
     public void exceptions(){
         TextFormatter<String> formatterPhone = new TextFormatter<>(change -> {
@@ -56,6 +59,7 @@ public class controllerEditCustomer implements Initializable {
     }
 
     public void receiveData(Customer obj){
+        customer = obj;
         textFieldNameGeneral.setText(obj.getName());
         textFieldPhoneNumberGeneral.setText(obj.getPhoneNumber());
     }

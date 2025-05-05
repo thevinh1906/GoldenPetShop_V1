@@ -13,8 +13,8 @@ public class InsertUser {
                                   String workingHours, String role) {
         int id = 0;
         try (Connection conn = DBConnection.getConnection()) {
-            String insertUser = "INSERT INTO USERS (username, password, fullName, gender, email, phoneNumber, address, createAt, birthDate)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String insertUser = "INSERT INTO USERS (username, password, fullName, gender, email, phoneNumber, address, createAt, birthDate, role)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(insertUser, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -27,6 +27,7 @@ public class InsertUser {
                 stmt.setString(7, address);
                 stmt.setDate(8, Date.valueOf(creationDate));
                 stmt.setDate(9, Date.valueOf(birthDay));
+                stmt.setString(10, role);
                 int a = stmt.executeUpdate();
 
                 //lấy id user mới tăng

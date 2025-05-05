@@ -1,7 +1,9 @@
 ﻿CREATE DATABASE PetShopManagement;
 GO
 
-DROP DATABASE IF EXISTS PetShopManagement;
+ALTER DATABASE PetShopManagement
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE PetShopManagement;
 GO
 
 USE PetShopManagement;
@@ -17,7 +19,8 @@ CREATE TABLE USERS (
     phoneNumber NVARCHAR(15),
     address NVARCHAR(200),
     createAt DATE NOT NULL,
-    birthDate DATE NOT NULL
+    birthDate DATE NOT NULL,
+	role NVARCHAR(20)
 );
 
 CREATE TABLE CUSTOMER (
@@ -85,7 +88,6 @@ CREATE TABLE Toy (
 CREATE TABLE PET (
     petId INT IDENTITY(1,1) PRIMARY KEY,
     name NVARCHAR(50),
-    breed NVARCHAR(50),
     age INT,
     gender BIT,
     price FLOAT,
@@ -192,12 +194,12 @@ ALTER TABLE PRODUCTS ADD role NVARCHAR(20);
 
 -- INSERT INTO USERS
 INSERT INTO USERS VALUES
-('admin1', 'admin@123', 'admin1@petshop.com', N'Nguyễn Văn A', 1, '0909123456', N'TP.HCM', '2024-01-01', '1995-05-20'),
-('staff01', 'staff@123', 'staff01@petshop.com', N'Trần Thị B', 0, '0911123456', N'TP.HCM', '2024-01-05', '1998-03-15'),
-('johnsmith', '123456', 'johnsmith@gmail.com', N'John Smith', 1, '0932123456', N'USA', '2024-02-02', '2000-04-12'),
-('ngocanh', 'pass123', 'ngocanh@gmail.com', N'Ngọc Anh', 0, '0988888881', N'Đồng Nai', '2024-03-01', '2002-12-01'),
-('huynhnhat', 'nhatpass', 'huynhnhat@gmail.com', N'Huỳnh Nhật', 1, '0977888999', N'Bình Dương', '2024-03-02', '1999-10-15'),
-('trungkien', 'kien123', 'trungkien@gmail.com', N'Trung Kiên', 1, '0911112233', N'Long An', '2024-03-03', '2001-06-06');
+('admin1', 'admin@123', 'admin1@petshop.com', N'Nguyễn Văn A', 1, '0909123456', N'TP.HCM', '2024-01-01', '1995-05-20', 'Employee'),
+('staff01', 'staff@123', 'staff01@petshop.com', N'Trần Thị B', 0, '0911123456', N'TP.HCM', '2024-01-05', '1998-03-15', 'Employee'),
+('johnsmith', '123456', 'johnsmith@gmail.com', N'John Smith', 1, '0932123456', N'USA', '2024-02-02', '2000-04-12', 'Employee'),
+('ngocanh', 'pass123', 'ngocanh@gmail.com', N'Ngọc Anh', 0, '0988888881', N'Đồng Nai', '2024-03-01', '2002-12-01', 'Employee'),
+('huynhnhat', 'nhatpass', 'huynhnhat@gmail.com', N'Huỳnh Nhật', 1, '0977888999', N'Bình Dương', '2024-03-02', '1999-10-15','Admin'),
+('trungkien', 'kien123', 'trungkien@gmail.com', N'Trung Kiên', 1, '0911112233', N'Long An', '2024-03-03', '2001-06-06','Admin');
 
 -- INSERT INTO CUSTOMER
 INSERT INTO CUSTOMER VALUES
@@ -248,12 +250,12 @@ INSERT INTO Toy (productId, material, size) VALUES
 
 -- INSERT INTO PET
 INSERT INTO PET VALUES
-('Milo', 'Poodle', 2, 1, 4500000, 1, N'Khỏe mạnh', N'Việt Nam', 4.5, N'Nâu vàng', N'Thân thiện, đã tiêm chủng', 1, 'Dog'),
-('Luna', N'Mèo Anh Lông Ngắn', 1, 0, 3500000, 1, N'Tốt', N'Thái Lan', 3.2, N'Xám xanh', N'Dễ gần, sạch sẽ', 2, 'Cat'),
-('Rex', N'Husky', 3, 1, 7000000, 1, N'Cực khỏe', N'Nga', 20.0, N'Trắng đen', N'Hiếu động, cần không gian rộng', 1, 'Dog'),
-('Tom', N'Mèo Ba Tư', 2, 1, 4200000, 1, N'Tốt', N'Iran', 4.1, N'Trắng kem', N'Dễ thương và ngoan', 3, 'Cat'),
-('Kiki', N'Chihuahua', 1, 0, 5000000, 1, N'Khỏe mạnh', N'Mexico', 2.5, N'Vàng nâu', N'Nhỏ gọn, quấn người', 4, 'Dog'),
-('Bin', N'Alaska', 4, 1, 9500000, 1, N'Cực khỏe', N'Canada', 28.0, N'Trắng xám', N'Thân thiện, dễ huấn luyện', 3, 'Dog');
+('Milo', 2, 1, 4500000, 1, N'Khỏe mạnh', N'Việt Nam', 4.5, N'Nâu vàng', N'Thân thiện, đã tiêm chủng', 1, 'Dog'),
+('Luna',  1, 0, 3500000, 1, N'Tốt', N'Thái Lan', 3.2, N'Xám xanh', N'Dễ gần, sạch sẽ', 2, 'Cat'),
+('Rex',  3, 1, 7000000, 1, N'Cực khỏe', N'Nga', 20.0, N'Trắng đen', N'Hiếu động, cần không gian rộng', 1, 'Dog'),
+('Tom', 2, 1, 4200000, 1, N'Tốt', N'Iran', 4.1, N'Trắng kem', N'Dễ thương và ngoan', 3, 'Cat'),
+('Kiki',  1, 0, 5000000, 1, N'Khỏe mạnh', N'Mexico', 2.5, N'Vàng nâu', N'Nhỏ gọn, quấn người', 4, 'Dog'),
+('Bin',  4, 1, 9500000, 1, N'Cực khỏe', N'Canada', 28.0, N'Trắng xám', N'Thân thiện, dễ huấn luyện', 3, 'Dog');
 
 INSERT INTO Cat VALUES 
 (2, 1, N'Mèo Anh Lông Ngắn', N'Xanh'),
@@ -320,6 +322,7 @@ INSERT INTO REVENUE_REPORT VALUES
 ('8', '2024', 0, 0),
 ('6', '2025', 29035000, 5),
 ('4', '2025', 0, 0);
+
 
 
 

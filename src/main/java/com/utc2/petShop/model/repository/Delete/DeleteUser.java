@@ -62,4 +62,38 @@ public class DeleteUser {
             throw new RuntimeException("Không thể kết nối hoặc lỗi SQL", e);
         }
     }
+
+    public static boolean deleteUserClassExtendsById(int userId) {
+        String deleteEmployeeSQL = "DELETE FROM EMPLOYEE WHERE userId = ?";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false); // Bắt đầu giao dịch
+
+            try (
+                    PreparedStatement stmtEmp = conn.prepareStatement(deleteEmployeeSQL);
+            ) {
+                // Xóa nhân viên nếu có
+                stmtEmp.setInt(1, userId);
+                int rowsAffected = stmtEmp.executeUpdate();
+
+
+                if (rowsAffected > 0) {
+                    conn.commit();
+                    return true;
+                } else {
+                    conn.rollback();
+                    return false;
+                }
+
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new RuntimeException("Lỗi khi xóa user, rollback...", e);
+            } finally {
+                conn.setAutoCommit(true); // Trả lại trạng thái mặc định
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Không thể kết nối hoặc lỗi SQL", e);
+        }
+    }
 }

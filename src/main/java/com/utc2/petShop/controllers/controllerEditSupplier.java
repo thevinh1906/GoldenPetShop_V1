@@ -2,6 +2,7 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Product.Product;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.UpdateById.UpdateSupplier;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +41,12 @@ public class controllerEditSupplier implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String name = textFieldNameGeneral.getText();
+        String email = textFieldEmailGeneral.getText();
+        String phoneNumber = textFieldPhoneNumberGeneral.getText();
+        String address = textFieldAddressGeneral.getText();
+
+        UpdateSupplier.updateSupplier(supplier.getId(), name, email, phoneNumber, address);
 
     }
 
@@ -79,12 +86,14 @@ public class controllerEditSupplier implements Initializable {
     }
 
     public void receiveData(Supplier obj){
+        supplier = obj;
         textFieldNameGeneral.setText(obj.getName());
         textFieldAddressGeneral.setText(obj.getAddress());
         textFieldPhoneNumberGeneral.setText(obj.getPhoneNumber());
         textFieldEmailGeneral.setText(obj.getEmail());
     }
 
+    private static Supplier supplier;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

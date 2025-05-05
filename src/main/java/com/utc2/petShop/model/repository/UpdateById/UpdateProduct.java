@@ -2,8 +2,10 @@ package com.utc2.petShop.model.repository.UpdateById;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.model.repository.Delete.DeleteProduct;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ public class UpdateProduct {
                                      String material, String size, String role) {
 
         String updateProduct = "UPDATE PRODUCTS SET supplierId = ?, name = ?, price = ?, quantity = ?, " +
-                "description = ?, manufacturer = ? WHERE productId = ?";
+                "description = ?, manufacturer = ?, role = ? WHERE productId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(updateProduct)) {
@@ -28,7 +30,8 @@ public class UpdateProduct {
             stmt.setInt(4, quantity);
             stmt.setString(5, description);
             stmt.setString(6, manufacturer);
-            stmt.setInt(7, productId);
+            stmt.setString(7, role);
+            stmt.setInt(8, productId);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -38,45 +41,47 @@ public class UpdateProduct {
                 return;
             }
 
+            DeleteProduct.deleteProductClassExtendsById(productId);
+
             // Cập nhật bảng phụ tùy theo role
             switch (role.toLowerCase()) {
                 case "accessory":
-                    String updateAccessory = "UPDATE Accessory SET type = ?, brand = ? WHERE productId = ?";
-                    try (PreparedStatement accessoryStmt = conn.prepareStatement(updateAccessory)) {
-                        accessoryStmt.setString(1, type);
-                        accessoryStmt.setString(2, brand);
-                        accessoryStmt.setInt(3, productId);
-                        accessoryStmt.executeUpdate();
+                    String insertAccessory = "INSERT INTO Accessory (productId, type, brand) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtAccessory = conn.prepareStatement(insertAccessory)) {
+                        stmtAccessory.setInt(1, productId);
+                        stmtAccessory.setString(2, type);
+                        stmtAccessory.setString(3, brand);
+                        stmtAccessory.executeUpdate();
                     }
                     break;
 
                 case "cage":
-                    String updateCage = "UPDATE Cage SET dimension = ?, material = ? WHERE productId = ?";
-                    try (PreparedStatement cageStmt = conn.prepareStatement(updateCage)) {
-                        cageStmt.setString(1, dimension);
-                        cageStmt.setString(2, material);
-                        cageStmt.setInt(3, productId);
-                        cageStmt.executeUpdate();
+                    String insertCage = "INSERT INTO Cage (productId, dimension, material) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtCage = conn.prepareStatement(insertCage)) {
+                        stmtCage.setInt(1, productId);
+                        stmtCage.setString(2, dimension);
+                        stmtCage.setString(3, material);
+                        stmtCage.executeUpdate();
                     }
                     break;
 
                 case "food":
-                    String updateFood = "UPDATE Food SET expirationDate = ?, flavor = ? WHERE productId = ?";
-                    try (PreparedStatement foodStmt = conn.prepareStatement(updateFood)) {
-                        foodStmt.setDate(1, java.sql.Date.valueOf(expirationDate));
-                        foodStmt.setString(2, flavor);
-                        foodStmt.setInt(3, productId);
-                        foodStmt.executeUpdate();
+                    String insertFood = "INSERT INTO Food (productId, expirationDate, flavor) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtFood = conn.prepareStatement(insertFood)) {
+                        stmtFood.setInt(1, productId);
+                        stmtFood.setDate(2, Date.valueOf(expirationDate));
+                        stmtFood.setString(3, flavor);
+                        stmtFood.executeUpdate();
                     }
                     break;
 
                 case "toy":
-                    String updateToy = "UPDATE Toy SET material = ?, size = ? WHERE productId = ?";
-                    try (PreparedStatement toyStmt = conn.prepareStatement(updateToy)) {
-                        toyStmt.setString(1, material);
-                        toyStmt.setString(2, size);
-                        toyStmt.setInt(3, productId);
-                        toyStmt.executeUpdate();
+                    String insertToy = "INSERT INTO Toy (productId, material, size) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtToy = conn.prepareStatement(insertToy)) {
+                        stmtToy.setInt(1, productId);
+                        stmtToy.setString(2, material);
+                        stmtToy.setString(3 , size);
+                        stmtToy.executeUpdate();
                     }
                     break;
 
