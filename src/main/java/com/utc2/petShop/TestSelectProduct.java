@@ -1,12 +1,5 @@
 package com.utc2.petShop;
 
-import com.utc2.petShop.model.repository.DBConnection;
-import com.utc2.petShop.model.entities.Product.Product;
-import com.utc2.petShop.model.repository.SelectProduct;
-
-import java.sql.Connection;
-import java.util.List;
-
 public class TestSelectProduct {
 //    public static void main(String[] args) {
 //        try {

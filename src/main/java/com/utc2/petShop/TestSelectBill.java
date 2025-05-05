@@ -1,11 +1,5 @@
 package com.utc2.petShop;
 
-import com.utc2.petShop.model.entities.Bill.Bill;
-import com.utc2.petShop.model.repository.SelectBill;
-
-import java.sql.SQLException;
-import java.util.List;
-
 public class TestSelectBill {
 //    public static void main(String[] args) {
 //        try {

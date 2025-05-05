@@ -1,8 +1,6 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
-import com.utc2.petShop.model.repository.InsertUser;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,8 +10,6 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class controllerAddUser implements Initializable {

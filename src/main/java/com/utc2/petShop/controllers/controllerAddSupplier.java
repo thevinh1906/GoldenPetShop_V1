@@ -1,7 +1,5 @@
 package com.utc2.petShop.controllers;
 
-import com.utc2.petShop.model.repository.InsertSupplier;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
