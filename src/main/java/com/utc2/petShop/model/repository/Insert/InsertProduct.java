@@ -14,8 +14,8 @@ public class InsertProduct {
                                        String material, String size, String role) {
         int productId = 0;
         try (Connection conn = DBConnection.getConnection()) {
-            String insertProduct = "INSERT INTO PRODUCTS (supplierId, name, price, quantity, description, manufacturer) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+            String insertProduct = "INSERT INTO PRODUCTS (supplierId, name, price, quantity, description, manufacturer, role) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(insertProduct, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -25,6 +25,7 @@ public class InsertProduct {
                 stmt.setInt(4, quantity);
                 stmt.setString(5, description);
                 stmt.setString(6, manufacturer);
+                stmt.setString(7, role);
                 int a = stmt.executeUpdate();
 
                 //lấy id product mới tăng
@@ -42,37 +43,37 @@ public class InsertProduct {
 
             if (role.equalsIgnoreCase("Accessory")){
                 String insertAccessory = "INSERT INTO Accessory (productId, type, brand) VALUES (?, ?, ?)";
-                try (PreparedStatement stmt = conn.prepareStatement(insertAccessory)) {
-                    stmt.setInt(1, productId);
-                    stmt.setString(2, type);
-                    stmt.setString(3, brand);
-                    stmt.executeUpdate();
+                try (PreparedStatement stmtAccessory = conn.prepareStatement(insertAccessory)) {
+                    stmtAccessory.setInt(1, productId);
+                    stmtAccessory.setString(2, type);
+                    stmtAccessory.setString(3, brand);
+                    stmtAccessory.executeUpdate();
                 }
             }
             else if (role.equalsIgnoreCase("Cage")){
                 String insertCage = "INSERT INTO Cage (productId, dimension, material) VALUES (?, ?, ?)";
-                try (PreparedStatement stmt = conn.prepareStatement(insertCage)) {
-                    stmt.setInt(1, productId);
-                    stmt.setString(2, dimension);
-                    stmt.setString(3, material);
-                    stmt.executeUpdate();
+                try (PreparedStatement stmtCage = conn.prepareStatement(insertCage)) {
+                    stmtCage.setInt(1, productId);
+                    stmtCage.setString(2, dimension);
+                    stmtCage.setString(3, material);
+                    stmtCage.executeUpdate();
                 }
             }
             else if (role.equalsIgnoreCase("Food")){
                 String insertFood = "INSERT INTO Food (productId, expirationDate, flavor) VALUES (?, ?, ?)";
-                try (PreparedStatement stmt = conn.prepareStatement(insertFood)) {
-                    stmt.setInt(1, productId);
-                    stmt.setDate(2, Date.valueOf(expirationDate));
-                    stmt.setString(3, flavor);
-                    stmt.executeUpdate();
+                try (PreparedStatement stmtFood = conn.prepareStatement(insertFood)) {
+                    stmtFood.setInt(1, productId);
+                    stmtFood.setDate(2, Date.valueOf(expirationDate));
+                    stmtFood.setString(3, flavor);
+                    stmtFood.executeUpdate();
                 }
             } else if (role.equalsIgnoreCase("Toy")) {
                 String insertToy = "INSERT INTO Toy (productId, material, size) VALUES (?, ?, ?)";
-                try (PreparedStatement stmt = conn.prepareStatement(insertToy)) {
-                    stmt.setInt(1, productId);
-                    stmt.setString(2, material);
-                    stmt.setString(3 , size);
-                    stmt.executeUpdate();
+                try (PreparedStatement stmtToy = conn.prepareStatement(insertToy)) {
+                    stmtToy.setInt(1, productId);
+                    stmtToy.setString(2, material);
+                    stmtToy.setString(3 , size);
+                    stmtToy.executeUpdate();
                 }
             }
 

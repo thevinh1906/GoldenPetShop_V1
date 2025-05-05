@@ -10,22 +10,18 @@ import java.util.Date;
 
 public class UpdateCustomer {
 
-    public static void updateCustomer(int customerId, String fullName, boolean gender, String email,
-                                      String phoneNumber, String address, Date birthDate) {
+    public static void updateCustomer(int customerId, String fullName,
+                                      String phoneNumber) {
 
-        String updateQuery = "UPDATE CUSTOMER SET fullName = ?, gender = ?, email = ?, phoneNumber = ?, " +
-                "address = ?, birthDate = ? WHERE customerId = ?";
+        String updateQuery = "UPDATE CUSTOMER SET customerName = ?, phoneNumber = ? " +
+                "WHERE customerId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
 
             stmt.setString(1, fullName);
-            stmt.setBoolean(2, gender);
-            stmt.setString(3, email);
-            stmt.setString(4, phoneNumber);
-            stmt.setString(5, address);
-            stmt.setDate(6, new java.sql.Date(birthDate.getTime()));
-            stmt.setInt(7, customerId);
+            stmt.setString(2, phoneNumber);
+            stmt.setInt(3, customerId);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {

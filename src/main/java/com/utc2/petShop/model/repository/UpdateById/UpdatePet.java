@@ -2,6 +2,7 @@ package com.utc2.petShop.model.repository.UpdateById;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.model.repository.Delete.DeletePet;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class UpdatePet {
         try (Connection conn = DBConnection.getConnection()) {
             // Cập nhật bảng PET
             String updatePet = "UPDATE PET SET name = ?, age = ?, gender = ?, price = ?, vaccinated = ?, " +
-                    "healthStatus = ?, origin = ?, weight = ?, furColor = ?, description = ?, supplierId = ? " +
+                    "healthStatus = ?, origin = ?, weight = ?, furColor = ?, description = ?, supplierId = ?, role = ? " +
                     "WHERE petId = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updatePet)) {
@@ -32,7 +33,8 @@ public class UpdatePet {
                 stmt.setString(9, furColor);
                 stmt.setString(10, description);
                 stmt.setInt(11, supplier.getId());
-                stmt.setInt(12, petId);
+                stmt.setString(12, role);
+                stmt.setInt(13, petId);
                 int affected = stmt.executeUpdate();
 
                 if (affected == 0) {
@@ -40,46 +42,47 @@ public class UpdatePet {
                     return;
                 }
             }
+            DeletePet.deletePetClassExtendsById(petId);
 
             // Cập nhật bảng phụ tương ứng theo role
             switch (role.toLowerCase()) {
                 case "cat":
-                    String updateCat = "UPDATE Cat SET isIndoor = ?, breed = ?, eyeColor = ? WHERE petId = ?";
-                    try (PreparedStatement stmtCat = conn.prepareStatement(updateCat)) {
-                        stmtCat.setBoolean(1, isIndoor);
-                        stmtCat.setString(2, breed);
-                        stmtCat.setString(3, eyeColor);
-                        stmtCat.setInt(4, petId);
+                    String insertCat = "INSERT INTO Cat (petId, isIndoor, breed, eyeColor) VALUES (?, ?, ?, ?)";
+                    try (PreparedStatement stmtCat = conn.prepareStatement(insertCat)) {
+                        stmtCat.setInt(1, petId);
+                        stmtCat.setBoolean(2, isIndoor);
+                        stmtCat.setString(3, breed);
+                        stmtCat.setString(4, eyeColor);
                         stmtCat.executeUpdate();
                     }
                     break;
 
                 case "dog":
-                    String updateDog = "UPDATE Dog SET breed = ?, isTrained = ? WHERE petId = ?";
-                    try (PreparedStatement stmtDog = conn.prepareStatement(updateDog)) {
-                        stmtDog.setString(1, breed);
-                        stmtDog.setBoolean(2, isTrained);
-                        stmtDog.setInt(3, petId);
+                    String insertDog = "INSERT INTO Dog (petId, breed, isTrained) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtDog = conn.prepareStatement(insertDog)) {
+                        stmtDog.setInt(1, petId);
+                        stmtDog.setString(2, breed);
+                        stmtDog.setBoolean(3, isTrained);
                         stmtDog.executeUpdate();
                     }
                     break;
 
                 case "hamster":
-                    String updateHamster = "UPDATE Hamster SET breed = ?, tailLength = ? WHERE petId = ?";
-                    try (PreparedStatement stmtHamster = conn.prepareStatement(updateHamster)) {
-                        stmtHamster.setString(1, breed);
-                        stmtHamster.setFloat(2, tailLength);
-                        stmtHamster.setInt(3, petId);
+                    String insertHamster = "INSERT INTO Hamster (petId, breed, tailLength) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtHamster = conn.prepareStatement(insertHamster)) {
+                        stmtHamster.setInt(1, petId);
+                        stmtHamster.setString(2, breed);
+                        stmtHamster.setDouble(3, tailLength);
                         stmtHamster.executeUpdate();
                     }
                     break;
 
                 case "rabbit":
-                    String updateRabbit = "UPDATE Rabbit SET breed = ?, earLength = ? WHERE petId = ?";
-                    try (PreparedStatement stmtRabbit = conn.prepareStatement(updateRabbit)) {
-                        stmtRabbit.setString(1, breed);
-                        stmtRabbit.setFloat(2, earLength);
-                        stmtRabbit.setInt(3, petId);
+                    String insertRabbit = "INSERT INTO Rabbit (petId, breed, earLength) VALUES (?, ?, ?)";
+                    try (PreparedStatement stmtRabbit = conn.prepareStatement(insertRabbit)) {
+                        stmtRabbit.setInt(1, petId);
+                        stmtRabbit.setString(2, breed);
+                        stmtRabbit.setDouble(3, earLength);
                         stmtRabbit.executeUpdate();
                     }
                     break;

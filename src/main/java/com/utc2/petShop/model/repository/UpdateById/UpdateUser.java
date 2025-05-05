@@ -1,6 +1,7 @@
 package com.utc2.petShop.model.repository.UpdateById;
 
 import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.model.repository.Delete.DeleteUser;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ public class UpdateUser {
         try (Connection conn = DBConnection.getConnection()) {
             // Cập nhật bảng USERS
             String updateUser = "UPDATE USERS SET username = ?, password = ?, fullName = ?, gender = ?, email = ?, " +
-                    "phoneNumber = ?, address = ?, createAt = ?, birthDate = ? WHERE userId = ?";
+                    "phoneNumber = ?, address = ?, createAt = ?, birthDate = ?, role = ? WHERE userId = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateUser)) {
                 stmt.setString(1, username);
@@ -27,7 +28,8 @@ public class UpdateUser {
                 stmt.setString(7, address);
                 stmt.setDate(8, Date.valueOf(creationDate));
                 stmt.setDate(9, Date.valueOf(birthDay));
-                stmt.setInt(10, userId);
+                stmt.setString(10, role);
+                stmt.setInt(11, userId);
 
                 int affectedRows = stmt.executeUpdate();
                 if (affectedRows == 0) {
@@ -36,14 +38,16 @@ public class UpdateUser {
                 }
             }
 
+            DeleteUser.deleteUserClassExtendsById(userId);
+
             // Nếu là nhân viên thì cập nhật bảng EMPLOYEE
             if (role.equalsIgnoreCase("Employee")) {
-                String updateEmployee = "UPDATE EMPLOYEE SET position = ?, salary = ?, workingHours = ? WHERE userId = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(updateEmployee)) {
-                    stmt.setString(1, position);
-                    stmt.setFloat(2, salary);
-                    stmt.setString(3, workingHours);
-                    stmt.setInt(4, userId);
+                String insertEmployee = "INSERT INTO EMPLOYEE (userId, position, salary, workingHours) VALUES (?, ?, ?, ?)";
+                try (PreparedStatement stmt = conn.prepareStatement(insertEmployee)) {
+                    stmt.setInt(1, userId);
+                    stmt.setString(2, position);
+                    stmt.setFloat(3, salary);
+                    stmt.setString(4, workingHours);
                     stmt.executeUpdate();
                 }
             }

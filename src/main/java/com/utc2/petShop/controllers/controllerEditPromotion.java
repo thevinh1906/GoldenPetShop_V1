@@ -2,6 +2,7 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Promotion.Promotion;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.UpdateById.UpdatePromotion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class controllerEditPromotion implements Initializable {
@@ -40,7 +42,13 @@ public class controllerEditPromotion implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String name = textFieldNameGeneral.getText();
+        float discountPercentage = Float.parseFloat(textFieldDiscountPercentGeneral.getText());
+        LocalDate startDate = datePickerStartDateGeneral.getValue();
+        LocalDate endDate = datePickerEndDateGeneral.getValue();
+        Boolean isActive = checkBoxActiveGeneral.isSelected();
 
+        UpdatePromotion.updatePromotion(promotion.getId(), name, discountPercentage, startDate, endDate, isActive);
     }
 
     @FXML
@@ -63,12 +71,15 @@ public class controllerEditPromotion implements Initializable {
     }
 
     public void receiveData(Promotion obj){
+        promotion = obj;
         textFieldNameGeneral.setText(obj.getName());
         textFieldDiscountPercentGeneral.setText(String.valueOf(obj.getDiscountPercent()));
         datePickerStartDateGeneral.setValue(obj.getStartDate());
         datePickerEndDateGeneral.setValue(obj.getEndDate());
         checkBoxActiveGeneral.setSelected(obj.isIsActive());
     }
+
+    Promotion promotion;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -14,8 +14,8 @@ public class InsertPet {
                                  boolean isTrained, float tailLength, float earLength) {
         int id = 0;
         try (Connection conn = DBConnection.getConnection()) {
-            String insertPet = "INSERT INTO PET (name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierId) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String insertPet = "INSERT INTO PET (name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierId, role) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertPet, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setString(1, name);
                 stmt.setInt(2, age);
@@ -28,6 +28,7 @@ public class InsertPet {
                 stmt.setString(9, furColor);
                 stmt.setString(10, description);
                 stmt.setInt(11, supplier.getId());
+                stmt.setString(12, role);
                 int a = stmt.executeUpdate();
 
                 //lấy id pet mới tăng

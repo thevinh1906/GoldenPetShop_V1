@@ -3,6 +3,7 @@ package com.utc2.petShop.controllers;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
+import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class controllerEditProduct implements Initializable {
@@ -73,20 +75,51 @@ public class controllerEditProduct implements Initializable {
     private TextField textFieldPriceGeneral;
 
     @FXML
-    private TextField textFielldBrandAccessory;
+    private TextField textFieldBrandAccessory;
 
     @FXML
-    private TextField textFielldTypeAccessory;
+    private TextField textFieldTypeAccessory;
 
     @FXML
-    private TextField textFiieldMaterialToy;
+    private TextField textFieldMaterialToy;
 
     @FXML
-    private TextField textFiieldSizeToy;
+    private TextField textFieldSizeToy;
 
     @FXML
     void actionAdd(ActionEvent event) {
+        Supplier supplier = comboBoxSupplierGeneral.getValue();
+        String name = textFieldNameGeneral.getText();
+        double price = Double.parseDouble(textFieldPriceGeneral.getText());
+        int quantity = spinnerQuantityGeneral.getValue();
+        String description = textAreaDescriptionGeneral.getText();
+        String manufacturer = textFieldManufacturerGeneral.getText();
+        String role = String.valueOf(choiceBoxPetSuppliesGeneral.getValue());
+        String type = "";
+        String brand = "";
+        LocalDate expirationDate = null;
+        String flavor = "";
+        String dimension = "";
+        String material = "";
+        String size = "";
+        if(role.equals("Food")){
+            expirationDate = datePickerExpirationDateFood.getValue();
+            flavor = textFieldFlavorFood.getText();
+        }
+        else if(role.equals("Toy")){
+            material = textFieldMaterialToy.getText();
+            size = textFieldSizeToy.getText();
+        }
+        else if(role.equals("Cage")){
+            material = textFieldMaterialCage.getText();
+            dimension = textFieldDimensionCage.getText();
+        }
+        else if(role.equals("Accessory")){
+            brand = textFieldBrandAccessory.getText();
+            type = textFieldTypeAccessory.getText();
+        }
 
+        UpdateProduct.updateProduct(product.getId(),supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,dimension,manufacturer,size,role);
     }
 
     @FXML
@@ -166,6 +199,7 @@ public class controllerEditProduct implements Initializable {
     }
 
     public void receiveData(Product obj){
+        product = obj;
         textFieldNameGeneral.setText(obj.getName());
         spinnerQuantityGeneral.getValueFactory().setValue(obj.getQuantity());
         textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
@@ -181,8 +215,8 @@ public class controllerEditProduct implements Initializable {
         else if(obj instanceof Toy){
             Toy toy = (Toy) obj;
             choiceBoxPetSuppliesGeneral.setValue(toy);
-            textFiieldMaterialToy.setText(toy.getMaterial());
-            textFiieldSizeToy.setText(toy.getSize());
+            textFieldMaterialToy.setText(toy.getMaterial());
+            textFieldSizeToy.setText(toy.getSize());
         }
         else if(obj instanceof Cage){
             Cage cage = (Cage) obj;
@@ -193,12 +227,14 @@ public class controllerEditProduct implements Initializable {
         else if(obj instanceof Accessory){
             Accessory accessory = (Accessory) obj;
             choiceBoxPetSuppliesGeneral.setValue(accessory);
-            textFielldTypeAccessory.setText(accessory.getType());
-            textFielldBrandAccessory.setText(accessory.getBrand());
+            textFieldTypeAccessory.setText(accessory.getType());
+            textFieldBrandAccessory.setText(accessory.getBrand());
         }
     }
 
     private static ObservableList<Supplier> listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+
+    Product product;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

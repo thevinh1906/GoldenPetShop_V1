@@ -880,6 +880,8 @@ public class controllerHomeAdmin implements Initializable {
                 controller.receiveData(selectedItem);
             });
         }
+        listCustomer = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
+        tableViewCustomer.setItems(listCustomer);
     }
 
     @FXML
@@ -890,7 +892,8 @@ public class controllerHomeAdmin implements Initializable {
             controller.receiveData(selectedItem);
         });
         }
-
+        listPet = FXCollections.observableArrayList(SelectPet.getAllPets());
+        tableViewPet.setItems(listPet);
     }
 
     @FXML
@@ -901,6 +904,8 @@ public class controllerHomeAdmin implements Initializable {
                 controller.receiveData(selectedItem);
             });
         }
+        listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+        tableViewProduct.setItems(listProducts);
     }
 
     @FXML
@@ -916,6 +921,8 @@ public class controllerHomeAdmin implements Initializable {
                 controller.receiveData(selectedItem);
             });
         }
+        listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+        tableViewSupplier.setItems(listSupplier);
     }
 
     @FXML
@@ -926,6 +933,8 @@ public class controllerHomeAdmin implements Initializable {
                 controller.receiveData(selectedItem);
             });
         }
+        listUser = FXCollections.observableArrayList(SelectUser.getAllUsers());
+        tableViewUser.setItems(listUser);
     }
 
     @FXML
@@ -1158,6 +1167,8 @@ public class controllerHomeAdmin implements Initializable {
                 controller.receiveData(selectedItem);
             });
         }
+        listPromotion = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
+        tableViewPromotion.setItems(listPromotion);
     }
 
     @FXML

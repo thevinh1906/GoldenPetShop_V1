@@ -34,7 +34,6 @@ public class SelectPet {
             while (rs.next()) {
                 int id = rs.getInt("petId");
                 String name = rs.getString("name");
-                String breed = rs.getString("breed");
                 int age = rs.getInt("age");
                 boolean gender = rs.getBoolean("gender");
                 double price = rs.getDouble("price");

@@ -5,6 +5,7 @@ import com.utc2.petShop.model.entities.User.Admin;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
+import com.utc2.petShop.model.repository.UpdateById.UpdateUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -71,7 +72,26 @@ public class controllerEditUser implements Initializable {
 
     @FXML
     void actionAdd(ActionEvent event) {
+        String username = textFieldUsernameGeneral.getText();
+        String password = textFieldPasswordGeneral.getText();
+        String name = textFieldNameGeneral.getText();
+        boolean gender = !radioButtonFemaleGeneral.isSelected();
+        String email = textFieldEmailGeneral.getText();
+        String phoneNumber = textFieldPhoneNumberGeneral.getText();
+        String address = textFieldAddressGeneral.getText();
+        LocalDate birthDay = datePickerBirthDateGeneral.getValue();
+        LocalDate creationDate = datePickerCreationDateGeneral.getValue();
+        String position = String.valueOf(choiceBoxPositionGeneral.getValue());
+        System.out.println(position);
+        float salary = 0;
+        String workingHours = textFieldWorkingHoursGeneral.getText();
+        String role = "";
+        if(!position.equals("null")){
+            role = "Employee";
+            salary = Float.parseFloat(textFieldSalaryGeneral.getText());
+        }
 
+        UpdateUser.updateUser(user.getId(),username,password,name,gender,email,phoneNumber,address,birthDay,creationDate,position,salary,workingHours,role);
     }
 
     @FXML
@@ -104,9 +124,23 @@ public class controllerEditUser implements Initializable {
         });
 
         textFieldEmailGeneral.setTextFormatter(formatterEmail);
+
+        TextFormatter<String> formatterSalary = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+
+        textFieldSalaryGeneral.setTextFormatter(formatterSalary);
     }
 
     public void receiveData(User obj){
+        user = obj;
         textFieldUsernameGeneral.setText(obj.getUsername());
         textFieldPasswordGeneral.setText(obj.getPassword());
         textFieldNameGeneral.setText(obj.getName());
@@ -132,6 +166,8 @@ public class controllerEditUser implements Initializable {
         }
 
     }
+
+    private static User user;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

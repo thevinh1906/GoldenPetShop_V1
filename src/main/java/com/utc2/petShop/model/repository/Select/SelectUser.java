@@ -34,11 +34,12 @@ public class SelectUser {
                 String address = rs.getString("address");
                 LocalDate birth = rs.getDate("birthDate").toLocalDate();
                 LocalDate createAt = rs.getDate("createAt").toLocalDate();
+                String role = rs.getString("role");
 
-                String positionStr = rs.getString("position");
 
-                if (positionStr != null) {
+                if (role.equals("Employee")) {
                     // Là Employee
+                    String positionStr = rs.getString("position");
                     double salary = rs.getDouble("salary");
                     String workingHours = rs.getString("workingHours");
 
