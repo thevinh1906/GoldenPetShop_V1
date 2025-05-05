@@ -2,6 +2,8 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.Insert.InsertPet;
+import com.utc2.petShop.model.repository.Select.SelectSupplier;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

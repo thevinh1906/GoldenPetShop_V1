@@ -1,6 +1,8 @@
 package com.utc2.petShop.model.repository.Delete;
 
 import com.utc2.petShop.model.repository.*;
+import com.utc2.petShop.model.repository.Select.SelectPet;
+import com.utc2.petShop.model.repository.Select.SelectProduct;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
