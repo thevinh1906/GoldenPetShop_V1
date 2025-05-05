@@ -1,11 +1,5 @@
 package com.utc2.petShop;
 
-import com.utc2.petShop.model.entities.Customer.Customer;
-import com.utc2.petShop.model.repository.SelectCustomer;
-
-import java.sql.SQLException;
-import java.util.List;
-
 public class TestSelectCustomer {
 //    public static void main(String[] args) {
 //        try {
