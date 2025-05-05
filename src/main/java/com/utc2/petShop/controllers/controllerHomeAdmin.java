@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -37,6 +38,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -1114,6 +1116,34 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionRightEditImportProduct(ActionEvent event) {
+        Dialog<Integer> dialog = new Dialog<>();
+        dialog.setTitle("Chỉnh sửa số lượng");
+
+        ButtonType okButtonType = new ButtonType("Xác nhận", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(okButtonType, ButtonType.CANCEL);
+
+// Tạo spinner cho số lượng
+        Product quantity = tableViewRightImportProduct.getSelectionModel().getSelectedItem();
+        Spinner<Integer> spinner = new Spinner<>(1, 1000, quantity.getQuantity());
+        spinner.setEditable(true);
+
+// Layout
+        VBox content = new VBox(10, new Label("Số lượng mới:"), spinner);
+        content.setPadding(new Insets(10));
+        dialog.getDialogPane().setContent(content);
+
+// Lấy kết quả
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == okButtonType) {
+                return spinner.getValue();
+            }
+            return null;
+        });
+
+        Optional<Integer> result = dialog.showAndWait();
+        result.ifPresent(newQuantity -> {
+            tableViewRightImportProduct.getSelectionModel().getSelectedItem().setQuantity(newQuantity);
+        });
 
     }
 
