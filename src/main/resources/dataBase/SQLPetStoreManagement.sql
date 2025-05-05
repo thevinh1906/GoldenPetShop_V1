@@ -324,6 +324,9 @@ INSERT INTO REVENUE_REPORT VALUES
 ('4', '2025', 0, 0);
 
 
-
+--Rang buoc
+--Image
+--Them du lieu
+--duoc thi them procedure va trigger
 
 
