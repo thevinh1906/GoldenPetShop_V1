@@ -1,6 +1,7 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.repository.Insert.InsertSupplier;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,6 +45,7 @@ public class controllerAddSupplier implements Initializable {
         String address = textFieldAddressGeneral.getText();
 
         InsertSupplier.insertSupplier(name, email, phoneNumber, address);
+
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
     }
@@ -57,7 +59,7 @@ public class controllerAddSupplier implements Initializable {
         TextFormatter<String> formatterPhone = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 
-            if (newText.isEmpty() || newText.matches("0\\d{0,10}")) {
+            if (newText.isEmpty() || newText.matches("0\\d{0,9}")) {
                 return change;
             } else {
                 return null;
@@ -65,25 +67,65 @@ public class controllerAddSupplier implements Initializable {
         });
         textFieldPhoneNumberGeneral.setTextFormatter(formatterPhone);
 
+        textFieldPhoneNumberGeneral.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() < 10) {
+                textFieldPhoneNumberGeneral.setStyle("-fx-border-color: red;");
+                buttonAddDisable();
+            } else {
+                textFieldPhoneNumberGeneral.setStyle(""); // xóa viền đỏ nếu hợp lệ
+            }
+        });
 
         TextFormatter<String> formatterEmail = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 
-            // Cho phép nhập trống, hoặc email có ký tự hợp lệ
-            if (newText.matches("[a-zA-Z0-9@._\\-]*") || newText.isEmpty()) {
+            if (newText.isEmpty() || newText.matches("[a-zA-Z0-9@._\\-]*")) {
                 return change;
             } else {
                 return null;
             }
         });
-
         textFieldEmailGeneral.setTextFormatter(formatterEmail);
+
+        textFieldEmailGeneral.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+                textFieldEmailGeneral.setStyle("-fx-border-color: red;");
+                buttonAddDisable();
+            }
+            else {
+                textFieldEmailGeneral.setStyle("");
+            }
+        });
 
 
     }
 
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty =
+                textFieldNameGeneral.getText().isEmpty() ||
+                        textFieldEmailGeneral.getText().isEmpty() ||
+                        textFieldPhoneNumberGeneral.getText().isEmpty() ||
+                        textFieldAddressGeneral.getText().isEmpty() ||
+                        !textFieldEmailGeneral.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") ||
+                        (textFieldPhoneNumberGeneral.getText().length() < 10);
+
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable() {
+        buttonAdd.setDisable(true);
+        ChangeListener<String> listener = (observable, oldValue, newValue) -> buttonAddDisable();
+
+        textFieldNameGeneral.textProperty().addListener(listener);
+        textFieldEmailGeneral.textProperty().addListener(listener);
+        textFieldPhoneNumberGeneral.textProperty().addListener(listener);
+        textFieldAddressGeneral.textProperty().addListener(listener);
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         exceptions();
+        setButtonAddDisable();
     }
 }

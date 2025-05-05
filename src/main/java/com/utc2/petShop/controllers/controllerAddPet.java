@@ -271,6 +271,7 @@ public class controllerAddPet implements Initializable {
 
     public void buttonAddDisable(){
         String name = textFieldNameGeneral.getText();
+        boolean gender = (radioButtonFemaleGeneral.isSelected() || radioButtonMaleGeneral.isSelected());
         String priceText = textFieldPriceGeneral.getText();
         String healthStatus = textFieldHealthStatusGeneral.getText();
         String origin = textFieldOriginGeneral.getText();
@@ -282,7 +283,7 @@ public class controllerAddPet implements Initializable {
         String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
 
         boolean isAnyFieldEmpty =
-                name.isEmpty() ||
+                name.isEmpty() || !gender ||
                         priceText.isEmpty() ||
                         healthStatus.isEmpty() ||
                         origin.isEmpty() ||
@@ -315,6 +316,7 @@ public class controllerAddPet implements Initializable {
 
     public void setButtonAddDisable(){
         textFieldNameGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        gender.selectedToggleProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldPriceGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldHealthStatusGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldOriginGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());

@@ -94,6 +94,25 @@ public class controllerEditPromotion implements Initializable {
         });
     }
 
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty = textFieldNameGeneral.getText().isEmpty()
+                || textFieldDiscountPercentGeneral.getText().isEmpty()
+                || datePickerStartDateGeneral.getValue() == null
+                || datePickerEndDateGeneral.getValue() == null;
+
+        // Sau đó xử lý ví dụ như vô hiệu hóa nút:
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable() {
+        buttonAdd.setDisable(true);
+        textFieldNameGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        textFieldDiscountPercentGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        datePickerStartDateGeneral.valueProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        datePickerEndDateGeneral.valueProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+    }
+
+
     public void receiveData(Promotion obj){
         promotion = obj;
         textFieldNameGeneral.setText(obj.getName());
@@ -108,5 +127,7 @@ public class controllerEditPromotion implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         exceptions();
+
+        setButtonAddDisable();
     }
 }
