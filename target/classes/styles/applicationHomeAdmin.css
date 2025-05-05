@@ -1,0 +1,73 @@
+
+.buttonTransparent:hover {
+    -fx-background-color: #C0C0C0 !important;
+}
+
+.buttonCustom {
+    -fx-background-color: #EAF2F8;
+    -fx-text-fill: #2C3E50;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 3, 0.3, 0, 2);
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+@font-face {
+    font-family: "Nunito";
+    src: url("/fonts/Nunito/Nunito-VariableFont_wght.ttf");
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf");
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent; /* cho phép background con hiển thị */
+}
+
+
+.button-left {
+    -fx-text-fill: #4A4A4A;
+    -fx-font-size: 20px;
+    -fx-background-radius: 8px;
+}
+
+.button-left:hover {
+    -fx-background-color: #A5C9EA !important;
+}
+
+.scroll-pane-center{
+    -fx-font-family: "Nunito";
+}
+
+.buttonCustom:hover{
+    -fx-background-color: #A5C9EA;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter/Inter-VariableFont_opsz,wght.ttf");
+}
+
+.root {
+    -fx-background-color: #F2F8FF;
+    -fx-font-family: 'Segoe UI';
+}
+
+.table-view {
+    -fx-font-size: 13px;
+    -fx-padding: 8px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #D6EAF8;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-cell {
+    -fx-alignment: CENTER;
+}
+

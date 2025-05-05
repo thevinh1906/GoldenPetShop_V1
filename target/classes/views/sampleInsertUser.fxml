@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: dcdcdc;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerInsertUser">
+   <content>
+      <StackPane fx:id="stackPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: dcdcdc;">
+         <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="755.0" style="-fx-background-color: dcdcdc;">
+               <children>
+                  <Label layoutX="203.0" layoutY="28.0" text="Isert information">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Line endX="226.0" layoutX="332.0" layoutY="98.0" startX="-100.0" />
+                  <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="textFirstName" layoutX="87.0" layoutY="145.0" prefHeight="50.0" prefWidth="234.0" promptText="First Name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="textLastName" layoutX="435.0" layoutY="145.0" prefHeight="50.0" prefWidth="234.0" promptText="Last Name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <DatePicker fx:id="BirthDate" layoutX="178.0" layoutY="249.0" prefHeight="50.0" prefWidth="400.0" promptText="DD/MM/YYYY" />
+                  <Label layoutX="178.0" layoutY="220.0" prefHeight="29.0" prefWidth="102.0" text="Birth date:">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="textPhoneNumber" layoutX="178.0" layoutY="331.0" prefHeight="50.0" prefWidth="400.0" promptText="Phone number">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="textEmail" layoutX="178.0" layoutY="412.0" prefHeight="50.0" prefWidth="400.0" promptText="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="textAddress" layoutX="178.0" layoutY="493.0" prefHeight="50.0" prefWidth="400.0" promptText="Address">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <HBox layoutX="252.0" layoutY="567.0">
+                     <children>
+                        <RadioButton fx:id="radio2" mnemonicParsing="false" text="Manager">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="user" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radio3" mnemonicParsing="false" text="Employee" toggleGroup="$user">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                     </children>
+                  </HBox>
+                  <VBox layoutX="178.0" layoutY="618.0">
+                     <children>
+                        <StackPane fx:id="stack1">
+                           <children>
+                              <TextField fx:id="textDepartment" prefHeight="50.0" prefWidth="400.0" promptText="Department">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets bottom="25.0" />
+                                 </StackPane.margin>
+                              </TextField>
+                              <VBox fx:id="VBoxPositionSalary">
+                                 <children>
+                                    <TextField fx:id="textPosition" prefHeight="50.0" prefWidth="400.0" promptText="Position">
+                                       <VBox.margin>
+                                          <Insets bottom="25.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <TextField fx:id="textSalary" prefHeight="50.0" prefWidth="400.0" promptText="Salary">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </TextField>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="18.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <StackPane fx:id="stackAnnouncement">
+                           <children>
+                              <Label text="you have not entered enough data" textFill="RED" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="18.0" />
+                           </VBox.margin>
+                        </StackPane>
+                        <StackPane prefWidth="400.0">
+                           <children>
+                              <Button fx:id="buttonInsert" mnemonicParsing="false" onAction="#actionInsert" prefHeight="51.0" prefWidth="229.0" style="-fx-background-color: #e6b956;" styleClass="buttonInsert" text="Insert">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                                 <StackPane.margin>
+                                    <Insets bottom="50.0" />
+                                 </StackPane.margin>
+                              </Button>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+                  <Label fx:id="labelEmailAnnouncement" layoutX="189.0" layoutY="462.0" text="Invalid email" textFill="RED" />
+                  <Label fx:id="labelPhoneNumberAnnouncement" layoutX="189.0" layoutY="381.0" text="Invalid phone number" textFill="RED" />
+                  <Label fx:id="labelBirthAnnouncement" layoutX="189.0" layoutY="299.0" text="your age is not 18" textFill="RED" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </content>
+</ScrollPane>
