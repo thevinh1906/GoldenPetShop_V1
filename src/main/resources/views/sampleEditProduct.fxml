@@ -148,7 +148,7 @@
                                 <Label text="Dimension:" GridPane.rowIndex="1" />
                                 <Label text="Material:" />
                                 <TextField fx:id="textFieldMaterialCage" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Material" GridPane.columnIndex="1" />
-                                <TextField fx:id="textFieldDimensionCage" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Dimension" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="textFieldDimensionCage" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Width x Length x Height" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                         </GridPane>
                         <GridPane fx:id="gridPaneAccessory" vgap="20.0">

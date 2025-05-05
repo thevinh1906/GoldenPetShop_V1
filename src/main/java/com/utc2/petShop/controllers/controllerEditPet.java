@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class controllerEditPet implements Initializable {
 
     @FXML
-    private Button buttonAdd;
+    private Button buttonChange;
 
     @FXML
     private Button buttonCancel;
@@ -284,7 +284,7 @@ public class controllerEditPet implements Initializable {
                             textFieldEarLengthRabbit.getText().isEmpty();
         }
 
-        buttonAdd.setDisable(isAnyFieldEmpty);
+        buttonChange.setDisable(isAnyFieldEmpty);
     }
 
     public void setButtonAddDisable(){

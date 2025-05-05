@@ -99,32 +99,95 @@ public class controllerAddProduct implements Initializable {
         String brand = "";
         LocalDate expirationDate = null;
         String flavor = "";
-        String dimension;
+        String dimension = "";
         String material = "";
         String size = "";
-        if(role.equals("Food")){
+        if (role.equals("Food")) {
             expirationDate = datePickerExpirationDateFood.getValue();
             flavor = textFieldFlavorFood.getText();
-        }
-        else if(role.equals("Toy")){
+        } else if (role.equals("Toy")) {
             material = textFiieldMaterialToy.getText();
             size = textFieldSizeToy.getText();
-        }
-        else if(role.equals("Cage")){
+        } else if (role.equals("Cage")) {
             material = textFieldMaterialCage.getText();
             dimension = textFieldDimensionCage.getText();
-        }
-        else if(role.equals("Accessory")){
+        } else if (role.equals("Accessory")) {
             brand = textFielldBrandAccessory.getText();
             type = textFielldTypeAccessory.getText();
         }
-        InsertProduct.insertProduct(supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,description,material,size,role);
+        InsertProduct.insertProduct(supplier, name, price, quantity, description, manufacturer, type, brand, expirationDate, flavor, dimension, material, size, role);
     }
 
     @FXML
     void actionCancel(ActionEvent event) {
         ((Stage) buttonCancel.getScene().getWindow()).close();
     }
+
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty =
+                comboBoxSupplierGeneral.getValue() == null ||
+                        textFieldNameGeneral.getText().isEmpty() ||
+                        textFieldPriceGeneral.getText().isEmpty() ||
+                        textAreaDescriptionGeneral.getText().isEmpty() ||
+                        textFieldManufacturerGeneral.getText().isEmpty() ||
+                        choiceBoxPetSuppliesGeneral.getValue() == null;
+
+        String role = String.valueOf(choiceBoxPetSuppliesGeneral.getValue());
+
+        switch (role) {
+            case "Food" -> {
+                isAnyFieldEmpty |=
+                        datePickerExpirationDateFood.getValue() == null ||
+                                textFieldFlavorFood.getText().isEmpty();
+            }
+            case "Toy" -> {
+                isAnyFieldEmpty |=
+                        textFiieldMaterialToy.getText().isEmpty() ||
+                                textFieldSizeToy.getText().isEmpty();
+            }
+            case "Cage" -> {
+                isAnyFieldEmpty |=
+                        textFieldMaterialCage.getText().isEmpty() ||
+                                textFieldDimensionCage.getText().isEmpty();
+            }
+            case "Accessory" -> {
+                isAnyFieldEmpty |=
+                        textFielldBrandAccessory.getText().isEmpty() ||
+                                textFielldTypeAccessory.getText().isEmpty();
+            }
+        }
+
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable() {
+        buttonAdd.setDisable(true);
+
+        // Gắn listener cho các trường chính
+        textFieldNameGeneral.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        textFieldPriceGeneral.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        textAreaDescriptionGeneral.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        textFieldManufacturerGeneral.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        comboBoxSupplierGeneral.valueProperty().addListener((obs, o, n) -> buttonAddDisable());
+        choiceBoxPetSuppliesGeneral.valueProperty().addListener((obs, o, n) -> buttonAddDisable());
+
+        // Các trường theo từng loại (bạn nên kiểm tra role để chọn listener cần gắn)
+        textFieldFlavorFood.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        datePickerExpirationDateFood.valueProperty().addListener((obs, o, n) -> buttonAddDisable());
+
+        textFieldMaterialCage.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        textFieldDimensionCage.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+
+        textFieldSizeToy.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        textFiieldMaterialToy.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+
+        textFielldBrandAccessory.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+        textFielldTypeAccessory.textProperty().addListener((obs, o, n) -> buttonAddDisable());
+
+        // Kiểm tra lần đầu khi giao diện hiển thị
+    }
+
+
 
     public void griPaneVision() {
         gridPaneToy.setVisible(false);
@@ -193,6 +256,57 @@ public class controllerAddProduct implements Initializable {
             }
         });
         textFieldPriceGeneral.setTextFormatter(formatterPrice);
+
+        datePickerExpirationDateFood.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && !date.isAfter(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // màu hồng nhạt cho ngày bị vô hiệu hóa
+                }
+            }
+        });
+        TextFormatter<String> formatterDimensionCage = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.isEmpty() || newText.matches("\\d{0,4}(x\\d{0,4}){0,2}")) {
+                return change;
+            }
+            return null;
+        });
+        textFieldDimensionCage.setTextFormatter(formatterDimensionCage);
+
+        textFieldDimensionCage.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{1,4}x\\d{1,4}x\\d{1,4}")) {
+                buttonAdd.setDisable(true);
+                textFieldDimensionCage.setStyle("-fx-border-color: red;");
+            } else {
+                textFieldDimensionCage.setStyle(""); // Hợp lệ -> xóa border đỏ
+            }
+        });
+
+
+        TextFormatter<String> formatterSizeToy = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+
+            // Chỉ cho số thực dương: có hoặc không có phần thập phân
+            if (newText.isEmpty() || newText.matches("\\d{0,4}(x\\d{0,4}){0,2}")) {
+                return change;
+            }
+            return null;
+        });
+        textFieldSizeToy.setTextFormatter(formatterSizeToy);
+
+        textFieldSizeToy.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{1,4}x\\d{1,4}x\\d{1,4}")) {
+                buttonAdd.setDisable(true);
+                textFieldSizeToy.setStyle("-fx-border-color: red;");
+            } else {
+                textFieldSizeToy.setStyle(""); // Hợp lệ -> xóa border đỏ
+            }
+        });
     }
 
     private static ObservableList<Supplier> listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
@@ -209,5 +323,7 @@ public class controllerAddProduct implements Initializable {
         exceptions();
 
         comboBoxSupplierGeneral.setItems(listSupplier);
+
+        setButtonAddDisable();
     }
 }
