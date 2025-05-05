@@ -150,6 +150,8 @@ public class controllerEditPet implements Initializable {
         }
 
         UpdatePet.updatePet(pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML

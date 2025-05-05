@@ -120,6 +120,9 @@ public class controllerEditProduct implements Initializable {
         }
 
         UpdateProduct.updateProduct(product.getId(),supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,dimension,manufacturer,size,role);
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML

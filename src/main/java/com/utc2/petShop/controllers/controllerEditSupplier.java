@@ -48,6 +48,9 @@ public class controllerEditSupplier implements Initializable {
 
         UpdateSupplier.updateSupplier(supplier.getId(), name, email, phoneNumber, address);
 
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
+
     }
 
     @FXML

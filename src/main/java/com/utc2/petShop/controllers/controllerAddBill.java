@@ -61,6 +61,7 @@ public class controllerAddBill implements Initializable {
         String status = checkBoxStatusGeneral.isSelected() ? "completed" : "pending";
 
         InsertBill.insertBill(employee, customer, invoiceDate, totalAmount, paymentMethod, status);
+        ((Stage) buttonCancel.getScene().getWindow()).close();
     }
 
     @FXML

@@ -35,6 +35,9 @@ public class controllerEditCustomer implements Initializable {
     @FXML
     void actionChange(ActionEvent event) {
         UpdateCustomer.updateCustomer(customer.getId(), textFieldNameGeneral.getText(), textFieldPhoneNumberGeneral.getText());
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML
