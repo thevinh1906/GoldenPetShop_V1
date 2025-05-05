@@ -144,7 +144,7 @@ public class controllerAddPet implements Initializable {
         else if(role.equals("Rabbit")){
             breed = String.valueOf(comboBoxBreedRabbit.getValue());
             earLength = Float.parseFloat(textFieldEarLengthRabbit.getText());
-            
+
         }
         InsertPet.insertPet(name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
     }
@@ -264,6 +264,50 @@ public class controllerAddPet implements Initializable {
 
     private static ObservableList<Supplier> listSupplier = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
 
+    public void buttonAddDisable(){
+        String name = textFieldNameGeneral.getText();
+        String priceText = textFieldPriceGeneral.getText();
+        String healthStatus = textFieldHealthStatusGeneral.getText();
+        String origin = textFieldOriginGeneral.getText();
+        String weightText = textFieldWeightGeneral.getText();
+        String furColor = textFieldFurColorGeneral.getText();
+        String description = textAreaDescriptionGeneral.getText();
+        Supplier supplier = comboBoxSupplierGeneral.getValue();
+        Pet pet = choiceBoxAnimalGeneral.getValue();
+        String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
+
+        boolean isAnyFieldEmpty =
+                name.isEmpty() ||
+                        priceText.isEmpty() ||
+                        healthStatus.isEmpty() ||
+                        origin.isEmpty() ||
+                        weightText.isEmpty() ||
+                        furColor.isEmpty() ||
+                        description.isEmpty() ||
+                        supplier == null ||
+                        role.equals("null");
+
+        // Kiểm tra các trường riêng theo từng loại động vật
+        if (pet instanceof Cat) {
+            isAnyFieldEmpty |=
+                    comboBoxBreedCat.getValue() == null ||
+                            textFieldEyeColorCat.getText().isEmpty();
+        } else if (pet instanceof Dog) {
+            isAnyFieldEmpty |=
+                    comboBoxBreedDog.getValue() == null;
+        } else if (pet instanceof Hamster) {
+            isAnyFieldEmpty |=
+                    comboBoxBreedHamster.getValue() == null ||
+                            texFieldTailLengthHamster.getText().isEmpty();
+        } else if (pet instanceof Rabbit) {
+            isAnyFieldEmpty |=
+                    comboBoxBreedRabbit.getValue() == null ||
+                            textFieldEarLengthRabbit.getText().isEmpty();
+        }
+
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -284,6 +328,28 @@ public class controllerAddPet implements Initializable {
         comboBoxBreedHamster.getItems().addAll(EHamsterBreed.values());
 
         comboBoxBreedRabbit.getItems().addAll(ERabbitBreed.values());
+
+        textFieldNameGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldPriceGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldHealthStatusGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldOriginGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldWeightGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldFurColorGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textAreaDescriptionGeneral.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        comboBoxSupplierGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        choiceBoxAnimalGeneral.valueProperty().addListener((obs, oldVal, newVal) -> {
+//            updateAnimalSpecificFields(); // nếu bạn thay đổi loại thú, cần gọi lại logic hiển thị trường phù hợp
+            buttonAddDisable();
+        });
+
+        // Các trường riêng theo loại thú cưng
+        comboBoxBreedCat.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldEyeColorCat.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        comboBoxBreedDog.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        comboBoxBreedHamster.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        texFieldTailLengthHamster.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        comboBoxBreedRabbit.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldEarLengthRabbit.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
 }
