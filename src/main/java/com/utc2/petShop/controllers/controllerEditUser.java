@@ -6,6 +6,7 @@ import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.repository.UpdateById.UpdateUser;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -102,7 +103,7 @@ public class controllerEditUser implements Initializable {
         ((Stage)buttonCancel.getScene().getWindow()).close();
     }
 
-    public void exceptions(){
+    public void exceptions() {
         TextFormatter<String> formatterPhone = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 
@@ -114,15 +115,33 @@ public class controllerEditUser implements Initializable {
         });
         textFieldPhoneNumberGeneral.setTextFormatter(formatterPhone);
 
+        textFieldPhoneNumberGeneral.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() < 10) {
+                textFieldPhoneNumberGeneral.setStyle("-fx-border-color: red;");
+                buttonAddDisable();
+            } else {
+                textFieldPhoneNumberGeneral.setStyle(""); // xóa viền đỏ nếu hợp lệ
+            }
+        });
 
         TextFormatter<String> formatterEmail = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
 
-            // Cho phép nhập trống, hoặc email có ký tự hợp lệ
-            if (newText.matches("[a-zA-Z0-9@._\\-]*") || newText.isEmpty()) {
+            if (newText.isEmpty() || newText.matches("[a-zA-Z0-9@._\\-]*")) {
                 return change;
             } else {
                 return null;
+            }
+        });
+        textFieldEmailGeneral.setTextFormatter(formatterEmail);
+
+        textFieldEmailGeneral.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")){
+                textFieldEmailGeneral.setStyle("-fx-border-color: red;");
+                buttonAddDisable();
+            }
+            else {
+                textFieldEmailGeneral.setStyle("");
             }
         });
 
@@ -140,6 +159,71 @@ public class controllerEditUser implements Initializable {
         });
 
         textFieldSalaryGeneral.setTextFormatter(formatterSalary);
+
+        datePickerBirthDateGeneral.setValue(datePickerCreationDateGeneral.getValue().minusYears(18));
+        datePickerBirthDateGeneral.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && date.isAfter(datePickerCreationDateGeneral.getValue().minusYears(18))) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // đỏ nhạt cho ngày không hợp lệ
+                }
+            }
+        });
+
+        textFieldSalaryGeneral.setDisable(true);
+        textFieldWorkingHoursGeneral.setDisable(true);
+
+        choiceBoxPositionGeneral.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                textFieldSalaryGeneral.setDisable(false);
+                textFieldWorkingHoursGeneral.setDisable(false);
+            }
+        });
+
+    }
+
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty =
+                textFieldUsernameGeneral.getText().isEmpty() ||
+                        textFieldPasswordGeneral.getText().isEmpty() ||
+                        textFieldNameGeneral.getText().isEmpty() ||
+                        !(radioButtonFemaleGeneral.isSelected() || radioButtonMaleGeneral.isSelected()) ||
+                        textFieldEmailGeneral.getText().isEmpty() || (textFieldPhoneNumberGeneral.getText().length() < 10) ||
+                        textFieldPhoneNumberGeneral.getText().isEmpty() || !textFieldEmailGeneral.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") ||
+                        textFieldAddressGeneral.getText().isEmpty() || datePickerBirthDateGeneral.getValue().isAfter(datePickerCreationDateGeneral.getValue().minusYears(18)) ||
+                        datePickerBirthDateGeneral.getValue() == null ||
+                        datePickerCreationDateGeneral.getValue() == null;
+
+        if(!(choiceBoxPositionGeneral.getValue() == null)){
+            isAnyFieldEmpty |= textFieldSalaryGeneral.getText().isEmpty() ||
+                    textFieldWorkingHoursGeneral.getText().isEmpty();
+        }
+
+
+
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable() {
+        buttonAdd.setDisable(true);
+        ChangeListener<String> listener = (observable, oldValue, newValue) -> buttonAddDisable();
+
+        textFieldUsernameGeneral.textProperty().addListener(listener);
+        textFieldPasswordGeneral.textProperty().addListener(listener);
+        textFieldNameGeneral.textProperty().addListener(listener);
+        gender.selectedToggleProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        textFieldEmailGeneral.textProperty().addListener(listener);
+        textFieldPhoneNumberGeneral.textProperty().addListener(listener);
+        textFieldAddressGeneral.textProperty().addListener(listener);
+        textFieldSalaryGeneral.textProperty().addListener(listener);
+        textFieldWorkingHoursGeneral.textProperty().addListener(listener);
+
+        // Với DatePicker và ChoiceBox, dùng valueProperty()
+        datePickerBirthDateGeneral.valueProperty().addListener((obs, oldDate, newDate) -> buttonAddDisable());
+        datePickerCreationDateGeneral.valueProperty().addListener((obs, oldDate, newDate) -> buttonAddDisable());
+        choiceBoxPositionGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
     public void receiveData(User obj){
@@ -180,6 +264,8 @@ public class controllerEditUser implements Initializable {
         exceptions();
 
         choiceBoxPositionGeneral.getItems().addAll(EEmployeePosition.values());
+
+        setButtonAddDisable();
 
     }
 }

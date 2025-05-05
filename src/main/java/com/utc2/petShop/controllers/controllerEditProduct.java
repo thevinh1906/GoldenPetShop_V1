@@ -223,8 +223,8 @@ public class controllerEditProduct implements Initializable {
 
         textFieldDimensionCage.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{1,4}x\\d{1,4}x\\d{1,4}")) {
-                buttonAdd.setDisable(true);
                 textFieldDimensionCage.setStyle("-fx-border-color: red;");
+                buttonAddDisable();
             } else {
                 textFieldDimensionCage.setStyle(""); // Hợp lệ -> xóa border đỏ
             }
@@ -244,8 +244,8 @@ public class controllerEditProduct implements Initializable {
 
         textFieldSizeToy.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{1,4}x\\d{1,4}x\\d{1,4}")) {
-                buttonAdd.setDisable(true);
                 textFieldSizeToy.setStyle("-fx-border-color: red;");
+                buttonAddDisable();
             } else {
                 textFieldSizeToy.setStyle(""); // Hợp lệ -> xóa border đỏ
             }
@@ -272,12 +272,12 @@ public class controllerEditProduct implements Initializable {
             case "Toy" -> {
                 isAnyFieldEmpty |=
                         textFieldMaterialToy.getText().isEmpty() ||
-                                textFieldSizeToy.getText().isEmpty();
+                                textFieldSizeToy.getText().isEmpty()  || !textFieldSizeToy.getText().matches("\\d{1,4}x\\d{1,4}x\\d{1,4}");
             }
             case "Cage" -> {
                 isAnyFieldEmpty |=
                         textFieldMaterialCage.getText().isEmpty() ||
-                                textFieldDimensionCage.getText().isEmpty();
+                                textFieldDimensionCage.getText().isEmpty() || !textFieldDimensionCage.getText().matches("\\d{1,4}x\\d{1,4}x\\d{1,4}");
             }
             case "Accessory" -> {
                 isAnyFieldEmpty |=
