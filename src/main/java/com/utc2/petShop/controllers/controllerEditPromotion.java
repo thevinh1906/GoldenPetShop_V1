@@ -49,6 +49,9 @@ public class controllerEditPromotion implements Initializable {
         Boolean isActive = checkBoxActiveGeneral.isSelected();
 
         UpdatePromotion.updatePromotion(promotion.getId(), name, discountPercentage, startDate, endDate, isActive);
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML
@@ -68,6 +71,27 @@ public class controllerEditPromotion implements Initializable {
             }
         });
         textFieldDiscountPercentGeneral.setTextFormatter(formatterDiscount);
+
+        datePickerStartDateGeneral.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // màu hồng nhạt cho ngày bị vô hiệu hóa
+                }
+            }
+        });
+        datePickerEndDateGeneral.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // màu hồng nhạt cho ngày bị vô hiệu hóa
+                }
+            }
+        });
     }
 
     public void receiveData(Promotion obj){

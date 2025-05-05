@@ -13,6 +13,7 @@ import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.repository.*;
 import com.utc2.petShop.model.repository.Delete.*;
 import com.utc2.petShop.model.repository.Select.*;
+import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
 import com.utc2.petShop.model.services.scenes;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -1033,7 +1034,13 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionImportProductImportProduct(ActionEvent event) {
-
+        List<Product> products = tableViewRightImportProduct.getItems();
+        for (Product product : products) {
+            UpdateProduct.updateQuantityProduct(product.getId(), product.getQuantity());
+        }
+        tableViewRightImportProduct.getItems().clear();
+        listProducts = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+        tableViewLeftImportProduct.setItems(listProducts);
     }
 
     @FXML

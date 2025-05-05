@@ -47,6 +47,9 @@ public class controllerAddPromotion implements Initializable {
         Boolean isActive = checkBoxActiveGeneral.isSelected();
 
         InsertPromotion.insertPromotion(name, discountPercentage, startDate, endDate, isActive);
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML
@@ -59,17 +62,57 @@ public class controllerAddPromotion implements Initializable {
             String newText = change.getControlNewText();
 
             // Chỉ cho số thực dương: có hoặc không có phần thập phân
-            if (newText.matches("\\d{0,3}(\\.\\d{0,2})?")) {
+            if (newText.matches("\\d{0,2}(\\.\\d{0,2})?")) {
                 return change;
             } else {
                 return null;
             }
         });
         textFieldDiscountPercentGeneral.setTextFormatter(formatterDiscount);
+
+        datePickerStartDateGeneral.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // màu hồng nhạt cho ngày bị vô hiệu hóa
+                }
+            }
+        });
+        datePickerEndDateGeneral.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (!empty && date.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc0cb;"); // màu hồng nhạt cho ngày bị vô hiệu hóa
+                }
+            }
+        });
+    }
+
+    public void buttonAddDisable() {
+        boolean isAnyFieldEmpty = textFieldNameGeneral.getText().isEmpty()
+                || textFieldDiscountPercentGeneral.getText().isEmpty()
+                || datePickerStartDateGeneral.getValue() == null
+                || datePickerEndDateGeneral.getValue() == null;
+
+        // Sau đó xử lý ví dụ như vô hiệu hóa nút:
+        buttonAdd.setDisable(isAnyFieldEmpty);
+    }
+
+    public void setButtonAddDisable() {
+        buttonAdd.setDisable(true);
+        textFieldNameGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        textFieldDiscountPercentGeneral.textProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        datePickerStartDateGeneral.valueProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
+        datePickerEndDateGeneral.valueProperty().addListener((observable, oldValue, newValue) -> buttonAddDisable());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         exceptions();
+        setButtonAddDisable();
     }
 }

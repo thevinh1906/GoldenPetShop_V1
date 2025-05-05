@@ -88,6 +88,9 @@ public class controllerAddUser implements Initializable {
         }
 
         InsertUser.insertUser(username,password,name,gender,email,phoneNumber,address,birthDay,creationDate,position,salary,workingHours,role);
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML

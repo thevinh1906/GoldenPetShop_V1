@@ -33,6 +33,7 @@ public class controllerAddCustomer implements Initializable {
     @FXML
     void actionAdd(ActionEvent event) {
         InsertCustomer.insertCustomer(textFieldPhoneNumberGeneral.getText(), textFieldNameGeneral.getText());
+        ((Stage) buttonCancel.getScene().getWindow()).close();
     }
 
     @FXML

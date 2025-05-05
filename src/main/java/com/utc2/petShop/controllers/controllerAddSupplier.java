@@ -44,6 +44,8 @@ public class controllerAddSupplier implements Initializable {
         String address = textFieldAddressGeneral.getText();
 
         InsertSupplier.insertSupplier(name, email, phoneNumber, address);
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML

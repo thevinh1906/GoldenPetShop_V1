@@ -116,6 +116,9 @@ public class controllerAddProduct implements Initializable {
             type = textFielldTypeAccessory.getText();
         }
         InsertProduct.insertProduct(supplier, name, price, quantity, description, manufacturer, type, brand, expirationDate, flavor, dimension, material, size, role);
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML

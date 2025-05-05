@@ -92,6 +92,9 @@ public class controllerEditUser implements Initializable {
         }
 
         UpdateUser.updateUser(user.getId(),username,password,name,gender,email,phoneNumber,address,birthDay,creationDate,position,salary,workingHours,role);
+
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+
     }
 
     @FXML
