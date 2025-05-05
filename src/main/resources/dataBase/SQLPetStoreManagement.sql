@@ -292,11 +292,11 @@ INSERT INTO PROMOTION VALUES
 
 -- INSERT INTO BILL
 INSERT INTO BILL VALUES
-(2, 1, '2025-03-01', 4600000, N'Tiền mặt', 'completed'),
-(2, 2, '2025-03-05', 3700000, N'Chuyển khoản', 'pending'),
-(4, 4, '2025-03-10', 4255000, N'Tiền mặt', 'completed'),
-(5, 5, '2025-03-15', 5030000, N'Chuyển khoản', 'pending'),
-(6, 6, '2025-03-20', 9550000, N'Tiền mặt', 'completed');
+(2, 1, '2025-03-01', 4600000, N'Cash', 'completed'),
+(2, 2, '2025-03-05', 3700000, N'Banking', 'pending'),
+(4, 4, '2025-03-10', 4255000, N'Cash', 'completed'),
+(5, 5, '2025-03-15', 5030000, N'Banking', 'pending'),
+(6, 6, '2025-03-20', 9550000, N'Cash', 'completed');
 
 -- INSERT INTO BILL_DETAIL
 INSERT INTO BILL_DETAIL VALUES
