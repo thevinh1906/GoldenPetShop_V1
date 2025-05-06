@@ -71,3 +71,8 @@
     -fx-alignment: CENTER;
 }
 
+.toggle-button:selected {
+    -fx-background-color: #A5C9EA !important;
+    -fx-text-fill: white;
+}
+

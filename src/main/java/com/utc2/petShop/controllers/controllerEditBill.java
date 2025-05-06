@@ -7,12 +7,17 @@ import com.utc2.petShop.model.repository.Insert.InsertBill;
 import com.utc2.petShop.model.repository.Select.SelectCustomer;
 import com.utc2.petShop.model.repository.Select.SelectUser;
 import com.utc2.petShop.model.repository.UpdateById.UpdateBill;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -23,6 +28,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class controllerEditBill implements Initializable {
+
+    @FXML
+    private BorderPane root;
 
     @FXML
     private Button buttonAdd;
@@ -76,7 +84,7 @@ public class controllerEditBill implements Initializable {
             String newText = change.getControlNewText();
 
             // Chỉ cho số thực dương: có hoặc không có phần thập phân
-            if (newText.matches("\\d*(\\.\\d{0,2})?")) {
+            if (newText.matches("\\d{0,10}(\\.\\d{0,2})?")) {
                 return change;
             } else {
                 return null;
@@ -137,6 +145,36 @@ public class controllerEditBill implements Initializable {
 
     private static Bill bill;
 
+    private void jumpOnEnter(Control current, Control next) {
+        current.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Trường hợp đặc biệt với TextArea: Enter là xuống dòng
+                if (!(current instanceof TextArea)) {
+                    next.requestFocus();
+                }
+            }
+        });
+    }
+
+    public void buttonEnter() {
+        jumpOnEnter(comboBoxCustomerGeneral, comboBoxEmployeeGeneral);
+        jumpOnEnter(comboBoxEmployeeGeneral,datePickerInvoiceDateGeneral);
+        jumpOnEnter(datePickerInvoiceDateGeneral,textFieldTotalAmountGeneral);
+        jumpOnEnter(textFieldTotalAmountGeneral,choiceBoxPaymentMethodGeneral);
+
+
+        Platform.runLater(() -> {
+            Scene scene = root.getScene();
+            if (scene != null) {
+                scene.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        buttonAdd.fire();
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         exceptions();
@@ -148,5 +186,7 @@ public class controllerEditBill implements Initializable {
         choiceBoxPaymentMethodGeneral.getItems().addAll("Cash","Banking");
 
         setButtonAddDisable();
+
+        buttonEnter();
     }
 }

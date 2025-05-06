@@ -8,9 +8,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -18,6 +20,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class controllerEditSupplier implements Initializable {
+
+    @FXML
+    private BorderPane root;
 
     @FXML
     private Button buttonAdd;
@@ -134,12 +139,44 @@ public class controllerEditSupplier implements Initializable {
         textFieldEmailGeneral.setText(obj.getEmail());
     }
 
+    private void jumpOnEnter(Control current, Control next) {
+        current.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Trường hợp đặc biệt với TextArea: Enter là xuống dòng
+                if (!(current instanceof TextArea)) {
+                    next.requestFocus();
+                }
+            }
+        });
+    }
+
+    public void buttonEnter() {
+
+        jumpOnEnter(textFieldNameGeneral,textFieldAddressGeneral);
+        jumpOnEnter(textFieldAddressGeneral,textFieldPhoneNumberGeneral);
+        jumpOnEnter(textFieldPhoneNumberGeneral,textFieldEmailGeneral);
+
+        Platform.runLater(() -> {
+            Scene scene = root.getScene();
+            if (scene != null) {
+                scene.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        buttonAdd.fire();
+                    }
+                });
+            }
+        });
+    }
+
     private static Supplier supplier;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         exceptions();
 
         setButtonAddDisable();
+
+        buttonEnter();
     }
 }

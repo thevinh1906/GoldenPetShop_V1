@@ -249,6 +249,9 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonImportProductImportProduct;
 
     @FXML
+    private ToggleGroup buttonLeft;
+
+    @FXML
     private Button buttonLeftAddImportProduct;
 
     @FXML
@@ -649,6 +652,33 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private TextField textSreach;
+
+    @FXML
+    private ToggleButton toggleButtonBill;
+
+    @FXML
+    private ToggleButton toggleButtonCustomer;
+
+    @FXML
+    private ToggleButton toggleButtonImportProduct;
+
+    @FXML
+    private ToggleButton toggleButtonPet;
+
+    @FXML
+    private ToggleButton toggleButtonProduct;
+
+    @FXML
+    private ToggleButton toggleButtonPromotion;
+
+    @FXML
+    private ToggleButton toggleButtonRevenueReport;
+
+    @FXML
+    private ToggleButton toggleButtonSupplier;
+
+    @FXML
+    private ToggleButton toggleButtonUser;
 
     @FXML
     private VBox vBoxCenterHomeAdmin;
@@ -1947,6 +1977,13 @@ public class controllerHomeAdmin implements Initializable {
 
         // bắt đầu sự kiện Pet
         actionPet(null);
+        buttonLeft.selectToggle(toggleButtonPet);
+        buttonLeft.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                // Bị bỏ chọn -> chọn lại toggle cũ
+                Platform.runLater(() -> buttonLeft.selectToggle(oldValue));
+            }
+        });
 
         // chỉnh độ cao của table view
         heightAdjustment();
@@ -1980,6 +2017,8 @@ public class controllerHomeAdmin implements Initializable {
 
         // chỉnh kích thước bảng phụ thuộc vào độ phóng to của màng hình
         tableSize();
+
+
 
     }
 }

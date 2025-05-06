@@ -3,10 +3,15 @@ package com.utc2.petShop.controllers;
 import com.utc2.petShop.model.entities.Promotion.Promotion;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.repository.UpdateById.UpdatePromotion;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -15,6 +20,9 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class controllerEditPromotion implements Initializable {
+
+    @FXML
+    private BorderPane root;
 
     @FXML
     private Button buttonAdd;
@@ -122,6 +130,35 @@ public class controllerEditPromotion implements Initializable {
         checkBoxActiveGeneral.setSelected(obj.isIsActive());
     }
 
+    private void jumpOnEnter(Control current, Control next) {
+        current.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Trường hợp đặc biệt với TextArea: Enter là xuống dòng
+                if (!(current instanceof TextArea)) {
+                    next.requestFocus();
+                }
+            }
+        });
+    }
+
+    public void buttonEnter() {
+
+        jumpOnEnter(textFieldNameGeneral, textFieldDiscountPercentGeneral);
+        jumpOnEnter(textFieldDiscountPercentGeneral,datePickerStartDateGeneral);
+        jumpOnEnter(datePickerStartDateGeneral,datePickerEndDateGeneral);
+
+        Platform.runLater(() -> {
+            Scene scene = root.getScene();
+            if (scene != null) {
+                scene.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        buttonAdd.fire();
+                    }
+                });
+            }
+        });
+    }
+
     Promotion promotion;
 
     @Override
@@ -129,5 +166,7 @@ public class controllerEditPromotion implements Initializable {
         exceptions();
 
         setButtonAddDisable();
+
+        buttonEnter();
     }
 }
