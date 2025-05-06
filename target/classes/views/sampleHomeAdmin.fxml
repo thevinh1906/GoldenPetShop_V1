@@ -8,6 +8,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -45,8 +47,8 @@
                         <Insets />
                     </HBox.margin>
                     <children>
-                        <TextField fx:id="textSreach" layoutX="148.0" layoutY="20.0" promptText="Sreach" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0" />
-                        <Button fx:id="buttonFind" layoutX="398.0" layoutY="20.0" mnemonicParsing="false" onAction="#actionFind" style="-fx-background-color: transparent;" styleClass="buttonTransparent" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0">
+                        <TextField fx:id="textSreach" disable="true" layoutX="148.0" layoutY="20.0" promptText="Sreach" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0" />
+                        <Button fx:id="buttonFind" disable="true" layoutX="398.0" layoutY="20.0" mnemonicParsing="false" onAction="#actionFind" style="-fx-background-color: transparent;" styleClass="buttonTransparent" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="19.0">
                             <graphic>
                                 <ImageView fitHeight="20.0" fitWidth="20.0" opacity="0.24" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -103,168 +105,117 @@
          <content>
             <VBox style="-fx-background-color: #F6F8FC;">
                <children>
-                  <Button fx:id="buttonPet" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionPet" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Pet">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/pet.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                  <ToggleButton fx:id="toggleButtonPet" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionPet" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Pet">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonProduct" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionProduct" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Product">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/product.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/pet.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="buttonLeft" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonProduct" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionProduct" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Product" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonSupplier" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionSupplier" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Supplier">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/supplier.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/product.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonSupplier" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionSupplier" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Supplier" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonImportProduct" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionImportProduct" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Import product">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/importProduct.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/supplier.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonImportProduct" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionImportProduct" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Import product" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonUser" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionUser" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="User">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/user.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/importProduct.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonUser" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionUser" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="User" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonCustomer" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionCustomer" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Customer">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/customer.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonCustomer" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionCustomer" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Customer" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonBill" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionBill" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Bill">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/bill.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/customer.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonBill" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionBill" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Bill" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonPromotion" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionPromotion" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Promotion">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/promotion.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/bill.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonPromotion" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionPromotion" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Promotion" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="buttonRevenueReport" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#actionRevenueReport" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Revenue report">
-                      <graphic>
-                          <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                  <Image url="@../images/revenue.png" />
-                              </image>
-                          </ImageView>
-                      </graphic>
-                     <font>
-                        <Font name="Arial" size="24.0" />
-                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/promotion.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonRevenueReport" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#actionRevenueReport" prefHeight="65.0" prefWidth="250.0" style="-fx-background-color: transparent;" styleClass="button-left" text="Revenue report" toggleGroup="$buttonLeft">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/revenue.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -349,7 +300,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelPet" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                         <graphic>
                                             <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
@@ -364,7 +315,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterPet" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                         <graphic>
                                             <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                 <image>
@@ -379,7 +330,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangePet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangePet" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangePet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                         <graphic>
                                             <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -505,7 +456,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelProduct" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -520,7 +471,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterProduct" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -535,7 +486,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeProduct" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangeProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -643,7 +594,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelSupplier" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelSupplier" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelSupplier" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -747,7 +698,7 @@
                                           </ScrollPane>
                                           <HBox alignment="CENTER">
                                              <children>
-                                                <Button fx:id="buttonRightExcelImportProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionRightExcelImportProduct" prefHeight="68.0" prefWidth="68.0" styleClass="buttonCustom" text="Excel">
+                                                <Button fx:id="buttonRightExcelImportProduct" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionRightExcelImportProduct" prefHeight="68.0" prefWidth="68.0" styleClass="buttonCustom" text="Excel">
                                                    <graphic>
                                                       <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -933,7 +884,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonDetailUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
+                                    <Button fx:id="buttonDetailUser" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionDetailUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -953,7 +904,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelUser" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -968,7 +919,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterUser" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -983,7 +934,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeUser" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeUser" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangeUser" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1089,7 +1040,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelCustomer" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1104,7 +1055,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterCustomer" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1119,7 +1070,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeCustomer" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeCustomer" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangeCustomer" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1210,7 +1161,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonDetailBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
+                                    <Button fx:id="buttonDetailBill" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionDetailBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1230,7 +1181,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelBill" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1245,7 +1196,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterBill" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1260,7 +1211,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeBill" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeBill" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangeBill" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1355,7 +1306,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonDetailPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
+                                    <Button fx:id="buttonDetailPromotion" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionDetailPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1375,7 +1326,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelPromotion" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1390,7 +1341,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterPromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterPromotion" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterPromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1405,7 +1356,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangePromotion" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangePromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangePromotion" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangePromotion" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1455,51 +1406,6 @@
                            <left>
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="buttonAddRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionAddRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Add">
-                                       <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/Add.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <Button fx:id="buttonDeleteRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDeleteRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Delete">
-                                       <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/Delete.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <Button fx:id="buttonEditRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionEditRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Edit">
-                                       <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/Edit.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
                                     <Button fx:id="buttonDetailRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
@@ -1520,7 +1426,7 @@
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                        </children>
                                     </AnchorPane>
-                                    <Button fx:id="buttonExcelRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelRevenueReport" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1535,7 +1441,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonFilterRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionFilterRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
+                                    <Button fx:id="buttonFilterRevenueReport" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionFilterRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Filter">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -1550,7 +1456,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonArrangeRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionArrangeRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
+                                    <Button fx:id="buttonArrangeRevenueReport" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionArrangeRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Arrange">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>

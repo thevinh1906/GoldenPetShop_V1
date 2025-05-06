@@ -2,12 +2,17 @@ package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.repository.Insert.InsertUser;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -16,6 +21,9 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class controllerAddUser implements Initializable {
+
+    @FXML
+    private BorderPane root;
 
     @FXML
     private Button buttonAdd;
@@ -223,6 +231,42 @@ public class controllerAddUser implements Initializable {
         choiceBoxPositionGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
+    private void jumpOnEnter(Control current, Control next) {
+        current.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Trường hợp đặc biệt với TextArea: Enter là xuống dòng
+                if (!(current instanceof TextArea)) {
+                    next.requestFocus();
+                }
+            }
+        });
+    }
+
+    public void buttonEnter() {
+
+        jumpOnEnter(textFieldUsernameGeneral, textFieldPasswordGeneral);
+        jumpOnEnter(textFieldPasswordGeneral, textFieldNameGeneral);
+        jumpOnEnter(textFieldNameGeneral, textFieldEmailGeneral);
+        jumpOnEnter(textFieldEmailGeneral, textFieldPhoneNumberGeneral);
+        jumpOnEnter(textFieldPhoneNumberGeneral, textFieldAddressGeneral);
+        jumpOnEnter(textFieldAddressGeneral,datePickerBirthDateGeneral);
+        jumpOnEnter(datePickerBirthDateGeneral,datePickerCreationDateGeneral);
+        jumpOnEnter(datePickerCreationDateGeneral,choiceBoxPositionGeneral);
+        jumpOnEnter(choiceBoxPositionGeneral,textFieldSalaryGeneral);
+        jumpOnEnter(textFieldSalaryGeneral,textFieldWorkingHoursGeneral);
+
+        Platform.runLater(() -> {
+            Scene scene = root.getScene();
+            if (scene != null) {
+                scene.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        buttonAdd.fire();
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -233,5 +277,7 @@ public class controllerAddUser implements Initializable {
         choiceBoxPositionGeneral.getItems().addAll(EEmployeePosition.values());
 
         setButtonAddDisable();
+
+        buttonEnter();
     }
 }
