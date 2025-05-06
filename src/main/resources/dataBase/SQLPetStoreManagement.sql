@@ -190,6 +190,71 @@ CREATE TABLE REVENUE_REPORT (
 ALTER TABLE PET ADD role NVARCHAR(20);
 ALTER TABLE PRODUCTS ADD role NVARCHAR(20);
 
+GO
+CREATE OR ALTER TRIGGER trg_RevenueReport_InsertUpdate
+ON BILL
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1. INSERT mới completed và tháng đó chưa có
+    INSERT INTO REVENUE_REPORT (month, year, totalRevenue, totalBill)
+    SELECT 
+        MONTH(date), YEAR(date),
+        SUM(totalAmount), COUNT(*)
+    FROM INSERTED
+    WHERE status = 'completed'
+    GROUP BY MONTH(date), YEAR(date)
+    HAVING NOT EXISTS (
+        SELECT 1 FROM REVENUE_REPORT r
+        WHERE r.month = MONTH(date) AND r.year = YEAR(date)
+    );
+
+    -- 2. UPDATE từ chưa completed → completed → cộng dồn
+    UPDATE r
+    SET
+        r.totalRevenue = r.totalRevenue + i.totalAmount,
+        r.totalBill = r.totalBill + 1
+    FROM REVENUE_REPORT r
+    JOIN INSERTED i ON r.month = MONTH(i.date) AND r.year = YEAR(i.date)
+    JOIN DELETED d ON d.billId = i.billId
+    WHERE i.status = 'completed' AND d.status != 'completed';
+END;
+GO
+
+GO
+CREATE OR ALTER TRIGGER trg_RevenueReport_DeleteUpdate
+ON BILL
+AFTER DELETE, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1. Trừ doanh thu nếu bill bị xóa và nó là 'completed'
+    UPDATE r
+    SET
+        r.totalRevenue = r.totalRevenue - d.totalAmount,
+        r.totalBill = r.totalBill - 1
+    FROM REVENUE_REPORT r
+    JOIN DELETED d ON r.month = MONTH(d.date) AND r.year = YEAR(d.date)
+    WHERE d.status = 'completed';
+
+    -- 2. Nếu UPDATE: từ 'completed' sang 'pending' thì cũng trừ
+    UPDATE r
+    SET
+        r.totalRevenue = r.totalRevenue - d.totalAmount,
+        r.totalBill = r.totalBill - 1
+    FROM REVENUE_REPORT r
+    JOIN DELETED d ON r.month = MONTH(d.date) AND r.year = YEAR(d.date)
+    JOIN INSERTED i ON i.billId = d.billId
+    WHERE d.status = 'completed' AND i.status != 'completed';
+
+    -- 3. Xóa các dòng nếu totalBill = 0 sau khi cập nhật
+    DELETE FROM REVENUE_REPORT
+    WHERE totalBill <= 0;
+END;
+GO
 
 
 -- INSERT INTO USERS
@@ -315,13 +380,6 @@ INSERT INTO FEEDBACK VALUES
 (5, 3, N'Chó rất đáng yêu nhưng giá hơi cao.', '2025-03-22'),
 (6, 4, N'Tư vấn tốt, ship nhanh.', '2025-03-25');
 
-
--- INSERT INTO REVENUE_REPORT
-INSERT INTO REVENUE_REPORT VALUES
-('3', '2025', 8300000, 2),
-('8', '2024', 0, 0),
-('6', '2025', 29035000, 5),
-('4', '2025', 0, 0);
 
 
 
