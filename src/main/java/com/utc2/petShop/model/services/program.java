@@ -1,13 +1,11 @@
 package com.utc2.petShop.model.services;
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import com.utc2.petShop.model.services.scenes;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 public class program extends Application {
 
@@ -30,8 +28,10 @@ public class program extends Application {
         primaryStage.getIcons().add(new Image("images/logo.png"));
         scenes.setPrimaryStage(primaryStage);
 //        scenes.switchScene("sampleSign_in","Sign in","applicationSign_in",false);
-        scenes.switchScene("sampleHomeAdmin","Sign in","applicationHomeAdmin",true);
+        scenes.switchScene("Admin/sampleHomeAdmin","Sign in","Admin/applicationHomeAdmin",true);
 //        scenes.switchScene("sampleAddPet","Sign in","applicationAddPet",false);
 //        scenes.switchScene("samplePet","Sign in","applicationPet",true);
+//        scenes.switchScene("sampleHome","Sign in","applicationHome",true);
+
     }
 }

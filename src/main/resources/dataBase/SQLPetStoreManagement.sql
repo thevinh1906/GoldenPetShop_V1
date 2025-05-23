@@ -231,7 +231,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- 1. Trừ doanh thu nếu bill bị xóa và nó là 'completed'
+
     UPDATE r
     SET
         r.totalRevenue = r.totalRevenue - d.totalAmount,
@@ -240,7 +240,7 @@ BEGIN
     JOIN DELETED d ON r.month = MONTH(d.date) AND r.year = YEAR(d.date)
     WHERE d.status = 'completed';
 
-    -- 2. Nếu UPDATE: từ 'completed' sang 'pending' thì cũng trừ
+
     UPDATE r
     SET
         r.totalRevenue = r.totalRevenue - d.totalAmount,

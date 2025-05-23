@@ -2,7 +2,7 @@ package com.utc2.petShop.model.repository.Select;
 
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
