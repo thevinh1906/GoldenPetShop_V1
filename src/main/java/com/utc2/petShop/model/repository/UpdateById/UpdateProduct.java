@@ -1,7 +1,7 @@
 package com.utc2.petShop.model.repository.UpdateById;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 import com.utc2.petShop.model.repository.Delete.DeleteProduct;
 
 import java.sql.Connection;
