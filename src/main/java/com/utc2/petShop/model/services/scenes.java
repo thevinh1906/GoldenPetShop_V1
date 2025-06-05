@@ -58,9 +58,14 @@ public class scenes {
         stage.showAndWait(); // Chờ đóng mới về
     }
 
-    public static <T> void openMoreScene(String fxml, String title, String css, boolean maximized, Consumer<T> controllerConsumer) throws IOException {
+    public static <T> void openMoreScene(String fxml, String title, String css, boolean maximized, Consumer<T> controllerConsumer) {
         FXMLLoader loader = new FXMLLoader(scenes.class.getResource("/views/" + fxml + ".fxml"));
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         Scene scene = new Scene(root);
 
         T controller = loader.getController();

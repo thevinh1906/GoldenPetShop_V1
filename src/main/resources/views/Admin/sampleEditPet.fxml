@@ -69,7 +69,7 @@
                                         <TextField fx:id="textFieldOriginGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Origin" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                         <TextField fx:id="textFieldWeightGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Weight" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                         <TextField fx:id="textFieldFurColorGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" promptText="Fur color" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                        <TextArea fx:id="textAreaDescriptionGeneral" maxWidth="312.0" prefWidth="312.0" promptText="Description" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                        <TextArea fx:id="textAreaDescriptionGeneral" maxWidth="312.0" prefWidth="312.0" promptText="Description" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                                         <Spinner fx:id="spinnerAgeGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <ComboBox fx:id="comboBoxSupplierGeneral" maxWidth="312.0" prefHeight="35.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                                         <CheckBox fx:id="checkBoxVaccinatedGeneral" mnemonicParsing="false" prefHeight="28.0" prefWidth="73.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
