@@ -32,6 +32,7 @@ public class program extends Application {
 //        scenes.switchScene("sampleAddPet","Sign in","applicationAddPet",false);
 //        scenes.switchScene("samplePet","Sign in","applicationPet",true);
 //        scenes.switchScene("sampleHome","Sign in","applicationHome",true);
+//        scenes.switchScene("samplePetTest","Sign in","applicationPetTest",true);
 
     }
 }

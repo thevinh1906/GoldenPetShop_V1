@@ -872,26 +872,6 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     @FXML
-    void actionDetailPet(ActionEvent event) throws IOException{
-        Pet selectedItem = tableViewPet.getSelectionModel().getSelectedItem();
-        if(selectedItem != null) {
-            openMoreScene("samplePet", "Golden Pet Shop", "applicationPet", true, (controllerPet controller) -> {
-                controller.receiveData(selectedItem);
-            });
-        }
-    }
-
-    @FXML
-    void actionDetailProduct(ActionEvent event) throws IOException {
-        Product selectedItem = tableViewProduct.getSelectionModel().getSelectedItem();
-        if(selectedItem != null) {
-            openMoreScene("sampleProduct", "Golden Pet Shop", "applicationProduct", true, (controllerProduct controller) -> {
-                controller.receiveData(selectedItem);
-            });
-        }
-    }
-
-    @FXML
     void actionDetailRevenueReport(ActionEvent event) {
 
     }
@@ -1964,6 +1944,26 @@ public class controllerHomeAdmin implements Initializable {
         });
     }
 
+    public void detailAll(){
+        tableViewPet.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && tableViewPet.getSelectionModel().getSelectedItem() != null) {
+                Pet selectedItem = tableViewPet.getSelectionModel().getSelectedItem();
+                openMoreScene("samplePet", "Golden Pet Shop", "applicationPet", true, (controllerPet controller) -> {
+                    controller.receiveData(selectedItem);
+                });
+            }
+        });
+
+        tableViewProduct.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 2 && tableViewProduct.getSelectionModel().getSelectedItem() != null) {
+                Product selectedItem = tableViewProduct.getSelectionModel().getSelectedItem();
+                openMoreScene("sampleProduct", "Golden Pet Shop", "applicationProduct", true, (controllerProduct controller) -> {
+                    controller.receiveData(selectedItem);
+                });
+            }
+        });
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -2018,7 +2018,8 @@ public class controllerHomeAdmin implements Initializable {
         // chỉnh kích thước bảng phụ thuộc vào độ phóng to của màng hình
         tableSize();
 
-
+        // chi tiết sản phẩm
+        detailAll();
 
     }
 }

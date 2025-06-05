@@ -1,7 +1,6 @@
 package com.utc2.petShop.controllers.Employee;
 
 import com.utc2.petShop.controllers.Admin.*;
-import com.utc2.petShop.controllers.controllerPet;
 import com.utc2.petShop.controllers.controllerProduct;
 import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Customer.Customer;
@@ -872,16 +871,6 @@ public class controllerHomeEmployee implements Initializable {
     @FXML
     void actionDetailBill(ActionEvent event) {
 
-    }
-
-    @FXML
-    void actionDetailPet(ActionEvent event) throws IOException{
-        Pet selectedItem = tableViewPet.getSelectionModel().getSelectedItem();
-        if(selectedItem != null) {
-            openMoreScene("samplePet", "Golden Pet Shop", "applicationPet", true, (controllerPet controller) -> {
-                controller.receiveData(selectedItem);
-            });
-        }
     }
 
     @FXML

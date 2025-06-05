@@ -1,37 +1,23 @@
 package com.utc2.petShop.controllers;
 
-import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class controllerPet implements Initializable {
-
-    @FXML
-    private ScrollPane ScrollCenter;
-
-    @FXML
-    private VBox VBoxSrcollCenter;
-
-    @FXML
-    private Button buttonFind;
-
-    @FXML
-    private Button buttonSetting;
-
-    @FXML
-    private Button buttonUser;
 
     @FXML
     private GridPane gridPaneCat;
@@ -49,28 +35,18 @@ public class controllerPet implements Initializable {
     private GridPane gridPaneRabbit;
 
     @FXML
-    private ImageView inageViewPet;
+    private ImageView imageViewPet;
 
     @FXML
     private Label labelAgeGeneral;
 
     @FXML
-    private Label labelBreedCat;
+    private Label labelBreedGeneral;
+
+    @FXML Label labelDecribe;
 
     @FXML
-    private Label labelBreedDog;
-
-    @FXML
-    private Label labelBreedHamster;
-
-    @FXML
-    private Label labelBreedRabbit;
-
-    @FXML
-    private Label labelDescribe;
-
-    @FXML
-    private Label labelEarLengthRabbit;
+    private Label labelEarLenghtRabbit;
 
     @FXML
     private Label labelEyeColorCat;
@@ -82,10 +58,10 @@ public class controllerPet implements Initializable {
     private Label labelGenderGeneral;
 
     @FXML
-    private Label labelGiaBan;
+    private Label labelHealthStatusGeneral;
 
     @FXML
-    private Label labelHealthStatusGeneral;
+    private Label labelIDGeneral;
 
     @FXML
     private Label labelIndoorCat;
@@ -97,16 +73,16 @@ public class controllerPet implements Initializable {
     private Label labelOriginGeneral;
 
     @FXML
-    private Label labelPetIDGeneral;
+    private Label labelPriceGeneral;
 
     @FXML
     private Label labelSupplierGeneral;
 
     @FXML
-    private Label labelTailLengthHamster;
+    private Label labelTailLenghtHamster;
 
     @FXML
-    private Label labelTrainedDog;
+    private Label labelTrainDog;
 
     @FXML
     private Label labelVaccinatedGeneral;
@@ -115,25 +91,16 @@ public class controllerPet implements Initializable {
     private Label labelWeightGeneral;
 
     @FXML
-    private ImageView logoImg;
+    private Line line;
 
     @FXML
-    private TextField textSreach;
+    private AnchorPane anchorPane;
 
     @FXML
-    void actionFind(ActionEvent event) {
-
-    }
+    private VBox vBox;
 
     @FXML
-    void actionSetting(ActionEvent event) {
-
-    }
-
-    @FXML
-    void actionUser(ActionEvent event) {
-
-    }
+    private HBox hBox;
 
     public void hideScreen() {
         gridPaneDog.setVisible(false);
@@ -147,35 +114,35 @@ public class controllerPet implements Initializable {
     }
 
     public void receiveData(Pet obj) {
-        labelPetIDGeneral.setText(String.valueOf("PE" + obj.getId()));
-        labelNameGeneral.setText(obj.getName());
-        labelGiaBan.setText(String.valueOf(obj.getPrice() + "$"));
-        labelDescribe.setText(obj.getDescription());
-        labelAgeGeneral.setText(String.valueOf(obj.getAge() + "month"));
+        labelIDGeneral.setText(String.valueOf("ID: PE" + obj.getId()));
+        labelNameGeneral.setText("Name: " + obj.getName());
+        labelAgeGeneral.setText(String.valueOf("Age: " + obj.getAge() + " month"));
         String genderText;
         if (obj.isGender()) {
-            genderText = "Male";
+            genderText = "Gender: Male";
         } else {
-            genderText = "Female";
+            genderText = "Gender: Female";
         }
         labelGenderGeneral.setText(genderText);
+        labelFurColorGeneral.setText("Fur color: " + obj.getFurColor());
+        labelWeightGeneral.setText(String.valueOf("Weight: " + obj.getWeight() + " Kg"));
+        labelPriceGeneral.setText(String.valueOf("Price: " + obj.getPrice() + "$"));
         if (obj.isVaccinated()) {
-            labelVaccinatedGeneral.setText("Injected");
+            labelVaccinatedGeneral.setText("Vaccinated: Injected");
         } else {
-            labelVaccinatedGeneral.setText("Unvaccinated");
+            labelVaccinatedGeneral.setText("Vaccinated: Unvaccinated");
         }
-        labelWeightGeneral.setText(String.valueOf(obj.getWeight()));
-        labelOriginGeneral.setText(String.valueOf(obj.getOrigin()));
-        labelHealthStatusGeneral.setText(obj.getHealthStatus());
-        labelFurColorGeneral.setText(obj.getFurColor());
-        labelSupplierGeneral.setText(String.valueOf(obj.getSupplier()));
+        labelHealthStatusGeneral.setText("Health status: " + obj.getHealthStatus());
+        labelSupplierGeneral.setText(String.valueOf("Supplier: " + obj.getSupplier()));
+        labelDecribe.setText(obj.getDescription());
+        labelOriginGeneral.setText(String.valueOf("Origin: " + obj.getOrigin()));
         if (obj instanceof Dog) {
             Dog dog = (Dog) obj;
-            labelBreedDog.setText(String.valueOf(dog.getBreed().getBreed()));
+            labelBreedGeneral.setText(String.valueOf("Breed: " + dog.getBreed().getBreed()));
             if (dog.isIsTrained()) {
-                labelTrainedDog.setText("Trained");
+                labelTrainDog.setText("Trained");
             } else {
-                labelTrainedDog.setText("Untrained");
+                labelTrainDog.setText("Untrained");
             }
 
             hideScreen();
@@ -184,13 +151,13 @@ public class controllerPet implements Initializable {
             gridPaneDog.setManaged(true);
         } else if (obj instanceof Cat) {
             Cat cat = (Cat) obj;
-            labelBreedCat.setText(String.valueOf(cat.getBreed().getBreed()));
+            labelBreedGeneral.setText(String.valueOf("Breed: " + cat.getBreed().getBreed()));
             if (cat.isIsIndoor()) {
                 labelIndoorCat.setText("Indoor");
             } else {
                 labelIndoorCat.setText("Unindoor");
             }
-            labelEyeColorCat.setText(String.valueOf(cat.getEyeColor()));
+            labelEyeColorCat.setText(String.valueOf("Eye color: " + cat.getEyeColor()));
 
             hideScreen();
 
@@ -198,16 +165,16 @@ public class controllerPet implements Initializable {
             gridPaneCat.setManaged(true);
         } else if (obj instanceof Hamster) {
             Hamster hamster = (Hamster) obj;
-            labelBreedHamster.setText(String.valueOf(hamster.getBreed().getBreed()));
-            labelTailLengthHamster.setText(String.valueOf(hamster.getTailLength()));
+            labelBreedGeneral.setText(String.valueOf("Breed: " + hamster.getBreed().getBreed()));
+            labelTailLenghtHamster.setText(String.valueOf("Tail Length: " + hamster.getTailLength()));
 
             hideScreen();
             gridPaneHamster.setVisible(true);
             gridPaneHamster.setManaged(true);
         } else if (obj instanceof Rabbit) {
             Rabbit rabbit = (Rabbit) obj;
-            labelBreedRabbit.setText(String.valueOf(rabbit.getBreed().getBreed()));
-            labelEarLengthRabbit.setText(String.valueOf(rabbit.getEarLength()));
+            labelBreedGeneral.setText(String.valueOf("Breed: " + rabbit.getBreed().getBreed()));
+            labelEarLenghtRabbit.setText(String.valueOf("Ear Length: " + rabbit.getEarLength()));
 
             hideScreen();
             gridPaneRabbit.setVisible(true);
@@ -217,9 +184,10 @@ public class controllerPet implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        imageViewPet.setClip(new Circle(150, 150, 150));
 
         hideScreen();
 
-
+        line.endYProperty().bind(vBox.heightProperty());
     }
 }
