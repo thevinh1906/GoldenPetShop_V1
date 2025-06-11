@@ -5,13 +5,14 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.image.Image;
 
 public class Rabbit extends Pet {
-    private ObjectProperty<ERabbitBreed> breed;
-    private DoubleProperty earLength;
+    private final ObjectProperty<ERabbitBreed> breed;
+    private final DoubleProperty earLength;
 
-    public Rabbit(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ERabbitBreed breed, double earLength) {
-        super(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
+    public Rabbit(Image image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ERabbitBreed breed, double earLength) {
+        super(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
         this.breed = new SimpleObjectProperty<>(ERabbitBreed.Angora);
         this.earLength = new SimpleDoubleProperty(earLength);
     }

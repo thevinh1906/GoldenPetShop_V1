@@ -1473,12 +1473,7 @@ public class controllerHomeAdmin implements Initializable {
         });
 
         ObservableList<Pet> petList = FXCollections.observableArrayList();
-        Supplier supplier = new Supplier(1,"aaa","aa","635","sdad");
 
-        Dog dog1 = new Dog(1, "Bun", 2, true, 150.0, true, "Khỏe mạnh", "Việt Nam", 5.2, "Nâu", "Thân thiện", supplier, EDogBreed.CauVang, true);
-        Cat cat1 = new Cat(2, "Meo", 1, false, 100.0, true, "Khỏe mạnh", "Việt Nam", 4.0, "Trắng", "Dễ thương", new Supplier(), ECatBreed.MeoCam, true, "cam");
-
-        petList.addAll(dog1, cat1);  // dùng vòng lập để truy xuất dữ liệu từ bảng Pet
 
         tableViewPet.setItems(petList);    // bỏ list vào đây
 

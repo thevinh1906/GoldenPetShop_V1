@@ -280,21 +280,6 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </Button>
-                                    <Button fx:id="buttonDetailPet" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailPet" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
-                                        <graphic>
-                                            <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-                                                <image>
-                                                    <Image url="@../../images/Detail.png" />
-                                                </image>
-                                          </ImageView>
-                                        </graphic>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
                                     <AnchorPane prefWidth="65.0">
                                        <children>
                                           <Line endX="65.0" layoutX="6.0" layoutY="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
@@ -426,21 +411,6 @@
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../images/Edit.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </VBox.margin>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <Button fx:id="buttonDetailProduct" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionDetailProduct" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Detail">
-                                       <graphic>
-                                          <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../images/Detail.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
