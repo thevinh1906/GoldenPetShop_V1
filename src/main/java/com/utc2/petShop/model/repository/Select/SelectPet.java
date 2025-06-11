@@ -3,7 +3,9 @@ package com.utc2.petShop.model.repository.Select;
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.utils.DBConnection;
+import javafx.scene.image.Image;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +46,14 @@ public class SelectPet {
                 String furColor = rs.getString("furColor");
                 String description = rs.getString("description");
                 int supplierId = rs.getInt("supplierId");
+                InputStream is = rs.getBinaryStream("image");
+
+                Image image;
+                if (is != null) {
+                    image = new Image(is);
+                } else {
+                    image = getDefaultImage(); // ảnh mặc định nếu không có ảnh từ DB
+                }
 
                 Supplier supplier = SelectSupplier.getSupplierById(supplierId);
 
@@ -63,7 +73,7 @@ public class SelectPet {
                         throw new IllegalArgumentException("Không tìm thấy giống chó phù hợp: " + dogBreedStr);
                     }
 
-                    pet = new Dog(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, dogBreed, isTrained);
+                    pet = new Dog(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, dogBreed, isTrained);
 
                 } else if (rs.getObject("cat_isIndoor") != null) {
                     boolean isIndoor = rs.getBoolean("cat_isIndoor");
@@ -80,7 +90,7 @@ public class SelectPet {
                         throw new IllegalArgumentException("Không tìm thấy giống mèo phù hợp: " + catBreedStr);
                     }
 
-                    pet = new Cat(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, catBreed, isIndoor, eyeColor);
+                    pet = new Cat(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, catBreed, isIndoor, eyeColor);
 
                 } else if (rs.getObject("hamster_tailLength") != null) {
                     float tailLength = rs.getFloat("hamster_tailLength");
@@ -94,7 +104,7 @@ public class SelectPet {
                     }
                     if (hamsterBreed == null)
                         throw new IllegalArgumentException("Không tìm thấy giống hamster phù hợp: " + hamsterBreedStr);
-                    pet = new Hamster(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, hamsterBreed, tailLength);
+                    pet = new Hamster(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, hamsterBreed, tailLength);
 
 
                 } else if (rs.getObject("rabbit_earLength") != null) {
@@ -109,10 +119,10 @@ public class SelectPet {
                     }
                     if (rabbitBreed == null)
                         throw new IllegalArgumentException("Không tìm thấy giống thỏ phù hợp: " + rabbitBreedStr);
-                    pet = new Rabbit(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, rabbitBreed, earLength);
+                    pet = new Rabbit(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, rabbitBreed, earLength);
 
                 } else {
-                    pet = new Pet(id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
+                    pet = new Pet(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
                 }
 
                 pets.add(pet);
@@ -122,6 +132,15 @@ public class SelectPet {
         }
 
         return pets;
+    }
+
+    private static Image getDefaultImage() {
+        try {
+            return new Image(Pet.class.getResource("/assets/default-pet.png").toExternalForm());
+        } catch (Exception e) {
+            System.out.println("Không tìm thấy ảnh mặc định: " + e.getMessage());
+            return new Image("https://tiki.vn/blog/wp-content/uploads/2023/01/oLkoHpw9cqRtLPTbg67bgtUvUdV1BnXRnAqqBZOVkEtPgf-_Ct3ADFJYXIjfDd0fTyECLEsWq5yZ2CCOEGxIsuHSmNNNUZQcnQT5-Ld6yoK19Q_Sphb0MmX64ga-O_TIPjItNkTL5ns4zqP1Z0OBzsIoeYKtcewnrjnVsw8vfG8uYwwCDkXaoozCrmH1kA.jpg");
+        }
     }
 
     public static List<Integer> getPetIDBySupplierId(int supplierId) {

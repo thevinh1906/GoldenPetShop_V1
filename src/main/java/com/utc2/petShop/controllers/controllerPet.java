@@ -114,6 +114,7 @@ public class controllerPet implements Initializable {
     }
 
     public void receiveData(Pet obj) {
+        imageViewPet.setImage(obj.getImage());
         labelIDGeneral.setText(String.valueOf("ID: PE" + obj.getId()));
         labelNameGeneral.setText("Name: " + obj.getName());
         labelAgeGeneral.setText(String.valueOf("Age: " + obj.getAge() + " month"));

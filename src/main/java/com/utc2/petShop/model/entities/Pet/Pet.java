@@ -5,8 +5,12 @@ import com.utc2.petShop.model.entities.Product.Product;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.implement.IPet;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 public class Pet implements IPet {
+    private ObjectProperty<Image> image;
     private IntegerProperty id;
     private StringProperty name;
     private IntegerProperty age;
@@ -20,7 +24,8 @@ public class Pet implements IPet {
     private StringProperty description;
     private ObjectProperty<Supplier> supplier;
 
-    public Pet(int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier) {
+    public Pet(Image image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier) {
+        this.image = new SimpleObjectProperty<Image>(image);
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -36,6 +41,7 @@ public class Pet implements IPet {
     }
 
     public Pet() {
+        this.image = new SimpleObjectProperty<Image>(null);
         this.id = new SimpleIntegerProperty(0);
         this.name = new SimpleStringProperty("");
         this.age = new SimpleIntegerProperty(0);
@@ -48,6 +54,18 @@ public class Pet implements IPet {
         this.furColor = new SimpleStringProperty("");
         this.description = new SimpleStringProperty("");
         this.supplier = new SimpleObjectProperty<Supplier>( new Supplier());
+    }
+
+    public Image getImage() {
+        return image.get();
+    }
+
+    public ObjectProperty<Image> imageProperty() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image.set(image);
     }
 
     public Supplier getSupplier() {

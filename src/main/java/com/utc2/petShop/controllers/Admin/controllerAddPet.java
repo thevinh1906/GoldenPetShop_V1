@@ -12,13 +12,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -76,6 +80,12 @@ public class controllerAddPet implements Initializable {
     private GridPane gridPaneRabbit;
 
     @FXML
+    private GridPane gridPaneImage;
+
+    @FXML
+    ImageView imageViewPet;
+
+    @FXML
     private RadioButton radioButtonFemaleGeneral;
 
     @FXML
@@ -116,6 +126,8 @@ public class controllerAddPet implements Initializable {
 
     String priceExceptions = "\\d*(\\.\\d*)?";
 
+    File file = null;
+
     @FXML
     void actionAdd(ActionEvent event) {
         String name = textFieldNameGeneral.getText();
@@ -149,14 +161,13 @@ public class controllerAddPet implements Initializable {
         else if(role.equals("Hamster")){
             breed = String.valueOf(comboBoxBreedHamster.getValue());
             tailLength = Float.parseFloat(texFieldTailLengthHamster.getText());
-
         }
         else if(role.equals("Rabbit")){
             breed = String.valueOf(comboBoxBreedRabbit.getValue());
             earLength = Float.parseFloat(textFieldEarLengthRabbit.getText());
 
         }
-        InsertPet.insertPet(name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
+        InsertPet.insertPet(file, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, role, isIndoor, breed, eyeColor, isTrained, tailLength, earLength);
 
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
@@ -165,6 +176,18 @@ public class controllerAddPet implements Initializable {
     @FXML
     void actionCancel(ActionEvent event) {
         ((Stage)buttonCancel.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void actionAddImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        file = fileChooser.showOpenDialog(imageViewPet.getScene().getWindow());
+        if (file != null) {
+            imageViewPet.setImage(new Image(file.toURI().toString()));
+        }
     }
 
     public void griPaneVision(){
@@ -288,6 +311,7 @@ public class controllerAddPet implements Initializable {
         Supplier supplier = comboBoxSupplierGeneral.getValue();
         Pet pet = choiceBoxAnimalGeneral.getValue();
         String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
+        Image image = imageViewPet.getImage();
 
         boolean isAnyFieldEmpty =
                 name.isEmpty() || !gender ||
@@ -298,6 +322,7 @@ public class controllerAddPet implements Initializable {
                         furColor.isEmpty() ||
                         description.isEmpty() ||
                         supplier == null ||
+                        image == null ||
                         role.equals("null");
 
         // Kiểm tra các trường riêng theo từng loại động vật
@@ -344,6 +369,7 @@ public class controllerAddPet implements Initializable {
         texFieldTailLengthHamster.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         comboBoxBreedRabbit.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldEarLengthRabbit.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        imageViewPet.imageProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
     private void jumpOnEnter(Control current, Control next) {

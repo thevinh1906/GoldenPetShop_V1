@@ -3,19 +3,22 @@ package com.utc2.petShop.model.repository.Insert;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.utils.DBConnection;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 
 public class InsertPet {
 
-    public static void insertPet(String name, int age, boolean gender, double price,
+    public static void insertPet(File file, String name, int age, boolean gender, double price,
                                  boolean vaccinated, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
                                  boolean isTrained, float tailLength, float earLength) {
         int id = 0;
         try (Connection conn = DBConnection.getConnection()) {
-            String insertPet = "INSERT INTO PET (name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierId, role) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String insertPet = "INSERT INTO PET (name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplierId, role, image) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertPet, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setString(1, name);
                 stmt.setInt(2, age);
@@ -29,6 +32,8 @@ public class InsertPet {
                 stmt.setString(10, description);
                 stmt.setInt(11, supplier.getId());
                 stmt.setString(12, role);
+                FileInputStream fis = new FileInputStream(file);
+                stmt.setBinaryStream(13, fis, (int) file.length());
                 int a = stmt.executeUpdate();
 
                 //lấy id pet mới tăng
@@ -85,7 +90,7 @@ public class InsertPet {
             }
 
             System.out.println("✅ Thêm thú cưng thành công.");
-        } catch (SQLException e) {
+        } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi thêm thú cưng: " + e.getMessage());
         }

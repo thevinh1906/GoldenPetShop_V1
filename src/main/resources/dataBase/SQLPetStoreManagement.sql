@@ -98,6 +98,7 @@ CREATE TABLE PET (
 	furColor NVARCHAR(50),
 	description NVARCHAR(250),
 	supplierId INT,
+    image VARBINARY(MAX),
 	FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
 );
 
