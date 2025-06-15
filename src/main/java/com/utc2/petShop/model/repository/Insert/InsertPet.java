@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class InsertPet {
 
-    public static void insertPet(File file, String name, int age, boolean gender, double price,
+    public static void insertPet(byte[] imageData, String name, int age, boolean gender, double price,
                                  boolean vaccinated, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
@@ -32,8 +32,7 @@ public class InsertPet {
                 stmt.setString(10, description);
                 stmt.setInt(11, supplier.getId());
                 stmt.setString(12, role);
-                FileInputStream fis = new FileInputStream(file);
-                stmt.setBinaryStream(13, fis, (int) file.length());
+                stmt.setBytes(13, imageData);
                 int a = stmt.executeUpdate();
 
                 //lấy id pet mới tăng
@@ -90,7 +89,7 @@ public class InsertPet {
             }
 
             System.out.println("✅ Thêm thú cưng thành công.");
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi thêm thú cưng: " + e.getMessage());
         }
