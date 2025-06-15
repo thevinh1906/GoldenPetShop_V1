@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -182,11 +183,16 @@
                               <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1">
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#actionAddImage" text="Add image" />
-                                    <ImageView fx:id="imageViewPet" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                                       <HBox.margin>
-                                          <Insets left="50.0" />
-                                       </HBox.margin>
-                                    </ImageView>
+                                    <StackPane fx:id="stackPaneImage" prefHeight="150.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label fx:id="labelDragAnImageHere" text="drag an image here">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                          <ImageView fx:id="imageViewPet" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                                       </children>
+                                    </StackPane>
                                  </children>
                               </HBox>
                            </children>

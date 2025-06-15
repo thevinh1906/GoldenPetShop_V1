@@ -213,7 +213,7 @@
                                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                  </padding>
                               </VBox>
-                              <ImageView fx:id="imageViewPet" fitHeight="300.0" fitWidth="300.0" layoutX="235.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0">
+                              <ImageView fx:id="imageViewPet" fitHeight="300.0" fitWidth="300.0" layoutX="235.0" layoutY="51.0" pickOnBounds="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0">
                                  <image>
                                     <Image url="@../images/golden.jpg" />
                                  </image>

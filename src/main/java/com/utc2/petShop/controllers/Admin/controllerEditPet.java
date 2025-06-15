@@ -12,13 +12,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -114,7 +119,18 @@ public class controllerEditPet implements Initializable {
     @FXML
     private TextField textFieldWeightGeneral;
 
+    @FXML
+    private ImageView imageViewPet;
+
+    @FXML
+    private StackPane stackPaneImage;
+
+    @FXML
+    private Label labelDragAnImageHere;
+
     String priceExceptions = "\\d*(\\.\\d*)?";
+
+    File file = null;
 
     @FXML
     void actionChange(ActionEvent event) {
@@ -157,7 +173,7 @@ public class controllerEditPet implements Initializable {
 
         }
 
-        UpdatePet.updatePet(pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
+        UpdatePet.updatePet(file,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
     }
@@ -165,6 +181,18 @@ public class controllerEditPet implements Initializable {
     @FXML
     void actionCancel(ActionEvent event) {
         ((Stage)buttonCancel.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void actionChangeImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        file = fileChooser.showOpenDialog(imageViewPet.getScene().getWindow());
+        if (file != null) {
+            imageViewPet.setImage(new Image(file.toURI().toString()));
+        }
     }
 
     public void griPaneVision(){
@@ -363,6 +391,8 @@ public class controllerEditPet implements Initializable {
         textFieldFurColorGeneral.setText(obj.getFurColor());
         comboBoxSupplierGeneral.setValue(obj.getSupplier());
         textAreaDescriptionGeneral.setText(obj.getDescription());
+        imageViewPet.setImage(obj.getImage());
+
         if(obj instanceof Dog){
             Dog dog = (Dog)obj;
             choiceBoxAnimalGeneral.setValue(dog);

@@ -1,15 +1,17 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -102,6 +104,9 @@ public class controllerPet implements Initializable {
     @FXML
     private HBox hBox;
 
+    @FXML
+    private StackPane stackPaneImage;
+
     public void hideScreen() {
         gridPaneDog.setVisible(false);
         gridPaneHamster.setVisible(false);
@@ -114,7 +119,8 @@ public class controllerPet implements Initializable {
     }
 
     public void receiveData(Pet obj) {
-        imageViewPet.setImage(obj.getImage());
+        Image image = cropToImageView(obj.getImage(),imageViewPet.getFitWidth(),imageViewPet.getFitHeight());
+        imageViewPet.setImage(image);
         labelIDGeneral.setText(String.valueOf("ID: PE" + obj.getId()));
         labelNameGeneral.setText("Name: " + obj.getName());
         labelAgeGeneral.setText(String.valueOf("Age: " + obj.getAge() + " month"));
@@ -183,12 +189,61 @@ public class controllerPet implements Initializable {
         }
     }
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        imageViewPet.setClip(new Circle(150, 150, 150));
+//        imageViewPet.setClip(new Circle(150, 150, 150));
+
+        Platform.runLater(() -> {
+            double w = imageViewPet.getFitWidth();
+            double h = imageViewPet.getFitHeight();
+            double r = Math.min(w, h) / 2;
+
+            Circle clip = new Circle(w / 2, h / 2, r);
+            imageViewPet.setClip(clip);
+        });
+
 
         hideScreen();
 
         line.endYProperty().bind(vBox.heightProperty());
     }
+
+
+
+    public Image cropToImageView(Image originalImage, double targetWidth, double targetHeight) {
+        double imageWidth = originalImage.getWidth();
+        double imageHeight = originalImage.getHeight();
+
+        double imageRatio = imageWidth / imageHeight;
+        double viewRatio = targetWidth / targetHeight;
+
+        double scale;
+        double cropWidth;
+        double cropHeight;
+        double x;
+        double y;
+
+        // So sánh tỷ lệ ảnh và ImageView để quyết định crop theo chiều nào
+        if (imageRatio > viewRatio) {
+            // Ảnh rộng hơn -> cắt chiều ngang
+            cropHeight = imageHeight;
+            cropWidth = cropHeight * viewRatio;
+            x = (imageWidth - cropWidth) / 2;
+            y = 0;
+        } else {
+            // Ảnh cao hơn -> cắt chiều dọc
+            cropWidth = imageWidth;
+            cropHeight = cropWidth / viewRatio;
+            x = 0;
+            y = (imageHeight - cropHeight) / 2;
+        }
+
+        PixelReader reader = originalImage.getPixelReader();
+        WritableImage croppedImage = new WritableImage(reader, (int)x, (int)y, (int)cropWidth, (int)cropHeight);
+        return croppedImage;
+    }
 }
+
+
