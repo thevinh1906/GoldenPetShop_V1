@@ -14,8 +14,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -23,9 +25,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
-import java.io.File;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class controllerEditPet implements Initializable {
 
@@ -132,6 +140,8 @@ public class controllerEditPet implements Initializable {
 
     File file = null;
 
+    byte[] imageData = null; // dữ liệu nhị phân để lưu
+
     @FXML
     void actionChange(ActionEvent event) {
         String name = textFieldNameGeneral.getText();
@@ -173,7 +183,7 @@ public class controllerEditPet implements Initializable {
 
         }
 
-        UpdatePet.updatePet(file,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
+        UpdatePet.updatePet(imageData,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
     }
@@ -187,11 +197,16 @@ public class controllerEditPet implements Initializable {
     void actionChangeImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp", "*.webp");
         fileChooser.getExtensionFilters().add(extFilter);
         file = fileChooser.showOpenDialog(imageViewPet.getScene().getWindow());
         if (file != null) {
             imageViewPet.setImage(new Image(file.toURI().toString()));
+            try {
+                imageData = Files.readAllBytes(file.toPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -301,6 +316,10 @@ public class controllerEditPet implements Initializable {
             }
         });
         textFieldEarLengthRabbit.setTextFormatter(formatterEarLengthRabbit);
+
+        imageViewPet.imageProperty().addListener((obs, oldImage, newImage) -> {
+            labelDragAnImageHere.setVisible(newImage == null);
+        });
     }
 
     public void buttonAddDisable(){
@@ -315,6 +334,7 @@ public class controllerEditPet implements Initializable {
         Supplier supplier = comboBoxSupplierGeneral.getValue();
         Pet pet = choiceBoxAnimalGeneral.getValue();
         String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
+        Image image = imageViewPet.getImage();
 
         boolean isAnyFieldEmpty =
                 name.isEmpty() || !gender ||
@@ -325,6 +345,7 @@ public class controllerEditPet implements Initializable {
                         furColor.isEmpty() ||
                         description.isEmpty() ||
                         supplier == null ||
+                        image == null ||
                         role.equals("null");
 
         // Kiểm tra các trường riêng theo từng loại động vật
@@ -371,6 +392,7 @@ public class controllerEditPet implements Initializable {
         texFieldTailLengthHamster.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         comboBoxBreedRabbit.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
         textFieldEarLengthRabbit.textProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        imageViewPet.imageProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
     public void receiveData(Pet obj) {
@@ -472,6 +494,78 @@ public class controllerEditPet implements Initializable {
         });
     }
 
+    public void dragAndDropTheImage(){
+        stackPaneImage.setOnDragOver(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasFiles() || db.hasUrl() || db.hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+        });
+
+        stackPaneImage.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+
+
+            try {
+                if (db.hasFiles()) {
+                    // 📁 Ảnh từ máy
+                    file = db.getFiles().get(0);
+                    imageViewPet.setImage(new Image(file.toURI().toString())); // hiển thị
+                    imageData = Files.readAllBytes(file.toPath());
+                    success = true;
+
+                } else {
+                    // 🌐 Ảnh từ web
+                    String url = db.hasUrl() ? db.getUrl() : db.getString();
+                    System.out.println("Dropped URL/String: " + url);
+
+                    String imageUrl = null;
+                    Pattern pattern = Pattern.compile("mediaurl=([^&]+)");
+                    Matcher matcher = pattern.matcher(url);
+                    if (matcher.find()) {
+                        imageUrl = URLDecoder.decode(matcher.group(1), StandardCharsets.UTF_8);
+                    } else if (url.matches(".*\\.(jpg|jpeg|png|gif|bmp|webp).*")) {
+                        imageUrl = url;
+                    }
+
+                    System.out.println("Final imageUrl: " + imageUrl);
+
+                    if (imageUrl != null) {
+                        // Đọc InputStream từ web và lưu về byte[]
+                        URL imageURL = new URL(imageUrl);
+                        HttpURLConnection conn = (HttpURLConnection) imageURL.openConnection();
+                        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+                        conn.connect();
+
+                        try (InputStream is = conn.getInputStream();
+                             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = is.read(buffer)) != -1) {
+                                baos.write(buffer, 0, bytesRead);
+                            }
+
+                            imageData = baos.toByteArray();
+                            imageViewPet.setImage(new Image(new ByteArrayInputStream(imageData))); // hiển thị
+                            success = true;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+    }
+
     private static Pet pet;
 
     private static ObservableList<Supplier> listSupplier;
@@ -502,6 +596,8 @@ public class controllerEditPet implements Initializable {
         setButtonAddDisable();
 
         buttonEnter();
+
+        dragAndDropTheImage();
 
     }
 
