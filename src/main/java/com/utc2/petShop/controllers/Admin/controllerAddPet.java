@@ -202,16 +202,16 @@ public class controllerAddPet implements Initializable {
     void actionAddImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp", "*.webp");
         fileChooser.getExtensionFilters().add(extFilter);
         file = fileChooser.showOpenDialog(imageViewPet.getScene().getWindow());
-        try {
-            imageData = Files.readAllBytes(file.toPath());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         if (file != null) {
             imageViewPet.setImage(new Image(file.toURI().toString()));
+            try {
+                imageData = Files.readAllBytes(file.toPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -477,6 +477,7 @@ public class controllerAddPet implements Initializable {
                     file = db.getFiles().get(0);
                     imageViewPet.setImage(new Image(file.toURI().toString())); // hiển thị
                     imageData = Files.readAllBytes(file.toPath());
+                    success = true;
 
                 } else {
                     // 🌐 Ảnh từ web
@@ -488,7 +489,7 @@ public class controllerAddPet implements Initializable {
                     Matcher matcher = pattern.matcher(url);
                     if (matcher.find()) {
                         imageUrl = URLDecoder.decode(matcher.group(1), StandardCharsets.UTF_8);
-                    } else if (url.matches(".*\\.(jpg|jpeg|png|gif|bmp).*")) {
+                    } else if (url.matches(".*\\.(jpg|jpeg|png|gif|bmp|webp).*")) {
                         imageUrl = url;
                     }
 
@@ -512,6 +513,7 @@ public class controllerAddPet implements Initializable {
 
                             imageData = baos.toByteArray();
                             imageViewPet.setImage(new Image(new ByteArrayInputStream(imageData))); // hiển thị
+                            success = true;
                         }
                     }
                 }

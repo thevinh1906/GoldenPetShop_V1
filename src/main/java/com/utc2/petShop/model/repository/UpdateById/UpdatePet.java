@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class UpdatePet {
 
-    public static void updatePet(File file, int petId, String name, int age, boolean gender, double price,
+    public static void updatePet(byte[] imageData, int petId, String name, int age, boolean gender, double price,
                                  boolean vaccinated, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
@@ -37,8 +37,7 @@ public class UpdatePet {
                 stmt.setString(10, description);
                 stmt.setInt(11, supplier.getId());
                 stmt.setString(12, role);
-                FileInputStream fis = new FileInputStream(file);
-                stmt.setBinaryStream(13, fis, (int) file.length());
+                stmt.setBytes(13,imageData);
                 stmt.setInt(14, petId);
                 int affected = stmt.executeUpdate();
 
@@ -99,7 +98,7 @@ public class UpdatePet {
 
             System.out.println("✅ Cập nhật thú cưng thành công.");
 
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi cập nhật thú cưng: " + e.getMessage());
         }
