@@ -52,7 +52,7 @@ CREATE TABLE PRODUCTS (
     name NVARCHAR(100),
     price FLOAT,
     quantity INT,
-    description NVARCHAR(250),
+    description NVARCHAR(MAX),
 	manufacturer NVARCHAR(50),
     FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
 );
@@ -96,7 +96,7 @@ CREATE TABLE PET (
     origin NVARCHAR(100),
 	weight FLOAT,
 	furColor NVARCHAR(50),
-	description NVARCHAR(250),
+	description NVARCHAR(MAX),
 	supplierId INT,
     image VARBINARY(MAX),
 	FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
@@ -187,6 +187,20 @@ CREATE TABLE REVENUE_REPORT (
     totalRevenue FLOAT,
     totalBill INT
 );
+
+CREATE TABLE IMAGE (
+	imageId INT IDENTITY(1,1) PRIMARY KEY ,
+	image VARBINARY(MAX)
+);
+
+CREATE TABLE IMAGE_PRODUCT (
+	imageId INT NOT NULL,
+	productId INT NOT NULL,
+	PRIMARY KEY (imageId,productId),
+	FOREIGN KEY (imageId) REFERENCES IMAGE(imageId),
+	FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
+	);
+
 
 ALTER TABLE PET ADD role NVARCHAR(20);
 ALTER TABLE PRODUCTS ADD role NVARCHAR(20);
@@ -389,3 +403,7 @@ INSERT INTO FEEDBACK VALUES
 --duoc thi them procedure va trigger
 
 
+SELECT I.image 
+                FROM IMAGE I
+                JOIN IMAGE_PRODUCT IP ON I.imageId = IP.imageId
+                WHERE IP.productId = 12

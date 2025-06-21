@@ -9,7 +9,7 @@ public class Cat extends Pet {
     private ObjectProperty<ECatBreed> breed;
     private StringProperty eyeColor;
 
-    public Cat(Image image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ECatBreed breed, boolean isIndoor, String eyeColor) {
+    public Cat(byte[] image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ECatBreed breed, boolean isIndoor, String eyeColor) {
         super(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
         this.isIndoor = new SimpleBooleanProperty(isIndoor);
         this.breed = new SimpleObjectProperty<>(breed);

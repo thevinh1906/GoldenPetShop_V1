@@ -11,7 +11,7 @@ public class Rabbit extends Pet {
     private final ObjectProperty<ERabbitBreed> breed;
     private final DoubleProperty earLength;
 
-    public Rabbit(Image image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ERabbitBreed breed, double earLength) {
+    public Rabbit(byte[] image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ERabbitBreed breed, double earLength) {
         super(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
         this.breed = new SimpleObjectProperty<>(ERabbitBreed.Angora);
         this.earLength = new SimpleDoubleProperty(earLength);

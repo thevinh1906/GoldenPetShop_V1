@@ -1,12 +1,39 @@
-
-.buttonTransparent:hover{
-    -fx-background-color:#C0C0C0 !important;
-}
-.tree-cell:hover {
-    -fx-background: #C0C0C0 !important;
-}
 .root {
+    -fx-background-color: #F2F8FF;
     -fx-font-family: 'Segoe UI';
-    -fx-background-color: #F9F9F9;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-font-size: 20px;
 }
+.image-view_center {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.3, 0, 0);
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.image-view {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.labelPrice {
+    -fx-font-size: 40px
+}
+.text-area2 {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #dcdcdc;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px;
+    -fx-font-size: 18px;
+    -fx-text-fill: #2c3e50;
+}
+
+.vboxGeneral {
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+}
+
+/*.stack-pane_image {*/
+/*    -fx-border-radius: 20px;*/
+/*    -fx-background-radius: 20px;*/
+/*    -fx-background-color: white;*/
+/*}*/

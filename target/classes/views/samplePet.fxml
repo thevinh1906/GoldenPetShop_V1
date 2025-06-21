@@ -18,7 +18,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane fitToWidth="true" style="-fx-background-color: #F2F8FF;">
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-background-color: #F2F8FF;">
                <content>
                   <HBox alignment="CENTER" style="-fx-background-color: #F2F8FF;">
                      <children>

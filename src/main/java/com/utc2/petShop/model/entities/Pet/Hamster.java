@@ -11,7 +11,7 @@ public class Hamster extends Pet {
     private ObjectProperty<EHamsterBreed> breed;
     private DoubleProperty tailLength;
 
-    public Hamster(Image image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, EHamsterBreed breed, double tailLength) {
+    public Hamster(byte[] image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, EHamsterBreed breed, double tailLength) {
         super(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
         this.breed = new SimpleObjectProperty<>(breed);
         this.tailLength = new SimpleDoubleProperty(tailLength);

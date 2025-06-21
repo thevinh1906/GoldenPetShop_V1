@@ -1,10 +1,12 @@
 package com.utc2.petShop.model.services;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,7 +56,7 @@ public class scenes {
         }
 
         stage.initModality(Modality.APPLICATION_MODAL); // Khóa cửa sổ trước nếu muốn
-        stage.setResizable(false);
+        stage.setResizable(maximized);
         stage.showAndWait(); // Chờ đóng mới về
     }
 
@@ -76,15 +78,15 @@ public class scenes {
         stage.getIcons().add(new Image("images/logo.png"));
         stage.setTitle(title);
         stage.setScene(scene);
+
         stage.setMaximized(maximized);
 
         if (!maximized) {
             primaryStage.sizeToScene(); // quan trọng: co Stage đúng theo nội dung
             primaryStage.centerOnScreen(); // căn giữa cửa sổ trên màn hình
         }
-
+        stage.setResizable(maximized);
         stage.initModality(Modality.APPLICATION_MODAL); // Khóa cửa sổ trước nếu muốn
-        stage.setResizable(false);
         stage.showAndWait(); // Chờ đóng mới về
     }
 }

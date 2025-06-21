@@ -1,20 +1,17 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
+import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -107,6 +104,9 @@ public class controllerPet implements Initializable {
     @FXML
     private StackPane stackPaneImage;
 
+    @FXML
+    private ScrollPane scrollPane;
+
     public void hideScreen() {
         gridPaneDog.setVisible(false);
         gridPaneHamster.setVisible(false);
@@ -119,7 +119,7 @@ public class controllerPet implements Initializable {
     }
 
     public void receiveData(Pet obj) {
-        Image image = cropToImageView(obj.getImage(),imageViewPet.getFitWidth(),imageViewPet.getFitHeight());
+        Image image = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(obj.getImage()),imageViewPet.getFitWidth(),imageViewPet.getFitHeight());
         imageViewPet.setImage(image);
         labelIDGeneral.setText(String.valueOf("ID: PE" + obj.getId()));
         labelNameGeneral.setText("Name: " + obj.getName());
@@ -208,41 +208,11 @@ public class controllerPet implements Initializable {
         hideScreen();
 
         line.endYProperty().bind(vBox.heightProperty());
-    }
 
-
-
-    public Image cropToImageView(Image originalImage, double targetWidth, double targetHeight) {
-        double imageWidth = originalImage.getWidth();
-        double imageHeight = originalImage.getHeight();
-
-        double imageRatio = imageWidth / imageHeight;
-        double viewRatio = targetWidth / targetHeight;
-
-        double scale;
-        double cropWidth;
-        double cropHeight;
-        double x;
-        double y;
-
-        // So sánh tỷ lệ ảnh và ImageView để quyết định crop theo chiều nào
-        if (imageRatio > viewRatio) {
-            // Ảnh rộng hơn -> cắt chiều ngang
-            cropHeight = imageHeight;
-            cropWidth = cropHeight * viewRatio;
-            x = (imageWidth - cropWidth) / 2;
-            y = 0;
-        } else {
-            // Ảnh cao hơn -> cắt chiều dọc
-            cropWidth = imageWidth;
-            cropHeight = cropWidth / viewRatio;
-            x = 0;
-            y = (imageHeight - cropHeight) / 2;
-        }
-
-        PixelReader reader = originalImage.getPixelReader();
-        WritableImage croppedImage = new WritableImage(reader, (int)x, (int)y, (int)cropWidth, (int)cropHeight);
-        return croppedImage;
+        scrollPane.viewportBoundsProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("Viewport height: " + newVal.getHeight());
+            System.out.println("Content height: " + scrollPane.getContent().getBoundsInLocal().getHeight());
+        });
     }
 }
 

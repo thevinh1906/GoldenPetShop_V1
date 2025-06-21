@@ -1,15 +1,19 @@
 package com.utc2.petShop.model.entities.Product;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
+
+import java.util.List;
 
 public class Cage extends Product {
     private StringProperty dimension;
     private StringProperty material;
 
-    public Cage(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, String dimension, String material) {
-        super(id, name, price, quantity, description, supplier, manufacturer);
+    public Cage(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, String dimension, String material, List<ImageByte> images) {
+        super(id, name, price, quantity, description, supplier, manufacturer, images);
         this.dimension = new SimpleStringProperty(dimension);
         this.material = new SimpleStringProperty(material);
     }
