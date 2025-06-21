@@ -1,9 +1,12 @@
 package com.utc2.petShop.model.repository.Select;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.utils.DBConnection;
+import javafx.scene.image.Image;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,7 @@ public class SelectProduct {
 
                 // Lấy đối tượng Supplier từ DB
                 Supplier supplier = SelectSupplier.getSupplierById(supplierId);
+                List<ImageByte> images = getProductImageByProductId(id);
 
                 Product p;
 
@@ -48,25 +52,25 @@ public class SelectProduct {
                     // Là Accessory
                     String type = rs.getString("accessoryType");
                     String brand = rs.getString("brand");
-                    p = new Accessory(id, name, price, quantity, description, supplier, manufacturer, type, brand);
+                    p = new Accessory(id, name, price, quantity, description, supplier, manufacturer, type, brand, images);
                 } else if (rs.getString("dimension") != null) {
                     // Là Cage
                     String dimension = rs.getString("dimension");
                     String material = rs.getString("cageMaterial");
-                    p = new Cage(id, name, price, quantity, description, supplier, manufacturer, dimension, material);
+                    p = new Cage(id, name, price, quantity, description, supplier, manufacturer, dimension, material, images);
                 } else if (rs.getDate("expirationDate") != null) {
                     // Là Food
                     Date expirationDate = rs.getDate("expirationDate");
                     String flavor = rs.getString("flavor");
-                    p = new Food(id, name, price, quantity, description, supplier, manufacturer, expirationDate.toLocalDate(), flavor);
+                    p = new Food(id, name, price, quantity, description, supplier, manufacturer, expirationDate.toLocalDate(), flavor, images);
                 } else if (rs.getString("toyMaterial") != null) {
                     // Là Toy
                     String material = rs.getString("toyMaterial");
                     String size = rs.getString("size");
-                    p = new Toy(id, name, price, quantity, description, supplier, manufacturer, material, size);
+                    p = new Toy(id, name, price, quantity, description, supplier, manufacturer, material, size, images);
                 } else {
                     // Là Product thường
-                    p = new Product(id, name, price, quantity, description, supplier, manufacturer);
+                    p = new Product(id, name, price, quantity, description, supplier, manufacturer, images);
                 }
 
                 products.add(p);
@@ -98,5 +102,33 @@ public class SelectProduct {
         }
 
         return productIDs;
+    }
+
+    public static List<ImageByte> getProductImageByProductId(int productId) {
+        List<ImageByte> productImages = new ArrayList<>();
+        String sql = """
+                SELECT I.image, I.imageId
+                FROM IMAGE I
+                JOIN IMAGE_PRODUCT IP ON I.imageId = IP.imageId
+                WHERE IP.productId = ?
+                """;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, productId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    byte[] images = rs.getBytes("image");
+                    int imageId = rs.getInt("imageId");
+                    ImageByte image;
+                    if (images != null) {
+                        image = new ImageByte(imageId, images);
+                        productImages.add(image);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return productImages;
     }
 }

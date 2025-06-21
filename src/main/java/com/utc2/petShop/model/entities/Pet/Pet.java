@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
 public class Pet implements IPet {
-    private ObjectProperty<Image> image;
+    private ObjectProperty<byte[]> image;
     private IntegerProperty id;
     private StringProperty name;
     private IntegerProperty age;
@@ -24,8 +24,8 @@ public class Pet implements IPet {
     private StringProperty description;
     private ObjectProperty<Supplier> supplier;
 
-    public Pet(Image image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier) {
-        this.image = new SimpleObjectProperty<Image>(image);
+    public Pet(byte[] image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier) {
+        this.image = new SimpleObjectProperty<byte[]>(image);
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.age = new SimpleIntegerProperty(age);
@@ -41,7 +41,7 @@ public class Pet implements IPet {
     }
 
     public Pet() {
-        this.image = new SimpleObjectProperty<Image>(null);
+        this.image = new SimpleObjectProperty<byte[]>(null);
         this.id = new SimpleIntegerProperty(0);
         this.name = new SimpleStringProperty("");
         this.age = new SimpleIntegerProperty(0);
@@ -56,15 +56,15 @@ public class Pet implements IPet {
         this.supplier = new SimpleObjectProperty<Supplier>( new Supplier());
     }
 
-    public Image getImage() {
+    public byte[] getImage() {
         return image.get();
     }
 
-    public ObjectProperty<Image> imageProperty() {
+    public ObjectProperty<byte[]> imageProperty() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(byte[] image) {
         this.image.set(image);
     }
 

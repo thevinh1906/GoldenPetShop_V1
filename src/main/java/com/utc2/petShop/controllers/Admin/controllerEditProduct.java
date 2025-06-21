@@ -1,32 +1,40 @@
 package com.utc2.petShop.controllers.Admin;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.repository.Delete.DeleteImage;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
 import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
+import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class controllerEditProduct implements Initializable {
-
-    @FXML
-    private BorderPane root;
 
     @FXML
     private Button buttonAdd;
@@ -56,13 +64,31 @@ public class controllerEditProduct implements Initializable {
     private GridPane gridPaneGeneral;
 
     @FXML
+    private GridPane gridPaneImage;
+
+    @FXML
     private GridPane gridPaneToy;
+
+    @FXML
+    private HBox hBoxImageView;
+
+    @FXML
+    private Label labelDragAnImageHere;
+
+    @FXML
+    private BorderPane root;
 
     @FXML
     private Spinner<Integer> spinnerQuantityGeneral;
 
     @FXML
+    private StackPane stackPaneImage;
+
+    @FXML
     private TextArea textAreaDescriptionGeneral;
+
+    @FXML
+    private TextField textFieldBrandAccessory;
 
     @FXML
     private TextField textFieldDimensionCage;
@@ -77,22 +103,21 @@ public class controllerEditProduct implements Initializable {
     private TextField textFieldMaterialCage;
 
     @FXML
+    private TextField textFieldMaterialToy;
+
+    @FXML
     private TextField textFieldNameGeneral;
 
     @FXML
     private TextField textFieldPriceGeneral;
 
     @FXML
-    private TextField textFieldBrandAccessory;
+    private TextField textFieldSizeToy;
 
     @FXML
     private TextField textFieldTypeAccessory;
 
-    @FXML
-    private TextField textFieldMaterialToy;
-
-    @FXML
-    private TextField textFieldSizeToy;
+    List<ImageByte> imageBytes = new ArrayList<>();
 
     @FXML
     void actionAdd(ActionEvent event) {
@@ -127,7 +152,7 @@ public class controllerEditProduct implements Initializable {
             type = textFieldTypeAccessory.getText();
         }
 
-        UpdateProduct.updateProduct(product.getId(),supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,dimension,manufacturer,size,role);
+//        UpdateProduct.updateProduct(product.getId(),supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,dimension,manufacturer,size,role);
 
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
@@ -136,6 +161,11 @@ public class controllerEditProduct implements Initializable {
     @FXML
     void actionCancel(ActionEvent event) {
         ((Stage)buttonCancel.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void actionAddImage(ActionEvent event) {
+
     }
 
     public void griPaneVision(){
@@ -325,8 +355,40 @@ public class controllerEditProduct implements Initializable {
         buttonAddDisable();
     }
 
+    private void refreshImagesOnHBox(){
+        hBoxImageView.getChildren().clear();
+        for (ImageByte image : imageBytes) {
+            if(image.getImage()!=null) {
+                Image img = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(image.getImage()),50,50);
+//            images.add(img);
+                Button button = new Button("x");
+                button.getStyleClass().addAll("button1", "delete-button");
+
+                button.setOnAction(event -> {
+                    image.setImage(null);
+                    refreshImagesOnHBox();
+                });
+
+                ImageView imageView = new ImageView(img);
+                imageView.setFitHeight(50);
+                imageView.setFitWidth(50);
+                imageView.setPreserveRatio(true);
+
+                StackPane stackPane = new StackPane(imageView,button);
+                stackPane.setAlignment(button, Pos.TOP_RIGHT);
+                StackPane.setMargin(imageView, new Insets(5));
+
+
+                hBoxImageView.getChildren().add(stackPane);
+            }
+
+        }
+    }
+
     public void receiveData(Product obj){
         product = obj;
+        imageBytes = obj.getImages();
+        refreshImagesOnHBox();
         textFieldNameGeneral.setText(obj.getName());
         spinnerQuantityGeneral.getValueFactory().setValue(obj.getQuantity());
         textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));

@@ -58,7 +58,7 @@
 .check-box {
     -fx-text-fill: #4F4F4F;
 }
-.button {
+.button1 {
     -fx-background-color: #A7D8F5;
     -fx-text-fill: #333333;
     -fx-font-weight: bold;
@@ -78,4 +78,24 @@
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent; /* cho phép background con hiển thị */
+}
+
+.button1.delete-button {
+    -fx-padding: 0px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-pref-width: 10px;
+    -fx-pref-height: 10px;
+    -fx-font-size: 16px;
+    -fx-text-fill: rgba(0, 0, 0, 0.3);
+}
+
+.button1.delete-button:hover {
+    -fx-text-fill: rgba(0, 0, 0, 0.7);
+}
+.button1.change {
+
+    -fx-padding: 3px;
+    -fx-font-size: 10px;
 }

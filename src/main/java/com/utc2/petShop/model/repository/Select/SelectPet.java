@@ -46,14 +46,7 @@ public class SelectPet {
                 String furColor = rs.getString("furColor");
                 String description = rs.getString("description");
                 int supplierId = rs.getInt("supplierId");
-                InputStream is = rs.getBinaryStream("image");
-
-                Image image;
-                if (is != null) {
-                    image = new Image(is);
-                } else {
-                    image = getDefaultImage(); // ảnh mặc định nếu không có ảnh từ DB
-                }
+                byte[] image = rs.getBytes("image");
 
                 Supplier supplier = SelectSupplier.getSupplierById(supplierId);
 
@@ -136,11 +129,11 @@ public class SelectPet {
 
     private static Image getDefaultImage() {
         try {
-            return new Image(Pet.class.getResource("/assets/default-pet.png").toExternalForm());
+            return new Image(Pet.class.getResource("/images/KhongTimDuocAnh.jpg").toExternalForm());
         } catch (Exception e) {
             System.out.println("Không tìm thấy ảnh mặc định: " + e.getMessage());
-            return new Image("https://tiki.vn/blog/wp-content/uploads/2023/01/oLkoHpw9cqRtLPTbg67bgtUvUdV1BnXRnAqqBZOVkEtPgf-_Ct3ADFJYXIjfDd0fTyECLEsWq5yZ2CCOEGxIsuHSmNNNUZQcnQT5-Ld6yoK19Q_Sphb0MmX64ga-O_TIPjItNkTL5ns4zqP1Z0OBzsIoeYKtcewnrjnVsw8vfG8uYwwCDkXaoozCrmH1kA.jpg");
         }
+        return null;
     }
 
     public static List<Integer> getPetIDBySupplierId(int supplierId) {

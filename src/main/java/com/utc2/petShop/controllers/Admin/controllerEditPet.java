@@ -4,6 +4,7 @@ import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
 import com.utc2.petShop.model.repository.UpdateById.UpdatePet;
+import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -181,6 +182,14 @@ public class controllerEditPet implements Initializable {
             breed = String.valueOf(comboBoxBreedRabbit.getValue());
             earLength = Float.parseFloat(textFieldEarLengthRabbit.getText());
 
+        }
+
+        if (imageData == null) {
+            imageData = pet.getImage();
+        }
+
+        if(imageData == null){
+            imageData = pet.getImage();
         }
 
         UpdatePet.updatePet(imageData,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
@@ -413,7 +422,7 @@ public class controllerEditPet implements Initializable {
         textFieldFurColorGeneral.setText(obj.getFurColor());
         comboBoxSupplierGeneral.setValue(obj.getSupplier());
         textAreaDescriptionGeneral.setText(obj.getDescription());
-        imageViewPet.setImage(obj.getImage());
+        imageViewPet.setImage(ImageUtils.byteArrayToImage(obj.getImage()));
 
         if(obj instanceof Dog){
             Dog dog = (Dog)obj;

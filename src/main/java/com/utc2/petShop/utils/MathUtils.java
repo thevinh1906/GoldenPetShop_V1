@@ -2,7 +2,7 @@ package com.utc2.petShop.utils;
 
 import java.util.Arrays;
 
-public class MathUntils {
+public class MathUtils {
     public static final float PI = 3.14f;
     public static int tongMang(int...a){
         return Arrays.stream(a).sum();

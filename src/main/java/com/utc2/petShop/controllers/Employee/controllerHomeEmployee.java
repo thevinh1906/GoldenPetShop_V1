@@ -1581,13 +1581,13 @@ public class controllerHomeEmployee implements Initializable {
 
         Supplier supplier = new Supplier(1,"dsf","sdfs","dsfds","fs");
 
-        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", supplier, "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
+//        Food food1 = new Food(1, "nanna", 120000, 20, "con chó Khôi", supplier, "babela", LocalDate.of(2005, 12, 31), "cá ngừ");
 
-        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", supplier, "haheha", "plastic", "100x100");
+//        Toy toy1 = new Toy(2, "Pet toy", 100000, 50, "cho chó chơi", supplier, "haheha", "plastic", "100x100");
 
-        Cage cage1 = new Cage(3, "Chuồng chó", 200000, 30, "dành cho người", new Supplier(), "hay hay", "2000x5000x2000", "inox");
+//        Cage cage1 = new Cage(3, "Chuồng chó", 200000, 30, "dành cho người", new Supplier(), "hay hay", "2000x5000x2000", "inox");
 
-        productList.addAll(cage1, food1, toy1);    // dùng vòng lập để truy xuất dữ liệu từ bảng Product
+//        productList.addAll(cage1, food1, toy1);    // dùng vòng lập để truy xuất dữ liệu từ bảng Product
 
 //        tableViewProduct.setItems(productList);
 

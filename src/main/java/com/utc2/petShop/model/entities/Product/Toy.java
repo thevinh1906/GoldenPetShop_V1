@@ -1,15 +1,19 @@
 package com.utc2.petShop.model.entities.Product;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
+
+import java.util.List;
 
 public class Toy extends Product{
     private StringProperty material;
     private StringProperty size;
 
-    public Toy(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, String material, String size) {
-        super(id, name, price, quantity, description, supplier, manufacturer);
+    public Toy(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, String material, String size, List<ImageByte> images) {
+        super(id, name, price, quantity, description, supplier, manufacturer, images);
         this.material = new SimpleStringProperty(material);
         this.size = new SimpleStringProperty(size);
     }
