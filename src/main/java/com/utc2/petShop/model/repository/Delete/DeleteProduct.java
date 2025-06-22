@@ -12,7 +12,7 @@ public class DeleteProduct {
         String deleteCageSql = "DELETE FROM Cage WHERE productId = ?";
         String deleteFoodSql = "DELETE FROM Food WHERE productId = ?";
         String deleteToySql = "DELETE FROM Toy WHERE productId = ?";
-        String deleteProductSql = "DELETE FROM PRODUCTS WHERE productId = ?";
+        String softDeleteProductSql = "UPDATE PRODUCTS SET isDeleted = 1 WHERE productId = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);
@@ -22,7 +22,7 @@ public class DeleteProduct {
                     PreparedStatement stmtCage = conn.prepareStatement(deleteCageSql);
                     PreparedStatement stmtFood = conn.prepareStatement(deleteFoodSql);
                     PreparedStatement stmtToy = conn.prepareStatement(deleteToySql);
-                    PreparedStatement stmtProduct = conn.prepareStatement(deleteProductSql)
+                    PreparedStatement stmtProduct = conn.prepareStatement(softDeleteProductSql)
             ) {
                 // Xóa trong bảng con
                 stmtAccessory.setInt(1, productId);
@@ -50,7 +50,7 @@ public class DeleteProduct {
                 }
             } catch (SQLException e) {
                 conn.rollback();
-                throw new RuntimeException("Lỗi khi xóa sản phẩm, rollback...", e);
+                throw new RuntimeException("Lỗi khi xóa mềm sản phẩm, rollback...", e);
             }
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi kết nối CSDL khi xóa sản phẩm", e);

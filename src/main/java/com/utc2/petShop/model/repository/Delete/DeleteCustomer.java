@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DeleteCustomer {
     public static boolean deleteCustomerById(int customerId) {
-        String sqlDeleteCustomer = "DELETE FROM CUSTOMER WHERE customerId = ?";
+        String sqlSoftDeleteCustomer = "UPDATE CUSTOMER SET isDeleted = 1 WHERE customerId = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false); // Bắt đầu giao dịch
@@ -26,7 +26,7 @@ public class DeleteCustomer {
 
 
                 // Xóa khách hàng
-                try (PreparedStatement stmt = conn.prepareStatement(sqlDeleteCustomer)) {
+                try (PreparedStatement stmt = conn.prepareStatement(sqlSoftDeleteCustomer)) {
                     stmt.setInt(1, customerId);
                     int rowsAffected = stmt.executeUpdate();
 

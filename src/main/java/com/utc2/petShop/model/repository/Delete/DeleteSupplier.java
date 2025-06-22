@@ -13,7 +13,7 @@ import java.util.List;
 public class DeleteSupplier {
 
     public static boolean deleteSupplierById(int supplierId) {
-        String sql = "DELETE FROM SUPPLIER WHERE supplierId = ?";
+        String sqlSoftDeleteSupplier = "UPDATE SUPPLIER SET isDeleted = 1 WHERE customerId = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false); // bắt đầu giao dịch
@@ -35,7 +35,7 @@ public class DeleteSupplier {
                 }
 
                 // Xóa supplier
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                try (PreparedStatement stmt = conn.prepareStatement(sqlSoftDeleteSupplier)) {
                     stmt.setInt(1, supplierId);
                     int rowsAffected = stmt.executeUpdate();
 

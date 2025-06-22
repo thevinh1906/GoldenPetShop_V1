@@ -14,7 +14,7 @@ public class DeletePet {
         String deleteHamster = "DELETE FROM Hamster WHERE petId = ?";
         String deleteRabbit = "DELETE FROM Rabbit WHERE petId = ?";
         String deletePetWarranty = "DELETE FROM PET_WARRANTY WHERE petId = ?";
-        String deletePet = "DELETE FROM Pet WHERE petId = ?";
+        String softDeletePet = "UPDATE PET SET isDeleted = 1 WHERE petId = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false); // bắt đầu giao dịch
@@ -25,7 +25,7 @@ public class DeletePet {
                     PreparedStatement psHamster = conn.prepareStatement(deleteHamster);
                     PreparedStatement psRabbit = conn.prepareStatement(deleteRabbit);
                     PreparedStatement psWarranty = conn.prepareStatement(deletePetWarranty);
-                    PreparedStatement psPet = conn.prepareStatement(deletePet)
+                    PreparedStatement psPet = conn.prepareStatement(softDeletePet)
             ) {
                 // Xóa lần lượt các bảng con
                 psDog.setInt(1, petId); psDog.executeUpdate();
