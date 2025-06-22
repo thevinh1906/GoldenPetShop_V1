@@ -1,6 +1,6 @@
 package com.utc2.petShop.model.repository.Delete;
 
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -100,6 +100,36 @@ public class DeleteProduct {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Lỗi kết nối CSDL khi xóa sản phẩm", e);
+        }
+    }
+
+    public static boolean deleteImageProductByProductIdAndImageId(int productId, int imageId) {
+        String sqlDeleteImageProduct = "DELETE FROM IMAGE_PRODUCT WHERE imageId = ? AND productId = ?";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sqlDeleteImageProduct)) {
+                stmt.setInt(1, imageId);
+                stmt.setInt(2, productId);
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    conn.commit();
+                    DeleteImage.deleteImageById(imageId);
+                    return true;
+                } else {
+                    conn.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new RuntimeException("Lỗi khi xóa IMAGE_PRODUCT", e);
+            } finally {
+                conn.setAutoCommit(true);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

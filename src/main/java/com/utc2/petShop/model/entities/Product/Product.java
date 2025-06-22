@@ -1,8 +1,14 @@
 package com.utc2.petShop.model.entities.Product;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.implement.IProduct;
 import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+
+import java.util.List;
 
 // Represents products sold in the pet store
 public class Product implements IProduct {
@@ -13,8 +19,9 @@ public class Product implements IProduct {
     private StringProperty description;
     private ObjectProperty<Supplier> supplier;
     private StringProperty manufacturer;
+    private ListProperty<ImageByte> images;
 
-    public Product(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer) {
+    public Product(int id, String name, double price, int quantity, String description, Supplier supplier, String manufacturer, List<ImageByte> images) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleDoubleProperty(price);
@@ -22,6 +29,7 @@ public class Product implements IProduct {
         this.description = new SimpleStringProperty(description);
         this.supplier = new SimpleObjectProperty<Supplier>(supplier);
         this.manufacturer = new SimpleStringProperty(manufacturer);
+        this.images = new SimpleListProperty<ImageByte>(FXCollections.observableArrayList(images));
     }
 
     public Product() {
@@ -32,6 +40,19 @@ public class Product implements IProduct {
         this.description = new SimpleStringProperty("");
         this.supplier = new SimpleObjectProperty<Supplier>(new Supplier());
         this.manufacturer = new SimpleStringProperty("");
+        this.images = new SimpleListProperty<ImageByte>(FXCollections.observableArrayList());
+    }
+
+    public ObservableList<ImageByte> getImages() {
+        return images.get();
+    }
+
+    public ListProperty<ImageByte> imagesProperty() {
+        return images;
+    }
+
+    public void setImages(ObservableList<ImageByte> images) {
+        this.images.set(images);
     }
 
     public int getId() {

@@ -1,17 +1,21 @@
 package com.utc2.petShop.model.repository.Insert;
 
+import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
+import javafx.scene.image.Image;
 
+import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.List;
 
 public class InsertProduct {
 
     public static void insertProduct (Supplier supplier, String name, double price, int quantity, String description,
-                                       String manufacturer,String type, String brand,
-                                       LocalDate expirationDate, String flavor, String dimension,
-                                       String material, String size, String role) {
+                                      String manufacturer, String type, String brand,
+                                      LocalDate expirationDate, String flavor, String dimension,
+                                      String material, String size, String role, List<byte[]> images) {
         int productId = 0;
         try (Connection conn = DBConnection.getConnection()) {
             String insertProduct = "INSERT INTO PRODUCTS (supplierId, name, price, quantity, description, manufacturer, role) " +
@@ -34,6 +38,7 @@ public class InsertProduct {
                         if (generatedKeys.next()) {
                             productId = generatedKeys.getInt(1);
                             System.out.println("ID vừa được tạo: " + productId);
+                            insertAllImage(productId,images);
                         } else {
                             System.out.println("Không lấy được ID.");
                         }
@@ -82,6 +87,71 @@ public class InsertProduct {
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi thêm sản phẩm : " + e.getMessage());
+        }
+    }
+
+    public static void insertAllImage (int productId, List<byte[]> images) {
+        String insertImage = "INSERT INTO IMAGE(image) VALUES(?)";
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(insertImage, Statement.RETURN_GENERATED_KEYS)){
+            for (byte[] image : images) {
+                ps.setBytes(1, image);
+                int row = ps.executeUpdate();
+                if (row > 0) {
+                    try {
+                        ResultSet rs = ps.getGeneratedKeys();
+                        if (rs.next()) {
+                            int id = rs.getInt(1);
+                            System.out.println("ID của image vừa tạo: " + id);
+                            insertImageProduct(productId,id);
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void insertImage (int productId, byte[] images) {
+        String insertImage = "INSERT INTO IMAGE(image) VALUES(?)";
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(insertImage, Statement.RETURN_GENERATED_KEYS)){
+                ps.setBytes(1, images);
+                int row = ps.executeUpdate();
+                if (row > 0) {
+                    try {
+                        ResultSet rs = ps.getGeneratedKeys();
+                        if (rs.next()) {
+                            int id = rs.getInt(1);
+                            System.out.println("ID của image vừa tạo: " + id);
+                            insertImageProduct(productId,id);
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void insertImageProduct (int productId, int imageId) {
+        String insertImageProduct = "INSERT INTO IMAGE_PRODUCT (imageId, productId) VALUES (?, ?)";
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(insertImageProduct)){
+            ps.setInt(1, imageId);
+            ps.setInt(2, productId);
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                System.out.println("insert image product success.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

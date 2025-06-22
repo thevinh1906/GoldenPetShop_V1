@@ -1,6 +1,6 @@
 package com.utc2.petShop.model.repository.Delete;
 
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
