@@ -13,7 +13,7 @@ public class DeleteUser {
 
     public static boolean deleteUserById(int userId) {
         String deleteEmployeeSQL = "DELETE FROM EMPLOYEE WHERE userId = ?";
-        String deleteUserSQL = "DELETE FROM USERS WHERE userId = ?";
+        String softDeleteUserSQL = "UPDATE USERS SET isDeleted = 1 WHERE userId = ?";
         String deleteFeedbackSQL = "DELETE FROM FEEDBACK WHERE userId = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -22,7 +22,7 @@ public class DeleteUser {
             try (
                     PreparedStatement stmtEmp = conn.prepareStatement(deleteEmployeeSQL);
                     PreparedStatement stmtFeedback = conn.prepareStatement(deleteFeedbackSQL);
-                    PreparedStatement stmtUser = conn.prepareStatement(deleteUserSQL)
+                    PreparedStatement stmtUser = conn.prepareStatement(softDeleteUserSQL)
             ) {
                 // Xóa nhân viên nếu có
                 stmtEmp.setInt(1, userId);

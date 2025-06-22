@@ -9,30 +9,18 @@ import java.sql.SQLException;
 public class DeletePetWarranty {
 
     public static boolean deleteWarrantyByPetId(int petId) {
-        String deleteWarrantySql = "DELETE FROM Pet_Warranty WHERE petId = ?";
+        String softDeleteSql = "UPDATE PET_WARRANTY SET isDeleted = 1 WHERE petId = ?";
 
-        try (Connection conn = DBConnection.getConnection()) {
-            conn.setAutoCommit(false); // bắt đầu transaction
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(softDeleteSql)) {
 
-            try (PreparedStatement ps = conn.prepareStatement(deleteWarrantySql)) {
-                ps.setInt(1, petId);
-                int rows = ps.executeUpdate();
+            ps.setInt(1, petId);
+            int rows = ps.executeUpdate();
 
-                if (rows > 0) {
-                    conn.commit();
-                    return true;
-                } else {
-                    conn.rollback();
-                    return false;
-                }
-            } catch (SQLException e) {
-                conn.rollback();
-                throw new RuntimeException("Lỗi khi xóa bảo hành thú cưng", e);
-            } finally {
-                conn.setAutoCommit(true); // trả về mặc định
-            }
+            return rows > 0;
+
         } catch (SQLException e) {
-            throw new RuntimeException("Không thể kết nối CSDL hoặc lỗi SQL", e);
+            throw new RuntimeException("Lỗi khi xoá mềm bảo hành thú cưng (Pet_Warranty)", e);
         }
     }
 }
