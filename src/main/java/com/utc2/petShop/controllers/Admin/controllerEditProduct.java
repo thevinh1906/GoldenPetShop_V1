@@ -3,36 +3,50 @@ package com.utc2.petShop.controllers.Admin;
 import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
-import com.utc2.petShop.model.repository.Delete.DeleteImage;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
 import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
 import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class controllerEditProduct implements Initializable {
 
@@ -119,6 +133,8 @@ public class controllerEditProduct implements Initializable {
 
     List<ImageByte> imageBytes = new ArrayList<>();
 
+    List<byte[]> imageData = new ArrayList<>();
+
     @FXML
     void actionAdd(ActionEvent event) {
         Supplier supplier = comboBoxSupplierGeneral.getValue();
@@ -152,7 +168,7 @@ public class controllerEditProduct implements Initializable {
             type = textFieldTypeAccessory.getText();
         }
 
-//        UpdateProduct.updateProduct(product.getId(),supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,dimension,manufacturer,size,role);
+        UpdateProduct.updateProduct(product.getId(),supplier,name,price,quantity,description,manufacturer,type,brand,expirationDate,flavor,dimension,material,size,role,imageBytes);
 
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
@@ -165,7 +181,42 @@ public class controllerEditProduct implements Initializable {
 
     @FXML
     void actionAddImage(ActionEvent event) {
+        if (imageData.size() < 5) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp", "*.webp");
+            fileChooser.getExtensionFilters().add(extFilter);
+            List<File> files = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
 
+            if (files != null) {
+                int count = 0;
+                for (ImageByte imageByte : imageBytes) {
+                    if (imageByte.getImage() == null) {
+                        count++;
+                    }
+                }
+                int remainingSlot = 5 - imageBytes.size() + count;
+
+                List<byte[]> fileByte = new ArrayList<>();
+                for (File file : files) {
+                    try {
+                        fileByte.add(Files.readAllBytes(file.toPath()));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+//                }
+                if (files.size() > remainingSlot) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Chỉ thêm được " + remainingSlot + " ảnh nữa.");
+                    alert.showAndWait();
+                } else {
+                    refreshImagesOnHBox(fileByte);
+                }
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Chỉ được chọn tối đa 5 ảnh!");
+            alert.showAndWait();
+        }
     }
 
     public void griPaneVision(){
@@ -288,6 +339,10 @@ public class controllerEditProduct implements Initializable {
                 textFieldSizeToy.setStyle(""); // Hợp lệ -> xóa border đỏ
             }
         });
+
+        hBoxImageView.getChildren().addListener((ListChangeListener<Node>) change -> {
+            labelDragAnImageHere.setVisible(hBoxImageView.getChildren().isEmpty());
+        });
     }
 
     public void buttonAddDisable() {
@@ -297,6 +352,7 @@ public class controllerEditProduct implements Initializable {
                         textFieldPriceGeneral.getText().isEmpty() ||
                         textAreaDescriptionGeneral.getText().isEmpty() ||
                         textFieldManufacturerGeneral.getText().isEmpty() ||
+                        hBoxImageView.getChildren().isEmpty() ||
                         choiceBoxPetSuppliesGeneral.getValue() == null;
 
         String role = String.valueOf(choiceBoxPetSuppliesGeneral.getValue());
@@ -351,14 +407,42 @@ public class controllerEditProduct implements Initializable {
         textFieldBrandAccessory.textProperty().addListener((obs, o, n) -> buttonAddDisable());
         textFieldTypeAccessory.textProperty().addListener((obs, o, n) -> buttonAddDisable());
 
+        hBoxImageView.getChildren().addListener((ListChangeListener<Node>) change -> buttonAddDisable());
+
         // Kiểm tra lần đầu khi giao diện hiển thị
         buttonAddDisable();
     }
 
-    private void refreshImagesOnHBox(){
+    private void refreshImagesOnHBox(List<byte[]> images) {
         hBoxImageView.getChildren().clear();
+        imageData.clear();
+
+        if (images != null) {
+            int count = 0;
+            for (ImageByte imageByte : imageBytes) {
+                if (imageByte.getImage() == null) {
+                    count++;
+                }
+            }
+
+            for (ImageByte imageByte : imageBytes) {
+                if (imageByte.getImage() == null && !images.isEmpty()) {
+                    imageByte.setImage(images.remove(0));
+                } else if (images.isEmpty()) {
+                    break;
+                }
+            }
+            int imageAdd = 5 - imageBytes.size();
+            int toAdd = Math.min(imageAdd, images.size());
+            for (int i = 0; i < toAdd; i++) {
+                    imageBytes.add(new ImageByte(0,images.get(i)));
+            }
+
+        }
+
         for (ImageByte image : imageBytes) {
             if(image.getImage()!=null) {
+                imageData.add(image.getImage());
                 Image img = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(image.getImage()),50,50);
 //            images.add(img);
                 Button button = new Button("x");
@@ -366,7 +450,7 @@ public class controllerEditProduct implements Initializable {
 
                 button.setOnAction(event -> {
                     image.setImage(null);
-                    refreshImagesOnHBox();
+                    refreshImagesOnHBox(new ArrayList<>());
                 });
 
                 ImageView imageView = new ImageView(img);
@@ -381,14 +465,13 @@ public class controllerEditProduct implements Initializable {
 
                 hBoxImageView.getChildren().add(stackPane);
             }
-
         }
     }
 
     public void receiveData(Product obj){
         product = obj;
         imageBytes = obj.getImages();
-        refreshImagesOnHBox();
+        refreshImagesOnHBox(new ArrayList<>());
         textFieldNameGeneral.setText(obj.getName());
         spinnerQuantityGeneral.getValueFactory().setValue(obj.getQuantity());
         textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
@@ -471,6 +554,150 @@ public class controllerEditProduct implements Initializable {
         });
     }
 
+    public void dragAndDropTheImage() {
+        hBoxImageView.setOnDragOver(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasFiles() || db.hasUrl() || db.hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+        });
+
+        hBoxImageView.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+
+            try {
+                int currentCount = imageData.size();
+                int remainingSlots = 5 - currentCount;
+
+                if (remainingSlots <= 0) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Chỉ được chọn tối đa 5 ảnh!");
+                    alert.showAndWait();
+                    event.setDropCompleted(false);
+                    event.consume();
+                    return;
+                }
+
+                if (db.hasFiles()) {
+                    // 📁 Ảnh từ máy
+                    List<File> files = db.getFiles();
+
+                    List<byte[]> fileByte = new ArrayList<>();
+                    for (File file : files) {
+                        try {
+                            fileByte.add(Files.readAllBytes(file.toPath()));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+//                    for (int i = 0; i < Math.min(files.size(), remainingSlots); i++) {
+//                        File file = files.get(i);
+//                        Image image = ImageUtils.cropToImageView(new Image(file.toURI().toString()), 50, 50);
+//                        byte[] data = Files.readAllBytes(file.toPath());
+//
+//                        images.add(image);
+//                        imageData.add(data);
+//
+//                        ImageView imageView = new ImageView(image);
+//                        imageView.setFitHeight(50);
+//                        imageView.setFitWidth(50);
+//                        imageView.setPreserveRatio(true);
+//
+//                        hBoxImageView.getChildren().add(imageView);
+//
+//                        success = true;
+//                    }
+
+                    if (files.size() > remainingSlots) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Chỉ thêm được " + remainingSlots + " ảnh nữa.");
+                        alert.showAndWait();
+                    }
+                    else {
+                        refreshImagesOnHBox(fileByte);
+                        success = true;
+                    }
+
+                } else {
+
+                    if (remainingSlots <= 0) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Chỉ được chọn tối đa 5 ảnh!");
+                        alert.showAndWait();
+                        event.setDropCompleted(false);
+                        event.consume();
+                        return;
+                    }
+
+                    // 🌐 Ảnh từ web
+
+                    String url = db.hasUrl() ? db.getUrl() : db.getString();
+                    String imageUrl = null;
+
+                    Pattern pattern = Pattern.compile("mediaurl=([^&]+)");
+                    Matcher matcher = pattern.matcher(url);
+                    if (matcher.find()) {
+                        imageUrl = URLDecoder.decode(matcher.group(1), StandardCharsets.UTF_8);
+                    } else if (url.matches(".*\\.(jpg|jpeg|png|gif|bmp|webp).*")) {
+                        imageUrl = url;
+                    }
+
+                    System.out.println("Final imageUrl: " + imageUrl);
+
+                    if (imageUrl != null) {
+                        URL imageURL = new URL(imageUrl);
+                        HttpURLConnection conn = (HttpURLConnection) imageURL.openConnection();
+                        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+                        conn.setRequestProperty("Referer", "https://shopee.vn/");
+                        conn.setRequestProperty("Referer", "https://www.pngtree.com/");
+                        conn.setRequestProperty("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
+                        conn.connect();
+
+                        try (InputStream is = conn.getInputStream();
+                             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = is.read(buffer)) != -1) {
+                                baos.write(buffer, 0, bytesRead);
+                            }
+
+                            byte[] data = baos.toByteArray();
+                            List<byte[]> fileByte = new ArrayList<>();
+                            fileByte.add(data);
+
+                            refreshImagesOnHBox(fileByte);
+
+//                            Image image = ImageUtils.cropToImageView(new Image(new ByteArrayInputStream(data)), 50, 50);
+//
+//                            ImageView imageView = new ImageView(image);
+//                            imageView.setFitHeight(50);
+//                            imageView.setFitWidth(50);
+//                            imageView.setPreserveRatio(true);
+//
+//                            images.add(image);
+//                            imageData.add(data);
+//                            hBoxImageView.getChildren().add(imageView);
+                            success = true;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Không thể tải ảnh");
+                alert.setContentText("Server ảnh đã chặn quyền truy cập. Hãy dùng ảnh từ máy hoặc trang khác.");
+                alert.showAndWait();
+                e.printStackTrace();
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+    }
+
     private static ObservableList<Supplier> listSupplier;
 
     Product product;
@@ -493,5 +720,7 @@ public class controllerEditProduct implements Initializable {
         setButtonAddDisable();
 
         buttonEnter();
+
+        dragAndDropTheImage();
     }
 }

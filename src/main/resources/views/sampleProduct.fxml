@@ -59,7 +59,7 @@
                                           <ImageView fx:id="imageViewProduct" fitHeight="450.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view_center" />
                                           <AnchorPane>
                                              <children>
-                                                <Button fx:id="buttonLeft" layoutX="7.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonLeftAction" opacity="0.3" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="211.0">
+                                                <Button fx:id="buttonLeft" layoutX="7.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonLeftAction" styleClass="button_left_right" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="211.0">
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0">
                                                          <image>
@@ -71,7 +71,7 @@
                                                       <Cursor fx:constant="HAND" />
                                                    </cursor>
                                                 </Button>
-                                                <Button fx:id="buttonRight" layoutX="420.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonRightAction" opacity="0.3" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="211.0">
+                                                <Button fx:id="buttonRight" layoutX="420.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonRightAction" styleClass="button_left_right" AnchorPane.bottomAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="211.0">
                                                    <graphic>
                                                       <ImageView fitHeight="20.0" fitWidth="20.0">
                                                          <image>
@@ -87,7 +87,7 @@
                                           </AnchorPane>
                                        </children>
                                     </StackPane>
-                                    <HBox fx:id="hBoxProductImage" alignment="CENTER" fillHeight="false" prefHeight="100.0" prefWidth="450.0">
+                                    <HBox fx:id="hBoxProductImage" alignment="CENTER" fillHeight="false" prefHeight="90.0" prefWidth="450.0">
                                        <VBox.margin>
                                           <Insets bottom="50.0" left="50.0" right="50.0" />
                                        </VBox.margin>
@@ -108,7 +108,7 @@
                                           <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label fx:id="labelName" alignment="TOP_LEFT" text="Name">
+                                          <Label fx:id="labelName" alignment="TOP_LEFT" prefWidth="453.0" styleClass="labelName" text="Name" wrapText="true">
                                              <GridPane.margin>
                                                 <Insets bottom="15.0" top="15.0" />
                                              </GridPane.margin>
@@ -151,17 +151,17 @@
                                           <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label fx:id="labelQuatity" text="Quatity">
+                                          <Label fx:id="labelQuatity" prefWidth="260.0" text="Quatity" wrapText="true">
                                              <GridPane.margin>
                                                 <Insets bottom="15.0" top="15.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label fx:id="labelManufacturer" text="Manufacturer" GridPane.columnIndex="1">
+                                          <Label fx:id="labelManufacturer" prefWidth="260.0" text="Manufacturer" wrapText="true" GridPane.columnIndex="1">
                                              <GridPane.margin>
                                                 <Insets bottom="15.0" top="15.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label fx:id="labelSupplier" text="Supplier" GridPane.rowIndex="1">
+                                          <Label fx:id="labelSupplier" prefWidth="260.0" text="Supplier" wrapText="true" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets bottom="15.0" top="15.0" />
                                              </GridPane.margin>

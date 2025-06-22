@@ -125,8 +125,6 @@ public class controllerAddProduct implements Initializable {
 
     private List<byte[]> imageData = new ArrayList<>();
 
-    private List<File> imageFiles = new ArrayList<>();
-
     @FXML
     void actionAdd(ActionEvent event) {
         Supplier supplier = comboBoxSupplierGeneral.getValue();
@@ -169,14 +167,25 @@ public class controllerAddProduct implements Initializable {
 
     @FXML
     void actionAddImage(ActionEvent event) {
-        if (images.size() <= 5) {
+        if (imageData.size() < 5) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Resource File");
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp", "*.webp");
             fileChooser.getExtensionFilters().add(extFilter);
             List<File> files = fileChooser.showOpenMultipleDialog(root.getScene().getWindow());
+
             if (files != null) {
-                int remainingSlot = 5 - images.size();
+                int remainingSlot = 5 - imageData.size();
+
+                List<byte[]> fileByte = new ArrayList<>();
+                for (File file : files) {
+                    try {
+                        fileByte.add(Files.readAllBytes(file.toPath()));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
 //                int imageToAdd = Math.min(remainingSlot, files.size());
 //                for (int i = 0; i < imageToAdd; i++) {
 //                    File file = files.get(i);
@@ -202,7 +211,7 @@ public class controllerAddProduct implements Initializable {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Chỉ thêm được " + remainingSlot + " ảnh nữa.");
                     alert.showAndWait();
                 } else {
-                    refreshImagesOnHBox(files);
+                    refreshImagesOnHBox(fileByte);
                 }
             }
         } else {
@@ -472,7 +481,7 @@ public class controllerAddProduct implements Initializable {
 
 
             try {
-                int currentCount = images.size();
+                int currentCount = imageData.size();
                 int remainingSlots = 5 - currentCount;
 
                 if (remainingSlots <= 0) {
@@ -486,27 +495,41 @@ public class controllerAddProduct implements Initializable {
                 if (db.hasFiles()) {
                     // 📁 Ảnh từ máy
                     List<File> files = db.getFiles();
-                    for (int i = 0; i < Math.min(files.size(), remainingSlots); i++) {
-                        File file = files.get(i);
-                        Image image = ImageUtils.cropToImageView(new Image(file.toURI().toString()), 50, 50);
-                        byte[] data = Files.readAllBytes(file.toPath());
 
-                        images.add(image);
-                        imageData.add(data);
-
-                        ImageView imageView = new ImageView(image);
-                        imageView.setFitHeight(50);
-                        imageView.setFitWidth(50);
-                        imageView.setPreserveRatio(true);
-
-                        hBoxImageView.getChildren().add(imageView);
-
-                        success = true;
+                    List<byte[]> fileByte = new ArrayList<>();
+                    for (File file : files) {
+                        try {
+                            fileByte.add(Files.readAllBytes(file.toPath()));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+
+//                    for (int i = 0; i < Math.min(files.size(), remainingSlots); i++) {
+//                        File file = files.get(i);
+//                        Image image = ImageUtils.cropToImageView(new Image(file.toURI().toString()), 50, 50);
+//                        byte[] data = Files.readAllBytes(file.toPath());
+//
+//                        images.add(image);
+//                        imageData.add(data);
+//
+//                        ImageView imageView = new ImageView(image);
+//                        imageView.setFitHeight(50);
+//                        imageView.setFitWidth(50);
+//                        imageView.setPreserveRatio(true);
+//
+//                        hBoxImageView.getChildren().add(imageView);
+//
+//                        success = true;
+//                    }
 
                     if (files.size() > remainingSlots) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Chỉ thêm được " + remainingSlots + " ảnh nữa.");
                         alert.showAndWait();
+                    }
+                    else {
+                        refreshImagesOnHBox(fileByte);
+                        success = true;
                     }
 
                 } else {
@@ -553,16 +576,21 @@ public class controllerAddProduct implements Initializable {
                             }
 
                             byte[] data = baos.toByteArray();
-                            Image image = ImageUtils.cropToImageView(new Image(new ByteArrayInputStream(data)), 50, 50);
+                            List<byte[]> fileByte = new ArrayList<>();
+                            fileByte.add(data);
 
-                            ImageView imageView = new ImageView(image);
-                            imageView.setFitHeight(50);
-                            imageView.setFitWidth(50);
-                            imageView.setPreserveRatio(true);
+                            refreshImagesOnHBox(fileByte);
 
-                            images.add(image);
-                            imageData.add(data);
-                            hBoxImageView.getChildren().add(imageView);
+//                            Image image = ImageUtils.cropToImageView(new Image(new ByteArrayInputStream(data)), 50, 50);
+//
+//                            ImageView imageView = new ImageView(image);
+//                            imageView.setFitHeight(50);
+//                            imageView.setFitWidth(50);
+//                            imageView.setPreserveRatio(true);
+//
+//                            images.add(image);
+//                            imageData.add(data);
+//                            hBoxImageView.getChildren().add(imageView);
                             success = true;
                         }
                     }
@@ -606,37 +634,32 @@ public class controllerAddProduct implements Initializable {
         dragAndDropTheImage();
     }
 
-    private void refreshImagesOnHBox(List<File> files) {
+    private void refreshImagesOnHBox(List<byte[]> files) {
         hBoxImageView.getChildren().clear();
-        imageData.clear();
-        imageFiles.addAll(files);
-        for (File image : imageFiles) {
-            try {
-                imageData.add(Files.readAllBytes(image.toPath()));
-                Image img = ImageUtils.cropToImageView(new Image(image.toURI().toString()), 50, 50);
+        imageData.addAll(files);
+//        imageFiles.addAll(files);
+        for (byte[] image : imageData) {
+            Image img = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(image), 50, 50);
 //            images.add(img);
-                Button button = new Button("x");
-                button.getStyleClass().addAll("button1", "delete-button");
+            Button button = new Button("x");
+            button.getStyleClass().addAll("button1", "delete-button");
 
-                button.setOnAction(event -> {
-                    imageFiles.remove(image);
-                    refreshImagesOnHBox(new ArrayList<>());
-                });
+            button.setOnAction(event -> {
+                imageData.remove(image);
+                refreshImagesOnHBox(new ArrayList<>());
+            });
 
-                ImageView imageView = new ImageView(img);
-                imageView.setFitHeight(50);
-                imageView.setFitWidth(50);
-                imageView.setPreserveRatio(true);
+            ImageView imageView = new ImageView(img);
+            imageView.setFitHeight(50);
+            imageView.setFitWidth(50);
+            imageView.setPreserveRatio(true);
 
-                StackPane stackPane = new StackPane(imageView, button);
-                stackPane.setAlignment(button, Pos.TOP_RIGHT);
-                StackPane.setMargin(imageView, new Insets(5));
+            StackPane stackPane = new StackPane(imageView, button);
+            stackPane.setAlignment(button, Pos.TOP_RIGHT);
+            StackPane.setMargin(imageView, new Insets(5));
 
 
-                hBoxImageView.getChildren().add(stackPane);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            hBoxImageView.getChildren().add(stackPane);
 
 
         }

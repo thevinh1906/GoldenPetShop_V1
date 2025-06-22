@@ -1,8 +1,11 @@
 package com.utc2.petShop.model.repository.UpdateById;
 
 import com.utc2.petShop.model.entities.Image.ImageByte;
+import com.utc2.petShop.model.entities.Product.Product;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.repository.Delete.DeleteImage;
+import com.utc2.petShop.model.repository.Insert.InsertImage;
+import com.utc2.petShop.model.repository.Insert.InsertProduct;
 import com.utc2.petShop.utils.DBConnection;
 import com.utc2.petShop.model.repository.Delete.DeleteProduct;
 
@@ -126,11 +129,14 @@ public class UpdateProduct {
 
     public static void updateImageProduct(int productId, List<ImageByte> images) {
         for(ImageByte image : images) {
-            if (image.getImage() != null) {
+            if (image.getImage() != null && image.getId() != 0) {
                 UpdateImage.updateImage(image);
             }
-            else {
+            else if(image.getImage() == null && image.getId() != 0) {
                 DeleteProduct.deleteImageProductByProductIdAndImageId(productId, image.getId());
+            }
+            else if(image.getImage() != null && image.getId() == 0) {
+                InsertProduct.insertImage(productId,image.getImage());
             }
         }
     }

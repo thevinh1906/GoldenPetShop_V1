@@ -15,8 +15,14 @@
 }
 
 .labelPrice {
-    -fx-font-size: 40px
+    -fx-font-size: 40px;
+    -fx-text-fill: #ff0000;
 }
+
+.labelName {
+    -fx-font-size: 30px
+}
+
 .text-area2 {
     -fx-background-color: #ffffff;
     -fx-border-color: #dcdcdc;
@@ -37,3 +43,28 @@
 /*    -fx-background-radius: 20px;*/
 /*    -fx-background-color: white;*/
 /*}*/
+
+.button_left_right {
+    -fx-background-color:  transparent;
+    -fx-opacity: 0.3;
+}
+
+.button_left_right:hover {
+    -fx-background-color:  rgba(0,0,0,0.2);
+    -fx-opacity: 0.8;
+}
+
+.toggle-button:selected {
+    -fx-border-color: red !important;
+}
+
+.toggle-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-border-width: 3px;
+    -fx-border-color: transparent;
+}
+
+
+
+

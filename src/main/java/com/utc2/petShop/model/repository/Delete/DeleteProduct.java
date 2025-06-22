@@ -104,7 +104,7 @@ public class DeleteProduct {
     }
 
     public static boolean deleteImageProductByProductIdAndImageId(int productId, int imageId) {
-        String sqlDeleteImageProduct = "DELETE FROM IMAGE_PRODUCT WHERE imageId = ?, productId = ?";
+        String sqlDeleteImageProduct = "DELETE FROM IMAGE_PRODUCT WHERE imageId = ? AND productId = ?";
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);

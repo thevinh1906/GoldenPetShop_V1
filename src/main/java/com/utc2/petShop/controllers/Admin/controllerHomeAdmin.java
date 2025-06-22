@@ -1972,6 +1972,7 @@ public class controllerHomeAdmin implements Initializable {
 
         // bắt đầu sự kiện Pet
         actionPet(null);
+
         buttonLeft.selectToggle(toggleButtonPet);
         buttonLeft.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
