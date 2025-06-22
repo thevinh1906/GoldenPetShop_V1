@@ -7,9 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -17,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -100,13 +100,16 @@ public class controllerProduct implements Initializable {
     @FXML
     void buttonLeftAction(ActionEvent event) {
         index[0] = (index[0] - 1 + images.size()) % images.size();
-        imageViewProduct.setImage(ImageUtils.byteArrayToImage(images.get(index[0]).getImage()));
+        imageViewProduct.setImage(ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(images.get(index[0]).getImage()), 450, 450));
+        group.selectToggle(buttons.get(index[0]));
+
     }
 
     @FXML
     void buttonRightAction(ActionEvent event) {
         index[0] = (index[0] + 1) % images.size();
-        imageViewProduct.setImage(ImageUtils.byteArrayToImage(images.get(index[0]).getImage()));
+        imageViewProduct.setImage(ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(images.get(index[0]).getImage()), 450, 450));
+        group.selectToggle(buttons.get(index[0]));
     }
 
     private List<ImageByte> images;
@@ -130,6 +133,8 @@ public class controllerProduct implements Initializable {
         images = obj.getImages();
         if (images != null && !images.isEmpty()) {
             imageViewProduct.setImage(ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(images.get(index[0]).getImage()), 450, 450));
+            refreshImagesOnHBox();
+            group.selectToggle(buttons.get(index[0]));
         } else {
             System.out.println("Danh sách ảnh rỗng hoặc null");
 //            imageViewProduct.setImage(); // hoặc ảnh mặc định
@@ -137,14 +142,14 @@ public class controllerProduct implements Initializable {
         labelName.setText(obj.getName());
         labelID.setText("PD" + String.valueOf(obj.getId()));
         labelPrice.setText(String.valueOf(obj.getPrice() + "$"));
-        labelQuatity.setText(String.valueOf(obj.getQuantity()));
-        labelManufacturer.setText(obj.getManufacturer());
-        labelSupplier.setText(String.valueOf(obj.getSupplier()));
+        labelQuatity.setText("Quatity: " + String.valueOf(obj.getQuantity()));
+        labelManufacturer.setText("Manufacturer: " + obj.getManufacturer());
+        labelSupplier.setText("Supplier: " + String.valueOf(obj.getSupplier()));
         labelDescribe.setText(obj.getDescription());
 
         if(obj instanceof Food){
             Food food = (Food) obj;
-            labelType.setText("Food");
+            labelType.setText("Product type: Food");
             labelExpirationDate.setText(String.valueOf(food.getExpirationDate()));
             labelFlavor.setText(String.valueOf(food.getFlavor()));
 
@@ -154,9 +159,9 @@ public class controllerProduct implements Initializable {
             gridPaneFood.setVisible(true);
         } else if (obj instanceof Toy) {
             Toy toy = (Toy) obj;
-            labelType.setText("Toy");
-            labelMaterialToy.setText(toy.getMaterial());
-            labelSize.setText(String.valueOf(toy.getSize()));
+            labelType.setText("Product type: Toy");
+            labelMaterialToy.setText("Material: " + toy.getMaterial());
+            labelSize.setText(String.valueOf("Size: " + toy.getSize()));
 
             hideScreen();
             gridPaneToy.setManaged(true);
@@ -164,9 +169,9 @@ public class controllerProduct implements Initializable {
         }
         else if (obj instanceof Cage){
             Cage cage = (Cage) obj;
-            labelType.setText("Cage");
-            labelMaterialCage.setText(cage.getMaterial());
-            labelDimension.setText(cage.getDimension());
+            labelType.setText("Product type: Cage");
+            labelMaterialCage.setText("Material: " + cage.getMaterial());
+            labelDimension.setText("Dimension: " + cage.getDimension());
 
             hideScreen();
             gridPaneCage.setManaged(true);
@@ -174,9 +179,9 @@ public class controllerProduct implements Initializable {
         }
         else if (obj instanceof Accessory){
             Accessory accessory = (Accessory) obj;
-            labelType.setText("Accessory");
-            labelBrand.setText(accessory.getBrand());
-            labelTypeAccessory.setText(accessory.getType());
+            labelType.setText("Product type: Accessory");
+            labelBrand.setText("Brand: " + accessory.getBrand());
+            labelTypeAccessory.setText("Accessory type: "+accessory.getType());
 
             hideScreen();
 
@@ -211,5 +216,37 @@ public class controllerProduct implements Initializable {
 //        imageViewProduct.setClip(new Circle(10,10,10));
 
 
+    }
+
+    private ToggleGroup group = new ToggleGroup();
+
+    private List<ToggleButton> buttons = new ArrayList<>();
+
+    private void refreshImagesOnHBox() {
+        buttons.clear();
+
+        for (ImageByte image : images) {
+            Image img = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(image.getImage()), 84, 84);
+
+            ToggleButton button = new ToggleButton();
+            button.setToggleGroup(group);
+
+            button.setOnAction(event -> {
+                group.selectToggle(button);
+                imageViewProduct.setImage(ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(image.getImage()), 450, 450));
+
+            });
+
+            ImageView imageView = new ImageView(img);
+            imageView.setFitHeight(84);
+            imageView.setFitWidth(84);
+            imageView.setPreserveRatio(true);
+
+            button.setGraphic(imageView);
+
+            buttons.add(button);
+
+            hBoxProductImage.getChildren().add(button);
+        }
     }
 }

@@ -38,7 +38,7 @@ public class InsertProduct {
                         if (generatedKeys.next()) {
                             productId = generatedKeys.getInt(1);
                             System.out.println("ID vừa được tạo: " + productId);
-                            insertImage(productId,images);
+                            insertAllImage(productId,images);
                         } else {
                             System.out.println("Không lấy được ID.");
                         }
@@ -90,7 +90,7 @@ public class InsertProduct {
         }
     }
 
-    public static void insertImage (int productId, List<byte[]> images) {
+    public static void insertAllImage (int productId, List<byte[]> images) {
         String insertImage = "INSERT INTO IMAGE(image) VALUES(?)";
         try(Connection conn = DBConnection.getConnection();
             PreparedStatement ps = conn.prepareStatement(insertImage, Statement.RETURN_GENERATED_KEYS)){
@@ -115,10 +115,35 @@ public class InsertProduct {
             throw new RuntimeException(e);
         }
     }
+
+    public static void insertImage (int productId, byte[] images) {
+        String insertImage = "INSERT INTO IMAGE(image) VALUES(?)";
+        try(Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(insertImage, Statement.RETURN_GENERATED_KEYS)){
+                ps.setBytes(1, images);
+                int row = ps.executeUpdate();
+                if (row > 0) {
+                    try {
+                        ResultSet rs = ps.getGeneratedKeys();
+                        if (rs.next()) {
+                            int id = rs.getInt(1);
+                            System.out.println("ID của image vừa tạo: " + id);
+                            insertImageProduct(productId,id);
+                        }
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     public static void insertImageProduct (int productId, int imageId) {
         String insertImageProduct = "INSERT INTO IMAGE_PRODUCT (imageId, productId) VALUES (?, ?)";
         try(Connection conn = DBConnection.getConnection();
-        PreparedStatement ps = conn.prepareStatement(insertImageProduct)){
+            PreparedStatement ps = conn.prepareStatement(insertImageProduct)){
             ps.setInt(1, imageId);
             ps.setInt(2, productId);
             int row = ps.executeUpdate();

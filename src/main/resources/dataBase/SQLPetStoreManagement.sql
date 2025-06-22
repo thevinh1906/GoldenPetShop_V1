@@ -400,7 +400,7 @@ INSERT INTO FEEDBACK VALUES
 
 
 
-SELECT I.image 
+SELECT I.image, I.imageId 
                 FROM IMAGE I
                 JOIN IMAGE_PRODUCT IP ON I.imageId = IP.imageId
-                WHERE IP.productId = 12
+                WHERE IP.productId = 8
