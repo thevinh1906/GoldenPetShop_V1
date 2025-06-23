@@ -479,3 +479,87 @@ ALTER TABLE PET_WARRANTY ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE VACCINE ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE Service ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE PetService ADD isDeleted BIT DEFAULT 0;
+
+
+
+-- Thêm vaccine không bắt buộc cho mèo
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin giảm bạch cầu mèo', 
+    N'Bảo vệ mèo khỏi virus giảm bạch cầu', 
+    N'Mèo', 
+    2, 
+    21, 
+    24, 
+    0
+);
+
+-- Thêm vaccine cho chó
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin 5 bệnh cho chó', 
+    N'Phòng bệnh Care, Parvo, Viêm gan, Cúm, Lepto', 
+    N'Chó', 
+    3, 
+    14, 
+    36, 
+    1
+);
+
+-- 2
+INSERT INTO PetService (namePet, gender, age, customerId, healthStatus, weight, breed, animal, dateOfVisit, status, serviceCost, note)
+VALUES (N'Miu', N'Cái', 1, 2, N'Viêm nhẹ', 3.2, N'Munchkin', N'Mèo', '2025-06-22', N'Đang điều trị', 180000, N'Tiêm kháng sinh');
+
+-- 3
+INSERT INTO PetService (namePet, gender, age, customerId, healthStatus, weight, breed, animal, dateOfVisit, status, serviceCost, note)
+VALUES (N'Lu', N'Đực', 3, 3, N'Thừa cân', 8.1, N'Pug', N'Chó', '2025-06-20', N'Hoàn thành', 300000, N'Tư vấn dinh dưỡng');
+
+-- 4
+INSERT INTO PetService (namePet, gender, age, customerId, healthStatus, weight, breed, animal, dateOfVisit, status, serviceCost, note)
+VALUES (N'Bin', N'Đực', 5, 1, N'Nhiễm trùng tai', 7.4, N'Golden', N'Chó', '2025-06-15', N'Chờ kết quả xét nghiệm', 220000, N'Khám và lấy mẫu dịch');
+
+
+
+INSERT INTO Service (serviceName, description, price, applicableSpecies)
+VALUES (
+    N'Tắm thú cưng',
+    N'Dịch vụ tắm rửa sạch sẽ cho chó/mèo bằng sữa tắm chuyên dụng',
+    100000,
+    N'All'
+);
+
+-- 2. Cắt tỉa lông
+INSERT INTO Service (serviceName, description, price, applicableSpecies)
+VALUES (
+    N'Cắt tỉa lông',
+    N'Cắt, tỉa tạo kiểu lông cho chó/mèo theo yêu cầu',
+    150000,
+    N'Dog'
+);
+
+-- 3. Tiêm phòng dại
+INSERT INTO Service (serviceName, description, price, applicableSpecies)
+VALUES (
+    N'Tiêm phòng dại',
+    N'Tiêm vắc xin phòng bệnh dại cho chó và mèo',
+    200000,
+    N'All'
+);
+
+-- 4. Khám tổng quát
+INSERT INTO Service (serviceName, description, price, applicableSpecies)
+VALUES (
+    N'Khám sức khỏe tổng quát',
+    N'Kiểm tra sức khỏe toàn diện định kỳ',
+    250000,
+    N'All'
+);
+
+-- 5. Cạo vôi răng
+INSERT INTO Service (serviceName, description, price, applicableSpecies)
+VALUES (
+    N'Cạo vôi răng',
+    N'Làm sạch răng, loại bỏ mảng bám và vôi răng cho thú cưng',
+    180000,
+    N'Dog'
+);

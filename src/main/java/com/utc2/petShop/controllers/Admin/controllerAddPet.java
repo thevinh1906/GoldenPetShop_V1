@@ -33,6 +33,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -157,7 +158,6 @@ public class controllerAddPet implements Initializable {
         int age = spinnerAgeGeneral.getValue();
         boolean gender = !radioButtonFemaleGeneral.isSelected();
         double price = Double.parseDouble(textFieldPriceGeneral.getText());
-        boolean vaccinated = checkBoxVaccinatedGeneral.isSelected();
         String healthStatus = textFieldHealthStatusGeneral.getText();
         String origin  = textFieldOriginGeneral.getText();
         double weight = Double.parseDouble(textFieldWeightGeneral.getText());
@@ -171,7 +171,7 @@ public class controllerAddPet implements Initializable {
         boolean isTrained = false;
         float tailLength = 0;
         float earLength = 0;
-        List<Vaccine> vaccines = listViewVaccina.getSelectionModel().getSelectedItems();
+        List<Vaccine> vaccines = new ArrayList<>(listViewVaccina.getSelectionModel().getSelectedItems());
         if(role.equals("Cat")){
             breed = String.valueOf(comboBoxBreedCat.getValue());
             eyeColor = textFieldEyeColorCat.getText();
