@@ -1,13 +1,9 @@
 package com.utc2.petShop.model.entities.Pet;
 
 
-import com.utc2.petShop.model.entities.Product.Product;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.implement.IPet;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.image.Image;
 
 public class Pet implements IPet {
     private ObjectProperty<byte[]> image;
