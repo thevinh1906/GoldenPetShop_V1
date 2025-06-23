@@ -2,6 +2,7 @@ package com.utc2.petShop.controllers.Admin;
 
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
 import com.utc2.petShop.model.repository.UpdateById.UpdatePet;
 import com.utc2.petShop.utils.ImageUtils;
@@ -76,6 +77,9 @@ public class controllerEditPet implements Initializable {
 
     @FXML
     private ToggleGroup gender;
+
+    @FXML
+    private ListView<Vaccine>listViewVaccina;
 
     @FXML
     private GridPane gridPaneCat;
@@ -192,7 +196,7 @@ public class controllerEditPet implements Initializable {
             imageData = pet.getImage();
         }
 
-        UpdatePet.updatePet(imageData,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
+//        UpdatePet.updatePet(imageData,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
     }
@@ -415,7 +419,7 @@ public class controllerEditPet implements Initializable {
             radioButtonFemaleGeneral.setSelected(true);
         }
         textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
-        checkBoxVaccinatedGeneral.setSelected(obj.isVaccinated());
+//        checkBoxVaccinatedGeneral.setSelected(obj.isVaccinated());
         textFieldHealthStatusGeneral.setText(obj.getHealthStatus());
         textFieldOriginGeneral.setText(obj.getOrigin());
         textFieldWeightGeneral.setText(String.valueOf(obj.getWeight()));

@@ -24,9 +24,9 @@ public class Pet implements IPet {
     private StringProperty furColor;
     private StringProperty description;
     private ObjectProperty<Supplier> supplier;
-    private ListProperty<Vaccine_Pet> vaccines;
+    private ListProperty<Vaccine> vaccines;
 
-    public Pet(byte[] image, int id, String name, int age, boolean gender, double price, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, List<Vaccine_Pet> vaccines) {
+    public Pet(byte[] image, int id, String name, int age, boolean gender, double price, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, List<Vaccine> vaccines) {
         this.image = new SimpleObjectProperty<byte[]>(image);
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
@@ -39,7 +39,7 @@ public class Pet implements IPet {
         this.furColor = new SimpleStringProperty(furColor);
         this.description = new SimpleStringProperty(description);
         this.supplier = new SimpleObjectProperty<Supplier>(supplier);
-        this.vaccines = new SimpleListProperty<Vaccine_Pet>(FXCollections.observableArrayList(vaccines));
+        this.vaccines = new SimpleListProperty<Vaccine>(FXCollections.observableArrayList(vaccines));
     }
 
     public Pet() {
@@ -202,15 +202,15 @@ public class Pet implements IPet {
         this.supplier.set(supplier);
     }
 
-    public ObservableList<Vaccine_Pet> getVaccines() {
+    public ObservableList<Vaccine> getVaccines() {
         return vaccines.get();
     }
 
-    public ListProperty<Vaccine_Pet> vaccinesProperty() {
+    public ListProperty<Vaccine> vaccinesProperty() {
         return vaccines;
     }
 
-    public void setVaccines(ObservableList<Vaccine_Pet> vaccines) {
+    public void setVaccines(ObservableList<Vaccine> vaccines) {
         this.vaccines.set(vaccines);
     }
 

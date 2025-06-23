@@ -216,8 +216,8 @@ CREATE TABLE VACCINE (
 CREATE TABLE VACCINE_PET (
     petId INT NOT NULL,
     vaccineId INT NOT NULL,
-    vaccinationDate DATE NOT NULL,            -- Ngày tiêm
-    doseNumber INT DEFAULT 1,                 -- Mũi tiêm thứ mấy
+    --vaccinationDate DATE NOT NULL,            -- Ngày tiêm
+    --doseNumber INT DEFAULT 1,                 -- Mũi tiêm thứ mấy
     
     PRIMARY KEY (petId, vaccineId),  -- Khóa chính tổ hợp
     FOREIGN KEY (petId) REFERENCES PET(petId),   -- Khóa ngoại đến bảng PET

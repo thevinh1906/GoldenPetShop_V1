@@ -1730,14 +1730,7 @@ public class controllerHomeAdmin implements Initializable {
         });
         tableColumnSupplierPet.setCellValueFactory(cellData -> cellData.getValue().supplierProperty());
         tableColumnPricePet.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-        tableColumnVaccinatedPet.setCellValueFactory(cellData -> {
-            if (cellData.getValue().isVaccinated()) {
-                return new SimpleStringProperty("Injected");
-            }
-            else{
-                return new SimpleStringProperty("Unvaccinated");
-            }
-        });
+        tableColumnVaccinatedPet.setCellValueFactory(cellData -> new SimpleStringProperty("PD" + cellData.getValue().getVaccines().size()));
         tableColumnHealthStatusPet.setCellValueFactory(cellData -> cellData.getValue().healthStatusProperty());
         tableColumnOriginPet.setCellValueFactory(cellData -> cellData.getValue().originProperty());
         tableColumnWeightPet.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asObject());

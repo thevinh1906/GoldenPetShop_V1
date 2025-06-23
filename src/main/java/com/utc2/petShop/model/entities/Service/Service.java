@@ -85,4 +85,9 @@ public class Service {
     public void setApplicableSpecies(String applicableSpecies) {
         this.applicableSpecies.set(applicableSpecies);
     }
+
+    @Override
+    public String toString() {
+        return this.getServiceName();
+    }
 }

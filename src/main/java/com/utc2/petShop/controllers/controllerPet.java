@@ -134,11 +134,11 @@ public class controllerPet implements Initializable {
         labelFurColorGeneral.setText("Fur color: " + obj.getFurColor());
         labelWeightGeneral.setText(String.valueOf("Weight: " + obj.getWeight() + " Kg"));
         labelPriceGeneral.setText(String.valueOf("Price: " + obj.getPrice() + "$"));
-        if (obj.isVaccinated()) {
-            labelVaccinatedGeneral.setText("Vaccinated: Injected");
-        } else {
-            labelVaccinatedGeneral.setText("Vaccinated: Unvaccinated");
-        }
+//        if (obj.isVaccinated()) {
+//            labelVaccinatedGeneral.setText("Vaccinated: Injected");
+//        } else {
+//            labelVaccinatedGeneral.setText("Vaccinated: Unvaccinated");
+//        }
         labelHealthStatusGeneral.setText("Health status: " + obj.getHealthStatus());
         labelSupplierGeneral.setText(String.valueOf("Supplier: " + obj.getSupplier()));
         labelDecribe.setText(obj.getDescription());
