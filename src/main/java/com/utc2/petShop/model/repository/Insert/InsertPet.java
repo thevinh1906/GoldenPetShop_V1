@@ -1,6 +1,7 @@
 package com.utc2.petShop.model.repository.Insert;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.model.entities.vaccine.Vaccine_Pet;
 import com.utc2.petShop.utils.DBConnection;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class InsertPet {
 
     public static void insertPet(byte[] imageData, String name, int age, boolean gender, double price,
-                                 List<Vaccine_Pet> vaccinated, String healthStatus, String origin, double weight,
+                                 List<Vaccine> vaccinated, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
                                  boolean isTrained, float tailLength, float earLength) {
@@ -35,9 +36,7 @@ public class InsertPet {
                 stmt.setString(11, role);
                 stmt.setBytes(12, imageData);
 
-                for(Vaccine_Pet pet : vaccinated) {
-                    InsertVaccine_Pet.insertVaccinePet(pet);
-                }
+
                 int a = stmt.executeUpdate();
 
                 //lấy id pet mới tăng
@@ -46,6 +45,9 @@ public class InsertPet {
                         if (generatedKeys.next()) {
                             id = generatedKeys.getInt(1);
                             System.out.println("ID vừa được tạo: " + id);
+                            for(Vaccine pet : vaccinated) {
+                                InsertVaccine_Pet.insertVaccinePet(id, pet.getVaccineId());
+                            }
                         } else {
                             System.out.println("Không lấy được ID.");
                         }

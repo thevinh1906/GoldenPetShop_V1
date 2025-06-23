@@ -9,17 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class InsertVaccine_Pet {
-    public static void insertVaccinePet(Vaccine_Pet record) {
-        String sql = "INSERT INTO VACCINE_PET (petId, vaccineId, vaccinationDate, doseNumber) " +
-                "VALUES (?, ?, ?, ?)";
+    public static void insertVaccinePet(int petId, int vaccineId) {
+        String sql = "INSERT INTO VACCINE_PET (petId, vaccineId) " +
+                "VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, record.getPetId());
-            stmt.setInt(2, record.getVaccineId());
-            stmt.setDate(3, Date.valueOf(record.getVaccinationDate()));
-            stmt.setInt(4, record.getDoseNumber());
+            stmt.setInt(1, petId);
+            stmt.setInt(2, vaccineId);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {

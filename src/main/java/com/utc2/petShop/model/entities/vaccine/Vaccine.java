@@ -121,20 +121,10 @@ public class Vaccine {
         this.isMandatory = isMandatory;
     }
 
-    public Vaccine() {
-    }
+    public Vaccine() {}
 
-    @java.lang.Override
-    public java.lang.String toString() {
-        return "Vaccine{" +
-                "vaccineId=" + vaccineId +
-                ", vaccineName=" + vaccineName +
-                ", description=" + description +
-                ", applicableSpecies=" + applicableSpecies +
-                ", doseCount=" + doseCount +
-                ", intervalDays=" + intervalDays +
-                ", validityMonths=" + validityMonths +
-                ", isMandatory=" + isMandatory +
-                '}';
+    @Override
+    public String toString() {
+        return this.getVaccineName();
     }
 }

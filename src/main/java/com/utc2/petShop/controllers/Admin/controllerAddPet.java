@@ -2,9 +2,10 @@ package com.utc2.petShop.controllers.Admin;
 
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.model.repository.Insert.InsertPet;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
-import com.utc2.petShop.utils.DBConnection;
+import com.utc2.petShop.model.repository.Select.SelectVaccine;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,8 +33,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -142,6 +142,9 @@ public class controllerAddPet implements Initializable {
     @FXML
     private TextField textFieldWeightGeneral;
 
+    @FXML
+    private ListView<Vaccine> listViewVaccina;
+
     String priceExceptions = "\\d*(\\.\\d*)?";
 
     byte[] imageData = null; // dữ liệu nhị phân để lưu
@@ -168,6 +171,7 @@ public class controllerAddPet implements Initializable {
         boolean isTrained = false;
         float tailLength = 0;
         float earLength = 0;
+        List<Vaccine> vaccines = listViewVaccina.getSelectionModel().getSelectedItems();
         if(role.equals("Cat")){
             breed = String.valueOf(comboBoxBreedCat.getValue());
             eyeColor = textFieldEyeColorCat.getText();
@@ -187,7 +191,7 @@ public class controllerAddPet implements Initializable {
             earLength = Float.parseFloat(textFieldEarLengthRabbit.getText());
 
         }
-        InsertPet.insertPet(imageData, name, age, gender, price, healthStatus, origin, weight, furColor, description, supplier, role, isIndoor, breed, eyeColor, isTrained, tailLength, earLength);
+        InsertPet.insertPet(imageData, name, age, gender, price, vaccines, healthStatus, origin, weight, furColor, description, supplier, role, isIndoor, breed, eyeColor, isTrained, tailLength, earLength);
 
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
@@ -565,6 +569,14 @@ public class controllerAddPet implements Initializable {
         buttonEnter();
 
         dragAndDropTheImage();
+
+        listViewVaccina.setItems(
+                FXCollections.observableArrayList(
+                        SelectVaccine.getAllVaccines()
+                )
+        );
+
+        listViewVaccina.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
 }
