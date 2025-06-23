@@ -10,6 +10,7 @@ import com.utc2.petShop.model.entities.PetService.PetService;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Promotion.Promotion;
 import com.utc2.petShop.model.entities.RevenueReport.RevenueReport;
+import com.utc2.petShop.model.entities.Service.Service;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
@@ -619,6 +620,77 @@ public class controllerHomeAdmin implements Initializable {
     private TableColumn<RevenueReport, Integer> tableColumnYearRevenueReport;
 
     @FXML
+    private TableColumn<Vaccine, String> tableColumnApplicableSpeciesVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, Integer> tableColumnDoseCountVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, String> tableColumnIDVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, String > tableColumnNameVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, String> tableColumnNoteVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, Integer> tableColumnIntervalDaysVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, Integer> tableColumnValidityMonthVaccine;
+
+    @FXML
+    private TableColumn<Vaccine, String> tableColumnIsMandatory;
+//PetCare
+    @FXML
+    private TableColumn<PetService, String> tableColumnIDPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnNamePetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnGenderPetCare;
+
+    @FXML
+    private TableColumn<PetService, Integer> tableColumnAgePetCare;
+
+    @FXML
+    private TableColumn<PetService, Customer> tableColumnCustomerPetCare;
+
+    @FXML
+    private TableColumn<PetService, Vaccine> tableColumnVaccinePetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnHealthStatusPetCare;
+
+    @FXML
+    private TableColumn<PetService, Double> tableColumnWeightPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnBreedPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnAnimalPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnDateOfVisitPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnStatusPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumnServicesPetCare;
+
+    @FXML
+    private TableColumn<PetService, Double> tableColumnServicesCostPetCare;
+
+    @FXML
+    private TableColumn<PetService, String> tableColumNotePetCare;
+
+    //The end PetCare
+
+    @FXML
     private TableView<Bill> tableViewBill;
 
     @FXML
@@ -749,6 +821,84 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private ScrollPane scrollPanePetCare;
+
+    @FXML
+    private ToggleButton toggleButtonService;
+
+    @FXML
+    private Button buttonAddService;
+
+    @FXML
+    private StackPane stackPaneService;
+
+    @FXML
+    private BorderPane borderPaneService;
+
+    @FXML
+    private ScrollPane scrollPaneService;
+
+    @FXML
+    private TableView<Service> tableViewService;
+
+    @FXML
+    private Button buttonDeleteService;
+
+    @FXML
+    private Button buttonEditService;
+
+    @FXML
+    private Button buttonExcelService;
+
+    @FXML
+    private Button buttonFilterService;
+
+    @FXML
+    private TableColumn<Service,String> tableColumnIDService;
+
+    @FXML
+    private TableColumn<Service,String> tableColumnNameService;
+
+    @FXML
+    private TableColumn<Service,Double> tableColumnPricePetService;
+
+    @FXML
+    private TableColumn<Service,String> tableColumnApplicableSpeciesService;
+
+    @FXML
+    private TableColumn<Service,String> tableColumnNote;
+
+    @FXML
+    void actionService(ActionEvent event) {
+        hideScreen();
+
+        stackPaneService.setVisible(true);
+        stackPaneVaccine.setManaged(true);
+    }
+
+    @FXML
+    void actionAddService(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionDeleteService(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionEditService(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionFilterService(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionExcelService(ActionEvent event) {
+
+    }
 
     @FXML
     void actionVaccine(ActionEvent event) {
@@ -1391,6 +1541,10 @@ public class controllerHomeAdmin implements Initializable {
 
     private static ObservableList<Vaccine> listVaccine;
 
+    private static ObservableList<PetService> listPetService;
+
+    private static ObservableList<Service> listService;
+
     public void hideScreen() {
         stackPaneUser.setManaged(false);
         stackPaneUser.setVisible(false);
@@ -1425,6 +1579,9 @@ public class controllerHomeAdmin implements Initializable {
         stackPanePetCare.setVisible(false);
         stackPanePetCare.setManaged(false);
 
+        stackPaneService.setVisible(false);
+        stackPaneService.setManaged(false);
+
         vBoxRight.setVisible(false);
         vBoxRight.setManaged(false);
 
@@ -1453,6 +1610,7 @@ public class controllerHomeAdmin implements Initializable {
             stackPaneRevenueReport.setPrefHeight(newValue.doubleValue());
             stackPaneVaccine.setPrefHeight(newValue.doubleValue());
             stackPanePetCare.setPrefHeight(newValue.doubleValue());
+            stackPaneService.setPrefHeight(newValue.doubleValue());
         });
 
 
@@ -1502,6 +1660,10 @@ public class controllerHomeAdmin implements Initializable {
 
         stackPanePetCare.heightProperty().addListener((observable, oldValue, newValue) -> {
             tableViewPetCare.setPrefHeight(newValue.doubleValue());
+        });
+
+        stackPaneService.heightProperty().addListener((observable, oldValue, newValue) -> {
+            tableViewService.setPrefHeight(newValue.doubleValue());
         });
 
 
@@ -2056,6 +2218,102 @@ public class controllerHomeAdmin implements Initializable {
         tableViewRevenueReport.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
+    public void VaccineTable(){
+        tableColumnIDVaccine.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf("VC" + cellData.getValue().getVaccineId())));
+        tableColumnNameVaccine.setCellValueFactory(cellData -> cellData.getValue().vaccineNameProperty());
+        tableColumnApplicableSpeciesVaccine.setCellValueFactory(cellData -> cellData.getValue().applicableSpeciesProperty());
+        tableColumnDoseCountVaccine.setCellValueFactory(cellData -> cellData.getValue().doseCountProperty().asObject());
+        tableColumnIntervalDaysVaccine.setCellValueFactory(cellData -> cellData.getValue().intervalDaysProperty().asObject());
+        tableColumnValidityMonthVaccine.setCellValueFactory(cellData -> cellData.getValue().validityMonthsProperty().asObject());
+        tableColumnIsMandatory.setCellValueFactory(cellData -> {
+            if (cellData.getValue().isIsMandatory()) {
+                return new SimpleStringProperty("Obligatory");
+            }
+            else {
+                return new SimpleStringProperty("optional");
+            }
+        });
+
+        listVaccine = FXCollections.observableArrayList(/*thêm select vào đây*/);
+
+        tableViewVaccine.setItems(listVaccine);
+
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(() -> {
+            ObservableList<Vaccine> newData = FXCollections.observableArrayList(/*thêm select vào đây*/);
+            Platform.runLater(() -> {
+                tableViewVaccine.setItems(newData);
+            }); // Cập nhật GUI trên thread JavaFX
+
+        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+
+        autoResizeColumns(tableViewVaccine);
+
+        tableViewVaccine.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+    }
+
+
+    public void PetCareTable(){
+        tableColumnIDPetCare.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getId())));
+        tableColumnNamePetCare.setCellValueFactory(cellData -> cellData.getValue().namePetProperty());
+        tableColumnGenderPetCare.setCellValueFactory(cellData -> cellData.getValue().genderProperty());
+        tableColumnAgePetCare.setCellValueFactory(cellData -> cellData.getValue().ageProperty().asObject());
+        tableColumnCustomerPetCare.setCellValueFactory(cellData -> cellData.getValue().customerProperty());
+        tableColumnVaccinePetCare.setCellValueFactory(cellData -> cellData.getValue().vaccinesProperty());
+        tableColumnHealthStatusPetCare.setCellValueFactory(cellData -> cellData.getValue().healthStatusProperty());
+        tableColumnWeightPetCare.setCellValueFactory(cellData -> cellData.getValue().weightProperty().asObject());
+        tableColumnBreedPetCare.setCellValueFactory(cellData -> cellData.getValue().breedProperty());
+        tableColumnAnimalPetCare.setCellValueFactory(cellData -> cellData.getValue().animalProperty());
+        tableColumnDateOfVisitPetCare.setCellValueFactory(cellData -> cellData.getValue().dateOfVisitProperty().asString());
+        tableColumnStatusPetCare.setCellValueFactory(cellData -> cellData.getValue().statusProperty());
+        tableColumnServicesPetCare.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getServices().size())));
+        tableColumnServicesCostPetCare.setCellValueFactory(cellData -> cellData.getValue().serviceCostProperty().asObject());
+        tableColumNotePetCare.setCellValueFactory(cellData -> cellData.getValue().noteProperty());
+
+        listPetService = FXCollections.observableArrayList(/*thêm select vào đây*/);
+
+        tableViewPetCare.setItems(listPetService);
+
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(() -> {
+            ObservableList<PetService> newData = FXCollections.observableArrayList(/*thêm select vào đây*/);
+            Platform.runLater(() -> {
+                tableViewPetCare.setItems(newData);
+            }); // Cập nhật GUI trên thread JavaFX
+
+        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+
+        autoResizeColumns(tableViewPetCare);
+
+        tableViewPetCare.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+    }
+
+    public void ServiceTable(){
+        tableColumnIDService.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getServiceId())));
+        tableColumnNameService.setCellValueFactory(cellData -> cellData.getValue().serviceNameProperty());
+        tableColumnPricePetService.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+        tableColumnApplicableSpeciesService.setCellValueFactory(cellData -> cellData.getValue().applicableSpeciesProperty());
+
+        listPetService = FXCollections.observableArrayList(/*thêm select vào đây*/);
+
+        tableViewService.setItems(listService);
+
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(() -> {
+            ObservableList<Service> newData = FXCollections.observableArrayList(/*thêm select vào đây*/);
+            Platform.runLater(() -> {
+                tableViewService.setItems(newData);
+            }); // Cập nhật GUI trên thread JavaFX
+
+        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+
+        autoResizeColumns(tableViewService);
+
+        tableViewService.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    }
+
     public void tableSize(){
         tableSizeCuttom(tableViewPet,scrollPanePet);
         tableSizeCuttom(tableViewProduct,scrollPaneProduct);
@@ -2069,6 +2327,7 @@ public class controllerHomeAdmin implements Initializable {
         tableSizeCuttom(tableViewRevenueReport,scrollPaneRevenueReport);
         tableSizeCuttom(tableViewVaccine,scrollPaneVaccine);
         tableSizeCuttom(tableViewPetCare,scrollPanePetCare);
+        tableSizeCuttom(tableViewService,scrollPaneService);
     }
 
     public void tableSizeCuttom(TableView<?> tableView , ScrollPane scrollPane) {
@@ -2167,6 +2426,14 @@ public class controllerHomeAdmin implements Initializable {
 
         // bỏ dữ liệu vào bảng RevenueReport
         RevenueReportTable();
+
+        // bỏ dữ liệu vào bảng Vaccine
+        VaccineTable();
+
+        // bỏ dữ liệu vào bảng pet care
+        PetCareTable();
+
+        ServiceTable();
 
         // chỉnh kích thước bảng phụ thuộc vào độ phóng to của màng hình
         tableSize();

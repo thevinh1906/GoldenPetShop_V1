@@ -17,7 +17,7 @@ import java.util.List;
 public class SelectBill {
     public static List<Bill> getAllBills()  {
         List<Bill> bills = new ArrayList<>();
-        String sql = "SELECT * FROM BILL WHERE isDelete = 0";
+        String sql = "SELECT * FROM BILL WHERE isDeleted = 0";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -54,7 +54,7 @@ public class SelectBill {
             SELECT u.*, e.position, e.salary, e.workingHours
             FROM USERS u
             LEFT JOIN EMPLOYEE e ON u.userId = e.userId
-            WHERE u.userId = ? AND isDelete = 0
+            WHERE u.userId = ? AND isDeleted = 0
         """;
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -101,7 +101,7 @@ public class SelectBill {
 
     public static List<Integer> getBillIDByUserId(int userId)  {
         List<Integer> billIDs = new ArrayList<>();
-        String sql = "SELECT billId FROM BILL WHERE userId = ? AND isDelete = 0";
+        String sql = "SELECT billId FROM BILL WHERE userId = ? AND isDeleted = 0";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
@@ -122,7 +122,7 @@ public class SelectBill {
 
     public static List<Integer> getBillIDByCustomerId(int customerId) {
         List<Integer> billIDs = new ArrayList<>();
-        String sql = "SELECT billId FROM BILL WHERE customerId = ? AND isDelete = 0";
+        String sql = "SELECT billId FROM BILL WHERE customerId = ? AND isDeleted = 0";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, customerId);

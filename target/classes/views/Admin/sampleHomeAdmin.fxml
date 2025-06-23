@@ -596,21 +596,14 @@
                                  <content>
                                     <TableView fx:id="tableViewVaccine">
                                        <columns>
-                                          <TableColumn fx:id="tableColumnIDProduct1" prefWidth="-1.0" text="ID" />
-                                          <TableColumn fx:id="tableColumnNameProduct1" prefWidth="-1.0" text="Name" />
-                                          <TableColumn fx:id="tableColumnCategoriesProduct1" prefWidth="-1.0" text="Categories" />
-                                          <TableColumn fx:id="tableColumnPriceProduct1" prefWidth="-1.0" text="Price" />
-                                          <TableColumn fx:id="tableColumnQuantityProduct1" prefWidth="-1.0" text="Quantity" />
-                                          <TableColumn fx:id="tableColumnExpirationDateProduct1" prefWidth="-1.0" text="Expiration date" />
-                                          <TableColumn fx:id="tableColumnFlavorProduct1" prefWidth="-1.0" text="Flavor" />
-                                          <TableColumn fx:id="tableColumnMaterialProduct1" prefWidth="-1.0" text="Material" />
-                                          <TableColumn fx:id="tableColumnSizeProduct1" prefWidth="-1.0" text="Size" />
-                                          <TableColumn fx:id="tableColumnDimensionProduct1" prefWidth="-1.0" text="Dimension" />
-                                          <TableColumn fx:id="tableColumnTypeProduct1" prefWidth="-1.0" text="Type" />
-                                          <TableColumn fx:id="tableColumnBrandProduct1" prefWidth="-1.0" text="Brand" />
-                                          <TableColumn fx:id="tableColumnSupplierProduct1" prefWidth="-1.0" text="Supplier" />
-                                          <TableColumn fx:id="tableColumnManufacturerProduct1" prefWidth="-1.0" text="Manufacturer" />
-                                          <TableColumn fx:id="tableColumnNoteProduct1" prefWidth="-1.0" text="Note" />
+                                          <TableColumn fx:id="tableColumnIDVaccine" prefWidth="-1.0" text="ID" />
+                                          <TableColumn fx:id="tableColumnNameVaccine" prefWidth="-1.0" text="Name" />
+                                          <TableColumn fx:id="tableColumnApplicableSpeciesVaccine" prefWidth="-1.0" text="Applicable species" />
+                                          <TableColumn fx:id="tableColumnDoseCountVaccine" prefWidth="-1.0" text="Dose count" />
+                                          <TableColumn fx:id="tableColumnIntervalDaysVaccine" prefWidth="-1.0" text="Interval days" />
+                                          <TableColumn fx:id="tableColumnValidityMonthVaccine" prefWidth="-1.0" text="Validity months" />
+                                          <TableColumn fx:id="tableColumnIsMandatory" prefWidth="-1.0" text="isMandatory" />
+                                          <TableColumn fx:id="tableColumnNoteVaccine" prefWidth="-1.0" text="Note" />
                                        </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
