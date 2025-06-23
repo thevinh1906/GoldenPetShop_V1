@@ -2,6 +2,7 @@ package com.utc2.petShop.controllers.Admin;
 
 import com.utc2.petShop.controllers.controllerPet;
 import com.utc2.petShop.controllers.controllerProduct;
+import com.utc2.petShop.controllers.controllerUser;
 import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
@@ -1736,9 +1737,9 @@ public class controllerHomeAdmin implements Initializable {
 
         ObservableList<User> userList = FXCollections.observableArrayList();
 
-        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), EEmployeePosition.quanLy, 500000000, "Full time");
+//        User user = new Employee(1, "username", "password", "Trang Kim Đạt", true, "trangkimdatst2005@gmail.com", "0396290084", "448 Lê Văn Việt", LocalDate.of(2005, 9, 16), LocalDate.now(), EEmployeePosition.quanLy, 500000000, "Full time");
 
-        userList.add(user);
+//        userList.add(user);
 
         tableViewUser.setItems(userList);
 
@@ -1810,11 +1811,11 @@ public class controllerHomeAdmin implements Initializable {
 
         Customer customer = new Customer(1,"Trang Kim Đạt","0396290084");
 
-        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),EEmployeePosition.tuVanVien,5562,"fsdfsf");
+//        Employee employee = new Employee(1,"sdfsfd","sdfsfd","fsdfsf",true,"sdfsdf","sdfsdf","sdfsdf",LocalDate.now(),LocalDate.now(),EEmployeePosition.tuVanVien,5562,"fsdfsf");
 
-        Bill bill = new Bill(1, customer, employee, LocalDate.now(), 1000000, "pay", "thành công");
+//        Bill bill = new Bill(1, customer, employee, LocalDate.now(), 1000000, "pay", "thành công");
 
-        billList.addAll(bill);
+//        billList.addAll(bill);
 
         tableViewBill.setItems(billList);
 
@@ -1953,6 +1954,15 @@ public class controllerHomeAdmin implements Initializable {
             if(event.getClickCount() == 2 && tableViewProduct.getSelectionModel().getSelectedItem() != null) {
                 Product selectedItem = tableViewProduct.getSelectionModel().getSelectedItem();
                 openMoreScene("sampleProduct", "Golden Pet Shop", "applicationProduct", true, (controllerProduct controller) -> {
+                    controller.receiveData(selectedItem);
+                });
+            }
+        });
+
+        tableViewUser.setOnMouseClicked(event -> {
+            if(event.getClickCount() == 2 && tableViewUser.getSelectionModel().getSelectedItem() != null) {
+                User selectedItem = tableViewUser.getSelectionModel().getSelectedItem();
+                openMoreScene("sampleUser", "Golden Pet Shop", "applicationUser", true, (controllerUser controller) -> {
                     controller.receiveData(selectedItem);
                 });
             }

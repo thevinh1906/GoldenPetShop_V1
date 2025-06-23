@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.entities.User;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.implement.IBill;
 import com.utc2.petShop.model.implement.IUser;
 import javafx.beans.property.*;
@@ -18,8 +19,9 @@ public class User implements IUser {
     private StringProperty address;
     private ObjectProperty<LocalDate> birthDay;
     private ObjectProperty<LocalDate> creationDate;
+    private ObjectProperty<ImageByte> imageByte;
 
-    public User(int id, String username, String password, String name, boolean gender, String email, String phoneNumber, String address, LocalDate birthDay, LocalDate creationDate) {
+    public User(int id, String username, String password, String name, boolean gender, String email, String phoneNumber, String address, LocalDate birthDay, LocalDate creationDate, ImageByte image) {
         this.id = new SimpleIntegerProperty(id);
         this.username = new SimpleStringProperty(username);
         this.password = new SimpleStringProperty(password);
@@ -30,6 +32,7 @@ public class User implements IUser {
         this.address = new SimpleStringProperty(address);
         this.birthDay = new SimpleObjectProperty<LocalDate>(birthDay);
         this.creationDate = new SimpleObjectProperty<LocalDate>(creationDate);
+        this.imageByte = new SimpleObjectProperty<>(image);
     }
 
     public User() {
@@ -43,6 +46,19 @@ public class User implements IUser {
         this.address = new SimpleStringProperty("");
         this.birthDay = new SimpleObjectProperty<LocalDate>(LocalDate.now());
         this.creationDate = new SimpleObjectProperty<LocalDate>(LocalDate.now());
+        this.imageByte = new SimpleObjectProperty<>(null);
+    }
+
+    public ImageByte getImageByte() {
+        return imageByte.get();
+    }
+
+    public ObjectProperty<ImageByte> imageProperty() {
+        return imageByte;
+    }
+
+    public void setImageByte(ImageByte image) {
+        this.imageByte.set(image);
     }
 
     public int getId() {

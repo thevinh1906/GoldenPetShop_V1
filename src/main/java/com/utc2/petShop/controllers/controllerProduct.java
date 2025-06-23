@@ -150,8 +150,8 @@ public class controllerProduct implements Initializable {
         if(obj instanceof Food){
             Food food = (Food) obj;
             labelType.setText("Product type: Food");
-            labelExpirationDate.setText(String.valueOf(food.getExpirationDate()));
-            labelFlavor.setText(String.valueOf(food.getFlavor()));
+            labelExpirationDate.setText("Expiration date: " + food.getExpirationDate());
+            labelFlavor.setText("Flavor: " + food.getFlavor());
 
             hideScreen();
 

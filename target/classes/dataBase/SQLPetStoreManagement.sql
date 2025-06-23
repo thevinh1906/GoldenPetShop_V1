@@ -21,6 +21,8 @@ CREATE TABLE USERS (
     createAt DATE NOT NULL,
     birthDate DATE NOT NULL,
 	role NVARCHAR(20)
+	imageId INT
+	FOREIGN KEY (imageId) REFERENCES IMAGE (imageId)
 );
 
 CREATE TABLE CUSTOMER (
@@ -397,10 +399,23 @@ INSERT INTO FEEDBACK VALUES
 
 
 
-
+--Rang buoc
+--Image
+--Them du lieu
+--duoc thi them procedure va trigger
 
 
 SELECT I.image, I.imageId 
                 FROM IMAGE I
                 JOIN IMAGE_PRODUCT IP ON I.imageId = IP.imageId
+
                 WHERE IP.productId = 8
+
+--Them de an chu ko xoa--
+ALTER TABLE USERS ADD isDeleted BIT DEFAULT 0;
+ALTER TABLE CUSTOMER ADD isDeleted BIT DEFAULT 0;
+ALTER TABLE SUPPLIER ADD isDeleted BIT DEFAULT 0;
+ALTER TABLE PRODUCTS ADD isDeleted BIT DEFAULT 0;
+ALTER TABLE PET ADD isDeleted BIT DEFAULT 0;
+ALTER TABLE BILL ADD isDeleted BIT DEFAULT 0;
+ALTER TABLE PET_WARRANTY ADD isDeleted BIT DEFAULT 0;

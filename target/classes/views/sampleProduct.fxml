@@ -113,7 +113,7 @@
                                                 <Insets bottom="15.0" top="15.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label fx:id="labelID" alignment="TOP_LEFT" text="ID" GridPane.columnIndex="1">
+                                          <Label fx:id="labelID" alignment="TOP_LEFT" styleClass="text-area2" text="ID" GridPane.columnIndex="1">
                                              <GridPane.margin>
                                                 <Insets bottom="15.0" top="15.0" />
                                              </GridPane.margin>

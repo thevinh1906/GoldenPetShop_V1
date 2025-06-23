@@ -20,7 +20,7 @@ public class SelectImage {
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
-                    byte[] imageByte = rs.getBytes("imageByte");
+                    byte[] imageByte = rs.getBytes("image");
                     image = new ImageByte(imageId, imageByte);
                 }
 

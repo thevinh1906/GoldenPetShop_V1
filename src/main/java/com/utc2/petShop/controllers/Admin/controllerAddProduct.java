@@ -559,10 +559,10 @@ public class controllerAddProduct implements Initializable {
 
                     if (imageUrl != null) {
                         URL imageURL = new URL(imageUrl);
+                        String origin = imageURL.getProtocol() + "://" + imageURL.getHost() + "/";
                         HttpURLConnection conn = (HttpURLConnection) imageURL.openConnection();
                         conn.setRequestProperty("User-Agent", "Mozilla/5.0");
-                        conn.setRequestProperty("Referer", "https://shopee.vn/");
-                        conn.setRequestProperty("Referer", "https://www.pngtree.com/");
+                        conn.setRequestProperty("Referer", origin);
                         conn.setRequestProperty("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
                         conn.connect();
 
