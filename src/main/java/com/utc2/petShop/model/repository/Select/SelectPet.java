@@ -2,7 +2,11 @@ package com.utc2.petShop.model.repository.Select;
 
 import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.utils.DBConnection;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
@@ -40,7 +44,6 @@ public class SelectPet {
                 int age = rs.getInt("age");
                 boolean gender = rs.getBoolean("gender");
                 double price = rs.getDouble("price");
-                boolean vaccinated = rs.getBoolean("vaccinated");
                 String healthStatus = rs.getString("healthStatus");
                 String origin = rs.getString("origin");
                 float weight = rs.getFloat("weight");
@@ -48,6 +51,8 @@ public class SelectPet {
                 String description = rs.getString("description");
                 int supplierId = rs.getInt("supplierId");
                 byte[] image = rs.getBytes("image");
+                List<Vaccine> vaccines = getVaccinesByPetId(id);
+
 
                 Supplier supplier = SelectSupplier.getSupplierById(supplierId);
 
@@ -67,7 +72,7 @@ public class SelectPet {
                         throw new IllegalArgumentException("Không tìm thấy giống chó phù hợp: " + dogBreedStr);
                     }
 
-                    pet = new Dog(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, dogBreed, isTrained);
+                    pet = new Dog(image, id, name, age, gender, price, vaccines, healthStatus, origin, weight, furColor, description, supplier, dogBreed, isTrained);
 
                 } else if (rs.getObject("cat_isIndoor") != null) {
                     boolean isIndoor = rs.getBoolean("cat_isIndoor");
@@ -84,7 +89,7 @@ public class SelectPet {
                         throw new IllegalArgumentException("Không tìm thấy giống mèo phù hợp: " + catBreedStr);
                     }
 
-                    pet = new Cat(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, catBreed, isIndoor, eyeColor);
+                    pet = new Cat(image, id, name, age, gender, price, vaccines, healthStatus, origin, weight, furColor, description, supplier, catBreed, isIndoor, eyeColor);
 
                 } else if (rs.getObject("hamster_tailLength") != null) {
                     float tailLength = rs.getFloat("hamster_tailLength");
@@ -98,7 +103,7 @@ public class SelectPet {
                     }
                     if (hamsterBreed == null)
                         throw new IllegalArgumentException("Không tìm thấy giống hamster phù hợp: " + hamsterBreedStr);
-                    pet = new Hamster(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, hamsterBreed, tailLength);
+                    pet = new Hamster(image, id, name, age, gender, price, vaccines, healthStatus, origin, weight, furColor, description, supplier, hamsterBreed, tailLength);
 
 
                 } else if (rs.getObject("rabbit_earLength") != null) {
@@ -113,10 +118,10 @@ public class SelectPet {
                     }
                     if (rabbitBreed == null)
                         throw new IllegalArgumentException("Không tìm thấy giống thỏ phù hợp: " + rabbitBreedStr);
-                    pet = new Rabbit(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, rabbitBreed, earLength);
+                    pet = new Rabbit(image, id, name, age, gender, price, vaccines, healthStatus, origin, weight, furColor, description, supplier, rabbitBreed, earLength);
 
                 } else {
-                    pet = new Pet(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
+                    pet = new Pet(image, id, name, age, gender, price, healthStatus, origin, weight, furColor, description, supplier, vaccines);
                 }
 
                 pets.add(pet);
@@ -156,6 +161,42 @@ public class SelectPet {
         }
 
         return petIDs;
+    }
+    public static List<Vaccine> getVaccinesByPetId(int petId) {
+        List<Vaccine> vaccines = new ArrayList<>();
+
+        String sql = """
+            SELECT V.* FROM VACCINE_PET VP
+            JOIN VACCINE V ON VP.vaccineId = V.vaccineId
+            WHERE VP.petId = ? AND V.isDeleted = 0
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, petId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vaccine vaccine = new Vaccine(
+                            new SimpleIntegerProperty(rs.getInt("vaccineId")),
+                            new SimpleStringProperty(rs.getString("vaccineName")),
+                            new SimpleStringProperty(rs.getString("description")),
+                            new SimpleStringProperty(rs.getString("applicableSpecies")),
+                            new SimpleIntegerProperty(rs.getInt("doseCount")),
+                            new SimpleIntegerProperty(rs.getInt("intervalDays")),
+                            new SimpleIntegerProperty(rs.getInt("validityMonths")),
+                            new SimpleBooleanProperty(rs.getBoolean("isMandatory"))
+                    );
+
+                    vaccines.add(vaccine);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Không thể lấy danh sách vaccine của petId = " + petId, e);
+        }
+
+        return vaccines;
     }
 }
 

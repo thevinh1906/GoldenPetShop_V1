@@ -27,7 +27,7 @@ public class SelectProduct {
                     LEFT JOIN Cage c ON p.productId = c.productId
                     LEFT JOIN Food f ON p.productId = f.productId
                     LEFT JOIN Toy t ON p.productId = t.productId
-                    WHERE p.isDelete = 0;
+                    WHERE p.isDeleted = 0;
                 """;
 
         try (Connection conn = DBConnection.getConnection();
