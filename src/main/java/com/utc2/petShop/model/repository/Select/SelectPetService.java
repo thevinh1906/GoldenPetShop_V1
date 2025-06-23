@@ -14,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectPetService {
+    // Lấy tất cả PetServices chưa bị xóa
     public static List<PetService> getAllPetServices() {
         List<PetService> petServices = new ArrayList<>();
-        String sql = "SELECT * FROM PetService WHERE isDeleted = 0";
+        String sql = "SELECT * FROM PetService WHERE isDeleted = 0"; // Truy vấn danh sách PetService chưa bị xoá
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -54,7 +55,7 @@ public class SelectPetService {
 
         return petServices;
     }
-
+    // Lấy PetService theo ID khách hàng
     public static List<PetService> getPetServicesByCustomerId(int customerId) {
         List<PetService> petServices = new ArrayList<>();
         String sql = "SELECT * FROM PetService WHERE customerId = ? AND isDeleted = 0";
@@ -94,9 +95,10 @@ public class SelectPetService {
 
         return petServices;
     }
+    // Truy xuất danh sách Service theo petServiceId
     private static List<Service> getServicesByPetServiceId(int petServiceId) {
         List<Service> services = new ArrayList<>();
-        String sql = "SELECT serviceId FROM PetService_Service WHERE petServiceId = ?";
+        String sql = "SELECT serviceId FROM PetService_Service WHERE petServiceId = ?"; // Truy vấn bảng liên kết PetService_Service để lấy ID dịch vụ
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
