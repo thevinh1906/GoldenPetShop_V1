@@ -28,11 +28,11 @@ public class program extends Application {
         primaryStage.getIcons().add(new Image("images/logo.png"));
         scenes.setPrimaryStage(primaryStage);
 //        scenes.switchScene("sampleSign_in","Sign in","applicationSign_in",false);
-        scenes.switchScene("Admin/sampleHomeAdmin","Sign in","Admin/applicationHomeAdmin",true);
+//        scenes.switchScene("Admin/sampleHomeAdmin","Sign in","Admin/applicationHomeAdmin",true);
 //        scenes.switchScene("sampleAddPet","Sign in","applicationAddPet",false);
 //        scenes.switchScene("samplePet","Sign in","applicationPet",true);
 //        scenes.switchScene("sampleHome","Sign in","applicationHome",true);
-//        scenes.switchScene("samplePetTest","Sign in","applicationPetTest",true);
+        scenes.switchSceneNotTitleBar("Admin/sampleProgressBarAdmin","Sign in","Admin/applicationProgressBarAdmin",false);
 
     }
 }

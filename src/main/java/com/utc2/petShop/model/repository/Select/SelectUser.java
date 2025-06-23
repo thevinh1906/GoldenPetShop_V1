@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.repository.Select;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.User.Admin;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
@@ -34,7 +35,9 @@ public class SelectUser {
                 String address = rs.getString("address");
                 LocalDate birth = rs.getDate("birthDate").toLocalDate();
                 LocalDate createAt = rs.getDate("createAt").toLocalDate();
+                int imageId = rs.getInt("imageId");
                 String role = rs.getString("role");
+                ImageByte imageByte = SelectImage.getImageByImageId(imageId);
 
 
                 if (role.equals("Employee")) {
@@ -52,11 +55,11 @@ public class SelectUser {
                     }
 
                     Employee emp = new Employee(id, username, password, fullName, gender, email, phone, address,
-                            birth, createAt, pos, salary, workingHours);
+                            birth, createAt, imageByte, pos, salary, workingHours);
                     users.add(emp);
                 } else {
                     // Không có position → là Admin
-                    Admin admin = new Admin(id, username, password, fullName, gender, email, phone, address, birth, createAt);
+                    Admin admin = new Admin(id, username, password, fullName, gender, email, phone, address, birth, createAt, imageByte);
                     users.add(admin);
                 }
             }
@@ -88,6 +91,8 @@ public class SelectUser {
                     String address = rs.getString("address");
                     LocalDate birth = rs.getDate("birthDate").toLocalDate();
                     LocalDate createAt = rs.getDate("createAt").toLocalDate();
+                    int imageId = rs.getInt("imageId");
+                    ImageByte imageByte = SelectImage.getImageByImageId(imageId);
 
                     String positionStr = rs.getString("position");
 
@@ -104,9 +109,9 @@ public class SelectUser {
                         }
 
                         return new Employee(userId, username, password, fullName, gender, email, phone, address,
-                                birth, createAt, pos, salary, workingHours);
+                                birth, createAt, imageByte, pos, salary, workingHours);
                     } else {
-                        return new Admin(userId, username, password, fullName, gender, email, phone, address, birth, createAt);
+                        return new Admin(userId, username, password, fullName, gender, email, phone, address, birth, createAt, imageByte);
                     }
                 }
             }
@@ -139,7 +144,8 @@ public class SelectUser {
                 LocalDate birth = rs.getDate("birthDate").toLocalDate();
                 LocalDate createAt = rs.getDate("createAt").toLocalDate();
                 String role = rs.getString("role");
-
+                int imageId = rs.getInt("imageId");
+                ImageByte imageByte = SelectImage.getImageByImageId(imageId);
 
                 if (role.equals("Employee")) {
                     // Là Employee
@@ -156,7 +162,7 @@ public class SelectUser {
                     }
 
                     Employee emp = new Employee(id, username, password, fullName, gender, email, phone, address,
-                            birth, createAt, pos, salary, workingHours);
+                            birth, createAt, imageByte, pos, salary, workingHours);
                     employees.add(emp);
                 }
             }

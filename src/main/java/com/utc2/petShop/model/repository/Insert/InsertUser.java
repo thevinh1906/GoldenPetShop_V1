@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.repository.Insert;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.utils.DBConnection;
 
 import java.sql.*;
@@ -10,11 +11,11 @@ public class InsertUser {
     public static void insertUser(String username, String password, String name, boolean gender,
                                   String email, String phoneNumber, String address, LocalDate birthDay,
                                   LocalDate creationDate, String position, float salary,
-                                  String workingHours, String role) {
+                                  String workingHours, String role, ImageByte image) {
         int id = 0;
         try (Connection conn = DBConnection.getConnection()) {
-            String insertUser = "INSERT INTO USERS (username, password, fullName, gender, email, phoneNumber, address, createAt, birthDate, role)" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String insertUser = "INSERT INTO USERS (username, password, fullName, gender, email, phoneNumber, address, createAt, birthDate, role, imageId)" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(insertUser, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -28,6 +29,7 @@ public class InsertUser {
                 stmt.setDate(8, Date.valueOf(creationDate));
                 stmt.setDate(9, Date.valueOf(birthDay));
                 stmt.setString(10, role);
+                stmt.setInt(11, InsertImage.insertImage(image.getImage()));
                 int a = stmt.executeUpdate();
 
                 //lấy id user mới tăng

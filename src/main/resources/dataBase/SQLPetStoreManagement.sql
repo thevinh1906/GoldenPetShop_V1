@@ -21,6 +21,8 @@ CREATE TABLE USERS (
     createAt DATE NOT NULL,
     birthDate DATE NOT NULL,
 	role NVARCHAR(20)
+	imageId INT
+	FOREIGN KEY (imageId) REFERENCES IMAGE (imageId)
 );
 
 CREATE TABLE CUSTOMER (

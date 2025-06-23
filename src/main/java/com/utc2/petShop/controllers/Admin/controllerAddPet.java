@@ -498,8 +498,11 @@ public class controllerAddPet implements Initializable {
                     if (imageUrl != null) {
                         // Đọc InputStream từ web và lưu về byte[]
                         URL imageURL = new URL(imageUrl);
+                        String origin = imageURL.getProtocol() + "://" + imageURL.getHost() + "/";
                         HttpURLConnection conn = (HttpURLConnection) imageURL.openConnection();
                         conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+                        conn.setRequestProperty("Referer", origin);
+                        conn.setRequestProperty("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
                         conn.connect();
 
                         try (InputStream is = conn.getInputStream();
@@ -519,6 +522,10 @@ public class controllerAddPet implements Initializable {
                 }
 
             } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Không thể tải ảnh");
+                alert.setContentText("Server ảnh đã chặn quyền truy cập. Hãy dùng ảnh từ máy hoặc trang khác.");
+                alert.showAndWait();
                 e.printStackTrace();
             }
 

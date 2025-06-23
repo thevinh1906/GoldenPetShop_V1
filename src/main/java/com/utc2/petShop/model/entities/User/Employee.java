@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.entities.User;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
@@ -9,8 +10,8 @@ public class Employee extends User {
     private DoubleProperty salary;
     private StringProperty workingHours;
 
-    public Employee(int id, String username, String password, String name, boolean gender, String email, String phoneNumber, String address, LocalDate birthDay, LocalDate creationDate, EEmployeePosition position, double salary, String workingHours) {
-        super(id, username, password, name, gender, email, phoneNumber, address, birthDay, creationDate);
+    public Employee(int id, String username, String password, String name, boolean gender, String email, String phoneNumber, String address, LocalDate birthDay, LocalDate creationDate, ImageByte image, EEmployeePosition position, double salary, String workingHours) {
+        super(id, username, password, name, gender, email, phoneNumber, address, birthDay, creationDate, image);
         this.position = new SimpleObjectProperty<EEmployeePosition>(position);
         this.salary = new SimpleDoubleProperty(salary);
         this.workingHours = new SimpleStringProperty(workingHours);

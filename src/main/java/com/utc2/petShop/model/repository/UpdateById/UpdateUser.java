@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.repository.UpdateById;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.utils.DBConnection;
 import com.utc2.petShop.model.repository.Delete.DeleteUser;
 
@@ -11,12 +12,12 @@ public class UpdateUser {
     public static void updateUser(int userId, String username, String password, String name, boolean gender,
                                   String email, String phoneNumber, String address, LocalDate birthDay,
                                   LocalDate creationDate, String position, float salary,
-                                  String workingHours, String role) {
+                                  String workingHours, String role, ImageByte image) {
 
         try (Connection conn = DBConnection.getConnection()) {
             // Cập nhật bảng USERS
             String updateUser = "UPDATE USERS SET username = ?, password = ?, fullName = ?, gender = ?, email = ?, " +
-                    "phoneNumber = ?, address = ?, createAt = ?, birthDate = ?, role = ? WHERE userId = ?";
+                    "phoneNumber = ?, address = ?, createAt = ?, birthDate = ?, role = ?, imageId = ? WHERE userId = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(updateUser)) {
                 stmt.setString(1, username);
@@ -29,7 +30,8 @@ public class UpdateUser {
                 stmt.setDate(8, Date.valueOf(creationDate));
                 stmt.setDate(9, Date.valueOf(birthDay));
                 stmt.setString(10, role);
-                stmt.setInt(11, userId);
+                stmt.setInt(11, image.getId());
+                stmt.setInt(12, userId);
 
                 int affectedRows = stmt.executeUpdate();
                 if (affectedRows == 0) {
@@ -51,6 +53,8 @@ public class UpdateUser {
                     stmt.executeUpdate();
                 }
             }
+
+            UpdateImage.updateImage(image);
 
             System.out.println("✅ Cập nhật người dùng thành công.");
 

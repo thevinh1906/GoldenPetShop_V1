@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<BorderPane prefWidth="1267.0" style="-fx-background-color: #F2F8FF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerUser">
+    <center>
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" style="-fx-background-color: #F2F8FF;">
+                    <content>
+                        <HBox alignment="CENTER" style="-fx-background-color: #F2F8FF;">
+                            <children>
+                                <AnchorPane fx:id="anchorPane" maxWidth="1198.0" minWidth="1198.0" prefWidth="1198.0" style="-fx-background-color: #F2F8FF;">
+                                    <children>
+                                        <VBox fx:id="vBox" layoutX="417.0" layoutY="21.0" style="-fx-background-color: white;" styleClass="vboxGeneral" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="250.0">
+                                            <children>
+                                                <GridPane fx:id="gridPaneGeneral">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <VBox.margin>
+                                                        <Insets top="175.0" />
+                                                    </VBox.margin>
+                                                    <children>
+                                                        <Label fx:id="labelIDGeneral" text="ID">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelNameGeneral" text="Name" GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelBirthdayGeneral" text="Birthday" GridPane.rowIndex="3">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelGenderGeneral" text="Gender" GridPane.rowIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelCreationDateGeneral" text="Creation date" GridPane.rowIndex="4">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelUsernameGeneral" text="Username" GridPane.columnIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" left="20.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelPasswordGeneral" text="Password" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" left="20.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelEmailGeneral" text="Email" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" left="20.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelPhoneNumberGeneral" text="Phone number" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" left="20.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label fx:id="labelAddressGeneral" prefWidth="457.0" text="Address" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                            <GridPane.margin>
+                                                                <Insets bottom="15.0" left="20.0" top="15.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets left="10.0" right="10.0" />
+                                                    </padding>
+                                                </GridPane>
+                                    <HBox fx:id="hBoxEmployee" fillHeight="false">
+                                       <children>
+                                          <VBox>
+                                             <children>
+                                                <GridPane fx:id="gridPaneCat" prefWidth="504.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="494.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label fx:id="labelPositionEmployee" text="Position">
+                                                         <GridPane.margin>
+                                                            <Insets bottom="15.0" top="15.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                      <Label fx:id="labelSalaryEmployee" text="Salary" GridPane.rowIndex="1">
+                                                         <GridPane.margin>
+                                                            <Insets bottom="15.0" top="15.0" />
+                                                         </GridPane.margin>
+                                                      </Label>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="10.0" />
+                                                   </padding>
+                                                </GridPane>
+                                             </children>
+                                          </VBox>
+                                          <HBox prefWidth="504.0">
+                                             <children>
+                                                <Label fx:id="labelWorkingHoursEmployee" text="Working hours">
+                                                   <HBox.margin>
+                                                      <Insets bottom="15.0" left="20.0" top="15.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </padding>
+                                        </VBox>
+                                        <ImageView fx:id="imageViewUser" fitHeight="300.0" fitWidth="300.0" layoutX="235.0" layoutY="51.0" pickOnBounds="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0">
+                                            <image>
+                                                <Image url="@../images/golden.jpg" />
+                                            </image>
+                                        </ImageView>
+                                        <Line fx:id="line" endX="21.0" endY="586.5" layoutX="578.0" opacity="0.3" startX="21.0" startY="227.0" AnchorPane.bottomAnchor="126.5" AnchorPane.topAnchor="453.0" />
+                              <Label fx:id="labelUser" layoutX="987.0" layoutY="177.0" styleClass="text-area2" text="Employee" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="300.0" />
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </HBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

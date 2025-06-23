@@ -1,10 +1,12 @@
 package com.utc2.petShop.controllers.Admin;
 
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.User.Admin;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.repository.UpdateById.UpdateUser;
+import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
@@ -12,15 +14,31 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class controllerEditUser implements Initializable {
 
@@ -79,6 +97,17 @@ public class controllerEditUser implements Initializable {
     private TextField textFieldWorkingHoursGeneral;
 
     @FXML
+    private ImageView imageViewUser;
+
+    @FXML
+    private Label labelDragAnImageHere;
+
+    @FXML
+    private StackPane stackPaneImage;
+
+    private ImageByte imageByte;
+
+    @FXML
     void actionAdd(ActionEvent event) {
         String username = textFieldUsernameGeneral.getText();
         String password = textFieldPasswordGeneral.getText();
@@ -99,7 +128,7 @@ public class controllerEditUser implements Initializable {
             salary = Float.parseFloat(textFieldSalaryGeneral.getText());
         }
 
-        UpdateUser.updateUser(user.getId(),username,password,name,gender,email,phoneNumber,address,birthDay,creationDate,position,salary,workingHours,role);
+        UpdateUser.updateUser(user.getId(),username,password,name,gender,email,phoneNumber,address,birthDay,creationDate,position,salary,workingHours,role,imageByte);
 
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
@@ -108,6 +137,24 @@ public class controllerEditUser implements Initializable {
     @FXML
     void actionCancel(ActionEvent event) {
         ((Stage)buttonCancel.getScene().getWindow()).close();
+    }
+
+    @FXML
+    void actionChangeImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png", "*.jpeg", "*.gif", "*.bmp", "*.webp");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
+        if (file != null) {
+            try {
+                imageByte.setImage(Files.readAllBytes(file.toPath()));
+                Image image = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(imageByte.getImage()),imageViewUser.getFitWidth(),imageViewUser.getFitHeight());
+                imageViewUser.setImage(image);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void exceptions() {
@@ -189,6 +236,10 @@ public class controllerEditUser implements Initializable {
             }
         });
 
+        labelDragAnImageHere.visibleProperty().bind(
+                imageViewUser.imageProperty().isNull()
+        );
+
     }
 
     public void buttonAddDisable() {
@@ -200,7 +251,7 @@ public class controllerEditUser implements Initializable {
                         textFieldEmailGeneral.getText().isEmpty() || (textFieldPhoneNumberGeneral.getText().length() < 10) ||
                         textFieldPhoneNumberGeneral.getText().isEmpty() || !textFieldEmailGeneral.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$") ||
                         textFieldAddressGeneral.getText().isEmpty() || datePickerBirthDateGeneral.getValue().isAfter(datePickerCreationDateGeneral.getValue().minusYears(18)) ||
-                        datePickerBirthDateGeneral.getValue() == null ||
+                        datePickerBirthDateGeneral.getValue() == null || imageViewUser.getImage() == null ||
                         datePickerCreationDateGeneral.getValue() == null;
 
         if(!(choiceBoxPositionGeneral.getValue() == null)){
@@ -231,10 +282,15 @@ public class controllerEditUser implements Initializable {
         datePickerBirthDateGeneral.valueProperty().addListener((obs, oldDate, newDate) -> buttonAddDisable());
         datePickerCreationDateGeneral.valueProperty().addListener((obs, oldDate, newDate) -> buttonAddDisable());
         choiceBoxPositionGeneral.valueProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+        imageViewUser.imageProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
+
     }
 
     public void receiveData(User obj){
         user = obj;
+        Image image = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(obj.getImageByte().getImage()),imageViewUser.getFitWidth(),imageViewUser.getFitHeight());
+        imageByte = obj.getImageByte();
+        imageViewUser.setImage(image);
         textFieldUsernameGeneral.setText(obj.getUsername());
         textFieldPasswordGeneral.setText(obj.getPassword());
         textFieldNameGeneral.setText(obj.getName());
@@ -297,6 +353,89 @@ public class controllerEditUser implements Initializable {
         });
     }
 
+    public void dragAndDropTheImage(){
+        stackPaneImage.setOnDragOver(event -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasFiles() || db.hasUrl() || db.hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+        });
+
+        stackPaneImage.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+
+
+            try {
+                if (db.hasFiles()) {
+                    // 📁 Ảnh từ máy
+                    File file = db.getFiles().get(0);
+                    imageByte.setImage(Files.readAllBytes(file.toPath()));
+                    Image image = ImageUtils.cropToImageView(ImageUtils.byteArrayToImage(imageByte.getImage()),imageViewUser.getFitWidth(),imageViewUser.getFitHeight());
+                    imageViewUser.setImage(image);
+                    success = true;
+
+                } else {
+                    // 🌐 Ảnh từ web
+                    String url = db.hasUrl() ? db.getUrl() : db.getString();
+                    System.out.println("Dropped URL/String: " + url);
+
+                    String imageUrl = null;
+                    Pattern pattern = Pattern.compile("(?:mediaurl|imgurl)=([^&]+)");
+                    Matcher matcher = pattern.matcher(url);
+                    if (matcher.find()) {
+                        imageUrl = URLDecoder.decode(matcher.group(1), StandardCharsets.UTF_8);
+                    } else if (url.matches(".*\\.(jpg|jpeg|png|gif|bmp|webp).*")) {
+                        imageUrl = url;
+                    }
+
+                    System.out.println("Final imageUrl: " + imageUrl);
+
+                    if (imageUrl != null) {
+                        // Đọc InputStream từ web và lưu về byte[]
+                        URL imageURL = new URL(imageUrl);
+                        String origin = imageURL.getProtocol() + "://" + imageURL.getHost() + "/";
+                        HttpURLConnection conn = (HttpURLConnection) imageURL.openConnection();
+                        conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+                        conn.setRequestProperty("Referer", origin);
+                        conn.setRequestProperty("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
+                        conn.connect();
+
+                        try (InputStream is = conn.getInputStream();
+                             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = is.read(buffer)) != -1) {
+                                baos.write(buffer, 0, bytesRead);
+                            }
+
+                            imageByte.setImage(baos.toByteArray());
+                            Image image = ImageUtils.byteArrayToImage(imageByte.getImage());
+                            System.out.printf("Loaded image: error=%b, w=%.0f, h=%.0f%n",
+                                    image.isError(), image.getWidth(), image.getHeight());
+                            imageViewUser.setImage(ImageUtils.cropToImageView(image,150,150));
+                            success = true;
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Không thể tải ảnh");
+                alert.setContentText("Server ảnh đã chặn quyền truy cập. Hãy dùng ảnh từ máy hoặc trang khác.");
+                alert.showAndWait();
+                e.printStackTrace();
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+    }
+
     private static User user;
 
     @Override
@@ -311,6 +450,8 @@ public class controllerEditUser implements Initializable {
         setButtonAddDisable();
 
         buttonEnter();
+
+        dragAndDropTheImage();
 
     }
 }

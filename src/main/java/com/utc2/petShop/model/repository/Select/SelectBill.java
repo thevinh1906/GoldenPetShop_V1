@@ -2,6 +2,7 @@ package com.utc2.petShop.model.repository.Select;
 
 import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Customer.Customer;
+import com.utc2.petShop.model.entities.Image.ImageByte;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.utils.DBConnection;
 
@@ -62,6 +63,7 @@ public class SelectBill {
                 if (rs.next()) {
                     String positionStr = rs.getString("position");
                     if (positionStr != null) {
+                        ImageByte imageByte = SelectImage.getImageByImageId(rs.getInt("imageId"));
                         return new Employee(
                                 rs.getInt("userId"),
                                 rs.getString("username"),
@@ -73,6 +75,7 @@ public class SelectBill {
                                 rs.getString("address"),
                                 rs.getDate("birthDate").toLocalDate(),
                                 rs.getDate("createAt").toLocalDate(),
+                                imageByte,
                                 parsePosition(positionStr),
                                 rs.getDouble("salary"),
                                 rs.getString("workingHours")
