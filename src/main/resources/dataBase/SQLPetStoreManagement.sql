@@ -239,7 +239,6 @@ CREATE TABLE PetService (
     gender NVARCHAR(10),
     age INT,
     customerId INT,
-    vaccines NVARCHAR(255),
     healthStatus NVARCHAR(100),
     weight FLOAT,
     breed NVARCHAR(100),
