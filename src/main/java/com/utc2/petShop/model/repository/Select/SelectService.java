@@ -36,4 +36,30 @@ public class SelectService {
 
         return services;
     }
+
+    public static Service getServiceById(int serviceId) {
+        String sql = "SELECT * FROM Service WHERE serviceId = ? AND isDeleted = 0";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, serviceId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Service service = new Service();
+                    service.setServiceId(rs.getInt("serviceId"));
+                    service.setServiceName(rs.getString("serviceName"));
+                    service.setDescription(rs.getString("description"));
+                    service.setPrice(rs.getDouble("price"));
+                    service.setApplicableSpecies(rs.getString("applicableSpecies"));
+                    return service;
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Không thể lấy service với ID = " + serviceId, e);
+        }
+
+        return null;
+    }
 }
