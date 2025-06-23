@@ -8,7 +8,6 @@ public class Service {
     private StringProperty serviceName;
     private StringProperty description;
     private DoubleProperty price;
-    private IntegerProperty durationMinutes;
     private StringProperty applicableSpecies;
 
     public Service() {
@@ -16,7 +15,6 @@ public class Service {
         this.serviceName = new SimpleStringProperty();
         this.description = new SimpleStringProperty();
         this.price = new SimpleDoubleProperty();
-        this.durationMinutes = new SimpleIntegerProperty();
         this.applicableSpecies = new SimpleStringProperty();
     }
 
@@ -25,7 +23,6 @@ public class Service {
         this.serviceName = new SimpleStringProperty(serviceName);
         this.description = new SimpleStringProperty(description);
         this.price = new SimpleDoubleProperty(price);
-        this.durationMinutes = new SimpleIntegerProperty(durationMinutes);
         this.applicableSpecies = new SimpleStringProperty(applicableSpecies);
     }
 
@@ -75,18 +72,6 @@ public class Service {
 
     public void setPrice(double price) {
         this.price.set(price);
-    }
-
-    public int getDurationMinutes() {
-        return durationMinutes.get();
-    }
-
-    public IntegerProperty durationMinutesProperty() {
-        return durationMinutes;
-    }
-
-    public void setDurationMinutes(int durationMinutes) {
-        this.durationMinutes.set(durationMinutes);
     }
 
     public String getApplicableSpecies() {
