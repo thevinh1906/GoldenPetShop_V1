@@ -1,16 +1,19 @@
 package com.utc2.petShop.model.entities.Pet;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.vaccine.Vaccine_Pet;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
+
+import java.util.List;
 
 public class Cat extends Pet {
     private BooleanProperty isIndoor;
     private ObjectProperty<ECatBreed> breed;
     private StringProperty eyeColor;
 
-    public Cat(byte[] image, int id, String name, int age, boolean gender, double price, boolean vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ECatBreed breed, boolean isIndoor, String eyeColor) {
-        super(image, id, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier);
+    public Cat(byte[] image, int id, String name, int age, boolean gender, double price, List<Vaccine_Pet> vaccinated, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, ECatBreed breed, boolean isIndoor, String eyeColor) {
+        super(image, id, name, age, gender, price, healthStatus, origin, weight, furColor, description, supplier,vaccinated);
         this.isIndoor = new SimpleBooleanProperty(isIndoor);
         this.breed = new SimpleObjectProperty<>(breed);
         this.eyeColor = new SimpleStringProperty(eyeColor);

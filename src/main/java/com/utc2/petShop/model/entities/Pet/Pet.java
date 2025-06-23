@@ -3,6 +3,7 @@ package com.utc2.petShop.model.entities.Pet;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.vaccine.Vaccine;
+import com.utc2.petShop.model.entities.vaccine.Vaccine_Pet;
 import com.utc2.petShop.model.implement.IPet;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -23,9 +24,9 @@ public class Pet implements IPet {
     private StringProperty furColor;
     private StringProperty description;
     private ObjectProperty<Supplier> supplier;
-    private ListProperty<Vaccine> vaccines;
+    private ListProperty<Vaccine_Pet> vaccines;
 
-    public Pet(byte[] image, int id, String name, int age, boolean gender, double price, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, List<Vaccine> vaccines) {
+    public Pet(byte[] image, int id, String name, int age, boolean gender, double price, String healthStatus, String origin, double weight, String furColor, String description, Supplier supplier, List<Vaccine_Pet> vaccines) {
         this.image = new SimpleObjectProperty<byte[]>(image);
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
@@ -38,7 +39,7 @@ public class Pet implements IPet {
         this.furColor = new SimpleStringProperty(furColor);
         this.description = new SimpleStringProperty(description);
         this.supplier = new SimpleObjectProperty<Supplier>(supplier);
-        this.vaccines = new SimpleListProperty<Vaccine>(FXCollections.observableArrayList(vaccines));
+        this.vaccines = new SimpleListProperty<Vaccine_Pet>(FXCollections.observableArrayList(vaccines));
     }
 
     public Pet() {
@@ -201,15 +202,15 @@ public class Pet implements IPet {
         this.supplier.set(supplier);
     }
 
-    public ObservableList<Vaccine> getVaccines() {
+    public ObservableList<Vaccine_Pet> getVaccines() {
         return vaccines.get();
     }
 
-    public ListProperty<Vaccine> vaccinesProperty() {
+    public ListProperty<Vaccine_Pet> vaccinesProperty() {
         return vaccines;
     }
 
-    public void setVaccines(ObservableList<Vaccine> vaccines) {
+    public void setVaccines(ObservableList<Vaccine_Pet> vaccines) {
         this.vaccines.set(vaccines);
     }
 

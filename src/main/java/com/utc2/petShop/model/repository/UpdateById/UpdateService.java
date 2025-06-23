@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UpdateService {
     public static void updateService(Service service) {
-        String updateQuery = "UPDATE SERVICE SET serviceName = ?, description = ?, price = ?, applicableSpecies = ? " +
+        String updateQuery = "UPDATE Service SET serviceName = ?, description = ?, price = ?, applicableSpecies = ? " +
                 "WHERE serviceId = ?";
 
         try (Connection conn = DBConnection.getConnection();
