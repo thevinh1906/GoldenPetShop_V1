@@ -1,5 +1,6 @@
 package com.utc2.petShop.model.repository.UpdateById;
 
+import com.utc2.petShop.model.entities.Pet.Pet;
 import com.utc2.petShop.model.entities.PetService.PetService;
 import com.utc2.petShop.utils.DBConnection;
 
@@ -10,9 +11,9 @@ import java.sql.SQLException;
 
 public class UpdatePetService {
     public static void updatePetService(PetService petService) {
-        String updateQuery = "UPDATE PET_SERVICE SET namePet = ?, gender = ?, age = ?, customerId = ?, vaccineId = ?, " +
+        String updateQuery = "UPDATE PetService SET namePet = ?, gender = ?, age = ?, customerId = ?, " +
                 "healthStatus = ?, weight = ?, breed = ?, animal = ?, dateOfVisit = ?, status = ?, " +
-                "serviceCost = ?, note = ? WHERE id = ?";
+                "serviceCost = ?, note = ? WHERE petServiceId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
@@ -21,16 +22,15 @@ public class UpdatePetService {
             stmt.setString(2, petService.getGender());
             stmt.setInt(3, petService.getAge());
             stmt.setInt(4, petService.getCustomer().getId());
-            stmt.setInt(5, petService.getVaccines().getVaccineId());
-            stmt.setString(6, petService.getHealthStatus());
-            stmt.setDouble(7, petService.getWeight());
-            stmt.setString(8, petService.getBreed());
-            stmt.setString(9, petService.getAnimal());
-            stmt.setDate(10, Date.valueOf(petService.getDateOfVisit()));
-            stmt.setString(11, petService.getStatus());
-            stmt.setDouble(12, petService.getServiceCost());
-            stmt.setString(13, petService.getNote());
-            stmt.setInt(14, petService.getId());
+            stmt.setString(5, petService.getHealthStatus());
+            stmt.setDouble(6, petService.getWeight());
+            stmt.setString(7, petService.getBreed());
+            stmt.setString(8, petService.getAnimal());
+            stmt.setDate(9, Date.valueOf(petService.getDateOfVisit()));
+            stmt.setString(10, petService.getStatus());
+            stmt.setDouble(11, petService.getServiceCost());
+            stmt.setString(12, petService.getNote());
+            stmt.setInt(13, petService.getId());
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
@@ -42,6 +42,27 @@ public class UpdatePetService {
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("❌ Lỗi khi cập nhật PetService: " + e.getMessage());
+        }
+    }
+
+    public static void UpdatePetService_Service(int petServiceId,int serviceId) {
+        String sql = "UPDATE PetService_Service SET serviceId = ? WHERE serviceId = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+
+            stmt.setInt(1, petServiceId);
+            stmt.setInt(2, serviceId);
+
+
+            int rows = stmt.executeUpdate();
+            if (rows > 0) {
+                System.out.println("✅ Thêm thông tin tiêm chủng thú cưng thành công.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

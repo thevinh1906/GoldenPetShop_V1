@@ -1,6 +1,8 @@
 package com.utc2.petShop.model.repository.UpdateById;
 
 import com.utc2.petShop.model.entities.Supplier.Supplier;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
+import com.utc2.petShop.model.entities.vaccine.Vaccine_Pet;
 import com.utc2.petShop.utils.DBConnection;
 import com.utc2.petShop.model.repository.Delete.DeletePet;
 
@@ -10,17 +12,18 @@ import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 public class UpdatePet {
 
     public static void updatePet(byte[] imageData, int petId, String name, int age, boolean gender, double price,
-                                 boolean vaccinated, String healthStatus, String origin, double weight,
+                                 List<Vaccine_Pet> vaccines, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
                                  boolean isTrained, float tailLength, float earLength) {
         try (Connection conn = DBConnection.getConnection()) {
             // Cập nhật bảng PET
-            String updatePet = "UPDATE PET SET name = ?, age = ?, gender = ?, price = ?, vaccinated = ?, " +
+            String updatePet = "UPDATE PET SET name = ?, age = ?, gender = ?, price = ?, " +
                     "healthStatus = ?, origin = ?, weight = ?, furColor = ?, description = ?, supplierId = ?, role = ?, image = ? " +
                     "WHERE petId = ?";
 
@@ -29,16 +32,19 @@ public class UpdatePet {
                 stmt.setInt(2, age);
                 stmt.setBoolean(3, gender);
                 stmt.setDouble(4, price);
-                stmt.setBoolean(5, vaccinated);
-                stmt.setString(6, healthStatus);
-                stmt.setString(7, origin);
-                stmt.setDouble(8, weight);
-                stmt.setString(9, furColor);
-                stmt.setString(10, description);
-                stmt.setInt(11, supplier.getId());
-                stmt.setString(12, role);
-                stmt.setBytes(13,imageData);
-                stmt.setInt(14, petId);
+                stmt.setString(5, healthStatus);
+                stmt.setString(6, origin);
+                stmt.setDouble(7, weight);
+                stmt.setString(8, furColor);
+                stmt.setString(9, description);
+                stmt.setInt(10, supplier.getId());
+                stmt.setString(11, role);
+                stmt.setBytes(12,imageData);
+                stmt.setInt(13, petId);
+
+               for (Vaccine_Pet pet : vaccines) {
+                   UpdateVaccine_Pet.updateVaccinePet(pet);
+               }
                 int affected = stmt.executeUpdate();
 
                 if (affected == 0) {
