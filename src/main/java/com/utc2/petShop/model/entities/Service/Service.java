@@ -18,7 +18,7 @@ public class Service {
         this.applicableSpecies = new SimpleStringProperty();
     }
 
-    public Service(int serviceId, String serviceName, String description, double price, int durationMinutes, String applicableSpecies) {
+    public Service(int serviceId, String serviceName, String description, double price, String applicableSpecies) {
         this.serviceId = new SimpleIntegerProperty(serviceId);
         this.serviceName = new SimpleStringProperty(serviceName);
         this.description = new SimpleStringProperty(description);
