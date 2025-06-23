@@ -2,7 +2,7 @@ package com.utc2.petShop.model.repository.Insert;
 
 import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.User.Employee;
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 
 import java.sql.Connection;
 import java.sql.Date;

@@ -4,7 +4,7 @@ import com.utc2.petShop.model.entities.User.Admin;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
-import com.utc2.petShop.model.repository.DBConnection;
+import com.utc2.petShop.utils.DBConnection;
 
 import java.sql.*;
 import java.time.LocalDate;

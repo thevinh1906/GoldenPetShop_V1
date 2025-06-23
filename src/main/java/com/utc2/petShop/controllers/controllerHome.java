@@ -55,24 +55,34 @@ public class controllerHome implements Initializable {
         //sử lý sự kiện Forward
     }
 
+    TreeItem<String> pet = new TreeItem<String>("Pet");
+    TreeItem<String> dog = new TreeItem<String>("Dog");
+    TreeItem<String> cat = new TreeItem<String>("Cat");
+    TreeItem<String> hamster = new TreeItem<String>("Hamster");
+    TreeItem<String> rabbit = new TreeItem<String>("Rabbit");
+
+    TreeItem<String> product = new TreeItem<String>("Product");
+    TreeItem<String> food = new TreeItem<String>("Food");
+    TreeItem<String> toy = new TreeItem<String>("Toy");
+    TreeItem<String> cage = new TreeItem<String>("Cage");
+    TreeItem<String> accessory = new TreeItem<String>("Accessory");
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TreeItem<String> root = new TreeItem<String>();
-        TreeItem<String> user = new TreeItem<String>("User");
-        TreeItem<String> pet = new TreeItem<String>("Pet");
-        TreeItem<String> dog = new TreeItem<String>("Dog");
-        TreeItem<String> cat = new TreeItem<String>("Cat");
-        TreeItem<String> hamster = new TreeItem<String>("Hamster");
-        TreeItem<String> rabbit = new TreeItem<String>("Rabbit");
+
         pet.getChildren().addAll(dog, cat, hamster, rabbit);
-        TreeItem<String> product = new TreeItem<String>("Product");
-        TreeItem<String> food = new TreeItem<String>("Food");
-        TreeItem<String> toy = new TreeItem<String>("Toy");
-        TreeItem<String> cage = new TreeItem<String>("Cage");
-        TreeItem<String> accessory = new TreeItem<String>("Accessory");
+
         product.getChildren().addAll(food, toy, cage, accessory);
+
+
         TreeItem<String> transaction = new TreeItem<String>("transaction");
-        root.getChildren().addAll(user, pet, product, transaction);
+
+
+        TreeItem<String> bill = new TreeItem<String>("Bill");
+
+
+        root.getChildren().addAll(pet, product, transaction, bill);
         tree.setRoot(root);
         tree.setShowRoot(false);
         tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {

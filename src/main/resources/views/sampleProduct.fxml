@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,352 +15,275 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerProduct">
-    <top>
-        <HBox prefHeight="64.0" style="-fx-background-color: dcdcdc;" BorderPane.alignment="CENTER">
-            <children>
-                <ImageView fx:id="logoImg" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/logo.png" />
-                    </image>
-                </ImageView>
-                <StackPane prefHeight="64.0" prefWidth="210.0">
-                    <children>
-                        <Label alignment="TOP_LEFT" text="Golden Pet Shop">
-                            <font>
-                                <Font name="System Bold" size="24.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </StackPane>
-            </children></HBox>
-    </top>
-    <center>
-        <ScrollPane fx:id="ScrollCenter" fitToWidth="true" BorderPane.alignment="CENTER">
-            <content>
-                <HBox>
-                    <children>
-                        <VBox prefWidth="200.0" />
-                        <VBox fx:id="VBoxSrcollCenter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                            <children>
-                                <HBox spacing="30.0">
-                                    <padding>
-                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                    </padding>
-                                    <children>
-                                        <ImageView fx:id="inageViewPet" fitHeight="460.0" fitWidth="460.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../images/golden.jpg" />
-                                            </image>
-                                        </ImageView>
-                                        <VBox spacing="30.0" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <Label fx:id="labelGiaBan" style="-fx-text-fill: green;" text="Giá Bán">
-                                                    <font>
-                                                        <Font name="System Bold" size="48.0" />
-                                                    </font>
-                                                </Label>
-                                                <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-                                                    <children>
-                                                        <Label text="Describe:">
-                                                            <font>
-                                                                <Font name="Arial" size="18.0" />
-                                                            </font>
-                                                            <VBox.margin>
-                                                                <Insets bottom="5.0" left="5.0" />
-                                                            </VBox.margin>
-                                                        </Label>
-                                                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-radius: 10px; -fx-border-color: transparent; -fx-border-width: 1px;" VBox.vgrow="ALWAYS">
-                                                            <children>
-                                                                <VBox minWidth="0.0" opacity="0.8" style="-fx-border-color: 1px; -fx-border-color: transparent; -fx-border-radius: 10px; -fx-background-color: white;" VBox.vgrow="ALWAYS">
-                                                                    <children>
-                                                                        <Label fx:id="labelDescribe" text="Chó Golden Retriever là một trong những giống chó phổ biến và được yêu thích nhất trên thế giới nhờ vào tính cách hiền lành, thông minh và trung thành. Chúng có nguồn gốc từ Scotland, ban đầu được lai tạo để hỗ trợ săn bắt chim nước, nhưng ngày nay, Golden Retriever thường được nuôi như thú cưng trong gia đình hoặc làm chó dịch vụ." wrapText="true">
-                                                                            <font>
-                                                                                <Font size="18.0" />
-                                                                            </font>
-                                                                            <VBox.margin>
-                                                                                <Insets left="5.0" />
-                                                                            </VBox.margin>
-                                                                        </Label>
-                                                                    </children>
-                                                                </VBox>
-                                                            </children>
-                                                            <effect>
-                                                                <DropShadow />
-                                                            </effect>
-                                                        </VBox>
-                                                    </children>
-                                                </VBox>
-                                            </children>
-                                            <padding>
-                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                            </padding>
-                                        </VBox>
-                                    </children>
-                                </HBox>
-                                <Label text="Details:">
-                                    <VBox.margin>
-                                        <Insets bottom="10.0" left="20.0" />
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="Arial Bold" size="18.0" />
-                                    </font>
-                                </Label>
-                                <GridPane fx:id="gridPaneGeneral" hgap="10.0" vgap="10.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="390.0" />
-                                        <ColumnConstraints hgrow="ALWAYS" maxWidth="1178.0" minWidth="10.0" prefWidth="1178.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <VBox.margin>
-                                        <Insets left="50.0" right="50.0" />
-                                    </VBox.margin>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
-                                    <children>
-                                        <Label opacity="0.7" text="Product ID" wrapText="true">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="labelProductIDGeneral" text="sdddddddddđ" wrapText="true" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label opacity="0.7" text="Name" wrapText="true" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="labelNameGeneral" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label opacity="0.7" text="Quatity" wrapText="true" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                                        <Label fx:id="labelQuantityGeneral" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                            <GridPane.margin>
-                                                <Insets />
-                                            </GridPane.margin>
-                                        </Label>
-                              <Label opacity="0.7" text="Manufacturer" wrapText="true" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label opacity="0.7" text="Supplier" wrapText="true" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="labelManufacturerGeneral" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="labelSupplierGeneral" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                                    </children>
-                                    <padding>
-                                        <Insets left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                </GridPane>
-                                <GridPane fx:id="gridPaneFood" hgap="10.0" vgap="10.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="390.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1178.0" minWidth="10.0" prefWidth="1178.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                    <children>
-                                        <Label opacity="0.7" text="Expiration date" wrapText="true">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label opacity="0.7" text="Flavor" wrapText="true" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelExpirationDateFood" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelFlavorFood" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets left="50.0" right="50.0" />
-                                    </VBox.margin>
-                                </GridPane>
-                                <GridPane fx:id="gridPaneToy" hgap="10.0" vgap="10.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="390.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1178.0" minWidth="10.0" prefWidth="1178.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                    <children>
-                                        <Label opacity="0.7" text="Material" wrapText="true">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label opacity="0.7" text="Size" wrapText="true" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelMaterialToy" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelSizeToy" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets left="50.0" right="50.0" />
-                                    </VBox.margin>
-                                </GridPane>
-                                <GridPane fx:id="gridPaneCage" hgap="10.0" vgap="10.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="390.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1178.0" minWidth="10.0" prefWidth="1178.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                    <children>
-                                        <Label opacity="0.7" text="Material" wrapText="true">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label opacity="0.7" text="Dimension" wrapText="true" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelMaterialCage" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelDimensionCage" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets left="50.0" right="50.0" />
-                                    </VBox.margin>
-                                </GridPane>
-                                <GridPane fx:id="gridPaneAccessory" hgap="10.0" vgap="10.0">
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="390.0" minWidth="10.0" prefWidth="390.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1178.0" minWidth="10.0" prefWidth="1178.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <padding>
-                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                    </padding>
-                                    <children>
-                                        <Label opacity="0.7" text="Type" wrapText="true">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label opacity="0.7" text="Brand" wrapText="true" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelTypeAccessory" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="labelBrandAccessory" text="dfsd fds dsfsdf sdfsdfsdf dsdsf" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <font>
-                                                <Font size="18.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets left="50.0" right="50.0" />
-                                    </VBox.margin>
-                                </GridPane>
-                            </children>
-                            <padding>
-                                <Insets bottom="30.0" />
-                            </padding>
-                        </VBox>
-                        <VBox prefWidth="200.0" />
-                    </children>
-                </HBox>
-            </content>
-        </ScrollPane>
-    </center>
-</BorderPane>
+<!--<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1267.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerProductTest">-->
+<!--   <center>-->
+<!--      <VBox BorderPane.alignment="CENTER">-->
+<!--         <children>-->
+<!--            <ScrollPane fx:id="scrollPane" fitToWidth="true" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">-->
+<!--               <content>-->
+<!--                  &lt;!&ndash; Nội dung gốc của <VBox fx:id="vBox"> được giữ nguyên bên dưới &ndash;&gt;-->
+<!--                  <VBox fx:id="vBox" alignment="TOP_CENTER" fillWidth="false" style="-fx-background-color: #F2F8FF;">-->
+<!--                     -->
+<!--                  </VBox>-->
+<!--               </content>-->
+<!--            </ScrollPane>-->
+<!--         </children>-->
+<!--      </VBox>-->
+<!--   </center>-->
+<!--</BorderPane>-->
+
+<AnchorPane prefWidth="1267.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utc2.petShop.controllers.controllerProduct">
+   <children>
+      <!-- BorderPane được anchor vào tất cả các cạnh của AnchorPane -->
+      <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+         <!-- ScrollPane đặt trực tiếp vào vùng center và sẽ co giãn vừa với cửa sổ -->
+         <center>
+            <ScrollPane fx:id="scrollPane" fitToHeight="false" fitToWidth="true" BorderPane.alignment="CENTER">
+               <content>
+                  <!-- Nội dung bên trong giữ nguyên từ file gốc -->
+                  <VBox fx:id="vBox" alignment="TOP_CENTER" spacing="10" style="-fx-background-color: #F2F8FF;">
+                     <!-- ... tất cả các thành phần sản phẩm ... -->
+                     <children>
+                        <!-- ... tất cả các thành phần bên trong vBox giữ nguyên từ file gốc ... -->
+                        <HBox fillHeight="false" maxWidth="1198.0" minWidth="1198.0" prefWidth="1198.0" style="-fx-background-color: white;" styleClass="vboxGeneral" VBox.vgrow="NEVER">
+                           <children>
+                              <VBox fillWidth="false">
+                                 <children>
+                                    <StackPane styleClass="stack-pane_image">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="50.0" right="50.0" top="50.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <ImageView fx:id="imageViewProduct" fitHeight="450.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view_center" />
+                                          <AnchorPane>
+                                             <children>
+                                                <Button fx:id="buttonLeft" layoutX="7.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonLeftAction" styleClass="button_left_right" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="211.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                         <image>
+                                                            <Image url="@../images/back.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                                <Button fx:id="buttonRight" layoutX="420.0" layoutY="200.0" mnemonicParsing="false" onAction="#buttonRightAction" styleClass="button_left_right" AnchorPane.bottomAnchor="211.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="211.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0">
+                                                         <image>
+                                                            <Image url="@../images/Forward.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </Button>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </StackPane>
+                                    <HBox fx:id="hBoxProductImage" alignment="CENTER" fillHeight="false" prefHeight="90.0" prefWidth="450.0">
+                                       <VBox.margin>
+                                          <Insets bottom="50.0" left="50.0" right="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets bottom="50.0" right="50.0" top="50.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="556.0" minWidth="10.0" prefWidth="503.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="95.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelName" alignment="TOP_LEFT" prefWidth="453.0" styleClass="labelName" text="Name" wrapText="true">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelID" alignment="TOP_LEFT" text="ID" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelPrice" alignment="TOP_LEFT" styleClass="labelPrice" text="Price">
+                                             <GridPane.margin>
+                                                <Insets bottom="30.0" top="30.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane layoutX="10.0" layoutY="10.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                    </GridPane>
+                                    <GridPane layoutX="10.0" layoutY="10.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelQuatity" prefWidth="260.0" text="Quatity" wrapText="true">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelManufacturer" prefWidth="260.0" text="Manufacturer" wrapText="true" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelSupplier" prefWidth="260.0" text="Supplier" wrapText="true" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelType" text="Type" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane fx:id="gridPaneFood" layoutX="10.0" layoutY="160.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelExpirationDate" text="Expiration date">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelFlavor" text="Flavor" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane fx:id="gridPaneToy" layoutX="10.0" layoutY="280.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelMaterialToy" text="Material">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelSize" text="Size" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane fx:id="gridPaneCage" layoutX="10.0" layoutY="330.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelMaterialCage" text="Material">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelDimension" text="Dimension" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <GridPane fx:id="gridPaneAccessory" layoutX="10.0" layoutY="380.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" valignment="TOP" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="labelTypeAccessory" text="Type">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label fx:id="labelBrand" text="Brand" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                    <HBox fillHeight="false">
+                                       <children>
+                                          <Label text="Describe">
+                                             <HBox.margin>
+                                                <Insets bottom="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="labelDescribe" prefWidth="491.0" styleClass="text-area2" wrapText="true" HBox.hgrow="ALWAYS">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="30.0" top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="100.0" top="100.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </center>
+
+      </BorderPane>
+   </children>
+</AnchorPane>

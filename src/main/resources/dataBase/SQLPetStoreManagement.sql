@@ -52,7 +52,7 @@ CREATE TABLE PRODUCTS (
     name NVARCHAR(100),
     price FLOAT,
     quantity INT,
-    description NVARCHAR(250),
+    description NVARCHAR(MAX),
 	manufacturer NVARCHAR(50),
     FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
 );
@@ -96,8 +96,9 @@ CREATE TABLE PET (
     origin NVARCHAR(100),
 	weight FLOAT,
 	furColor NVARCHAR(50),
-	description NVARCHAR(250),
+	description NVARCHAR(MAX),
 	supplierId INT,
+    image VARBINARY(MAX),
 	FOREIGN KEY (supplierId) REFERENCES SUPPLIER(supplierId)
 );
 
@@ -187,9 +188,88 @@ CREATE TABLE REVENUE_REPORT (
     totalBill INT
 );
 
+CREATE TABLE IMAGE (
+	imageId INT IDENTITY(1,1) PRIMARY KEY ,
+	image VARBINARY(MAX)
+);
+
+CREATE TABLE IMAGE_PRODUCT (
+	imageId INT NOT NULL,
+	productId INT NOT NULL,
+	PRIMARY KEY (imageId,productId),
+	FOREIGN KEY (imageId) REFERENCES IMAGE(imageId),
+	FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
+	);
+
+
 ALTER TABLE PET ADD role NVARCHAR(20);
 ALTER TABLE PRODUCTS ADD role NVARCHAR(20);
 
+GO
+CREATE OR ALTER TRIGGER trg_RevenueReport_InsertUpdate
+ON BILL
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1. INSERT mới completed và tháng đó chưa có
+    INSERT INTO REVENUE_REPORT (month, year, totalRevenue, totalBill)
+    SELECT 
+        MONTH(date), YEAR(date),
+        SUM(totalAmount), COUNT(*)
+    FROM INSERTED
+    WHERE status = 'completed'
+    GROUP BY MONTH(date), YEAR(date)
+    HAVING NOT EXISTS (
+        SELECT 1 FROM REVENUE_REPORT r
+        WHERE r.month = MONTH(date) AND r.year = YEAR(date)
+    );
+
+    -- 2. UPDATE từ chưa completed → completed → cộng dồn
+    UPDATE r
+    SET
+        r.totalRevenue = r.totalRevenue + i.totalAmount,
+        r.totalBill = r.totalBill + 1
+    FROM REVENUE_REPORT r
+    JOIN INSERTED i ON r.month = MONTH(i.date) AND r.year = YEAR(i.date)
+    JOIN DELETED d ON d.billId = i.billId
+    WHERE i.status = 'completed' AND d.status != 'completed';
+END;
+GO
+
+GO
+CREATE OR ALTER TRIGGER trg_RevenueReport_DeleteUpdate
+ON BILL
+AFTER DELETE, UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+
+    UPDATE r
+    SET
+        r.totalRevenue = r.totalRevenue - d.totalAmount,
+        r.totalBill = r.totalBill - 1
+    FROM REVENUE_REPORT r
+    JOIN DELETED d ON r.month = MONTH(d.date) AND r.year = YEAR(d.date)
+    WHERE d.status = 'completed';
+
+
+    UPDATE r
+    SET
+        r.totalRevenue = r.totalRevenue - d.totalAmount,
+        r.totalBill = r.totalBill - 1
+    FROM REVENUE_REPORT r
+    JOIN DELETED d ON r.month = MONTH(d.date) AND r.year = YEAR(d.date)
+    JOIN INSERTED i ON i.billId = d.billId
+    WHERE d.status = 'completed' AND i.status != 'completed';
+
+    -- 3. Xóa các dòng nếu totalBill = 0 sau khi cập nhật
+    DELETE FROM REVENUE_REPORT
+    WHERE totalBill <= 0;
+END;
+GO
 
 
 -- INSERT INTO USERS
@@ -316,13 +396,6 @@ INSERT INTO FEEDBACK VALUES
 (6, 4, N'Tư vấn tốt, ship nhanh.', '2025-03-25');
 
 
--- INSERT INTO REVENUE_REPORT
-INSERT INTO REVENUE_REPORT VALUES
-('3', '2025', 8300000, 2),
-('8', '2024', 0, 0),
-('6', '2025', 29035000, 5),
-('4', '2025', 0, 0);
-
 
 --Rang buoc
 --Image
@@ -333,6 +406,7 @@ INSERT INTO REVENUE_REPORT VALUES
 SELECT I.image, I.imageId 
                 FROM IMAGE I
                 JOIN IMAGE_PRODUCT IP ON I.imageId = IP.imageId
+
                 WHERE IP.productId = 8
 
 --Them de an chu ko xoa--
@@ -343,6 +417,3 @@ ALTER TABLE PRODUCTS ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE PET ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE BILL ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE PET_WARRANTY ADD isDeleted BIT DEFAULT 0;
-
-
-
