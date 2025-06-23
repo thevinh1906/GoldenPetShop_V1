@@ -6,12 +6,11 @@ import com.utc2.petShop.controllers.controllerUser;
 import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
-import com.utc2.petShop.model.entities.PetCare.PetCare;
+import com.utc2.petShop.model.entities.PetService.PetService;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Promotion.Promotion;
 import com.utc2.petShop.model.entities.RevenueReport.RevenueReport;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
-import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
 import com.utc2.petShop.model.entities.vaccine.Vaccine;
@@ -740,7 +739,7 @@ public class controllerHomeAdmin implements Initializable {
     private Button buttonExcelPetCare;
 
     @FXML
-    private TableView<PetCare> tableViewPetCare;
+    private TableView<PetService> tableViewPetCare;
 
     @FXML
     private StackPane stackPanePetCare;
