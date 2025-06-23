@@ -222,12 +222,24 @@ public class Pet implements IPet {
 // phương thức câ thiết
     @Override
     public void displayInfo() {
-
+        System.out.println("------ Pet Info ------");
+        System.out.println("ID: " + getId());
+        System.out.println("Name: " + getName());
+        System.out.println("Age: " + getAge() + " years");
+        System.out.println("Gender: " + (isGender() ? "Male" : "Female"));
+        System.out.println("Price: $" + getPrice());
+        System.out.println("Health Status: " + getHealthStatus());
+        System.out.println("Origin: " + getOrigin());
+        System.out.println("Weight: " + getWeight() + " kg");
+        System.out.println("Fur Color: " + getFurColor());
+        System.out.println("Description: " + getDescription());
+        System.out.println("Supplier: " + (getSupplier() != null ? getSupplier().getName() : "Unknown"));
+        System.out.println("Vaccines:");
     }
 
     @Override
     public void updateInfo() {
-
+    
     }
 
     @Override
