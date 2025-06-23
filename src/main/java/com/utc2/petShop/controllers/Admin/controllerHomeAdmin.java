@@ -6,6 +6,7 @@ import com.utc2.petShop.controllers.controllerUser;
 import com.utc2.petShop.model.entities.Bill.Bill;
 import com.utc2.petShop.model.entities.Customer.Customer;
 import com.utc2.petShop.model.entities.Pet.*;
+import com.utc2.petShop.model.entities.PetCare.PetCare;
 import com.utc2.petShop.model.entities.Product.*;
 import com.utc2.petShop.model.entities.Promotion.Promotion;
 import com.utc2.petShop.model.entities.RevenueReport.RevenueReport;
@@ -13,6 +14,7 @@ import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.User.EEmployeePosition;
 import com.utc2.petShop.model.entities.User.Employee;
 import com.utc2.petShop.model.entities.User.User;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.model.repository.Delete.*;
 import com.utc2.petShop.model.repository.Select.*;
 import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
@@ -681,6 +683,9 @@ public class controllerHomeAdmin implements Initializable {
     private ToggleButton toggleButtonUser;
 
     @FXML
+    private ToggleButton toggleButtonVaccine;
+
+    @FXML
     private VBox vBoxCenterHomeAdmin;
 
     @FXML
@@ -691,6 +696,126 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private VBox vBoxRight;
+
+    @FXML
+    private StackPane stackPaneVaccine;
+
+    @FXML
+    private BorderPane borderPaneVaccine;
+
+    @FXML
+    private ScrollPane scrollPaneVaccine;
+
+    @FXML
+    private TableView<Vaccine> tableViewVaccine;
+
+    @FXML
+    private Button buttonAddVaccine;
+
+    @FXML
+    private Button buttonDeleteVaccine;
+
+    @FXML
+    private Button buttonEditVaccine;
+
+    @FXML
+    private Button buttonExcelVaccine;
+
+    @FXML
+    private Button buttonFilterVaccine;
+
+    @FXML
+    private Button buttonAddPetCare;
+
+    @FXML
+    private Button buttonDeletePetCare;
+
+    @FXML
+    private Button buttonEditPetCare;
+
+    @FXML
+    private Button buttonFilterPetCare;
+
+    @FXML
+    private Button buttonExcelPetCare;
+
+    @FXML
+    private TableView<PetCare> tableViewPetCare;
+
+    @FXML
+    private StackPane stackPanePetCare;
+
+    @FXML
+    private BorderPane borderPanePetCare;
+
+    @FXML
+    private ScrollPane scrollPanePetCare;
+
+    @FXML
+    void actionVaccine(ActionEvent event) {
+        hideScreen();
+
+        stackPaneVaccine.setVisible(true);
+        stackPaneVaccine.setManaged(true);
+    }
+
+    @FXML
+    void actionAddVaccine(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionDeleteVaccine(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionEditVaccine(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionFilterVaccine(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionExcelVaccine(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionPetCare(ActionEvent event) {
+        hideScreen();
+
+        stackPanePetCare.setVisible(true);
+        stackPanePetCare.setManaged(true);
+    }
+
+    @FXML
+    void actionDeletePetCare(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionEditPetCare(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionFilterPetCare(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionExcelPetCare(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actionAddPetCare(ActionEvent event) {
+
+    }
 
     @FXML
     void actionAccount(ActionEvent event) {
@@ -1265,6 +1390,8 @@ public class controllerHomeAdmin implements Initializable {
 
     private static ObservableList<RevenueReport> listRevenueReport;
 
+    private static ObservableList<Vaccine> listVaccine;
+
     public void hideScreen() {
         stackPaneUser.setManaged(false);
         stackPaneUser.setVisible(false);
@@ -1293,6 +1420,12 @@ public class controllerHomeAdmin implements Initializable {
         stackPaneRevenueReport.setVisible(false);
         stackPaneRevenueReport.setManaged(false);
 
+        stackPaneVaccine.setVisible(false);
+        stackPaneVaccine.setManaged(false);
+
+        stackPanePetCare.setVisible(false);
+        stackPanePetCare.setManaged(false);
+
         vBoxRight.setVisible(false);
         vBoxRight.setManaged(false);
 
@@ -1319,6 +1452,8 @@ public class controllerHomeAdmin implements Initializable {
             stackPaneBill.setPrefHeight(newValue.doubleValue());
             stackPanePromotion.setPrefHeight(newValue.doubleValue());
             stackPaneRevenueReport.setPrefHeight(newValue.doubleValue());
+            stackPaneVaccine.setPrefHeight(newValue.doubleValue());
+            stackPanePetCare.setPrefHeight(newValue.doubleValue());
         });
 
 
@@ -1361,6 +1496,17 @@ public class controllerHomeAdmin implements Initializable {
         scrollPaneRightImportProduct.heightProperty().addListener((observable, oldValue, newValue) -> {
             tableViewRightImportProduct.setPrefHeight(newValue.doubleValue());
         });
+
+        scrollPaneVaccine.heightProperty().addListener((observable, oldValue, newValue) -> {
+            tableViewVaccine.setPrefHeight(newValue.doubleValue());
+        });
+
+        stackPanePetCare.heightProperty().addListener((observable, oldValue, newValue) -> {
+            tableViewPetCare.setPrefHeight(newValue.doubleValue());
+        });
+
+
+
 
 
         vBoxLeftImportProduct.heightProperty().addListener((observable, oldValue, newValue) -> {
@@ -1922,6 +2068,8 @@ public class controllerHomeAdmin implements Initializable {
         tableSizeCuttom(tableViewBill,scrollPaneBill);
         tableSizeCuttom(tableViewPromotion,scrollPanePromotion);
         tableSizeCuttom(tableViewRevenueReport,scrollPaneRevenueReport);
+        tableSizeCuttom(tableViewVaccine,scrollPaneVaccine);
+        tableSizeCuttom(tableViewPetCare,scrollPanePetCare);
     }
 
     public void tableSizeCuttom(TableView<?> tableView , ScrollPane scrollPane) {
