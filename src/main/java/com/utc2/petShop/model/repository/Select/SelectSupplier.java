@@ -36,7 +36,7 @@ public class SelectSupplier {
 
     public static List<Supplier> getAllSuppliers()  {
         List<Supplier> suppliers = new ArrayList<>();
-        String sql = "SELECT * FROM SUPPLIER WHERE isDelete = 0";
+        String sql = "SELECT * FROM SUPPLIER WHERE isDeleted = 0";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);

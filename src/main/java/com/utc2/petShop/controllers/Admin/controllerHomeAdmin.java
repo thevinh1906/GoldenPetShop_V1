@@ -872,7 +872,7 @@ public class controllerHomeAdmin implements Initializable {
         hideScreen();
 
         stackPaneService.setVisible(true);
-        stackPaneVaccine.setManaged(true);
+        stackPaneService.setManaged(true);
     }
 
     @FXML
@@ -1685,6 +1685,10 @@ public class controllerHomeAdmin implements Initializable {
     }
 
     private void autoResizeColumns(TableView<?> tableView) {
+        if (tableView.getItems() == null || tableView.getItems().isEmpty()) {
+            return; // tránh lỗi khi chưa có dữ liệu
+        }
+
         for (TableColumn<?, ?> column : tableView.getColumns()) {
             Text tempText = new Text(column.getText()); // bắt đầu với header
             double max = tempText.getLayoutBounds().getWidth();
@@ -1699,6 +1703,7 @@ public class controllerHomeAdmin implements Initializable {
                     }
                 }
             }
+
             column.setPrefWidth(max + 20); // thêm padding cho đẹp
         }
     }
