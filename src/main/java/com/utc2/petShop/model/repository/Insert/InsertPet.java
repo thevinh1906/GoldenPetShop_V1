@@ -21,7 +21,7 @@ public class InsertPet {
         int id = 0;
         try (Connection conn = DBConnection.getConnection()) {
             String insertPet = "INSERT INTO PET (name, age, gender, price, healthStatus, origin, weight, furColor, description, supplierId, role, image) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertPet, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setString(1, name);
                 stmt.setInt(2, age);

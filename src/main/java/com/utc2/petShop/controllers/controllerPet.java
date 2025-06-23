@@ -1,8 +1,10 @@
 package com.utc2.petShop.controllers;
 
 import com.utc2.petShop.model.entities.Pet.*;
+import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class controllerPet implements Initializable {
@@ -134,11 +137,8 @@ public class controllerPet implements Initializable {
         labelFurColorGeneral.setText("Fur color: " + obj.getFurColor());
         labelWeightGeneral.setText(String.valueOf("Weight: " + obj.getWeight() + " Kg"));
         labelPriceGeneral.setText(String.valueOf("Price: " + obj.getPrice() + "$"));
-//        if (obj.isVaccinated()) {
-//            labelVaccinatedGeneral.setText("Vaccinated: Injected");
-//        } else {
-//            labelVaccinatedGeneral.setText("Vaccinated: Unvaccinated");
-//        }
+        String supplierText = String.join(", ", obj.getVaccines().toString());
+        labelVaccinatedGeneral.setText(supplierText);
         labelHealthStatusGeneral.setText("Health status: " + obj.getHealthStatus());
         labelSupplierGeneral.setText(String.valueOf("Supplier: " + obj.getSupplier()));
         labelDecribe.setText(obj.getDescription());

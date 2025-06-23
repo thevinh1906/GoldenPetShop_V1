@@ -4,6 +4,7 @@ import com.utc2.petShop.model.entities.Pet.*;
 import com.utc2.petShop.model.entities.Supplier.Supplier;
 import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.model.repository.Select.SelectSupplier;
+import com.utc2.petShop.model.repository.Select.SelectVaccine;
 import com.utc2.petShop.model.repository.UpdateById.UpdatePet;
 import com.utc2.petShop.utils.ImageUtils;
 import javafx.application.Platform;
@@ -33,6 +34,8 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -153,7 +156,6 @@ public class controllerEditPet implements Initializable {
         int age = spinnerAgeGeneral.getValue();
         boolean gender = !radioButtonFemaleGeneral.isSelected();
         double price = Double.parseDouble(textFieldPriceGeneral.getText());
-        boolean vaccinated = checkBoxVaccinatedGeneral.isSelected();
         String healthStatus = textFieldHealthStatusGeneral.getText();
         String origin  = textFieldOriginGeneral.getText();
         double weight = Double.parseDouble(textFieldWeightGeneral.getText());
@@ -161,6 +163,7 @@ public class controllerEditPet implements Initializable {
         String description = textAreaDescriptionGeneral.getText();
         Supplier supplier = comboBoxSupplierGeneral.getValue();
         String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
+        List<Vaccine> vaccines = new ArrayList<>(listViewVaccina.getSelectionModel().getSelectedItems());
         Boolean isIndoor = false;
         String breed = "";
         String eyeColor = "";
@@ -196,7 +199,7 @@ public class controllerEditPet implements Initializable {
             imageData = pet.getImage();
         }
 
-//        UpdatePet.updatePet(imageData,pet.getId(),name,age,gender,price,vaccinated,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
+        UpdatePet.updatePet(imageData,pet.getId(),name,age,gender,price,vaccines,healthStatus,origin,weight,furColor,description,supplier,role,isIndoor,breed,eyeColor,isTrained,tailLength,earLength);
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
     }
@@ -349,6 +352,7 @@ public class controllerEditPet implements Initializable {
         String role = String.valueOf(choiceBoxAnimalGeneral.getValue());
         Image image = imageViewPet.getImage();
 
+
         boolean isAnyFieldEmpty =
                 name.isEmpty() || !gender ||
                         priceText.isEmpty() ||
@@ -408,6 +412,8 @@ public class controllerEditPet implements Initializable {
         imageViewPet.imageProperty().addListener((obs, oldVal, newVal) -> buttonAddDisable());
     }
 
+    List<Vaccine> selectedVaccines;
+
     public void receiveData(Pet obj) {
         pet = obj;
         textFieldNameGeneral.setText(obj.getName());
@@ -419,7 +425,7 @@ public class controllerEditPet implements Initializable {
             radioButtonFemaleGeneral.setSelected(true);
         }
         textFieldPriceGeneral.setText(String.valueOf(obj.getPrice()));
-//        checkBoxVaccinatedGeneral.setSelected(obj.isVaccinated());
+        selectedVaccines = obj.getVaccines();
         textFieldHealthStatusGeneral.setText(obj.getHealthStatus());
         textFieldOriginGeneral.setText(obj.getOrigin());
         textFieldWeightGeneral.setText(String.valueOf(obj.getWeight()));
@@ -618,6 +624,20 @@ public class controllerEditPet implements Initializable {
         buttonEnter();
 
         dragAndDropTheImage();
+
+        listViewVaccina.setItems(
+                FXCollections.observableArrayList(
+                        SelectVaccine.getAllVaccines()
+                )
+        );
+
+        listViewVaccina.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        Platform.runLater(() -> {
+            for (Vaccine vaccine : selectedVaccines) {
+                listViewVaccina.getSelectionModel().select(vaccine);
+            }
+        });
 
     }
 

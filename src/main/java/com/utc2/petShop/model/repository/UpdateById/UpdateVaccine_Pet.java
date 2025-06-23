@@ -9,24 +9,20 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UpdateVaccine_Pet {
-    public static void updateVaccinePet(Vaccine_Pet record) {
-        String sql = "UPDATE VACCINE_PET SET vaccinationDate = ?, doseNumber = ? " +
-                "WHERE petId = ? AND vaccineId = ?";
+    public static void updateVaccinePet(int petid, int vaccineid) throws SQLException {
+        String sql = "UPDATE VACCINE_PET SET vaccineId = ? WHERE petId = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setDate(1, Date.valueOf(record.getVaccinationDate()));
-            stmt.setInt(2, record.getDoseNumber());
-            stmt.setInt(3, record.getPetId());
-            stmt.setInt(4, record.getVaccineId());
+            stmt.setInt(1, vaccineid);
+            stmt.setInt(2, petid);
 
             int rows = stmt.executeUpdate();
             if (rows > 0) {
                 System.out.println("✅ Cập nhật thành công bản ghi VACCINE_PET.");
             } else {
-                System.out.println("⚠️ Không tìm thấy bản ghi để cập nhật (petId: " + record.getPetId()
-                        + ", vaccineId: " + record.getVaccineId() + ").");
+                System.out.println("⚠️ Không tìm thấy bản ghi để cập nhật ");
             }
 
         } catch (SQLException e) {

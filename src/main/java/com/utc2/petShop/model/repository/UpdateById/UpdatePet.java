@@ -17,7 +17,7 @@ import java.util.List;
 public class UpdatePet {
 
     public static void updatePet(byte[] imageData, int petId, String name, int age, boolean gender, double price,
-                                 List<Vaccine_Pet> vaccines, String healthStatus, String origin, double weight,
+                                 List<Vaccine> vaccines, String healthStatus, String origin, double weight,
                                  String furColor, String description, Supplier supplier,
                                  String role, Boolean isIndoor, String breed, String eyeColor,
                                  boolean isTrained, float tailLength, float earLength) {
@@ -42,8 +42,8 @@ public class UpdatePet {
                 stmt.setBytes(12,imageData);
                 stmt.setInt(13, petId);
 
-               for (Vaccine_Pet pet : vaccines) {
-                   UpdateVaccine_Pet.updateVaccinePet(pet);
+               for (Vaccine pet : vaccines) {
+                   UpdateVaccine_Pet.updateVaccinePet(petId,pet.getVaccineId());
                }
                 int affected = stmt.executeUpdate();
 

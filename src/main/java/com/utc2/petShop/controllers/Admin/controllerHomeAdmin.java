@@ -2232,13 +2232,13 @@ public class controllerHomeAdmin implements Initializable {
             }
         });
 
-        listVaccine = FXCollections.observableArrayList(/*thêm select vào đây*/);
+        listVaccine = FXCollections.observableArrayList(SelectVaccine.getAllVaccines());
 
         tableViewVaccine.setItems(listVaccine);
 
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Vaccine> newData = FXCollections.observableArrayList(/*thêm select vào đây*/);
+            ObservableList<Vaccine> newData = FXCollections.observableArrayList(SelectVaccine.getAllVaccines());
             Platform.runLater(() -> {
                 tableViewVaccine.setItems(newData);
             }); // Cập nhật GUI trên thread JavaFX
@@ -2269,13 +2269,13 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnServicesCostPetCare.setCellValueFactory(cellData -> cellData.getValue().serviceCostProperty().asObject());
         tableColumNotePetCare.setCellValueFactory(cellData -> cellData.getValue().noteProperty());
 
-        listPetService = FXCollections.observableArrayList(/*thêm select vào đây*/);
+        listPetService = FXCollections.observableArrayList(SelectPetService.getAllPetServices());
 
         tableViewPetCare.setItems(listPetService);
 
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<PetService> newData = FXCollections.observableArrayList(/*thêm select vào đây*/);
+            ObservableList<PetService> newData = FXCollections.observableArrayList(SelectPetService.getAllPetServices());
             Platform.runLater(() -> {
                 tableViewPetCare.setItems(newData);
             }); // Cập nhật GUI trên thread JavaFX
@@ -2294,13 +2294,13 @@ public class controllerHomeAdmin implements Initializable {
         tableColumnPricePetService.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
         tableColumnApplicableSpeciesService.setCellValueFactory(cellData -> cellData.getValue().applicableSpeciesProperty());
 
-        listPetService = FXCollections.observableArrayList(/*thêm select vào đây*/);
+        listService = FXCollections.observableArrayList(SelectService.getAllServices());
 
         tableViewService.setItems(listService);
 
         ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Service> newData = FXCollections.observableArrayList(/*thêm select vào đây*/);
+            ObservableList<Service> newData = FXCollections.observableArrayList(SelectService.getAllServices());
             Platform.runLater(() -> {
                 tableViewService.setItems(newData);
             }); // Cập nhật GUI trên thread JavaFX

@@ -121,7 +121,16 @@ public class Vaccine {
         this.isMandatory = isMandatory;
     }
 
-    public Vaccine() {}
+    public Vaccine() {
+        this.vaccineId = new javafx.beans.property.SimpleIntegerProperty();
+        this.vaccineName = new javafx.beans.property.SimpleStringProperty();
+        this.description = new javafx.beans.property.SimpleStringProperty();
+        this.applicableSpecies = new javafx.beans.property.SimpleStringProperty();
+        this.doseCount = new javafx.beans.property.SimpleIntegerProperty(1);         // giá trị mặc định như DB
+        this.intervalDays = new javafx.beans.property.SimpleIntegerProperty(0);
+        this.validityMonths = new javafx.beans.property.SimpleIntegerProperty(12);
+        this.isMandatory = new javafx.beans.property.SimpleBooleanProperty(false);
+    }
 
     @Override
     public String toString() {
