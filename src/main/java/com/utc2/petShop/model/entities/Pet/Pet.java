@@ -239,7 +239,7 @@ public class Pet implements IPet {
 
     @Override
     public void updateInfo() {
-    
+
     }
 
     @Override

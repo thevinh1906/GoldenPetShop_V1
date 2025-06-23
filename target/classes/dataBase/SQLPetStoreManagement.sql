@@ -9,6 +9,11 @@ GO
 USE PetShopManagement;
 GO
 
+CREATE TABLE IMAGE (
+	imageId INT IDENTITY(1,1) PRIMARY KEY ,
+	image VARBINARY(MAX)
+);
+
 CREATE TABLE USERS (
     userId INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(50) UNIQUE NOT NULL,
@@ -20,9 +25,9 @@ CREATE TABLE USERS (
     address NVARCHAR(200),
     createAt DATE NOT NULL,
     birthDate DATE NOT NULL,
-	role NVARCHAR(20)
-	imageId INT
-	FOREIGN KEY (imageId) REFERENCES IMAGE (imageId)
+	role NVARCHAR(20),
+	imageId INT,
+	FOREIGN KEY (imageId) REFERENCES IMAGE(imageId)
 );
 
 CREATE TABLE CUSTOMER (
@@ -93,7 +98,6 @@ CREATE TABLE PET (
     age INT,
     gender BIT,
     price FLOAT,
-    vaccinated BIT,
     healthStatus NVARCHAR(100),
     origin NVARCHAR(100),
 	weight FLOAT,
@@ -190,11 +194,6 @@ CREATE TABLE REVENUE_REPORT (
     totalBill INT
 );
 
-CREATE TABLE IMAGE (
-	imageId INT IDENTITY(1,1) PRIMARY KEY ,
-	image VARBINARY(MAX)
-);
-
 CREATE TABLE IMAGE_PRODUCT (
 	imageId INT NOT NULL,
 	productId INT NOT NULL,
@@ -202,6 +201,63 @@ CREATE TABLE IMAGE_PRODUCT (
 	FOREIGN KEY (imageId) REFERENCES IMAGE(imageId),
 	FOREIGN KEY (productId) REFERENCES PRODUCTS(productId)
 	);
+
+CREATE TABLE VACCINE (
+    vaccineId INT PRIMARY KEY IDENTITY(1,1),       -- ID tự tăng
+    vaccineName NVARCHAR(100) NOT NULL,            -- Tên vaccine
+    description NVARCHAR(MAX),                     -- Mô tả
+    applicableSpecies NVARCHAR(100),               -- Loài áp dụng (VD: chó, mèo,...)
+    doseCount INT DEFAULT 1,                       -- Số mũi cần tiêm
+    intervalDays INT DEFAULT 0,                    -- Khoảng cách giữa các mũi (ngày)
+    validityMonths INT DEFAULT 12,                 -- Thời gian hiệu lực (tháng)
+    isMandatory BIT DEFAULT 0                      -- Có bắt buộc hay không (0: không, 1: có)
+);
+
+CREATE TABLE VACCINE_PET (
+    petId INT NOT NULL,
+    vaccineId INT NOT NULL,
+    vaccinationDate DATE NOT NULL,            -- Ngày tiêm
+    doseNumber INT DEFAULT 1,                 -- Mũi tiêm thứ mấy
+    
+    PRIMARY KEY (petId, vaccineId),  -- Khóa chính tổ hợp
+    FOREIGN KEY (petId) REFERENCES PET(petId),   -- Khóa ngoại đến bảng PET
+    FOREIGN KEY (vaccineId) REFERENCES VACCINE(vaccineId) -- Khóa ngoại đến bảng VACCINE
+);
+
+CREATE TABLE Service (
+    serviceId INT PRIMARY KEY IDENTITY(1,1),
+    serviceName NVARCHAR(100),
+    description NVARCHAR(255),
+    price DOUBLE,
+    applicableSpecies NVARCHAR(50) -- ví dụ: Dog, Cat, All
+);
+
+CREATE TABLE PetService (
+    petServiceId INT PRIMARY KEY IDENTITY(1,1),
+    namePet NVARCHAR(100),
+    gender NVARCHAR(10),
+    age INT,
+    customerId INT,
+    healthStatus NVARCHAR(100),
+    weight FLOAT,
+    breed NVARCHAR(100),
+    animal NVARCHAR(50),
+    dateOfVisit DATE,
+    status NVARCHAR(50),
+    serviceCost FLOAT,
+    note NVARCHAR(500)
+);
+
+CREATE TABLE PetService_Service (
+    petServiceId INT NOT NULL,
+    serviceId INT NOT NULL,
+    PRIMARY KEY (petServiceId, serviceId),
+    FOREIGN KEY (petServiceId) REFERENCES PetVisit(id),
+    FOREIGN KEY (serviceId) REFERENCES Service(id)
+);
+
+
+
 
 
 ALTER TABLE PET ADD role NVARCHAR(20);

@@ -187,7 +187,7 @@ public class controllerAddPet implements Initializable {
             earLength = Float.parseFloat(textFieldEarLengthRabbit.getText());
 
         }
-        InsertPet.insertPet(imageData, name, age, gender, price, vaccinated, healthStatus, origin, weight, furColor, description, supplier, role, isIndoor, breed, eyeColor, isTrained, tailLength, earLength);
+        InsertPet.insertPet(imageData, name, age, gender, price, healthStatus, origin, weight, furColor, description, supplier, role, isIndoor, breed, eyeColor, isTrained, tailLength, earLength);
 
         ((Stage) buttonCancel.getScene().getWindow()).close();
 
