@@ -13,7 +13,7 @@ import java.util.List;
 public class SelectCustomer {
     public static List<Customer> getAllCustomers()  {
         List<Customer> customers = new ArrayList<>();
-        String sql = "SELECT * FROM CUSTOMER";
+        String sql = "SELECT * FROM CUSTOMER WHERE isDelete = 0";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -36,7 +36,7 @@ public class SelectCustomer {
     }
 
     public static Customer getCustomerById(int customerId) {
-        String sql = "SELECT * FROM CUSTOMER WHERE customerId = ?";
+        String sql = "SELECT * FROM CUSTOMER WHERE customerId = ? AND isDelete = 0";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {

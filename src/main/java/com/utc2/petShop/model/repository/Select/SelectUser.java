@@ -19,6 +19,7 @@ public class SelectUser {
         SELECT u.*, e.position, e.salary, e.workingHours
         FROM USERS u
         LEFT JOIN EMPLOYEE e ON u.userId = e.userId
+        WHERE u.isDeleted = 0
         """;
 
         try (Connection conn = DBConnection.getConnection();
@@ -71,7 +72,7 @@ public class SelectUser {
         SELECT u.*, e.position, e.salary, e.workingHours
         FROM USERS u
         LEFT JOIN EMPLOYEE e ON u.userId = e.userId
-        WHERE u.userId = ?
+        WHERE u.userId = ? AND u.isDeleted = 0
     """;
 
         try (Connection conn = DBConnection.getConnection();
@@ -123,6 +124,7 @@ public class SelectUser {
         SELECT u.*, e.position, e.salary, e.workingHours
         FROM USERS u
         LEFT JOIN EMPLOYEE e ON u.userId = e.userId
+        WHERE u.isDeleted = 0 AND u.role = 'Employee'
         """;
 
         try (Connection conn = DBConnection.getConnection();

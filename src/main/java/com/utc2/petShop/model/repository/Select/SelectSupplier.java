@@ -13,7 +13,7 @@ import java.util.List;
 public class SelectSupplier {
 
     public static Supplier getSupplierById(int supplierId)  {
-        String sql = "SELECT * FROM SUPPLIER WHERE supplierId = ?";
+        String sql = "SELECT * FROM SUPPLIER WHERE supplierId = ? AND isDeleted = 0";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, supplierId);
@@ -36,7 +36,7 @@ public class SelectSupplier {
 
     public static List<Supplier> getAllSuppliers()  {
         List<Supplier> suppliers = new ArrayList<>();
-        String sql = "SELECT * FROM SUPPLIER";
+        String sql = "SELECT * FROM SUPPLIER WHERE isDelete = 0";
 
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
