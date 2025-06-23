@@ -28,6 +28,7 @@ public class SelectPet {
                             LEFT JOIN Cat c ON p.petId = c.petId
                             LEFT JOIN Hamster h ON p.petId = h.petId
                             LEFT JOIN Rabbit r ON p.petId = r.petId
+                WHERE p.isDeleted = 0
                 """;
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
