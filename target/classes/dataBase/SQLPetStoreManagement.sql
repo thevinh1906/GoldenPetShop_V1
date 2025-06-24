@@ -228,7 +228,7 @@ CREATE TABLE Service (
     serviceId INT PRIMARY KEY IDENTITY(1,1),
     serviceName NVARCHAR(100),
     description NVARCHAR(255),
-    price DOUBLE,
+    price FLOAT,
     applicableSpecies NVARCHAR(50) -- ví dụ: Dog, Cat, All
 );
 
@@ -252,8 +252,8 @@ CREATE TABLE PetService_Service (
     petServiceId INT NOT NULL,
     serviceId INT NOT NULL,
     PRIMARY KEY (petServiceId, serviceId),
-    FOREIGN KEY (petServiceId) REFERENCES PetVisit(id),
-    FOREIGN KEY (serviceId) REFERENCES Service(id)
+    FOREIGN KEY (petServiceId) REFERENCES PetService(petServiceId),
+    FOREIGN KEY (serviceId) REFERENCES Service(serviceId)
 );
 
 
@@ -478,4 +478,4 @@ ALTER TABLE PET_WARRANTY ADD isDeleted BIT DEFAULT 0;
 
 ALTER TABLE VACCINE ADD isDeleted BIT DEFAULT 0;
 ALTER TABLE Service ADD isDeleted BIT DEFAULT 0;
-ALTER TABLE PetService ADD ísDeleted BIT DEFAULT 0;
+ALTER TABLE PetService ADD isDeleted BIT DEFAULT 0;
