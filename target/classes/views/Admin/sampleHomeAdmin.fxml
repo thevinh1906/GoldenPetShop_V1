@@ -1630,7 +1630,7 @@
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
                                     <AnchorPane prefWidth="65.0" />
-                                    <Button fx:id="buttonExcelRevenueReport" contentDisplay="TOP" disable="true" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
+                                    <Button fx:id="buttonExcelRevenueReport" contentDisplay="TOP" mnemonicParsing="false" onAction="#actionExcelRevenueReport" prefHeight="68.0" prefWidth="68.0" style="-fx-border-radius: 100px;" styleClass="buttonCustom" text="Excel">
                                        <graphic>
                                           <ImageView fitHeight="39.0" fitWidth="44.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
                                              <image>
