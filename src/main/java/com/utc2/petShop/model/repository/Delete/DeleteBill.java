@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteBill {
-
+//Xóa Bill theo id
     public static boolean deleteBillById(int billId) {
         String sqlSoftDeleteBill = "UPDATE BILL SET isDeleted = 1 WHERE billId = ?";
 

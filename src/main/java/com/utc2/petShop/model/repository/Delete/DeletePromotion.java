@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeletePromotion {
-
+//Xóa khuyến mãi theo id
     public static boolean deletePromotionById(int promotionId) {
         String sql = "DELETE FROM PROMOTION WHERE promotionId = ?";
 
@@ -24,4 +24,7 @@ public class DeletePromotion {
         }
     }
 }
+
+
+
 

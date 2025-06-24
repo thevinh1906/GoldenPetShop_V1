@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteProduct {
+//Xóa sản phẩm theo id
     public static boolean deleteProductById(int productId) {
         String deleteAccessorySql = "DELETE FROM Accessory WHERE productId = ?";
         String deleteCageSql = "DELETE FROM Cage WHERE productId = ?";
@@ -133,3 +134,6 @@ public class DeleteProduct {
         }
     }
 }
+
+
+

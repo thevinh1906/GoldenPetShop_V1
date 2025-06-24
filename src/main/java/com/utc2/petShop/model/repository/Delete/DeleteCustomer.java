@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteCustomer {
+//Xóa khách theo id
     public static boolean deleteCustomerById(int customerId) {
         String sqlSoftDeleteCustomer = "UPDATE CUSTOMER SET isDeleted = 1 WHERE customerId = ?";
 
@@ -49,3 +50,6 @@ public class DeleteCustomer {
         }
     }
 }
+
+
+
