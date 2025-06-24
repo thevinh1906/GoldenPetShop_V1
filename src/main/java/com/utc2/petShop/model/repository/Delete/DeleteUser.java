@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteUser {
-
+//Xóa khách hàng theo id
     public static boolean deleteUserById(int userId) {
         String deleteEmployeeSQL = "DELETE FROM EMPLOYEE WHERE userId = ?";
         String softDeleteUserSQL = "UPDATE USERS SET isDeleted = 1 WHERE userId = ?";
@@ -97,3 +97,5 @@ public class DeleteUser {
         }
     }
 }
+
+

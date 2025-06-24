@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteRevenueReport {
-
+//Xóa báo cáo doanh thu theo id
     public static boolean deleteRevenueReportById(int id) {
         String sql = "DELETE FROM REVENUE_REPORT WHERE id = ?";
 
@@ -23,4 +23,7 @@ public class DeleteRevenueReport {
         }
     }
 }
+
+
+
 

@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeletePet {
-
+//Xóa Pet theo id
     public static boolean deletePetById(int petId) {
         String deleteDog = "DELETE FROM Dog WHERE petId = ?";
         String deleteCat = "DELETE FROM Cat WHERE petId = ?";
@@ -106,3 +106,6 @@ public class DeletePet {
         }
     }
 }
+
+
+

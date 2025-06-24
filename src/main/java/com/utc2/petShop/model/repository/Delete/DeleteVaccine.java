@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteVaccine {
+//Xóa vaccine theo id
     public static boolean deleteVaccineById(int vaccineId) {
         String sqlSoftDeleteVaccine = "UPDATE Vaccine SET isDeleted = 1 WHERE vaccineId = ?";
 
@@ -23,3 +24,6 @@ public class DeleteVaccine {
         }
     }
 }
+
+
+
