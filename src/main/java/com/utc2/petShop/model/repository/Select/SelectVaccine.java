@@ -36,6 +36,45 @@ public class SelectVaccine {
 
         return vaccines;
     }
+
+
+
+
+
+
+
+    public static List<Vaccine> getVaccinesByName(String keyword) {
+        List<Vaccine> vaccines = new ArrayList<>();
+        String sql = "SELECT * FROM VACCINE WHERE isDeleted = 0 AND LOWER(vaccineName) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Vaccine vaccine = new Vaccine();
+                    vaccine.setVaccineId(rs.getInt("vaccineId"));
+                    vaccine.setVaccineName(rs.getString("vaccineName"));
+                    vaccine.setDescription(rs.getString("description"));
+                    vaccine.setApplicableSpecies(rs.getString("applicableSpecies"));
+                    vaccine.setDoseCount(rs.getInt("doseCount"));
+                    vaccine.setIntervalDays(rs.getInt("intervalDays"));
+                    vaccine.setValidityMonths(rs.getInt("validityMonths"));
+                    vaccine.setIsMandatory(rs.getBoolean("isMandatory"));
+
+                    vaccines.add(vaccine);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tìm vắc xin theo tên: " + keyword, e);
+        }
+
+        return vaccines;
+    }
+
 }
 
 

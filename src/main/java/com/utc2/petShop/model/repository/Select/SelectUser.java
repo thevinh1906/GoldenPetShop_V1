@@ -174,6 +174,70 @@ public class SelectUser {
 
         return employees;
     }
+
+
+
+    public static List<User> getUsersByName(String keyword) {
+        List<User> users = new ArrayList<>();
+
+        String sql = """
+        SELECT u.*, e.position, e.salary, e.workingHours
+        FROM USERS u
+        LEFT JOIN EMPLOYEE e ON u.userId = e.userId
+        WHERE u.isDeleted = 0 AND LOWER(u.fullName) LIKE ?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("userId");
+                    String username = rs.getString("username");
+                    String password = rs.getString("password");
+                    String fullName = rs.getString("fullName");
+                    boolean gender = rs.getBoolean("gender");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phoneNumber");
+                    String address = rs.getString("address");
+                    LocalDate birth = rs.getDate("birthDate").toLocalDate();
+                    LocalDate createAt = rs.getDate("createAt").toLocalDate();
+                    int imageId = rs.getInt("imageId");
+                    String role = rs.getString("role");
+                    ImageByte imageByte = SelectImage.getImageByImageId(imageId);
+
+                    if ("Employee".equals(role)) {
+                        String positionStr = rs.getString("position");
+                        double salary = rs.getDouble("salary");
+                        String workingHours = rs.getString("workingHours");
+
+                        EEmployeePosition pos = null;
+                        for (EEmployeePosition p : EEmployeePosition.values()) {
+                            if (p.getPosition().equals(positionStr)) {
+                                pos = p;
+                                break;
+                            }
+                        }
+
+                        Employee emp = new Employee(id, username, password, fullName, gender, email, phone, address,
+                                birth, createAt, imageByte, pos, salary, workingHours);
+                        users.add(emp);
+                    } else {
+                        Admin admin = new Admin(id, username, password, fullName, gender, email, phone, address, birth, createAt, imageByte);
+                        users.add(admin);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tìm người dùng theo tên: " + keyword, e);
+        }
+
+        return users;
+    }
+
 }
 
 

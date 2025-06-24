@@ -59,6 +59,44 @@ public class SelectCustomer {
 
         return null;
     }
+
+
+
+
+
+
+
+
+
+
+    public static List<Customer> getCustomersByName(String keyword) {
+        List<Customer> customers = new ArrayList<>();
+        String sql = "SELECT * FROM CUSTOMER WHERE isDeleted = 0 AND LOWER(customerName) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Customer customer = new Customer();
+                    customer.setId(rs.getInt("customerId"));
+                    customer.setName(rs.getString("customerName"));
+                    customer.setPhoneNumber(rs.getString("phoneNumber"));
+                    // Nếu cần dùng điểm thì mở comment dưới
+                    // customer.setPoint(rs.getInt("point"));
+                    customers.add(customer);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tìm khách hàng theo tên: " + keyword, e);
+        }
+
+        return customers;
+    }
+
 }
 
 

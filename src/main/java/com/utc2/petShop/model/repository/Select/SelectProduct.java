@@ -132,6 +132,87 @@ public class SelectProduct {
         }
         return productImages;
     }
+
+
+
+
+
+
+
+
+    public static List<Product> getProductsByName(String keyword) {
+        List<Product> products = new ArrayList<>();
+
+        String sql = """
+            SELECT 
+                p.productId, p.name, p.price, p.quantity, p.description, p.manufacturer, p.supplierId,
+                a.type AS accessoryType, a.brand,
+                c.dimension, c.material AS cageMaterial,
+                f.expirationDate, f.flavor,
+                t.material AS toyMaterial, t.size
+            FROM PRODUCTS p
+            LEFT JOIN Accessory a ON p.productId = a.productId
+            LEFT JOIN Cage c ON p.productId = c.productId
+            LEFT JOIN Food f ON p.productId = f.productId
+            LEFT JOIN Toy t ON p.productId = t.productId
+            WHERE p.isDeleted = 0 AND LOWER(p.name) LIKE ?
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("productId");
+                    String name = rs.getString("name");
+                    double price = rs.getDouble("price");
+                    int quantity = rs.getInt("quantity");
+                    String description = rs.getString("description");
+                    String manufacturer = rs.getString("manufacturer");
+                    int supplierId = rs.getInt("supplierId");
+
+                    Supplier supplier = SelectSupplier.getSupplierById(supplierId);
+                    List<ImageByte> images = getProductImageByProductId(id);
+
+                    Product p;
+
+                    if (rs.getString("accessoryType") != null) {
+                        String type = rs.getString("accessoryType");
+                        String brand = rs.getString("brand");
+                        p = new Accessory(id, name, price, quantity, description, supplier, manufacturer, type, brand, images);
+
+                    } else if (rs.getString("dimension") != null) {
+                        String dimension = rs.getString("dimension");
+                        String material = rs.getString("cageMaterial");
+                        p = new Cage(id, name, price, quantity, description, supplier, manufacturer, dimension, material, images);
+
+                    } else if (rs.getDate("expirationDate") != null) {
+                        Date expirationDate = rs.getDate("expirationDate");
+                        String flavor = rs.getString("flavor");
+                        p = new Food(id, name, price, quantity, description, supplier, manufacturer, expirationDate.toLocalDate(), flavor, images);
+
+                    } else if (rs.getString("toyMaterial") != null) {
+                        String material = rs.getString("toyMaterial");
+                        String size = rs.getString("size");
+                        p = new Toy(id, name, price, quantity, description, supplier, manufacturer, material, size, images);
+
+                    } else {
+                        p = new Product(id, name, price, quantity, description, supplier, manufacturer, images);
+                    }
+
+                    products.add(p);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return products;
+    }
+
 }
 
 

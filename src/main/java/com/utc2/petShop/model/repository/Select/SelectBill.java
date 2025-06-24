@@ -140,6 +140,55 @@ public class SelectBill {
 
         return billIDs;
     }
+
+
+
+    public static List<Bill> getBillsByName(String keyword) {
+        List<Bill> bills = new ArrayList<>();
+        String sql = """
+        SELECT b.*
+        FROM BILL b
+        JOIN CUSTOMER c ON b.customerId = c.customerId
+        JOIN USERS u ON b.userId = u.userId
+        WHERE b.isDeleted = 0 AND (
+            LOWER(c.customerName) LIKE ? OR LOWER(u.fullName) LIKE ?
+        )
+        """;
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            String loweredKeyword = "%" + keyword.toLowerCase() + "%";
+            stmt.setString(1, loweredKeyword);
+            stmt.setString(2, loweredKeyword);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("billId");
+                    int customerId = rs.getInt("customerId");
+                    int employeeId = rs.getInt("userId");
+                    LocalDate invoiceDate = rs.getDate("date").toLocalDate();
+                    double totalAmount = rs.getDouble("totalAmount");
+                    String paymentMethod = rs.getString("paymentMethod");
+                    String status = rs.getString("status");
+
+                    Customer customer = SelectCustomer.getCustomerById(customerId);
+                    Employee employee = getEmployeeById(employeeId);
+
+                    Bill bill = new Bill(id, customer, employee, invoiceDate, totalAmount, paymentMethod, status);
+                    bills.add(bill);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tìm hóa đơn theo tên khách hàng hoặc nhân viên: " + keyword, e);
+        }
+
+        return bills;
+    }
+
+
+
 }
 
 
