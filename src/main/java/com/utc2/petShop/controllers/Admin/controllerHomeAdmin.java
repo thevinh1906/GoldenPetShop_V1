@@ -882,7 +882,10 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionDeleteService(ActionEvent event) {
-
+        Service customer = tableViewService.getSelectionModel().getSelectedItem();
+        DeleteService.deleteServiceById(customer.getServiceId());
+        listService = FXCollections.observableArrayList(SelectService.getAllServices());
+        tableViewService.setItems(listService);
     }
 
     @FXML
@@ -915,7 +918,10 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionDeleteVaccine(ActionEvent event) {
-
+        Vaccine customer = tableViewVaccine.getSelectionModel().getSelectedItem();
+        DeleteVaccine.deleteVaccineById(customer.getVaccineId());
+        listVaccine = FXCollections.observableArrayList(SelectVaccine.getAllVaccines());
+        tableViewVaccine.setItems(listVaccine);
     }
 
     @FXML
@@ -943,7 +949,10 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     void actionDeletePetCare(ActionEvent event) {
-
+        PetService customer = tableViewPetCare.getSelectionModel().getSelectedItem();
+        DeletePetService.deletePetServiceById(customer.getId());
+        listPetService = FXCollections.observableArrayList(SelectPetService.getAllPetServices());
+        tableViewPetCare.setItems(listPetService);
     }
 
     @FXML
