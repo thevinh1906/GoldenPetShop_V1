@@ -118,4 +118,53 @@ public class SelectPetService {
 
         return services;
     }
+
+
+
+
+
+
+
+    public static List<PetService> getPetServicesByName(String keyword) {
+        List<PetService> petServices = new ArrayList<>();
+        String sql = "SELECT * FROM PetService WHERE isDeleted = 0 AND LOWER(namePet) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    PetService petService = new PetService();
+                    petService.setId(rs.getInt("petServiceId"));
+                    petService.setNamePet(rs.getString("namePet"));
+                    petService.setGender(rs.getString("gender"));
+                    petService.setAge(rs.getInt("age"));
+                    petService.setHealthStatus(rs.getString("healthStatus"));
+                    petService.setWeight(rs.getDouble("weight"));
+                    petService.setBreed(rs.getString("breed"));
+                    petService.setAnimal(rs.getString("animal"));
+                    petService.setDateOfVisit(rs.getDate("dateOfVisit").toLocalDate());
+                    petService.setStatus(rs.getString("status"));
+                    petService.setServiceCost(rs.getDouble("serviceCost"));
+                    petService.setNote(rs.getString("note"));
+
+                    petService.setServices(FXCollections.observableArrayList(getServicesByPetServiceId(petService.getId())));
+
+                    int customerId = rs.getInt("customerId");
+                    Customer customer = SelectCustomer.getCustomerById(customerId);
+                    petService.setCustomer(customer);
+
+                    petServices.add(petService);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tìm dịch vụ thú cưng theo tên: " + keyword, e);
+        }
+
+        return petServices;
+    }
+
 }

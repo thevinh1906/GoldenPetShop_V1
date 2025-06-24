@@ -20,7 +20,9 @@ import com.utc2.petShop.model.repository.Select.*;
 import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
 import com.utc2.petShop.model.services.scenes;
 import javafx.application.Platform;
-import javafx.beans.property.*;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -757,6 +759,12 @@ public class controllerHomeAdmin implements Initializable {
     private ToggleButton toggleButtonVaccine;
 
     @FXML
+    private ToggleButton toggleButtonPetCare;
+
+    @FXML
+    private ToggleButton toggleButtonService;
+
+    @FXML
     private VBox vBoxCenterHomeAdmin;
 
     @FXML
@@ -821,9 +829,6 @@ public class controllerHomeAdmin implements Initializable {
 
     @FXML
     private ScrollPane scrollPanePetCare;
-
-    @FXML
-    private ToggleButton toggleButtonService;
 
     @FXML
     private Button buttonAddService;
@@ -1796,14 +1801,36 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPet.setItems(listPet);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Pet> newData = FXCollections.observableArrayList(SelectPet.getAllPets());
-            Platform.runLater(() -> {
-                tableViewPet.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
+
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonPet.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Pet> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectPet.getAllPets());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectPet.getPetsByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewPet.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
+
 
         autoResizeColumns(tableViewPet);
 
@@ -1897,14 +1924,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewProduct.setItems(listProducts);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Product> newData = FXCollections.observableArrayList(SelectProduct.getAllProducts());
-            Platform.runLater(() -> {
-                tableViewProduct.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonProduct.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Product> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectProduct.getProductsByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewProduct.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewProduct);
 
@@ -1940,15 +1987,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewSupplier.setItems(listSupplier);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Supplier> newData = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
-            Platform.runLater(() -> {
-                tableViewSupplier.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
 
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonSupplier.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Supplier> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectSupplier.getAllSuppliers());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectSupplier.getSuppliersByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewSupplier.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
         autoResizeColumns(tableViewSupplier);
 
         tableViewSupplier.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -1992,14 +2058,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewLeftImportProduct.setItems(listProducts);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Product> newData = FXCollections.observableArrayList(SelectProduct.getAllProducts());
-            Platform.runLater(() -> {
-                tableViewLeftImportProduct.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonImportProduct.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Product> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectProduct.getAllProducts());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectProduct.getProductsByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewLeftImportProduct.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewLeftImportProduct);
 
@@ -2061,14 +2147,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewUser.setItems(listUser);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<User> newData = FXCollections.observableArrayList(SelectUser.getAllUsers());
-            Platform.runLater(() -> {
-                tableViewUser.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonUser.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<User> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectUser.getAllUsers());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectUser.getUsersByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewUser.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewUser);
 
@@ -2096,14 +2202,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewCustomer.setItems(listCustomer);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Customer> newData = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
-            Platform.runLater(() -> {
-                    tableViewCustomer.setItems(newData);
-                }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonCustomer.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Customer> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectCustomer.getAllCustomers());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectCustomer.getCustomersByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewCustomer.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
 
         autoResizeColumns(tableViewCustomer);
@@ -2137,14 +2263,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewBill.setItems(listBill);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Bill> newData = FXCollections.observableArrayList(SelectBill.getAllBills());
-            Platform.runLater(() -> {
-                tableViewBill.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonBill.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Bill> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectBill.getAllBills());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectBill.getBillsByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewBill.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewBill);
 
@@ -2178,14 +2324,34 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPromotion.setItems(listPromotion);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Promotion> newData = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
-            Platform.runLater(() -> {
-                tableViewPromotion.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonPromotion.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Promotion> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectPromotion.getAllPromotions());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectPromotion.getPromotionsByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewPromotion.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewPromotion);
 
@@ -2211,18 +2377,56 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewRevenueReport.setItems(listRevenueReport);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<RevenueReport> newData = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
-            Platform.runLater(() -> {
-                tableViewRevenueReport.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1];
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+        toggleButtonRevenueReport.setOnAction(event -> {
+            hideScreen();
+
+            stackPaneRevenueReport.setVisible(true);
+            stackPaneRevenueReport.setManaged(true);
+
+            if (scheduler[0] == null || scheduler[0].isShutdown()) {
+                scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+                scheduler[0].scheduleAtFixedRate(() -> {
+                    ObservableList<RevenueReport> newData = FXCollections.observableArrayList(SelectRevenueReport.getAllRevenueReports());
+                    Platform.runLater(() -> tableViewRevenueReport.setItems(newData));
+                }, 0, 5, TimeUnit.SECONDS);
+            }
+        });
 
         autoResizeColumns(tableViewRevenueReport);
 
         tableViewRevenueReport.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+
+        buttonFilterRevenueReport.setOnAction(event -> {
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Lọc báo cáo doanh thu");
+            dialog.setHeaderText("Nhập tháng và năm (định dạng: MM-yyyy):");
+            dialog.setContentText("Tháng-Năm:");
+
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(input -> {
+                try {
+                    String[] parts = input.split("-");
+                    int month = Integer.parseInt(parts[0]);
+                    int year = Integer.parseInt(parts[1]);
+
+                    List<RevenueReport> filtered = SelectRevenueReport.getRevenueReportsByMonthYear(month, year);
+                    tableViewRevenueReport.setItems(FXCollections.observableArrayList(filtered));
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Lỗi định dạng");
+                    alert.setHeaderText("Sai định dạng tháng-năm");
+                    alert.setContentText("Hãy nhập đúng định dạng: MM-yyyy (ví dụ: 06-2025)");
+                    alert.showAndWait();
+                }
+            });
+        });
     }
 
     public void VaccineTable(){
@@ -2245,14 +2449,33 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewVaccine.setItems(listVaccine);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Vaccine> newData = FXCollections.observableArrayList(SelectVaccine.getAllVaccines());
-            Platform.runLater(() -> {
-                tableViewVaccine.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonVaccine.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Vaccine> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectVaccine.getAllVaccines());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectVaccine.getVaccinesByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewVaccine.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewVaccine);
 
@@ -2282,14 +2505,33 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewPetCare.setItems(listPetService);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<PetService> newData = FXCollections.observableArrayList(SelectPetService.getAllPetServices());
-            Platform.runLater(() -> {
-                tableViewPetCare.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonPetCare.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<PetService> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectPetService.getAllPetServices());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectPetService.getPetServicesByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewPetCare.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewPetCare);
 
@@ -2307,14 +2549,33 @@ public class controllerHomeAdmin implements Initializable {
 
         tableViewService.setItems(listService);
 
-        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(() -> {
-            ObservableList<Service> newData = FXCollections.observableArrayList(SelectService.getAllServices());
-            Platform.runLater(() -> {
-                tableViewService.setItems(newData);
-            }); // Cập nhật GUI trên thread JavaFX
+        ScheduledExecutorService[] scheduler = new ScheduledExecutorService[1]; // dùng mảng để thay đổi bên trong listener
+        textSreach.textProperty().addListener((obs, oldText, newText) -> {
+            // Dừng scheduler cũ nếu đang chạy
+            if (scheduler[0] != null && !scheduler[0].isShutdown()) {
+                scheduler[0].shutdownNow();
+            }
 
-        }, 0, 5, TimeUnit.SECONDS); // Kiểm tra mỗi 5 giây
+            // Không chạy auto-refresh nếu toggleButton không bật
+            if (!toggleButtonService.isSelected()) {
+                return;
+            }
+
+            scheduler[0] = Executors.newSingleThreadScheduledExecutor();
+
+            Runnable task = () -> {
+                ObservableList<Service> newData;
+                if (newText.isEmpty()) {
+                    newData = FXCollections.observableArrayList(SelectService.getAllServices());
+                } else {
+                    newData = FXCollections.observableArrayList(SelectService.getServicesByName(newText));
+                }
+
+                Platform.runLater(() -> tableViewService.setItems(newData));
+            };
+
+            scheduler[0].scheduleAtFixedRate(task, 0, 5, TimeUnit.SECONDS);
+        });
 
         autoResizeColumns(tableViewService);
 
@@ -2447,6 +2708,7 @@ public class controllerHomeAdmin implements Initializable {
 
         // chi tiết sản phẩm
         detailAll();
+
 
     }
 }

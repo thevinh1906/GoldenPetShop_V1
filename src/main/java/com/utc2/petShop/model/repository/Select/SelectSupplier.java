@@ -57,4 +57,34 @@ public class SelectSupplier {
 
         return suppliers;
     }
+
+
+    public static List<Supplier> getSuppliersByName(String keyword) {
+        List<Supplier> suppliers = new ArrayList<>();
+        String sql = "SELECT * FROM SUPPLIER WHERE isDeleted = 0 AND LOWER(supplierName) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Supplier supplier = new Supplier();
+                    supplier.setId(rs.getInt("supplierId"));
+                    supplier.setName(rs.getString("supplierName"));
+                    supplier.setEmail(rs.getString("email"));
+                    supplier.setPhoneNumber(rs.getString("phone"));
+                    supplier.setAddress(rs.getString("address"));
+                    suppliers.add(supplier);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi tìm nhà cung cấp theo tên: " + keyword, e);
+        }
+
+        return suppliers;
+    }
+
 }

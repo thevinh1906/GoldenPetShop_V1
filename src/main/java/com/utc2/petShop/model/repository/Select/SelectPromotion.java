@@ -36,4 +36,39 @@ public class SelectPromotion {
 
         return promotions;
     }
+
+
+
+
+
+    public static List<Promotion> getPromotionsByName(String keyword) {
+        List<Promotion> promotions = new ArrayList<>();
+        String sql = "SELECT * FROM PROMOTION WHERE LOWER(name) LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Promotion promotion = new Promotion();
+                    promotion.setId(rs.getInt("promotionId"));
+                    promotion.setName(rs.getString("name"));
+                    promotion.setDiscountPercent(rs.getFloat("discountPercentage"));
+                    promotion.setStartDate(rs.getDate("startDate").toLocalDate());
+                    promotion.setEndDate(rs.getDate("endDate").toLocalDate());
+                    promotion.setIsActive(rs.getBoolean("isActive"));
+
+                    promotions.add(promotion);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi lọc khuyến mãi theo tên: " + keyword, e);
+        }
+
+        return promotions;
+    }
+
 }
