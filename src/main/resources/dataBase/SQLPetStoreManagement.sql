@@ -526,6 +526,53 @@ VALUES (
     24, 
     0
 );
+-- 2. Vắc xin FVRCP (3 bệnh phổ biến ở mèo)
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin FVRCP', 
+    N'Phòng bệnh viêm mũi họng do virus herpes, calicivirus và giảm bạch cầu', 
+    N'Mèo', 
+    3, 
+    21, 
+    36, 
+    1
+);
+
+-- 3. Vắc xin phòng bệnh dại cho mèo
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin dại cho mèo', 
+    N'Tiêm ngừa bệnh dại – bắt buộc theo luật', 
+    N'Mèo', 
+    1, 
+    0, 
+    12, 
+    1
+);
+
+-- 4. Vắc xin FeLV (bệnh bạch cầu do virus ở mèo)
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin FeLV', 
+    N'Ngăn ngừa virus gây bệnh bạch cầu ở mèo (Feline Leukemia Virus)', 
+    N'Mèo', 
+    2, 
+    21, 
+    12, 
+    0
+);
+
+-- 5. Vắc xin phòng FIP (viêm phúc mạc do virus corona ở mèo)
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin FIP', 
+    N'Giảm nguy cơ mắc viêm phúc mạc truyền nhiễm ở mèo (Feline Coronavirus)', 
+    N'Mèo', 
+    1, 
+    0, 
+    12, 
+    0
+);
 
 -- Thêm vaccine cho chó
 INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
@@ -537,6 +584,29 @@ VALUES (
     14, 
     36, 
     1
+);
+-- 2. Vắc xin Leptospirosis đơn lẻ
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin Leptospirosis', 
+    N'Ngừa bệnh Lepto do vi khuẩn lây từ động vật sang người', 
+    N'Chó', 
+    2, 
+    21, 
+    12, 
+    0
+);
+
+-- 3. Vắc xin bệnh ho cũi chó (Bordetella)
+INSERT INTO VACCINE (vaccineName, description, applicableSpecies, doseCount, intervalDays, validityMonths, isMandatory)
+VALUES (
+    N'Vắc xin Bordetella', 
+    N'Phòng bệnh ho cũi chó – lây lan nhanh trong môi trường tập thể', 
+    N'Chó', 
+    1, 
+    0, 
+    6, 
+    0
 );
 
 -- 2
