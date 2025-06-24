@@ -238,6 +238,32 @@ public class SelectUser {
         return users;
     }
 
+
+
+
+
+
+    public static String getPasswordByUsername(String username) {
+        String sql = "SELECT password FROM USERS WHERE username = ? AND isDeleted = 0";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("password");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi lấy mật khẩu theo username: " + username, e);
+        }
+
+        return null; // Không tìm thấy username
+    }
+
+
 }
 
 

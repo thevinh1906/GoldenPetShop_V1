@@ -18,6 +18,7 @@ import com.utc2.petShop.model.entities.vaccine.Vaccine;
 import com.utc2.petShop.model.repository.Delete.*;
 import com.utc2.petShop.model.repository.Select.*;
 import com.utc2.petShop.model.repository.UpdateById.UpdateProduct;
+import com.utc2.petShop.model.services.ExportToEX;
 import com.utc2.petShop.model.services.scenes;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -2709,7 +2710,9 @@ public class controllerHomeAdmin implements Initializable {
         // chi tiết sản phẩm
         detailAll();
 
-
+        buttonExcelRevenueReport.setOnAction(event -> {
+            ExportToEX.xuatExcelRevenueReport();
+        });
     }
 }
 
