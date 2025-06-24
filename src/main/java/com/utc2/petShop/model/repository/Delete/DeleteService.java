@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteService {
+//Xóa dịch vụ (Chăm sóc) theo id
     public static boolean deleteServiceById(int serviceId) {
         String sqlSoftDeleteService = "UPDATE Service SET isDeleted = 1 WHERE serviceId = ?";
 
@@ -23,3 +24,6 @@ public class DeleteService {
         }
     }
 }
+
+
+

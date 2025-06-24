@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteImage {
+//Xóa ảnh theo id
     public static boolean deleteImageById(int id) {
         String sqlDeleteImage = "DELETE FROM IMAGE WHERE imageId = ?";
 
@@ -37,3 +38,6 @@ public class DeleteImage {
         }
     }
 }
+
+
+

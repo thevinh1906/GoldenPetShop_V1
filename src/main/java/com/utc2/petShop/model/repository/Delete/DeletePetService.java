@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeletePetService {
+//Xóa Chăm sóc thú cưng theo id
     public static boolean deletePetServiceById(int petServiceId) {
         String sql = "UPDATE PetService SET isDeleted = 1 WHERE petServiceId = ?";
 
@@ -23,3 +24,6 @@ public class DeletePetService {
         }
     }
 }
+
+
+

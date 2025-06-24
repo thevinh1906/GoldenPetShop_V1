@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeletePetWarranty {
-
+//Xóa bảo hành theo pet id
     public static boolean deleteWarrantyByPetId(int petId) {
         String softDeleteSql = "UPDATE PET_WARRANTY SET isDeleted = 1 WHERE petId = ?";
 
@@ -24,3 +24,6 @@ public class DeletePetWarranty {
         }
     }
 }
+
+
+

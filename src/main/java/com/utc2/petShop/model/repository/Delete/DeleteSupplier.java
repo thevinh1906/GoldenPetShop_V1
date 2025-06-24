@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteSupplier {
-
+//Xóa nhà cung cấp theo id
     public static boolean deleteSupplierById(int supplierId) {
         String sqlSoftDeleteSupplier = "UPDATE SUPPLIER SET isDeleted = 1 WHERE customerId = ?";
 

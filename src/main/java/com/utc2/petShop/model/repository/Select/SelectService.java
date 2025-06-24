@@ -62,37 +62,32 @@ public class SelectService {
 
         return null;
     }
+public static List<Service> getServicesByName(String keyword) {
+    List<Service> services = new ArrayList<>();
+    String sql = "SELECT * FROM Service WHERE isDeleted = 0 AND LOWER(serviceName) LIKE ?";
 
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+        stmt.setString(1, "%" + keyword.toLowerCase() + "%");
 
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Service service = new Service();
+                service.setServiceId(rs.getInt("serviceId"));
+                service.setServiceName(rs.getString("serviceName"));
+                service.setDescription(rs.getString("description"));
+                service.setPrice(rs.getDouble("price"));
+                service.setApplicableSpecies(rs.getString("applicableSpecies"));
 
-    public static List<Service> getServicesByName(String keyword) {
-        List<Service> services = new ArrayList<>();
-        String sql = "SELECT * FROM Service WHERE isDeleted = 0 AND LOWER(serviceName) LIKE ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, "%" + keyword.toLowerCase() + "%");
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Service service = new Service();
-                    service.setServiceId(rs.getInt("serviceId"));
-                    service.setServiceName(rs.getString("serviceName"));
-                    service.setDescription(rs.getString("description"));
-                    service.setPrice(rs.getDouble("price"));
-                    service.setApplicableSpecies(rs.getString("applicableSpecies"));
-
-                    services.add(service);
-                }
+                services.add(service);
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Lỗi khi tìm dịch vụ theo tên: " + keyword, e);
         }
 
-        return services;
+    } catch (SQLException e) {
+        throw new RuntimeException("Lỗi khi tìm dịch vụ theo tên: " + keyword, e);
     }
 
+    return services;
+}
 }
